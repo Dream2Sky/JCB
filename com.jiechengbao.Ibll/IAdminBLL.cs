@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.jiechengbao.bll
+namespace com.jiechengbao.Ibll
 {
-    public class Class1
+    public interface IAdminBLL
     {
+        bool Login(string account, string password);
     }
 }

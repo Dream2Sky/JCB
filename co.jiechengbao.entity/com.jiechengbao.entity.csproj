@@ -60,11 +60,25 @@
     <Compile Include="Address.cs" />
     <Compile Include="Admin.cs" />
     <Compile Include="Cart.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="DataEntity.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsImage.cs" />
     <Compile Include="JCB_DBContext.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="Migrations\201606191456528_CreateDatabase.cs" />
+    <Compile Include="Migrations\201606191456528_CreateDatabase.Designer.cs">
+      <DependentUpon>201606191456528_CreateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606191539121_AddTable_Category.cs" />
+    <Compile Include="Migrations\201606191539121_AddTable_Category.Designer.cs">
+      <DependentUpon>201606191539121_AddTable_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606191541052_AddColumn_Goods_CategoryId.cs" />
+    <Compile Include="Migrations\201606191541052_AddColumn_Goods_CategoryId.Designer.cs">
+      <DependentUpon>201606191541052_AddColumn_Goods_CategoryId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +86,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606191456528_CreateDatabase.resx">
+      <DependentUpon>201606191456528_CreateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606191539121_AddTable_Category.resx">
+      <DependentUpon>201606191539121_AddTable_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606191541052_AddColumn_Goods_CategoryId.resx">
+      <DependentUpon>201606191541052_AddColumn_Goods_CategoryId.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

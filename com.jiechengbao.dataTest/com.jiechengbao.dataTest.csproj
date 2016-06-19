@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{435C1162-D8EA-4F2A-940E-D2CD088837E4}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{04A4D7C8-203C-4B2F-B465-78AC2907B898}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.jiechengbao.dal</RootNamespace>
-    <AssemblyName>com.jiechengbao.dal</AssemblyName>
+    <RootNamespace>com.jiechengbao.dataTest</RootNamespace>
+    <AssemblyName>com.jiechengbao.dataTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -57,29 +60,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminDAL.cs" />
-    <Compile Include="DataBaseDAL.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
-      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
-      <Name>LogHelper</Name>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
+      <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
+      <Name>com.jiechengbao.common</Name>
     </ProjectReference>
     <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
       <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>
       <Name>com.jiechengbao.entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.jiechengbao.Idal\com.jiechengbao.Idal.csproj">
-      <Project>{233de5f9-a487-4634-bca4-cf24a5c8edec}</Project>
-      <Name>com.jiechengbao.Idal</Name>
+    <ProjectReference Include="..\com.jiechengbao.dal\com.jiechengbao.dal.csproj">
+      <Project>{435c1162-d8ea-4f2a-940e-d2cd088837e4}</Project>
+      <Name>com.jiechengbao.dal</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

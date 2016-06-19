@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>2337bca0-d5ab-40ea-907f-31b7bbf358a1</ProjectGuid>
+    <ProjectGuid>{2337BCA0-D5AB-40EA-907F-31B7BBF358A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.jiechengbao.bll</RootNamespace>
@@ -30,24 +30,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AdminBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
+      <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
+      <Name>com.jiechengbao.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
+      <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>
+      <Name>com.jiechengbao.entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.jiechengbao.dal\com.jiechengbao.dal.csproj">
+      <Project>{435c1162-d8ea-4f2a-940e-d2cd088837e4}</Project>
+      <Name>com.jiechengbao.dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.jiechengbao.Ibll\com.jiechengbao.Ibll.csproj">
+      <Project>{b2adf2c7-aade-4996-a3e0-d1aa42c34c30}</Project>
+      <Name>com.jiechengbao.Ibll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.jiechengbao.Idal\com.jiechengbao.Idal.csproj">
+      <Project>{233DE5F9-A487-4634-BCA4-CF24A5C8EDEC}</Project>
+      <Name>com.jiechengbao.Idal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +73,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
