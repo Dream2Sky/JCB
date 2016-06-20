@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<style>
+    .container-btn {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+        .container-btn button {
+            margin-right: 10px;
+        }
+
+    .container-add-followitem {
+        padding-left: 0px;
+    }
+
+        .container-add-followitem form {
+            padding-left: 0px;
+        }
+
+            .container-add-followitem form .form-group {
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+
+                .container-add-followitem form .form-group input {
+                    width: 200px;
+                }
+</style>
+<label>商品分类</label>
+<div class="container-fluid container-btn">
+    <div class="row">
+        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+        {
+            <button class="btn btn-default col-xs-2">@item.Name</button>
+        }
+    </div>
+</div>
+
+<hr />
+<label>添加商品分类</label>
+@if (!string.IsNullOrEmpty(ViewBag.msg))
+{
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">×</a>
+        @ViewBag.msg
+    </div>
+}
+<div class="container container-add-followitem">
+    <form method="post" action="/Category/Add" id="category-form">
+        <div class="form-group">
+            <input type="text" name="categoryName" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">添加</button>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#category-form').bootstrapValidator({
+            fields: {
+                categoryName: {
+                    container: '#error-message'
+                }
+            }
+        });
+    });
+</script>

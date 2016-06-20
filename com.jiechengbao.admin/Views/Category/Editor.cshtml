@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Editor";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+
+<style>
+    .input-group{
+        margin-bottom:10px;
+    }
+</style>
+<label>编辑商品分类</label>
+<div class="container-fluid container-btn">
+    <div class="row">
+        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+        {
+            <div class="input-group col-xs-3">
+                <input type="text" class="form-control" name="categoryName" id="@item.CategoryNO" value="@item.Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" onclick="Save('@item.CategoryNO');" type="button">保存</button>
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" onclick="Delete('@item.CategoryNO');" type="button">删除</button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#category-form').bootstrapValidator({
+            fields: {
+                categoryName: {
+                    container: '#error-message'
+                }
+            }
+        });
+    });
+
+    function Save(categoryNO) {
+        console.log(categoryNO);
+        var name = $('#'+categoryNO).val();
+        console.log(name);
+        if (typeof(name)==="undefined") {
+            alert("提交的数据不能为空");
+        }
+        else {
+            $.ajax({
+                url:"/Category/Update",
+                type:"POST",
+                data:{
+                    categoryNO:categoryNO,
+                    categoryName:name
+                },
+                success:function(data) {
+                    if (data == "True") {
+                        alert("保存成功");
+                    }
+                    else {
+                        alert("保存失败");
+                    }
+                },
+                error:function() {
+                    alert("保存失败");
+                }
+            });
+        }
+    }
+
+    function Delete(categoryNO) {
+        $.ajax({
+            url:"/Category/Delete",
+            type:"POST",
+            data:{
+                categoryNO:categoryNO
+            },
+            success:function(data) {
+                alert("删除成功");
+                window.location.href="/Category/List";
+            },
+            error:function() {
+                alert("删除失败");
+            }
+        });
+    }
+</script>

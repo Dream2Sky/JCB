@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminBLL.cs" />
+    <Compile Include="ICategoryBLL.cs" />
     <Compile Include="IMemberBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

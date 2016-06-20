@@ -8,14 +8,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace com.jiechengbao.entity
 {
-    public class Category:DataEntity
+    public class GoodsCategory:DataEntity
     {
         [Required]
-        [MaxLength(20)]
-        public string CategoryNO { get; set; }
+        public Guid GoodsId { get; set; }
 
         [Required]
-        [MaxLength(20)]
-        public string Name { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }

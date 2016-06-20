@@ -1,4 +1,4 @@
-namespace co.jiechengbao.entity.Migrations
+namespace com.jiechengbao.entity.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

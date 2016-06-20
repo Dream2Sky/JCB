@@ -180,6 +180,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -202,6 +203,8 @@
     <Content Include="Views\Member\List.cshtml" />
     <Content Include="Views\Order\Completed.cshtml" />
     <Content Include="Views\Order\UnCompleted.cshtml" />
+    <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Views\Category\Editor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -217,6 +220,10 @@
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
+      <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
+      <Name>com.jiechengbao.common</Name>
     </ProjectReference>
     <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
       <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>

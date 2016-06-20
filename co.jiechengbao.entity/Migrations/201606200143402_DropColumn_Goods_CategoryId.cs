@@ -3,16 +3,16 @@ namespace com.jiechengbao.entity.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddColumn_Goods_CategoryId : DbMigration
+    public partial class DropColumn_Goods_CategoryId : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Goods", "CategoryId", c => c.Guid(nullable: false));
+            DropColumn("dbo.Goods", "CategoryId");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Goods", "CategoryId");
+            AddColumn("dbo.Goods", "CategoryId", c => c.Guid(nullable: false));
         }
     }
 }

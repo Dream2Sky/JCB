@@ -7,13 +7,13 @@ namespace com.jiechengbao.entity.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class AddColumn_Goods_CategoryId : IMigrationMetadata
+    public sealed partial class CreateTable_GoodsCategory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddColumn_Goods_CategoryId));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTable_GoodsCategory));
         
         string IMigrationMetadata.Id
         {
-            get { return "201606191541052_AddColumn_Goods_CategoryId"; }
+            get { return "201606200209189_CreateTable_GoodsCategory"; }
         }
         
         string IMigrationMetadata.Source

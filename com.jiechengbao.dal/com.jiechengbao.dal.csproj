@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminDAL.cs" />
+    <Compile Include="CategoryDAL.cs" />
     <Compile Include="DataBaseDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="OrderDAL.cs" />

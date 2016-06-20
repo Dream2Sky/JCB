@@ -3,17 +3,17 @@ namespace com.jiechengbao.entity.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTable_Category : DbMigration
+    public partial class CreateTable_GoodsCategory : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Categories",
+                "dbo.GoodsCategories",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        CategoryNO = c.String(nullable: false, maxLength: 20, unicode: false, storeType: "nvarchar"),
-                        Name = c.String(nullable: false, maxLength: 20, unicode: false, storeType: "nvarchar"),
+                        GoodsId = c.Guid(nullable: false),
+                        CategoryId = c.Guid(nullable: false),
                         CreatedTime = c.DateTime(nullable: false, precision: 0),
                         IsDeleted = c.Boolean(nullable: false),
                         DeletedTime = c.DateTime(nullable: false, precision: 0),
@@ -24,7 +24,7 @@ namespace com.jiechengbao.entity.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.Categories");
+            DropTable("dbo.GoodsCategories");
         }
     }
 }

@@ -64,16 +64,24 @@
                     <a href="/Home/Index">首页</a>
                 </li>
                 <li class="nav-li-home">
-                    <a href="/Home/Index">会员管理</a>
+                    <a href="/Member/List">会员管理</a>
                 </li>
                 <li class="nav-li-home">
-                    <a href="/Home/Index">订单管理</a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">订单管理</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Order/Completed">已完成订单</a></li>
+                        <li><a href="/Order/UnCompleted">未完成订单</a></li>
+                    </ul>
                 </li>
                 <li class="nav-li-home">
                     <a href="/Home/Index">商品管理</a>
                 </li>
                 <li class="nav-li-home">
-                    <a href="/Home/Index">商品分类</a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品分类</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Category/List">分类列表</a></li>
+                        <li><a href="/Category/Editor">编辑分类</a></li>
+                    </ul>
                 </li>
                 <li class="nav-li-home">
                     <a href="/Account/ResetPassword">账户设置</a>

@@ -24,12 +24,6 @@ namespace com.jiechengbao.entity
         public string Code { get; set; }
 
         /// <summary>
-        /// 商品的分类
-        /// </summary>
-        [Required]
-        public Guid CategoryId { get; set; }
-
-        /// <summary>
         /// 商品单价  当前单价
         /// </summary>
         [Required]

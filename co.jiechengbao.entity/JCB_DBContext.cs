@@ -1,4 +1,4 @@
-﻿using co.jiechengbao.entity;
+﻿using com.jiechengbao.entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,6 +15,7 @@ namespace com.jiechengbao.entity
         public DbSet<Member> Members { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Goods> GoodsSet { get; set; }
+        public DbSet<GoodsCategory> GoodsCategorySet { get; set; }
         public DbSet<GoodsImage> GoodsImages{ get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
