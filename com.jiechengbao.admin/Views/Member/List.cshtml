@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<div class="container">
+    <label>注册用户的数量</label>
+    <table class="table table-striped table-hover table-expandable table-bordered">
+        <thead>
+            <tr>
+                <th>用户昵称</th>
+                <th>用户手机</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["MemberList"] as IEnumerable<Member>)
+            {
+                <tr>
+                    <td><img src="@item.HeadImage" />@item.NickeName</td>
+                    <td>@item.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
