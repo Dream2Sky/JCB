@@ -10,6 +10,20 @@ namespace com.jiechengbao.dal
 {
     public class OrderDAL : DataBaseDAL<Order>, IOrderDAL
     {
+        public IEnumerable<Order> SelectByStatus(int status)
+        {
+            try
+            {
+                return db.Set<Order>().Where(n => n.Status == status);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public IEnumerable<Order> SelectOrderByDate(DateTime date)
         {
             try
@@ -23,5 +37,7 @@ namespace com.jiechengbao.dal
                 throw;
             }
         }
+
+
     }
 }

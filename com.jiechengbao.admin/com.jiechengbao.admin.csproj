@@ -182,6 +182,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -199,6 +200,8 @@
     <Content Include="Views\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Member\List.cshtml" />
+    <Content Include="Views\Order\Completed.cshtml" />
+    <Content Include="Views\Order\UnCompleted.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -10,5 +10,6 @@ namespace com.jiechengbao.Idal
     public interface IOrderDAL:IDataBaseDAL<Order>
     {
         IEnumerable<Order> SelectOrderByDate(DateTime date);
+        IEnumerable<Order> SelectByStatus(int status);
     }
 }

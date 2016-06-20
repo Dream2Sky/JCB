@@ -12,5 +12,9 @@ namespace com.jiechengbao.Ibll
         int GetNewOrdersCount();
 
         IEnumerable<Order> GetYesterDayOrders();
+
+        IEnumerable<Order> GetCompletedOrders();
+        IEnumerable<Order> GetUnCompletedOrders();
+
     }
 }
