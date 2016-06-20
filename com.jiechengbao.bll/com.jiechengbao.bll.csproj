@@ -41,9 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminBLL.cs" />
+    <Compile Include="MemberBLL.cs" />
+    <Compile Include="OrderBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
+      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
+      <Name>LogHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
       <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
       <Name>com.jiechengbao.common</Name>

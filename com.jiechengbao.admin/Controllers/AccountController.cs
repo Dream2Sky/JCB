@@ -35,5 +35,14 @@ namespace com.jiechengbao.admin.Controllers
                 return RedirectToAction("Login", new { msg = false });
             }
         }
+
+        public ActionResult Logout()
+        {
+            if (System.Web.HttpContext.Current.Session["admin"] != null)
+            {
+                System.Web.HttpContext.Current.Session["admin"] = null;
+            }
+            return RedirectToAction("Login");
+        }
     }
 }

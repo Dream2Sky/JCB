@@ -33,6 +33,10 @@ namespace com.jiechengbao.admin
         {
             builder.RegisterType<AdminDAL>().As<IAdminDAL>();
             builder.RegisterType<AdminBLL>().As<IAdminBLL>();
+            builder.RegisterType<MemberDAL>().As<IMemberDAL>();
+            builder.RegisterType<MemberBLL>().As<IMemberBLL>();
+            builder.RegisterType<OrderDAL>().As<IOrderDAL>();
+            builder.RegisterType<OrderBLL>().As<IOrderBLL>();
         }
     }
 }
