@@ -39,6 +39,12 @@ namespace com.jiechengbao.admin
             builder.RegisterType<OrderBLL>().As<IOrderBLL>();
             builder.RegisterType<CategoryBLL>().As<ICategoryBLL>();
             builder.RegisterType<CategoryDAL>().As<ICategoryDAL>();
+            builder.RegisterType<GoodsBLL>().As<IGoodsBLL>();
+            builder.RegisterType<GoodsDAL>().As<IGoodsDAL>();
+            builder.RegisterType<GoodsCategoryDAL>().As<IGoodsCategoryDAL>();
+            builder.RegisterType<GoodsCategoryBLL>().As<IGoodsCategoryBLL>();
+            builder.RegisterType<GoodsImagesBLL>().As<IGoodsImagesBLL>();
+            builder.RegisterType<GoodsImagesDAL>().As<IGoodsImagesDAL>();
         }
     }
 }

@@ -87,6 +87,26 @@
     <Compile Include="Migrations\201606200209189_CreateTable_GoodsCategory.Designer.cs">
       <DependentUpon>201606200209189_CreateTable_GoodsCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606201556045_AddColumn_Goods_PicturePath.cs" />
+    <Compile Include="Migrations\201606201556045_AddColumn_Goods_PicturePath.Designer.cs">
+      <DependentUpon>201606201556045_AddColumn_Goods_PicturePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606201557130_AlterColumn_Goods_PicturePath.cs" />
+    <Compile Include="Migrations\201606201557130_AlterColumn_Goods_PicturePath.Designer.cs">
+      <DependentUpon>201606201557130_AlterColumn_Goods_PicturePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606210004037_AddColumn_Goods_Description.cs" />
+    <Compile Include="Migrations\201606210004037_AddColumn_Goods_Description.Designer.cs">
+      <DependentUpon>201606210004037_AddColumn_Goods_Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606210221166_DropColumn_Goods_PicturePath.cs" />
+    <Compile Include="Migrations\201606210221166_DropColumn_Goods_PicturePath.Designer.cs">
+      <DependentUpon>201606210221166_DropColumn_Goods_PicturePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606210413352_AlterColumn_Goods_Code.cs" />
+    <Compile Include="Migrations\201606210413352_AlterColumn_Goods_Code.Designer.cs">
+      <DependentUpon>201606210413352_AlterColumn_Goods_Code.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -111,6 +131,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606200209189_CreateTable_GoodsCategory.resx">
       <DependentUpon>201606200209189_CreateTable_GoodsCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201556045_AddColumn_Goods_PicturePath.resx">
+      <DependentUpon>201606201556045_AddColumn_Goods_PicturePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201557130_AlterColumn_Goods_PicturePath.resx">
+      <DependentUpon>201606201557130_AlterColumn_Goods_PicturePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606210004037_AddColumn_Goods_Description.resx">
+      <DependentUpon>201606210004037_AddColumn_Goods_Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606210221166_DropColumn_Goods_PicturePath.resx">
+      <DependentUpon>201606210221166_DropColumn_Goods_PicturePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606210413352_AlterColumn_Goods_Code.resx">
+      <DependentUpon>201606210413352_AlterColumn_Goods_Code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

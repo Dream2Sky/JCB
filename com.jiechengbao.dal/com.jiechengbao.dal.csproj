@@ -60,6 +60,9 @@
     <Compile Include="AdminDAL.cs" />
     <Compile Include="CategoryDAL.cs" />
     <Compile Include="DataBaseDAL.cs" />
+    <Compile Include="GoodsCategoryDAL.cs" />
+    <Compile Include="GoodsDAL.cs" />
+    <Compile Include="GoodsImagesDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

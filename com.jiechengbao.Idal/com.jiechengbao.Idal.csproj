@@ -43,6 +43,9 @@
     <Compile Include="IAdminDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
     <Compile Include="IDataBaseDAL.cs" />
+    <Compile Include="IGoodsCategoryDAL.cs" />
+    <Compile Include="IGoodsDAL.cs" />
+    <Compile Include="IGoodsImagesDAL.cs" />
     <Compile Include="IMemberDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace com.jiechengbao.entity
 {
-    public class Goods:DataEntity
+    public class Goods : DataEntity
     {
         /// <summary>
         /// 商品名称
@@ -20,7 +20,7 @@ namespace com.jiechengbao.entity
         /// 商品代号 编号
         /// </summary>
         [Required]
-        [MaxLength(10)]
+        [MaxLength(30)]
         public string Code { get; set; }
 
         /// <summary>
@@ -34,5 +34,11 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         public double Discount { get; set; }
+
+        /// <summary>
+        /// 商品描述
+        /// </summary>
+        [MaxLength(255)]
+        public string Description { get; set; }
     }
 }
