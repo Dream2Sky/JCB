@@ -1,0 +1,96 @@
+2016/6/21 23:07:16 : 
+在转换为 UTC 时，大于 DateTime.MaxValue 或小于 DateTime.MinValue 的 DateTime 值无法序列化为 JSON。
+========================================================================
+2016/6/21 23:07:16 : 
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTimeInDefaultFormat(DateTime value)
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTime(DateTime value)
+   在 WriteGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , ClassDataContract , XmlDictionaryString[] )
+   在 System.Runtime.Serialization.Json.JsonClassDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContextComplex.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 WriteArrayOfGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , CollectionDataContract )
+   在 System.Runtime.Serialization.Json.JsonCollectionDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObjectContent(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.XmlObjectSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.XmlObjectSerializer.WriteObjectHandleExceptions(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(XmlDictionaryWriter writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(Stream stream, Object graph)
+   在 com.jiechengbao.wx.Controllers.HomeController.ObjToJson[T](T data) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\HomeController.cs:行号 103
+========================================================================
+2016/6/21 23:08:14 : 
+在转换为 UTC 时，大于 DateTime.MaxValue 或小于 DateTime.MinValue 的 DateTime 值无法序列化为 JSON。
+========================================================================
+2016/6/21 23:08:14 : 
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTimeInDefaultFormat(DateTime value)
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTime(DateTime value)
+   在 WriteGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , ClassDataContract , XmlDictionaryString[] )
+   在 System.Runtime.Serialization.Json.JsonClassDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContextComplex.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 WriteArrayOfGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , CollectionDataContract )
+   在 System.Runtime.Serialization.Json.JsonCollectionDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObjectContent(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.XmlObjectSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.XmlObjectSerializer.WriteObjectHandleExceptions(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(XmlDictionaryWriter writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(Stream stream, Object graph)
+   在 com.jiechengbao.wx.Controllers.HomeController.ObjToJson[T](T data) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\HomeController.cs:行号 103
+========================================================================
+2016/6/21 23:08:38 : 
+在转换为 UTC 时，大于 DateTime.MaxValue 或小于 DateTime.MinValue 的 DateTime 值无法序列化为 JSON。
+========================================================================
+2016/6/21 23:08:38 : 
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTimeInDefaultFormat(DateTime value)
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTime(DateTime value)
+   在 WriteGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , ClassDataContract , XmlDictionaryString[] )
+   在 System.Runtime.Serialization.Json.JsonClassDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContextComplex.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 WriteArrayOfGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , CollectionDataContract )
+   在 System.Runtime.Serialization.Json.JsonCollectionDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObjectContent(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.XmlObjectSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.XmlObjectSerializer.WriteObjectHandleExceptions(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(XmlDictionaryWriter writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(Stream stream, Object graph)
+   在 com.jiechengbao.wx.Controllers.HomeController.ObjToJson[T](T data) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\HomeController.cs:行号 103
+========================================================================
+2016/6/21 23:12:51 : 
+在转换为 UTC 时，大于 DateTime.MaxValue 或小于 DateTime.MinValue 的 DateTime 值无法序列化为 JSON。
+========================================================================
+2016/6/21 23:12:51 : 
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTimeInDefaultFormat(DateTime value)
+   在 System.Runtime.Serialization.Json.JsonWriterDelegator.WriteDateTime(DateTime value)
+   在 WriteGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , ClassDataContract , XmlDictionaryString[] )
+   在 System.Runtime.Serialization.Json.JsonClassDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContextComplex.InternalSerialize(XmlWriterDelegator xmlWriter, Object obj, Boolean isDeclaredType, Boolean writeXsiType, Int32 declaredTypeID, RuntimeTypeHandle declaredTypeHandle)
+   在 WriteArrayOfGoodsModelToJson(XmlWriterDelegator , Object , XmlObjectSerializerWriteContextComplexJson , CollectionDataContract )
+   在 System.Runtime.Serialization.Json.JsonCollectionDataContract.WriteJsonValueCore(XmlWriterDelegator jsonWriter, Object obj, XmlObjectSerializerWriteContextComplexJson context, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.XmlObjectSerializerWriteContextComplexJson.WriteDataContractValue(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.XmlObjectSerializerWriteContext.SerializeWithoutXsiType(DataContract dataContract, XmlWriterDelegator xmlWriter, Object obj, RuntimeTypeHandle declaredTypeHandle)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObjectContent(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph)
+   在 System.Runtime.Serialization.XmlObjectSerializer.InternalWriteObject(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.XmlObjectSerializer.WriteObjectHandleExceptions(XmlWriterDelegator writer, Object graph, DataContractResolver dataContractResolver)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(XmlDictionaryWriter writer, Object graph)
+   在 System.Runtime.Serialization.Json.DataContractJsonSerializer.WriteObject(Stream stream, Object graph)
+   在 com.jiechengbao.wx.Controllers.HomeController.ObjToJson[T](T data) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\HomeController.cs:行号 103
+========================================================================

@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<style>
+    a {
+        color: #000;
+    }
+
+    .sidebar {
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+
+    .panel-menu {
+        margin-top: 10px;
+        padding-left: 0px;
+        padding-right: 5px;
+    }
+
+    ul {
+        border-color: #E3E3E3;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+        ul li {
+            border-bottom-style: solid;
+            border-color: #EEEEEE;
+            border-width: 1px;
+            text-align: center;
+            padding-top: 5px;
+            padding-left: 0px;
+            padding-right: 0px;
+            background-color: #fff;
+            height: 40px;
+            line-height: 30px;
+        }
+
+    .active {
+        background-color: #F39801;
+        border-color: #F39801;
+        border-width: 2px;
+        color: #fff;
+    }
+
+    .panel {
+        margin-bottom: 1px;
+    }
+
+    .panel-body {
+        padding-right: 3px;
+        padding-bottom: 0px;
+    }
+
+    .media-body {
+        color: #C9C9C9;
+    }
+
+        .media-body h4 {
+            color: #000;
+        }
+
+        .media-body p strong {
+            color: red;
+        }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3 sidebar navbar-fixed-top">
+            <ul class="nav menu">
+                <li class="active" id="allItems" onclick="OnActive('allItems');">全部</li>
+                @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                {
+                    <li id="@item.CategoryNO" onclick="OnActive('@item.CategoryNO');">@item.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-xs-3"></div>
+        <div class="col-xs-9 panel-menu">
+            <div class="container">
+                <div class="row panel-products">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var currentActiveItemId = $('.active').attr('id'); // 获取当前激活的菜单Id
+
+    function OnActive(Id) {
+        $('#' + Id).addClass('active');
+        $('#' + currentActiveItemId).removeClass('active');
+        currentActiveItemId = Id;
+        if(Id == 'allItems')
+        {
+           OnLoadGoods();
+        }
+        else
+        {
+            OnLoadGoods(Id);
+        }
+    }
+
+    function OnLoadGoods(CategoryId) {
+        $('.panel-products').empty();
+        $.ajax({
+            url: '/Home/GetGoodsList',
+            data: {
+                categoryCode: CategoryId
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                var json = eval('(' + data + ')');
+                if (json.length !== 0) {
+                    var html = "";
+                    for (var i = 0; i < json.length; i++) {
+                        html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/"+json[i].PicturePath+"\" alt=\"\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">"+json[i].Name+"</h4>"+json[i].Description+"<p>￥<strong>"+json[i].Price+"</strong><small> 折扣:</small><strong>"+json[i].Discount+"</strong></p></div></div></div></div>";
+                    }
+                    $('.panel-products').html(html);
+                }
+                else {
+                    $('.panel-products').html('<p style=\"text-align:center;\">暂无数据</p>');
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        OnLoadGoods();
+    })
+</script>

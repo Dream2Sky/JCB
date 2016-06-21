@@ -14,5 +14,6 @@ namespace com.jiechengbao.Ibll
         Goods GetGoodsByCode(string code);
         Goods GetGoodsByName(string name);
         bool Update(Goods goods);
+        Goods GetGoodsById(Guid Id);
     }
 }

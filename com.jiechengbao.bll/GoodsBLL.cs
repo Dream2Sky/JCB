@@ -55,6 +55,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 根据GoodsId 获取Goods对象
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public Goods GetGoodsById(Guid Id)
+        {
+            return _goodsDAL.SelectById(Id);
+        }
+
+        /// <summary>
         /// 根据商品名获得商品对象  goods
         /// </summary>
         /// <param name="name"></param>

@@ -11,5 +11,6 @@ namespace com.jiechengbao.Idal
     {
         IEnumerable<GoodsCategory> SelectGoodsCategoryListByGoodsId(Guid goodsId);
         bool DeleteByGoodsId(Guid goodsId);
+        IEnumerable<GoodsCategory> SelectGoodsCategoryListByCategoryId(Guid categoryId);
     }
 }

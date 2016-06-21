@@ -32,6 +32,20 @@ namespace com.jiechengbao.dal
             }
         }
 
+        public IEnumerable<GoodsCategory> SelectGoodsCategoryListByCategoryId(Guid categoryId)
+        {
+            try
+            {
+                return db.Set<GoodsCategory>().Where(n => n.CategoryId == categoryId);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public IEnumerable<GoodsCategory> SelectGoodsCategoryListByGoodsId(Guid goodsId)
         {
             try

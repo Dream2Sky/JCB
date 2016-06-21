@@ -22,6 +22,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 根据分类id 获取 goodscategoryList 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsCategory> GetGoodsCategoryListByCategoryId(Guid categoryId)
+        {
+            return _goodsCategoryDAL.SelectGoodsCategoryListByCategoryId(categoryId);
+        }
+
+        /// <summary>
         /// 根据商品Id 获取对应商品的分类列表
         /// </summary>
         /// <param name="Id"></param>
