@@ -8,7 +8,34 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.dal
 {
-    public class GoodsDAL:DataBaseDAL<Goods>,IGoodsDAL
+    public class GoodsDAL : DataBaseDAL<Goods>, IGoodsDAL
     {
+        public Goods SelectByCode(string code)
+        {
+            try
+            {
+                return db.Set<Goods>().SingleOrDefault(n => n.Code == code);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
+        public Goods SelectByName(string name)
+        {
+            try
+            {
+                return db.Set<Goods>().SingleOrDefault(n => n.Name == name);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

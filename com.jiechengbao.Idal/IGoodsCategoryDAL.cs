@@ -9,5 +9,7 @@ namespace com.jiechengbao.Idal
 {
     public interface IGoodsCategoryDAL:IDataBaseDAL<GoodsCategory>
     {
+        IEnumerable<GoodsCategory> SelectGoodsCategoryListByGoodsId(Guid goodsId);
+        bool DeleteByGoodsId(Guid goodsId);
     }
 }

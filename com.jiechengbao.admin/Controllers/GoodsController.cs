@@ -25,9 +25,17 @@ namespace com.jiechengbao.admin.Controllers
             _goodsImagesBLL = goodsImagesBLL;
         }
 
-        public ActionResult List()
+        public ActionResult List(string msg)
         {
-            ViewData["GoodsList"] = _goodsBLL.GetAllNoDeteledGoods();
+            List<GoodsModel> modelList = new List<GoodsModel>();
+            foreach (var item in _goodsBLL.GetAllNoDeteledGoods())
+            {
+                GoodsModel gm = new GoodsModel(item);
+                gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.Id).ImagePath;
+                modelList.Add(gm);
+            }
+            ViewData["GoodsList"] = modelList;
+            ViewBag.Msg = msg;
             return View();
         }
 
@@ -122,6 +130,104 @@ namespace com.jiechengbao.admin.Controllers
                 LogHelper.Log.Write(ex.StackTrace);
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="GoodsCode"></param>
+        /// <returns></returns>
+        public ActionResult Update(string GoodsCode)
+        {
+            // 根据 传递过来的goodsCode 获取对应的goods 
+            Goods goods = _goodsBLL.GetGoodsByCode(GoodsCode);
+            
+            // 再生成 goodsModel 这个将作为model传递到前台
+            GoodsModel gm = new GoodsModel(goods);
+
+            // 构造 categoryList
+            List<Category> categoryList = new List<Category>();
+            
+            // 先根据 goodsId 获取 该 goods对应的分类Id列表
+            
+            // 再 找到对应的分类列表
+            foreach (var item in _goodsCategoryBLL.GetGoodsCategoryListByGoodsId(gm.Id))
+            {
+                Category category = _categoryBLL.GetCategoryById(item.CategoryId);
+                categoryList.Add(category);
+            }
+
+            // 当前已选分类
+            ViewData["CurrentCategoryList"] = categoryList;
+
+            // 所有的分类
+            ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
+
+            GoodsImage gi = new GoodsImage();
+            gi = _goodsImagesBLL.GetPictureByGoodsId(gm.Id);
+
+            gm.PicturePath = gi.ImagePath;
+
+            return View(gm);
+        }
+
+        [HttpPost]
+        public ActionResult Update(GoodsModel model)
+        {
+            if (model == null)
+            {
+                return RedirectToAction("List", new { msg = "更新失败" });
+            }
+            // 更新 Goods 本身
+            #region 更新goods本身        
+            Goods goods = _goodsBLL.GetGoodsByCode(model.Code);
+            goods.Price = model.Price;
+            goods.Discount = model.Discount;
+            goods.Description = model.Description;
+
+            if (!_goodsBLL.Update(goods))
+            {
+                return RedirectToAction("List", new { msg = "更新商品失败" });
+            }
+            #endregion
+
+            // 更新 商品图片
+            #region 更新商品图片
+ 
+            GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
+            if (gi.ImagePath != model.PicturePath)
+            {
+                gi.ImagePath = model.PicturePath;
+            }
+            if (!_goodsImagesBLL.Update(gi))
+            {
+                return RedirectToAction("List", new { msg = "更新商品图片失败" });
+            }
+
+            #endregion
+
+            // 更新商品分类的时候 先删除原先的分类
+
+            // 再根据新的 model.CategoryList 重新添加上分类
+
+            #region 更新 商品分类列表 
+            if (_goodsCategoryBLL.RemoveGoodsCategoryByGoodsId(goods.Id))
+            {
+                foreach (var item in model.CategoryList)
+                {
+                    // 构造 GoodsCategory 对象
+                    GoodsCategory gc = new GoodsCategory();
+                    gc.Id = Guid.NewGuid();
+                    gc.CreatedTime = DateTime.Now.Date;
+                    gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
+                    gc.IsDeleted = false;
+                    gc.GoodsId = goods.Id;
+
+                    _goodsCategoryBLL.Add(gc);
+                }
+            }
+            #endregion
+
+            return RedirectToAction("List",new { msg = "更新成功"});
         }
     }
 }

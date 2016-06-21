@@ -10,5 +10,7 @@ namespace com.jiechengbao.Ibll
     public interface IGoodsImagesBLL
     {
         bool Add(GoodsImage gi);
+        GoodsImage GetPictureByGoodsId(Guid goodsId);
+        bool Update(GoodsImage gi);
     }
 }

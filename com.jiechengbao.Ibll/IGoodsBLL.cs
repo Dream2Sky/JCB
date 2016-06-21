@@ -11,5 +11,8 @@ namespace com.jiechengbao.Ibll
     {
         IEnumerable<Goods> GetAllNoDeteledGoods();
         bool Add(Goods goods);
+        Goods GetGoodsByCode(string code);
+        Goods GetGoodsByName(string name);
+        bool Update(Goods goods);
     }
 }

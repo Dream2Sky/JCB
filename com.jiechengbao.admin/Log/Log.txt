@@ -59,3 +59,13 @@ error:Validation failed for one or more entities. See 'EntityValidationErrors' p
    在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
    在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
 ========================================================================
+2016/6/21 16:25:28 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/6/21 16:25:28 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/6/21 16:25:28 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Update(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 114
+========================================================================

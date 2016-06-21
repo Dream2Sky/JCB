@@ -9,5 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface IGoodsImagesDAL:IDataBaseDAL<GoodsImage>
     {
+        GoodsImage SelectByGoodsId(Guid goodsId);
     }
 }

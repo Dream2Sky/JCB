@@ -210,6 +210,7 @@
     <Content Include="Views\Category\Editor.cshtml" />
     <Content Include="Views\Goods\List.cshtml" />
     <Content Include="Views\Goods\Add.cshtml" />
+    <Content Include="Views\Goods\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

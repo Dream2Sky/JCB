@@ -9,5 +9,7 @@ namespace com.jiechengbao.Idal
 {
     public interface IGoodsDAL:IDataBaseDAL<Goods>
     {
+        Goods SelectByCode(string code);
+        Goods SelectByName(string name);
     }
 }

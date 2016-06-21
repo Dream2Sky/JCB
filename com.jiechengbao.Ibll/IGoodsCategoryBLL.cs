@@ -10,5 +10,7 @@ namespace com.jiechengbao.Ibll
     public interface IGoodsCategoryBLL
     {
         bool Add(GoodsCategory gc);
+        IEnumerable<GoodsCategory> GetGoodsCategoryListByGoodsId(Guid Id);
+        bool RemoveGoodsCategoryByGoodsId(Guid goodsId);
     }
 }

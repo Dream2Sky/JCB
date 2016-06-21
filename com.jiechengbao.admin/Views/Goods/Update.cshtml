@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+<style>
+    .td-category input-group input {
+        margin-bottom: 10px;
+    }
+
+    #img-upload {
+        width: 128px;
+        height: 128px;
+    }
+</style>
+@using com.jiechengbao.admin.Models
+@using com.jiechengbao.entity
+@model com.jiechengbao.admin.Models.GoodsModel
+<div class="container">
+    <label>商品详情</label>
+    @if (!string.IsNullOrEmpty(ViewBag.Msg))
+            {
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>
+            @ViewBag.msg
+        </div>
+    }
+    <form action="/Goods/Update" method="post">
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">商品名</span>
+                        <input type="hidden" name="Code" value="@Model.Code" />
+                        <input type="text" class="form-control" disabled placeholder="商品名" name="Name" aria-describedby="basic-addon1" value="@Model.Name">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">商品单价</span>
+                        <input type="text" class="form-control" placeholder="商品单价" name="Price" aria-describedby="basic-addon1" value="@Model.Price">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">折扣</span>
+                        <input type="text" class="form-control" placeholder="折扣" name="Discount" aria-describedby="basic-addon1" value="@Model.Discount">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">商品描述</span>
+                        <textarea class="form-control" name="Description" placeholder="商品描述" rows="3">@Model.Description</textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="~/Uploads/@Model.PicturePath" id="img-upload" />
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">商品图片</span>
+                        <input type="hidden" id="PicturePath" name="PicturePath" value="" />
+                        <input type="file" class="form-control" placeholder="商品图片" id="picture" aria-describedby="basic-addon1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="Upload();">上传</button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>选择以下商品分类, 为你的商品添加分类</label></td>
+            </tr>
+            <tr class="tr-category">
+                <td class="td-category">
+                    @foreach (var item in ViewData["CurrentCategoryList"] as List<Category>)
+                    {
+                        <div style='margin-bottom:10px;' class="input-group div-category" id='@item.CategoryNO'>
+                            <input type="hidden" name="CategoryList" value='@item.CategoryNO' />
+                            <input type="text" class="form-control" value='@item.Name' >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" onclick="Delete('@item.CategoryNO');" type="button">删除</button>
+                            </span>
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <select class="form-control">
+                            @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                            {
+                                <option value="@item.CategoryNO">@item.Name</option>
+                            }
+                        </select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="AddCategory();">添加</button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-primary" type="submit">保存</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script>
+    var categoryList = new Array();
+    $(".div-category").each(function () {
+        console.log($(this).attr("Id"));
+        categoryList.push($(this).attr("Id"));
+    })
+    console.log(categoryList);
+    function AddCategory() {
+        if ($.inArray($("select").val(), categoryList) == -1) {
+            var value = $("select").val();
+
+            var text = $("select").find("option:selected").text();
+            categoryList.push($("select").val());
+
+            $(".td-category").append("<div style='margin-bottom:10px;' class=\"input-group\" id='" + value + "'><input type=\"hidden\" name=\"CategoryList\" value='" + value + "'/><input type=\"text\" class=\"form-control\" value='" + text + "'><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick=\"Delete('" + value + "');\" type=\"button\">删除</button></span></div>");
+        }
+    }
+
+    function Delete(categoryCode) {
+        console.log(categoryCode);
+        $("#" + categoryCode).remove();
+        categoryList.pop(categoryCode);
+    }
+
+    function Upload() {
+        var form = new FormData();
+        form.append("file", document.getElementById("picture").files[0]);
+
+        $.ajax({
+            url: "/Goods/Upload",
+            type: "POST",
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "False") {
+                    alert("上传失败");
+                }
+                else {
+                    alert("上传成功");
+                    $("#PicturePath").val(data);
+                    $("#img-upload").attr("src", "/Uploads/" + data);
+                }
+            },
+            error: function () {
+                alert("失败");
+            }
+        });
+    }
+</script>

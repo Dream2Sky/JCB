@@ -15,5 +15,6 @@ namespace com.jiechengbao.Ibll
         Category GetCategoryByCategoryNo(string categoryNo);
         bool Delete(Category category);
         bool Save(Category category);
+        Category GetCategoryById(Guid Id);
     }
 }

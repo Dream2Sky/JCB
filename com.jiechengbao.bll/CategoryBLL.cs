@@ -61,6 +61,16 @@ namespace com.jiechengbao.bll
             return _categoryDAL.SelectByCategoryNo(categoryNo);
         }
 
+        /// <summary>
+        /// 根据categoryId 获取Category对象
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public Category GetCategoryById(Guid Id)
+        {
+            return _categoryDAL.SelectById(Id);
+        }
+
         public bool IsExist(string categoryName)
         {
             Category cate = _categoryDAL.SelectByCategoryName(categoryName);
