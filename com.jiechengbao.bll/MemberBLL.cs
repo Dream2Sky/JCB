@@ -57,6 +57,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 根据微信openid 获取Member对象
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public Member GetMemberByOpenId(string openId)
+        {
+            return _memberDAL.SelectByWxOpenId(openId);
+        }
+
+        /// <summary>
         /// 获得昨天的新用户列表
         /// </summary>
         /// <returns></returns>

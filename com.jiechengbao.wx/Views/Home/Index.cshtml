@@ -120,7 +120,7 @@
                 if (json.length !== 0) {
                     var html = "";
                     for (var i = 0; i < json.length; i++) {
-                        html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/"+json[i].PicturePath+"\" alt=\"\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">"+json[i].Name+"</h4>"+json[i].Description+"<p>￥<strong>"+json[i].Price+"</strong><small> 折扣:</small><strong>"+json[i].Discount+"</strong></p></div></div></div></div>";
+                        html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">" + json[i].Name + "</h4>" + json[i].Description + "<p>￥<strong>" + json[i].Price + "</strong><small> 折扣:</small><strong>" + json[i].Discount + "</strong></p></div></div></div></div>";
                     }
                     $('.panel-products').html(html);
                 }

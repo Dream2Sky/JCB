@@ -197,6 +197,7 @@
     <Content Include="Views\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.wx.pubxml" />
+    <Content Include="Views\Home\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminBLL.cs" />
+    <Compile Include="ICartBLL.cs" />
     <Compile Include="ICategoryBLL.cs" />
     <Compile Include="IGoodsBLL.cs" />
     <Compile Include="IGoodsCategoryBLL.cs" />

@@ -27,6 +27,7 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult Index()
         {
+            System.Web.HttpContext.Current.Session["member"] = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
             return View();
         }
@@ -113,9 +114,16 @@ namespace com.jiechengbao.wx.Controllers
         }
 
 
-        public ActionResult Detail(string goodsCode)
+        public ActionResult Detail(string code)
         {
-            return View();
+            GoodsModel gm = new GoodsModel(_goodsBLL.GetGoodsByCode(code));
+            if (gm == null)
+            {
+                return View(gm);
+            }
+            GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(gm.Id);
+            gm.PicturePath = gi.ImagePath;
+            return View(gm);
         }
     }
 }

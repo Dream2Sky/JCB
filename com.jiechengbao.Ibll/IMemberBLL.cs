@@ -13,5 +13,6 @@ namespace com.jiechengbao.Ibll
         int GetAllNoDeletedMembersCount();
         IEnumerable<Member> GetNewMembersAtYesterDay();
         Member GetMemberById(Guid id);
+        Member GetMemberByOpenId(string openId);
     }
 }

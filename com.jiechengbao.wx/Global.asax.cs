@@ -45,6 +45,8 @@ namespace com.jiechengbao.wx
             builder.RegisterType<GoodsCategoryBLL>().As<IGoodsCategoryBLL>();
             builder.RegisterType<GoodsImagesBLL>().As<IGoodsImagesBLL>();
             builder.RegisterType<GoodsImagesDAL>().As<IGoodsImagesDAL>();
+            builder.RegisterType<CartDAL>().As<ICartDAL>();
+            builder.RegisterType<CartBLL>().As<ICartBLL>();
         }
     }
 }

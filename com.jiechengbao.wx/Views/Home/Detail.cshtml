@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@model com.jiechengbao.wx.Models.GoodsModel
+<style>
+    .thumbnail img{
+        width:100%;
+        height:230px;
+    }
+    .p-red{
+        color:red;
+    }
+    .thumbnail a{
+        border-color:red;
+        color:red;
+    }
+</style>
+<div class="thumbnail">
+    <img src="/Uploads/@Model.PicturePath">
+    <div class="caption">
+        <h3>@Model.Name</h3>
+        <p>@Model.Description</p>
+        <p class="p-red"><strong>￥@Model.Price</strong></p>
+        <p class="p-red">折扣:@Model.Discount</p>
+        <p><a href="javascript:;" class="btn btn-default" role="button" onclick="AddtoCart('@Model.Code')">加入购物车</a></p>
+    </div>
+</div>
+<script>
+    function AddtoCart(code) {
+        $.ajax({
+            url: "/Cart/Add",
+            data: {
+                goodsCode:code
+            },
+            type: "POST",
+            success: function (data) {
+                if (data == "True")
+                {
+                    alert("添加成功");
+                    $("#img_shoppingCar").append("<i class=\"hasOrders\"></i>");
+                    //$("#btn_AddToCar").attr("disabled",true);
+                    //$("#btn_AddToCar").addClass("Unclickabled");
+                }
+                else{
+                    alert("加入购物车失败");
+                }
+            }
+        });
+    }
+</script>

@@ -10,6 +10,20 @@ namespace com.jiechengbao.dal
 {
     public class MemberDAL : DataBaseDAL<Member>, IMemberDAL
     {
+        public Member SelectByWxOpenId(string openId)
+        {
+            try
+            {
+                return db.Set<Member>().SingleOrDefault(n => n.OpenId == openId);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public IEnumerable<Member> SelectNoDeletedMembersByDate(DateTime date)
         {
             try

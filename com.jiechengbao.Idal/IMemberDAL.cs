@@ -11,5 +11,6 @@ namespace com.jiechengbao.Idal
     {
         int SelectNoDeletedMembersCount();
         IEnumerable<Member> SelectNoDeletedMembersByDate(DateTime date);
+        Member SelectByWxOpenId(string openId);
     }
 }

@@ -16,24 +16,38 @@ namespace com.jiechengbao.dataTest
             Console.WriteLine("Starting");
             #region 添加一个管理员
 
-            Admin admin = new Admin();
-            admin.Id = Guid.NewGuid();
-            admin.IsDeleted = false;
-            admin.Account = "admin";
-            admin.Password = EncryptManager.SHA1("admin");
-            admin.CreatedTime = DateTime.Now;
+            //Admin admin = new Admin();
+            //admin.Id = Guid.NewGuid();
+            //admin.IsDeleted = false;
+            //admin.Account = "admin";
+            //admin.Password = EncryptManager.SHA1("admin");
+            //admin.CreatedTime = DateTime.Now;
 
-            AdminDAL dal = new AdminDAL();
-            try
-            {
-                dal.Insert(admin);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                throw;
-            }
+            //AdminDAL dal = new AdminDAL();
+            //try
+            //{
+            //    dal.Insert(admin);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    Console.WriteLine(ex.StackTrace);
+            //    throw;
+            //}
+            #endregion
+
+            #region 添加一个会员
+            Member member = new Member();
+            member.Id = Guid.NewGuid();
+            member.IsDeleted = false;
+            member.NickeName = "hehe";
+            member.OpenId = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
+            member.HeadImage = "/Imaegs/Default.png";
+            member.CreatedTime = DateTime.Now.Date;
+            member.DeletedTime = DateTime.MinValue.AddHours(8);
+
+            MemberDAL dal = new MemberDAL();
+            dal.Insert(member);
             #endregion
 
             Console.WriteLine("Finished");
