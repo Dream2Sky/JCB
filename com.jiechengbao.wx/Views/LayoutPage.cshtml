@@ -67,5 +67,22 @@
             </div>
         </div>
     </nav>
+    <script>
+        function IsanythingOnShoppingCar() {
+            $.ajax({
+                url: "/Cart/Check",
+                type: "POST",
+                data: {},
+                success: function (data) {
+                    if (data == "True") {
+                        $("#img_shoppingCar").append("<i class=\"hasOrders\"></i>");
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+            IsanythingOnShoppingCar();
+        })
+    </script>
 </body>
 </html>

@@ -76,5 +76,22 @@ namespace com.jiechengbao.wx.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 判断是否有商品在购物车上
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Check()
+        {
+            if (_cartBLL.IsAnythingsInCart(_memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string).Id))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

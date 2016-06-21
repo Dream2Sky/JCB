@@ -12,5 +12,6 @@ namespace com.jiechengbao.Idal
         bool IsInCart(Guid memberId, Guid goodsId);
 
         Cart SelectByMemberIdAndGoodsId(Guid memberId, Guid goodsId);
+        bool IsAnythingsInCart(Guid memberId);
     }
 }

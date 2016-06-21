@@ -13,5 +13,6 @@ namespace com.jiechengbao.Ibll
         bool Add(Cart cart);
         Cart GetCartByMemberIdAndGoodsId(Guid memberId, Guid goodsId);
         bool Update(Cart cart);
+        bool IsAnythingsInCart(Guid memberId);
     }
 }

@@ -39,6 +39,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 判断指定用户是否有商品在购物车
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public bool IsAnythingsInCart(Guid memberId)
+        {
+            return _cartDAL.IsAnythingsInCart(memberId);
+        }
+
+        /// <summary>
         /// 判断是否已经添加到了购物车
         /// </summary>
         /// <param name="memberId"></param>
