@@ -190,3 +190,27 @@ error:Validation failed for one or more entities. See 'EntityValidationErrors' p
    在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
    在 com.jiechengbao.dal.DataBaseDAL`1.Update(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 114
 ========================================================================
+2016/6/26 18:23:27 : 
+无法将类型为“System.String”的对象强制转换为类型“Newtonsoft.Json.Linq.JArray”。
+========================================================================
+2016/6/26 18:23:27 : 
+   在 com.jiechengbao.wx.Controllers.OrderController.WriteOrder() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\OrderController.cs:行号 187
+========================================================================
+2016/6/26 18:24:05 : 
+无法将类型为“System.String”的对象强制转换为类型“Newtonsoft.Json.Linq.JArray”。
+========================================================================
+2016/6/26 18:24:05 : 
+   在 com.jiechengbao.wx.Controllers.OrderController.WriteOrder() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\OrderController.cs:行号 187
+========================================================================
+2016/6/26 18:25:40 : 
+无法将类型为“System.String”的对象强制转换为类型“Newtonsoft.Json.Linq.JArray”。
+========================================================================
+2016/6/26 18:25:40 : 
+   在 com.jiechengbao.wx.Controllers.OrderController.WriteOrder() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\OrderController.cs:行号 187
+========================================================================
+2016/6/26 18:27:36 : 
+无法将类型为“System.String”的对象强制转换为类型“Newtonsoft.Json.Linq.JArray”。
+========================================================================
+2016/6/26 18:27:36 : 
+   在 com.jiechengbao.wx.Controllers.OrderController.WriteOrder() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.wx\Controllers\OrderController.cs:行号 187
+========================================================================

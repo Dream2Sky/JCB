@@ -199,8 +199,8 @@
             itemList.push(data);
         }
         else {
-            for (var i = 0; i < itemList; i++) {
-                if (itemList[i].Id == $('#count_' + Id)) {
+            for (var i = 0; i < itemList.length; i++) {
+                if (itemList[i].Id == Id) {
                     itemList.splice(i, 1);
                 }
             }
@@ -208,6 +208,16 @@
     }
 
     $(document).ready(function () {
+        $("input[type='checkbox']").each(function() {
+            if ($(this).is(':checked')) {
+
+                var data = new Object();
+                data.Id = $(this).attr("Id");
+                data.Count = $("#count_" + data.Id).val();
+
+                itemList.push(data);
+            }
+        })
         getTotalPrice();
     });
 
@@ -225,6 +235,11 @@
     var countBox = $('.itemCount');
     countBox.on('change', function () {
         getTotalPrice();
+        for (var i = 0; i < itemList.length; i++) {
+            if (itemList[i].Id == $(this).attr("Id").substring(6)) {
+                itemList[i].Count = $(this).val();
+            }
+        }
     });
 
     function submitToOrder() {
