@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Help";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+<style type="text/css">
+    body {
+        background-color: #fff;
+    }
+
+    .blank_block {
+        height: 100px;
+    }
+</style>
+<div class="container" style="padding:0px;margin:0px;width:100%;">
+    <iframe src="/maptest.html" class="col-xs-12" allowtransparency="true" frameborder="false" style="width:100%;padding:0px;"></iframe>
+</div>
+<ol class="breadcrumb">
+    <li><strong>救援电话</strong></li>
+</ol>
+<div class="container-fluid">
+    <div class="input-group">
+        <span class="input-group-addon" style="width:100px;background:#fff;">24小时救援</span>
+        <input type="text" class="form-control" value="1345678663" style="height:36px;">
+        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><a href="tel://1234567890982"><img src="~/Content/images/call.png" style="height:34px;"></a></span>
+    </div>
+    <div class="input-group" style="margin-top:3px;">
+        <span class="input-group-addon" style="width:100px;background:#fff;">联系交警</span>
+        <input type="text" class="form-control" value="122" style="height:36px;">
+        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><img src="~/Content/images/call.png" style="height:34px;"></span>
+    </div>
+</div>
+<ol class="breadcrumb">
+    <li><strong>我的保险公司</strong></li>
+</ol>
+<div class="container-fluid">
+    <div class="input-group" style="margin-top:3px;">
+        <span class="input-group-addon" style="width:100px;background:#fff;">中国人寿</span>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%;border-radius:0px;border-width:1px;height:36px;padding-right:15px;">121123123123 <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#">121123123123</a></li>
+            <li><a href="#">121123123123</a></li>
+            <li><a href="#">121123123123</a></li>
+            <li><a href="#">121123123123</a></li>
+        </ul>
+        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><img src="~/Content/images/call.png" style="height:34px;"></span>
+    </div>
+</div>
+<div class="blank_block"></div>

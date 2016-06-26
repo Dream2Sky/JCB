@@ -21,7 +21,18 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         public Guid MemberId { get; set; }
-        
+
+        /// <summary>
+        /// 配送的地址
+        /// </summary>
+        [Required]
+        public Guid AddressId { get; set; }
+
+        [MaxLength(10)]
+        public string PayWay { get; set; }
+
+        public DateTime PayTime { get; set; }
+
         /// <summary>
         /// 订单的状态
         /// 0 未付款的订单
@@ -30,5 +41,8 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         public int Status { get; set; }
+
+        [Required]
+        public double TotalPrice { get; set; }
     }
 }

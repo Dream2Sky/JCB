@@ -11,5 +11,7 @@ namespace com.jiechengbao.Idal
     {
         IEnumerable<Order> SelectOrderByDate(DateTime date);
         IEnumerable<Order> SelectByStatus(int status);
+        Order SelectByOrderNo(string orderNo);
+        IEnumerable<Order> SelectByStatus(int status, Guid memberId);
     }
 }

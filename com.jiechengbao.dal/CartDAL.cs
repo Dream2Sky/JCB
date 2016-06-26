@@ -54,6 +54,20 @@ namespace com.jiechengbao.dal
             }
         }
 
+        public IEnumerable<Cart> SelectByMemberId(Guid memberId)
+        {
+            try
+            {
+                return db.Set<Cart>().Where(n => n.MemberId == memberId).Where(n => n.IsDeleted == false);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Cart SelectByMemberIdAndGoodsId(Guid memberId, Guid goodsId)
         {
             try

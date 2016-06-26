@@ -108,6 +108,34 @@
     <Compile Include="Migrations\201606210413352_AlterColumn_Goods_Code.Designer.cs">
       <DependentUpon>201606210413352_AlterColumn_Goods_Code.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606212251266_DropColumn_OrderDetail_MemberId_AddressId.cs" />
+    <Compile Include="Migrations\201606212251266_DropColumn_OrderDetail_MemberId_AddressId.Designer.cs">
+      <DependentUpon>201606212251266_DropColumn_OrderDetail_MemberId_AddressId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606212252570_AddColumn_Order_AddressId.cs" />
+    <Compile Include="Migrations\201606212252570_AddColumn_Order_AddressId.Designer.cs">
+      <DependentUpon>201606212252570_AddColumn_Order_AddressId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606212257487_AddColumn_Order_PayWay_PayTime.cs" />
+    <Compile Include="Migrations\201606212257487_AddColumn_Order_PayWay_PayTime.Designer.cs">
+      <DependentUpon>201606212257487_AddColumn_Order_PayWay_PayTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606212300554_AddColumn_OrderDetail_Count.cs" />
+    <Compile Include="Migrations\201606212300554_AddColumn_OrderDetail_Count.Designer.cs">
+      <DependentUpon>201606212300554_AddColumn_OrderDetail_Count.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606212337429_AddColumn_OrderDetail_TotalPrice.cs" />
+    <Compile Include="Migrations\201606212337429_AddColumn_OrderDetail_TotalPrice.Designer.cs">
+      <DependentUpon>201606212337429_AddColumn_OrderDetail_TotalPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606212338583_AddColumn_Order_TotalPrice.cs" />
+    <Compile Include="Migrations\201606212338583_AddColumn_Order_TotalPrice.Designer.cs">
+      <DependentUpon>201606212338583_AddColumn_Order_TotalPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606260226456_AddColumn_Address_IsDefault.cs" />
+    <Compile Include="Migrations\201606260226456_AddColumn_Address_IsDefault.Designer.cs">
+      <DependentUpon>201606260226456_AddColumn_Address_IsDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -147,6 +175,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606210413352_AlterColumn_Goods_Code.resx">
       <DependentUpon>201606210413352_AlterColumn_Goods_Code.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212251266_DropColumn_OrderDetail_MemberId_AddressId.resx">
+      <DependentUpon>201606212251266_DropColumn_OrderDetail_MemberId_AddressId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212252570_AddColumn_Order_AddressId.resx">
+      <DependentUpon>201606212252570_AddColumn_Order_AddressId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212257487_AddColumn_Order_PayWay_PayTime.resx">
+      <DependentUpon>201606212257487_AddColumn_Order_PayWay_PayTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212300554_AddColumn_OrderDetail_Count.resx">
+      <DependentUpon>201606212300554_AddColumn_OrderDetail_Count.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212337429_AddColumn_OrderDetail_TotalPrice.resx">
+      <DependentUpon>201606212337429_AddColumn_OrderDetail_TotalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606212338583_AddColumn_Order_TotalPrice.resx">
+      <DependentUpon>201606212338583_AddColumn_Order_TotalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606260226456_AddColumn_Address_IsDefault.resx">
+      <DependentUpon>201606260226456_AddColumn_Address_IsDefault.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

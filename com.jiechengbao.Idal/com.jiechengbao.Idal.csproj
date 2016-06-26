@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
     <Compile Include="ICartDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="IGoodsImagesDAL.cs" />
     <Compile Include="IMemberDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
+    <Compile Include="IOrderDetailDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

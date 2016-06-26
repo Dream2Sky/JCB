@@ -28,6 +28,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 通过memberId 获取cartList
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public IEnumerable<Cart> GetCartByMemberId(Guid memberId)
+        {
+            return _cartDAL.SelectByMemberId(memberId);
+        }
+
+        /// <summary>
         /// 根据会员Id 和 商品id 获取购物车item对象
         /// </summary>
         /// <param name="memberId"></param>

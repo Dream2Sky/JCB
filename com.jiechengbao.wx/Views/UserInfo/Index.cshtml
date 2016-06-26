@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+<style type="text/css">
+    body {
+        background-color: #EEEEEE;
+    }
+
+    .div-price-discount {
+        padding-left: 0px;
+    }
+
+        .div-price-discount p {
+            margin-bottom: 0px;
+        }
+
+            .div-price-discount p span {
+                color: #E4A881;
+            }
+
+    .btn-add {
+        margin-top: 5px;
+    }
+
+    .panel {
+        margin-bottom: 0px;
+    }
+
+    .blank_block {
+        height: 100px;
+    }
+
+    .btn-group-options button {
+        height: 80px;
+        border-radius: 0px;
+        background: #fff;
+        border: none;
+    }
+    .btn-group-options button::after,.btn-group-options button:active,.btn-group-options button:hover{
+        background-color:#fff;
+    }
+    .navbar{
+        border-bottom-color:#d0d0d0;
+    }
+</style>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/Content/images/11.jpg" alt="...">
+            <div class="carousel-caption">
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar" style="padding-top:15px;background:#fff;margin-bottom:0px;">
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-justified btn-group-options" role="group" aria-label="..." style="padding:0px;">
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location.href='/Home/Index'">
+                        <img style="width:48px;height:48px;" src="~/Content/images/在线购物图标.jpg">
+                        <p><small>商城</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_shopping" class="btn btn-default"  onclick="javascript:window.location.href='/Car/Check'">
+                        <img id="img_shoppingCar" style="width:48px;height:48px;" src="~/Content/images/违章查询图标.jpg">
+                        <p><small>违章查询</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_user" class="btn btn-default"  onclick="javascript:window.location.href='/UserInfo/Help'">
+                        <img style="width:48px;height:48px;" src="~/Content/images/车辆救援图标.jpg">
+                        <p><small>紧急救援</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_user" class="btn btn-default"  onclick="javascript:window.location.href='/Car/Add'">
+                        <img style="width:48px;height:48px;" src="~/Content/images/爱车管理图标.jpg">
+                        <p><small>爱车管理</small></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb" style="margin-bottom:0px;">
+            <li>为您推荐</li>
+        </ol>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object" src="images/g1.png" style="width:50px;height:50px;">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">Middle aligned media</h5>
+                        <p><small>sdjlfsdlkfjsdlfjalsdkfjklsdafjkl</small></p>
+                        <div class="col-xs-7 div-price-discount">
+                            <p><small>价格:</small><span>125.00元</span></p>
+                            <p><small>折扣:</small><span>8折</span></p>
+                        </div>
+                        <button class="col-xs-5 btn-add"><small>加入购物车</small></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object" src="images/g1.png" style="width:50px;height:50px;">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">Middle aligned media</h5>
+                        <p><small>sdjlfsdlkfjsdlfjalsdkfjklsdafjkl</small></p>
+                        <div class="col-xs-7 div-price-discount">
+                            <p><small>价格:</small><span>125.00元</span></p>
+                            <p><small>折扣:</small><span>8折</span></p>
+                        </div>
+                        <button class="col-xs-5 btn-add"><small>加入购物车</small></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object" src="images/g1.png" style="width:50px;height:50px;">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">Middle aligned media</h5>
+                        <p><small>sdjlfsdlkfjsdlfjalsdkfjklsdafjkl</small></p>
+                        <div class="col-xs-7 div-price-discount">
+                            <p><small>价格:</small><span>125.00元</span></p>
+                            <p><small>折扣:</small><span>8折</span></p>
+                        </div>
+                        <button class="col-xs-5 btn-add"><small>加入购物车</small></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

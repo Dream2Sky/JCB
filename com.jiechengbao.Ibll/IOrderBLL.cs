@@ -15,6 +15,11 @@ namespace com.jiechengbao.Ibll
 
         IEnumerable<Order> GetCompletedOrders();
         IEnumerable<Order> GetUnCompletedOrders();
+        bool Add(Order order);
+        bool Update(Order order);
+        Order GetOrderByOrderNo(string orderNo);
+        IEnumerable<Order> GetCompletedOrders(Guid memberId);
+        IEnumerable<Order> GetUnCompletedOrders(Guid memberId);
 
     }
 }

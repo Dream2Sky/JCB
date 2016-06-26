@@ -1,0 +1,249 @@
+﻿
+@{
+    ViewBag.Title = "购物车";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+
+@using com.jiechengbao.wx.Models
+@*<style type="text/css">
+        body {
+            background-color: #EEEEEE;
+        }
+
+        a {
+            color: #000;
+        }
+
+        .sidebar {
+            margin-top: 10px;
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+
+        .panel-menu {
+            margin-top: 10px;
+            padding-left: 0px;
+            padding-right: 5px;
+        }
+
+        ul {
+            border-color: #E3E3E3;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 10px;
+        }
+
+            ul li {
+                border-bottom-style: solid;
+                border-color: #EEEEEE;
+                border-width: 1px;
+                text-align: center;
+                padding-top: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+                background-color: #fff;
+                height: 40px;
+                line-height: 30px;
+            }
+
+        .menu {
+            margin-left: 0px;
+        }
+
+        .active {
+            background-color: #F39801;
+            color: #fff;
+        }
+
+        .panel {
+            margin-bottom: 1px;
+        }
+
+        .panel-body {
+            padding-right: 3px;
+        }
+
+        .media-body {
+            color: #C9C9C9;
+        }
+
+            .media-body h5 {
+                color: #000;
+            }
+
+            .media-body button {
+                background-color: red;
+                color: #fff;
+                border: none;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+        .div-price-discount {
+            padding-left: 0px;
+        }
+
+            .div-price-discount .p-price {
+                margin-bottom: 0px;
+            }
+
+            .div-price-discount p span {
+                color: #E4A881;
+            }
+
+        .item-list {
+            border-style: solid;
+            border-width: 1px;
+            border-color: #808080;
+            margin-top:5px;
+        }
+    </style>*@
+<style>
+    .mui-bar-nav {
+        background-color: #FFFFFF;
+    }
+
+    .title-view {
+        margin-top: 10px;
+    }
+
+    input[name='checkbox'] {
+        width: 20px;
+        height: 20px;
+        margin-left: -20px;
+        margin-top: 20px;
+    }
+
+    .content-table {
+        padding-left: 35px;
+    }
+
+    .mui-numbox {
+        height: 25px;
+    }
+
+        .mui-numbox button {
+            width: 25px;
+        }
+
+    .money-div {
+        margin-top: 10px;
+    }
+
+        .money-div .mui-left,.money-div small {
+            color: red;
+        }
+
+    .mui-media-body {
+        color: #000;
+    }
+
+    .button-view {
+        margin-top: 10px;
+    }
+</style>
+<ul class="mui-table-view title-view">
+    <li class="mui-table-view-cell">
+        商品列表
+    </li>
+</ul>
+<ul id="OA_task_1" class="mui-table-view">
+    @foreach (var item in ViewData["CartModelList"] as List<CartModel>)
+    {
+        <li class="mui-table-view-cell mui-media goods-li">
+            <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red">删除</a>
+            </div>
+            <div class="mui-slider-handle">
+                <div class="mui-input-row mui-checkbox mui-left content-table">
+                    <a href="javascript:;">
+                        <img class="mui-media-object mui-pull-left" src="/Uploads/@item.PicturePath">
+                        <div class="mui-media-body">
+                            @item.Name
+                            <p class='mui-ellipsis'><small>@item.Description</small></p>
+                            <div class='mui-ellipsis money-div'>
+                                <small>￥<span class="mui-left singlePrice">@item.Price</span></small>
+                                <span class="mui-right">
+                                    <div class="mui-numbox" data-numbox-min='1' data-numbox-max='10'>
+                                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                                        <input class="mui-input-numbox itemCount" id="count_@item.Id" type="number" value="@item.Count" />
+                                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <input name="checkbox" id="@item.Id" onclick="tickToOrder('@item.Id');" value="@item.Code" type="checkbox">
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+<ul class="mui-table-view button-view">
+    <li class="mui-table-view-cell">
+        <strong>合计: ￥<span id="totalPrice"></span></strong>
+        <button type="button" class="mui-btn mui-btn-danger" onclick="submitToOrder();">去结算</button>
+    </li>
+</ul>
+
+<script type="text/javascript">
+
+    var itemList = new Array();
+    function tickToOrder(Id) {
+        if ($('#' + Id).is(':checked')) {
+            var data = new Object();
+            data.Id = Id;
+            data.Count = $('#count_' + Id).val();
+            itemList.push(data);
+        }
+        else {
+            for (var i = 0; i < itemList; i++) {
+                if (itemList[i].Id == $('#count_' + Id)) {
+                    itemList.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        getTotalPrice();
+    });
+
+    function getTotalPrice() {
+        var currentTotalPrice = 0;
+        $('.goods-li').each(function () {
+            var singlePrice = $(this).find('.singlePrice').text();
+            var count = $(this).find('.itemCount').val();
+            currentTotalPrice += (Number(singlePrice) * Number(count));
+        });
+
+        $("#totalPrice").text(currentTotalPrice);
+    }
+
+    var countBox = $('.itemCount');
+    countBox.on('change', function () {
+        getTotalPrice();
+    });
+
+    function submitToOrder() {
+        $.ajax({
+            url: "/Order/WriteOrder",
+            type: "POST",
+            data: JSON.stringify(itemList),
+            contentType: "application/json",
+            success: function (data) {
+                if (data == "NoAddress") {
+                    window.location.href = "/Address/Add";
+                }
+                else {
+                    window.location.href = "/Order/Write";
+                }
+            },
+            error: function () {
+                alert("生成订单失败");
+            }
+        });
+    }
+</script>

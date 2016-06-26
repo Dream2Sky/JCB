@@ -167,27 +167,54 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\iconfont.css" />
+    <Content Include="Content\css\mui.min.css" />
+    <Content Include="Content\css\mui.picker.css" />
+    <Content Include="Content\css\mui.picker.min.css" />
+    <Content Include="Content\css\mui.poppicker.css" />
+    <Content Include="Content\css\weui.min.css" />
+    <Content Include="Content\images\11.jpg" />
+    <Content Include="Content\images\call.png" />
+    <Content Include="Content\images\car.png" />
     <Content Include="Content\images\cart.png" />
     <Content Include="Content\images\home.png" />
     <Content Include="Content\images\order.png" />
+    <Content Include="Content\images\setting.png" />
+    <Content Include="Content\images\store.png" />
     <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\在线购物图标.jpg" />
+    <Content Include="Content\images\爱车管理图标.jpg" />
+    <Content Include="Content\images\车辆救援图标.jpg" />
+    <Content Include="Content\images\违章查询图标.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\city.data-3.js" />
+    <Content Include="Content\js\city.data.js" />
     <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\mui.min.js" />
+    <Content Include="Content\js\mui.picker.js" />
+    <Content Include="Content\js\mui.poppicker.js" />
     <Content Include="Global.asax" />
+    <Content Include="maptest.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
+    <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,8 +223,20 @@
     <Content Include="ApplicationInsights.config" />
     <Content Include="Views\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Content\fonts\iconfont.ttf" />
+    <Content Include="Content\fonts\mui.ttf" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.wx.pubxml" />
     <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Cart\List.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\LayoutPage2.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml" />
+    <Content Include="Views\UserInfo\Help.cshtml" />
+    <Content Include="Views\Car\Add.cshtml" />
+    <Content Include="Views\Order\Write.cshtml" />
+    <Content Include="Views\Address\Editor.cshtml" />
+    <Content Include="Views\Address\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+@using com.jiechengbao.wx.Models
+
+<div class="weui_cells weui_cells_access">
+    <a class="weui_cell" href="javascript:;">
+        <div class="weui_cell_bd weui_cell_primary">
+            @if (ViewData["address"]==null)
+            {
+                <p>您的配送地址还没有填写,请填写配送地址</p>
+            }
+            else
+            {
+                <dl>
+                    <dt>@((ViewData["address"] as Address).Consignee) @((ViewData["address"] as Address).Phone)</dt>
+                    <dd><small>配送地址：@((ViewData["address"] as Address).Province + (ViewData["address"] as Address).City +(ViewData["address"] as Address).County + (ViewData["address"] as Address).Detail)</small></dd>
+                </dl>
+            }
+
+        </div>
+    </a>
+</div>
+<div class="container" style="background:#fff;margin-top:5px;margin-bottom:5px;">
+    @foreach (var item in ViewData["OrderDetailModelList"] as List<OrderDetailModel>)
+    {
+        <div class="row item-list">
+            <div class="col-xs-3" style="padding:15px;">
+                <img style="height:50px;width:50px; margin:0px auto;" src="/Uploads/@item.PicturePath" />
+            </div>
+            <div class="col-xs-9">
+                <dl style="margin-top:5px;">
+                    <dt>@item.GoodsName</dt>
+                    <dd>
+                        <p style="margin-bottom:0px;"><small>数量x @item.Count</small></p>
+                        <p><small>金额:@item.TotalPrice</small></p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    }
+</div>
+<div class="weui_cells weui_cells_access">
+    <a class="weui_cell" href="javascript:;">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p><small>支付方式</small></p>
+        </div>
+        <div class="weui_cell_ft">
+            微信
+        </div>
+    </a>
+    <a class="weui_cell" href="javascript:;">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p><small>支付金额:￥@ViewBag.TotalPrice</small></p>
+        </div>
+    </a>
+</div>
+<nav class="navbar" style="background:#fff;padding-top:0px;padding-bottom:0px;">
+    <div class="container-fluid">
+        <form class="navbar-form" role="search" style="padding-right:15px;text-align: right;padding-top:0px;padding-bottom:0px;">
+            <button type="submit" class="btn" style="background:#f00;border:none;border-radius:0px;color:#fff;">去结算</button>
+        </form>
+    </div>
+</nav>

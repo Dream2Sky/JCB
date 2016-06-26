@@ -10,11 +10,39 @@ namespace com.jiechengbao.dal
 {
     public class OrderDAL : DataBaseDAL<Order>, IOrderDAL
     {
+        public Order SelectByOrderNo(string orderNo)
+        {
+            try
+            {
+                return db.Set<Order>().SingleOrDefault(n => n.OrderNo == orderNo);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public IEnumerable<Order> SelectByStatus(int status)
         {
             try
             {
                 return db.Set<Order>().Where(n => n.Status == status);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
+        public IEnumerable<Order> SelectByStatus(int status, Guid memberId)
+        {
+            try
+            {
+                return db.Set<Order>().Where(n => n.Status == status).Where(n => n.MemberId == memberId);
             }
             catch (Exception ex)
             {

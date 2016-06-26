@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+
+<style>
+    .mui-bar-nav {
+        background-color: #ffffff;
+    }
+
+    #popover {
+        height: 100px;
+        width: 130px;
+    }
+
+    .mui-table-view {
+        margin-top: 10px;
+    }
+</style>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+</script>
+@foreach (var item in ViewData["UnCompletedOrderList"] as List<Order>)
+{
+    <div class="mui-control-content mui-active">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <small>订单号:@item.OrderNo</small>
+                <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">删除</button>
+            </li>
+            <li class="mui-table-view-cell mui-media">
+                <a href="javascript:;">
+                    <img class="mui-media-object mui-pull-left" src="images/default.png">
+                    <div class="mui-media-body">
+                        
+                        <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                    </div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell"><small>时间了都快疯了似的发射点发: ￥366</small></li>
+        </ul>
+        <div style="display: block; height: 100px;"></div>
+    </div>
+}

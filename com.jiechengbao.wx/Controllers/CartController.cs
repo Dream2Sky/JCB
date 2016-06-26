@@ -1,5 +1,6 @@
 ﻿using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace com.jiechengbao.wx.Controllers
         private ICartBLL _cartBLL;
         private IMemberBLL _memberBLL;
         private IGoodsBLL _goodsBLL;
-        public CartController(ICartBLL cartBLL, IMemberBLL memberBLL, IGoodsBLL goodsBLL)
+        private IGoodsImagesBLL _goodsImageBLL;
+        public CartController(ICartBLL cartBLL, IMemberBLL memberBLL, IGoodsBLL goodsBLL,IGoodsImagesBLL goodsImagesBLL)
         {
             _cartBLL = cartBLL;
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
+            _goodsImageBLL = goodsImagesBLL;
         }
 
         /// <summary>
@@ -74,6 +77,22 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult List()
         {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+            List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
+
+            List<CartModel> cartModelList = new List<CartModel>();
+            foreach (var item in cartList)
+            {
+                CartModel cm = new CartModel(_goodsBLL.GetGoodsById(item.GoodsId));
+                GoodsImage gi = _goodsImageBLL.GetPictureByGoodsId(item.GoodsId);
+
+                cm.PicturePath = gi.ImagePath;
+                cm.Count = item.Count;
+
+                cartModelList.Add(cm);
+            }
+
+            ViewData["CartModelList"] = cartModelList;
             return View();
         }
 

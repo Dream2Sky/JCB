@@ -26,22 +26,15 @@ namespace com.jiechengbao.entity
         public string OrderNo { get; set; }
 
         /// <summary>
-        /// 谁的订单
-        /// </summary>
-        [Required]
-        public Guid MemberId { get; set; }
-
-        /// <summary>
-        /// 配送的地址
-        /// </summary>
-        [Required]
-        public Guid AddressId { get; set; }
-
-        /// <summary>
         /// 绑定的商品Id
         /// </summary>
         [Required]
         public Guid GoodsId { get; set; }
+        /// <summary>
+        /// 商品数量
+        /// </summary>
+        [Required]
+        public int Count { get; set; }
 
         /// <summary>
         /// 提交订单时 商品的单价
@@ -54,5 +47,8 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         public double CurrentDiscount { get; set; }
+
+        [Required]
+        public double TotalPrice { get; set; }
     }
 }

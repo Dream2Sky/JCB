@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressDAL.cs" />
     <Compile Include="AdminDAL.cs" />
     <Compile Include="CartDAL.cs" />
     <Compile Include="CategoryDAL.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="GoodsImagesDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="OrderDAL.cs" />
+    <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

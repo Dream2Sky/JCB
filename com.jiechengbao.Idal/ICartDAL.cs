@@ -13,5 +13,6 @@ namespace com.jiechengbao.Idal
 
         Cart SelectByMemberIdAndGoodsId(Guid memberId, Guid goodsId);
         bool IsAnythingsInCart(Guid memberId);
+        IEnumerable<Cart> SelectByMemberId(Guid memberId);
     }
 }

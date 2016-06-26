@@ -19,6 +19,9 @@ namespace com.jiechengbao.admin.Models
             this.MemberId = order.MemberId;
             this.OrderNo = order.OrderNo;
             this.Status = order.Status;
+            this.AddressId = order.AddressId;
+            this.PayTime = order.PayTime;
+            this.PayWay = order.PayWay;
         }
         public string MemberName { get; set; }
     }

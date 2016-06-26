@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressBLL.cs" />
     <Compile Include="AdminBLL.cs" />
     <Compile Include="CartBLL.cs" />
     <Compile Include="CategoryBLL.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="GoodsImagesBLL.cs" />
     <Compile Include="MemberBLL.cs" />
     <Compile Include="OrderBLL.cs" />
+    <Compile Include="OrderDetailBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

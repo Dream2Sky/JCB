@@ -50,5 +50,11 @@ namespace com.jiechengbao.entity
         [MaxLength(20)]
         public string Phone { get; set; }
 
+        /// <summary>
+        /// 是否是默认地址
+        /// </summary>
+        [Required]
+        public bool IsDefault { get; set; }
+
     }
 }

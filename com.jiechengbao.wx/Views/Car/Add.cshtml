@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+<link href="~/Content/css/weui.min.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        background-color: #fff;
+    }
+
+    .input-group {
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .blank_block {
+        height: 100px;
+    }
+
+    .btn-yellow {
+        border-color: #FE8100;
+        background: #FE8100;
+        color: #fff;
+    }
+
+    .page-header {
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+
+    .input-group-addon, .btn-check {
+        background: #F18518;
+        border-color: #F18518;
+        color: #fff;
+    }
+
+    .li-provice {
+        width: 50%;
+        height: 150px;
+    }
+
+        .li-provice li {
+            float: left;
+        }
+
+            .li-provice li a {
+                padding-left: 5px;
+                padding-right: 0px;
+            }
+
+    .breadcrumb {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #EEEEEE;
+        color: #F18518;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+</style>
+<div class="page-header">
+    <ol class="breadcrumb">
+        <li><h5><strong>爱车信息绑定</strong></h5></li>
+    </ol>
+    <div class="input-group" style="width:100%;">
+        <div class="input-group-btn" style="width:100px;">
+            <button class="btn btn-default btn-yellow" type="button">车牌</button>
+            <button type="button" class="btn btn-default dropdown-toggle btn-carId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                粤 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu li-provice">
+                <li><a href="#" id="1" onclick="selectProvice('1');">粤</a></li>
+                <li><a href="#" id="2" onclick="selectProvice('2');">京</a></li>
+                <li><a href="#" id="3" onclick="selectProvice('3');">川</a></li>
+            </ul>
+        </div><!-- /btn-group -->
+        <input type="text" class="form-control" style="margin-right:0px;" placeholder="请输入车牌号">
+    </div><!-- /input-group -->
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button" style="width:80px;">车架号</button>
+        </span>
+        <input type="text" class="form-control" placeholder="*请完整输入车辆识别号">
+    </div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button" style="width:80px;">发动机号</button>
+        </span>
+        <input type="text" class="form-control" placeholder="*请完整输入发动机号">
+    </div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button" style="width:80px;">车辆信息</button>
+        </span>
+        <input type="text" class="form-control" placeholder="*请输入您的爱车的信息">
+    </div>
+    <div class="input-group" style="width:100%; padding-left:10px; padding-right:10px;">
+        <button type="button" class="btn btn-yellow form-control">立即绑定</button>
+    </div>
+</div>
+<div class="container" style="background:#fff;padding-top:10px;padding-bottom:10px;">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><h5><strong>您的爱车列表</strong></h5></li>
+        </ol>
+        <div class="container" style="padding:0px;">
+            <div class="weui_cells weui_cells_access" style="margin-top:0px;">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <dl>
+                            <dt><small>车牌号</small></dt>
+                            <dd style="margin-top:10px;"><small>车辆信息</small></dd>
+                        </dl>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <dl>
+                            <dt><small>车牌号</small></dt>
+                            <dd style="margin-top:10px;"><small>车辆信息</small></dd>
+                        </dl>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blank_block"></div>
