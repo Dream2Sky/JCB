@@ -38,6 +38,10 @@
         .mui-bar-nav {
             background-color: #ffffff;
         }
+        .mui-badge{
+            width:16px;
+            height:16px;
+        }
     </style>
 </head>
 <body>
@@ -110,7 +114,7 @@
                 data: {},
                 success: function (data) {
                     if (data == "True") {
-                        $(".icon-cart").append("<span class=\"mui-badge\">1</span>");
+                        $(".icon-cart").append("<span class=\"mui-badge\"></span>");
                     }
                 }
             });

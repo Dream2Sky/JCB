@@ -70,6 +70,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 删除购物车上的东西
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
+        public bool Remove(Cart cart)
+        {
+            return _cartDAL.Delete(cart);
+        }
+
+        /// <summary>
         /// 更新购物车
         /// </summary>
         /// <param name="cart"></param>

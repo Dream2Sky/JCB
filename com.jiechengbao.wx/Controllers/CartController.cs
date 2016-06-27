@@ -112,5 +112,27 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        public ActionResult Delete(string Code)
+        {
+            if (string.IsNullOrEmpty(Code))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Goods goods = _goodsBLL.GetGoodsByCode(Code);
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+            Cart cart = _cartBLL.GetCartByMemberIdAndGoodsId(member.Id, goods.Id);
+
+            if (_cartBLL.Remove(cart))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

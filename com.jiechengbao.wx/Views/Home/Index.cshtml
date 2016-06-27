@@ -96,12 +96,10 @@
         $('#' + Id).addClass('active');
         $('#' + currentActiveItemId).removeClass('active');
         currentActiveItemId = Id;
-        if(Id == 'allItems')
-        {
-           OnLoadGoods();
+        if (Id == 'allItems') {
+            OnLoadGoods();
         }
-        else
-        {
+        else {
             OnLoadGoods(Id);
         }
     }
@@ -115,12 +113,17 @@
             },
             type: 'POST',
             success: function (data) {
-                console.log(data);
                 var json = eval('(' + data + ')');
                 if (json.length !== 0) {
                     var html = "";
                     for (var i = 0; i < json.length; i++) {
-                        html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">" + json[i].Name + "</h4>" + json[i].Description + "<p>￥<strong>" + json[i].Price + "</strong><small> 折扣:</small><strong>" + json[i].Discount + "</strong></p></div></div></div></div>";
+                        if (json[i].Count > 0) {
+                            html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><h4 class=\"media-heading\">" + json[i].Name + "</h4></a>" + json[i].Description + "<p>&#65509; <strong>" + json[i].Price + "</strong><small> 服务次数:</small><strong>" + json[i].ServiceCount + "</strong></p></div></div></div></div>";
+                        }
+                        else {
+                            html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><h4 class=\"media-heading\">" + json[i].Name + "</h4></a>" + json[i].Description + "<p>&#65509; <strong>" + json[i].Price + "</strong></p></div></div></div></div>";
+                        }
+
                     }
                     $('.panel-products').html(html);
                 }
@@ -131,7 +134,7 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         OnLoadGoods();
     })
 </script>

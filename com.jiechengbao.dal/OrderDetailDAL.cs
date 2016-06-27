@@ -10,6 +10,28 @@ namespace com.jiechengbao.dal
 {
     public class OrderDetailDAL : DataBaseDAL<OrderDetail>, IOrderDetailDAL
     {
+        public bool Delete(List<OrderDetail> odList)
+        {
+            try
+            {
+                foreach (var item in odList)
+                {
+                    db.Set<OrderDetail>().Attach(item);
+                    db.Entry<OrderDetail>(item).State = System.Data.Entity.EntityState.Deleted;
+                    db.Set<OrderDetail>().Remove(item);     
+                }
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                return false;
+            }
+        }
+
         public IEnumerable<OrderDetail> SelectByOrderNo(string orderNO)
         {
             try

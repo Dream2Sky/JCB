@@ -6,8 +6,8 @@
 @using com.jiechengbao.entity
 
 <style>
-    .input-group{
-        margin-bottom:10px;
+    .input-group {
+        margin-bottom: 10px;
     }
 </style>
 <label>编辑商品分类</label>
@@ -17,6 +17,18 @@
         {
             <div class="input-group col-xs-3">
                 <input type="text" class="form-control" name="categoryName" id="@item.CategoryNO" value="@item.Name">
+                <select class="form-control" name="isService" id="select_@item.CategoryNO">
+                    @if (item.IsService)
+                    {
+                        <option value="1" selected>服务类型</option>
+                        <option value="0">非服务类型</option>
+                    }
+                    else
+                    {
+                        <option value="1" >服务类型</option>
+                        <option value="0" selected>非服务类型</option>
+                    }
+                </select>
                 <span class="input-group-btn">
                     <button class="btn btn-default" onclick="Save('@item.CategoryNO');" type="button">保存</button>
                 </span>
@@ -40,21 +52,21 @@
     });
 
     function Save(categoryNO) {
-        console.log(categoryNO);
-        var name = $('#'+categoryNO).val();
-        console.log(name);
-        if (typeof(name)==="undefined") {
+        var name = $('#' + categoryNO).val();
+        var isService = $('#select_' + categoryNO).val();
+        if (typeof (name) === "undefined") {
             alert("提交的数据不能为空");
         }
         else {
             $.ajax({
-                url:"/Category/Update",
-                type:"POST",
-                data:{
-                    categoryNO:categoryNO,
-                    categoryName:name
+                url: "/Category/Update",
+                type: "POST",
+                data: {
+                    categoryNO: categoryNO,
+                    categoryName: name,
+                    isService: isService
                 },
-                success:function(data) {
+                success: function (data) {
                     if (data == "True") {
                         alert("保存成功");
                     }
@@ -62,7 +74,7 @@
                         alert("保存失败");
                     }
                 },
-                error:function() {
+                error: function () {
                     alert("保存失败");
                 }
             });
@@ -71,16 +83,16 @@
 
     function Delete(categoryNO) {
         $.ajax({
-            url:"/Category/Delete",
-            type:"POST",
-            data:{
-                categoryNO:categoryNO
+            url: "/Category/Delete",
+            type: "POST",
+            data: {
+                categoryNO: categoryNO
             },
-            success:function(data) {
+            success: function (data) {
                 alert("删除成功");
-                window.location.href="/Category/List";
+                window.location.href = "/Category/List";
             },
-            error:function() {
+            error: function () {
                 alert("删除失败");
             }
         });

@@ -132,7 +132,7 @@
         margin-top: 10px;
     }
 
-        .money-div .mui-left,.money-div small {
+        .money-div .mui-left, .money-div small {
             color: red;
         }
 
@@ -152,9 +152,9 @@
 <ul id="OA_task_1" class="mui-table-view">
     @foreach (var item in ViewData["CartModelList"] as List<CartModel>)
     {
-        <li class="mui-table-view-cell mui-media goods-li">
+        <li class="mui-table-view-cell mui-media goods-li" id="li_@item.Code">
             <div class="mui-slider-right mui-disabled">
-                <a class="mui-btn mui-btn-red">删除</a>
+                <a class="mui-btn mui-btn-red" onclick="Delete('@item.Code','@item.Id')">删除</a>
             </div>
             <div class="mui-slider-handle">
                 <div class="mui-input-row mui-checkbox mui-left content-table">
@@ -163,8 +163,12 @@
                         <div class="mui-media-body">
                             @item.Name
                             <p class='mui-ellipsis'><small>@item.Description</small></p>
+                            @if (item.ServiceCount>0)
+                            {
+                                <p><small>服务次数:@item.ServiceCount</small></p>
+                            }
                             <div class='mui-ellipsis money-div'>
-                                <small>￥<span class="mui-left singlePrice">@item.Price</span></small>
+                                <small>&#65509; <span class="mui-left singlePrice">@item.Price</span></small>
                                 <span class="mui-right">
                                     <div class="mui-numbox" data-numbox-min='1' data-numbox-max='10'>
                                         <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
@@ -208,7 +212,7 @@
     }
 
     $(document).ready(function () {
-        $("input[type='checkbox']").each(function() {
+        $("input[type='checkbox']").each(function () {
             if ($(this).is(':checked')) {
 
                 var data = new Object();
@@ -258,6 +262,35 @@
             },
             error: function () {
                 alert("生成订单失败");
+            }
+        });
+    }
+
+    function Delete(goodsCode,Id) {
+        $.ajax({
+            url: "/Cart/Delete",
+            data:{
+                Code:goodsCode
+            },
+            type:"POST",
+            success:function (data) {
+                if (data == "True") {
+                    mui.alert("删除成功");
+                    for (var i = 0; i < itemList.length; i++) {
+                        if (itemList[i].Id == Id) {
+                            itemList.splice(i, 1);
+                        }
+                    }
+                    $('#li_' + goodsCode).remove();
+                    getTotalPrice();
+                    
+                }
+                else {
+                    mui.alert("删除商品失败");
+                }
+            },
+            error: function() {
+                mui.alert("删除商品失败");
             }
         });
     }

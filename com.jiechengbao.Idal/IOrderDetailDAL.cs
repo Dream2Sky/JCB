@@ -10,5 +10,6 @@ namespace com.jiechengbao.Idal
     public interface IOrderDetailDAL:IDataBaseDAL<OrderDetail>
     {
         IEnumerable<OrderDetail> SelectByOrderNo(string orderNO);
+        bool Delete(List<OrderDetail> odList);
     }
 }

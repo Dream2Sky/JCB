@@ -68,7 +68,7 @@ namespace com.jiechengbao.admin.Controllers
             goods.CreatedTime = DateTime.Now.Date;
             goods.Description = model.Description;
             goods.Discount = model.Discount;
-
+            goods.ServiceCount = model.ServiceCount;
             #endregion
 
             // 添加新的Goods 对象
@@ -183,6 +183,7 @@ namespace com.jiechengbao.admin.Controllers
             goods.Price = model.Price;
             goods.Discount = model.Discount;
             goods.Description = model.Description;
+            goods.ServiceCount = model.ServiceCount;
 
             if (!_goodsBLL.Update(goods))
             {

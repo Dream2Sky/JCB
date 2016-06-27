@@ -26,5 +26,15 @@ namespace com.jiechengbao.bll
         {
             return _orderDetailDAL.SelectByOrderNo(orderNo);
         }
+
+        public bool Remove(List<OrderDetail> odList)
+        {
+            return _orderDetailDAL.Delete(odList);
+        }
+
+        public bool Remove(OrderDetail od)
+        {
+            return _orderDetailDAL.Delete(od);
+        }
     }
 }

@@ -103,6 +103,14 @@
             </tr>
             <tr>
                 <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">服务次数</span>
+                        <input class="form-control" name="ServiceCount" placeholder="服务次数" rows="1">@Model.ServiceCount</input>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <button class="btn btn-primary" type="submit">保存</button>
                 </td>
             </tr>
@@ -113,10 +121,9 @@
 <script>
     var categoryList = new Array();
     $(".div-category").each(function () {
-        console.log($(this).attr("Id"));
         categoryList.push($(this).attr("Id"));
     })
-    console.log(categoryList);
+
     function AddCategory() {
         if ($.inArray($("select").val(), categoryList) == -1) {
             var value = $("select").val();

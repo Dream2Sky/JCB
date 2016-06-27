@@ -24,6 +24,11 @@
         <p>@Model.Description</p>
         <p class="p-red"><strong>￥@Model.Price</strong></p>
         <p class="p-red">折扣:@Model.Discount</p>
+        @if (Model.ServiceCount>0)
+        {
+            <p>服务次数:@Model.ServiceCount</p>
+
+        }
         <p><a href="javascript:;" class="btn btn-default" role="button" onclick="AddtoCart('@Model.Code')">加入购物车</a></p>
     </div>
 </div>
@@ -38,8 +43,8 @@
             success: function (data) {
                 if (data == "True")
                 {
-                    alert("添加成功");
-                    $("#img_shoppingCar").append("<i class=\"hasOrders\"></i>");
+                    mui.alert("添加成功");
+                    $(".icon-cart").append("<span class=\"mui-badge\"></span>");
                     //$("#btn_AddToCar").attr("disabled",true);
                     //$("#btn_AddToCar").addClass("Unclickabled");
                 }

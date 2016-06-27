@@ -77,4 +77,30 @@
         <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">￥@ViewBag.TotalPrice</button>
     </li>
 </ul>
-<button type="button" class="mui-btn mui-btn-danger mui-btn-block">提交订单</button>
+<button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="CreateOrder();">提交订单</button>
+
+<script>
+    function CreateOrder() {
+        $.ajax({
+            url: "/Order/Add",
+            type: "POST",
+            success: function(data) {
+                if (data == "Expired") {
+                    mui.alert("生成订单超时,请重新提交");
+                    window.location.href = "/Cart/List";
+                }
+                else if (data == "Error")
+                {
+                    mui.alert("订单生成发生错误");
+                    window.location.href = "/Cart/List";
+                }
+                else {
+                    window.location.href = "/WxPay/Pay";
+                }
+            },
+            error: function() {
+                mui.alert("网页发生错误");
+            }
+        });
+    }
+</script>

@@ -136,6 +136,26 @@
     <Compile Include="Migrations\201606260226456_AddColumn_Address_IsDefault.Designer.cs">
       <DependentUpon>201606260226456_AddColumn_Address_IsDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606261149543_AddTable_Services.cs" />
+    <Compile Include="Migrations\201606261149543_AddTable_Services.Designer.cs">
+      <DependentUpon>201606261149543_AddTable_Services.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606261709300_DropTable_Service.cs" />
+    <Compile Include="Migrations\201606261709300_DropTable_Service.Designer.cs">
+      <DependentUpon>201606261709300_DropTable_Service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606261711144_AddColumn_Category_IsService.cs" />
+    <Compile Include="Migrations\201606261711144_AddColumn_Category_IsService.Designer.cs">
+      <DependentUpon>201606261711144_AddColumn_Category_IsService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606261725212_AddColumn_Goods_Count.cs" />
+    <Compile Include="Migrations\201606261725212_AddColumn_Goods_Count.Designer.cs">
+      <DependentUpon>201606261725212_AddColumn_Goods_Count.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606270043525_AlterColumn_Goods_ServiceCount.cs" />
+    <Compile Include="Migrations\201606270043525_AlterColumn_Goods_ServiceCount.Designer.cs">
+      <DependentUpon>201606270043525_AlterColumn_Goods_ServiceCount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -196,6 +216,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606260226456_AddColumn_Address_IsDefault.resx">
       <DependentUpon>201606260226456_AddColumn_Address_IsDefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261149543_AddTable_Services.resx">
+      <DependentUpon>201606261149543_AddTable_Services.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261709300_DropTable_Service.resx">
+      <DependentUpon>201606261709300_DropTable_Service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261711144_AddColumn_Category_IsService.resx">
+      <DependentUpon>201606261711144_AddColumn_Category_IsService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261725212_AddColumn_Goods_Count.resx">
+      <DependentUpon>201606261725212_AddColumn_Goods_Count.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606270043525_AlterColumn_Goods_ServiceCount.resx">
+      <DependentUpon>201606270043525_AlterColumn_Goods_ServiceCount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

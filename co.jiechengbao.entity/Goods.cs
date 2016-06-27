@@ -47,5 +47,14 @@ namespace com.jiechengbao.entity
         [MaxLength(255)]
         [DataMember]
         public string Description { get; set; }
+
+        /// <summary>
+        /// 当该商品为服务类型时 
+        /// 该字段表示服务的次数
+        /// 次数由管理员添加商品的时候设置
+        /// </summary>
+        [Required]
+        [DataMember]
+        public int ServiceCount { get; set; }
     }
 }

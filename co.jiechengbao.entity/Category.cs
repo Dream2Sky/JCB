@@ -17,5 +17,8 @@ namespace com.jiechengbao.entity
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
+
+        [Required]
+        public bool IsService { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace com.jiechengbao.admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string categoryName)
+        public ActionResult Add(string categoryName, int isService)
         {
             // 判断新添加的categoryName 是否为空
             if (string.IsNullOrEmpty(categoryName))
@@ -39,6 +39,7 @@ namespace com.jiechengbao.admin.Controllers
             category.CreatedTime = DateTime.Now.Date;
             category.IsDeleted = false;
             category.Name = categoryName;
+            category.IsService = isService == 1 ? true : false;
 
             // 判断是否存在新添加的categoryName
             if (_categoryBLL.IsExist(categoryName))
@@ -66,7 +67,7 @@ namespace com.jiechengbao.admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(string categoryNO, string categoryName)
+        public ActionResult Update(string categoryNO, string categoryName, int isService)
         {
             Category category = _categoryBLL.GetCategoryByCategoryNo(categoryNO);
             if (category == null)
@@ -80,6 +81,7 @@ namespace com.jiechengbao.admin.Controllers
             else 
             {
                 category.Name = categoryName;
+                category.IsService = isService == 1 ? true : false;
                 if (_categoryBLL.Save(category))
                 {
                     return Json("True", JsonRequestBehavior.AllowGet);

@@ -90,6 +90,14 @@
             </tr>
             <tr>
                 <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">服务次数</span>
+                        <input type="text" class="form-control" placeholder="服务次数" name="ServiceCount" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <button class="btn btn-primary" type="submit">录入</button>
                 </td>
             </tr>
@@ -102,7 +110,6 @@
     function AddCategory() {
         if ($.inArray($("select").val(), categoryList) == -1) {
             var value = $("select").val();
-            console.log(value);
             var text = $("select").find("option:selected").text();
             categoryList.push($("select").val());
 

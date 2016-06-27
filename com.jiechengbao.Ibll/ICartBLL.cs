@@ -15,5 +15,6 @@ namespace com.jiechengbao.Ibll
         bool Update(Cart cart);
         bool IsAnythingsInCart(Guid memberId);
         IEnumerable<Cart> GetCartByMemberId(Guid memberId);
+        bool Remove(Cart cart);
     }
 }

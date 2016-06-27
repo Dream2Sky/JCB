@@ -30,85 +30,75 @@ namespace com.jiechengbao.wx.Controllers
             _addressBLL = addressBLL;
             _goodsImagesBLL = goodsImagesBLL;
         }
+
         [HttpPost]
         public ActionResult Add()
         {
-            if (Request.IsAjaxRequest())
+            // 先判断 各个session是否为空
+            if (System.Web.HttpContext.Current.Session["CartModelList"] == null 
+                || System.Web.HttpContext.Current.Session["Address"] == null 
+                || System.Web.HttpContext.Current.Session["TotalPrice"] == null)
             {
-                var stream = HttpContext.Request.InputStream;
-                string json = new StreamReader(stream).ReadToEnd();
+                // 如果为空 则返回超时提示
+                return Json("Expired", JsonRequestBehavior.AllowGet);
+            }
 
-                try
+            List<CartModel> cartList = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
+            double TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalPrice"].ToString());
+            Address address = System.Web.HttpContext.Current.Session["Address"] as Address;
+
+            Order order = new Order();
+            order.Id = Guid.NewGuid();
+            order.IsDeleted = false;
+            order.CreatedTime = DateTime.Now;
+            order.DeletedTime = DateTime.MinValue.AddHours(8);
+            order.AddressId = address.Id;
+            order.MemberId = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString()).Id;
+            string gid = Guid.NewGuid().ToString().Replace("-", "");
+            order.OrderNo = gid + TimeManager.GetCurrentTimestamp().ToString();
+            order.Status = 0;
+            order.TotalPrice = TotalPrice;
+
+            List<OrderDetail> odList = new List<OrderDetail>();
+
+            if (_orderBLL.Add(order))
+            {
+                foreach (var item in cartList)
                 {
-                    Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
-                    Order order = new Order();
-                    order.Id = Guid.NewGuid();
-                    order.CreatedTime = DateTime.Now.Date;
-                    order.DeletedTime = DateTime.MinValue.AddHours(8);
-                    order.IsDeleted = false;
-                    order.MemberId = member.Id;
-                    order.OrderNo = TimeManager.GetCurrentTimestamp() + "_" + (new Random().Next(0, 255));
-                    order.PayTime = DateTime.MinValue.AddHours(8);
-                    order.Status = 0;
+                    OrderDetail od = new OrderDetail();
+                    od.Id = Guid.NewGuid();
+                    od.Count = item.Count;
+                    od.CreatedTime = DateTime.Now;
+                    od.CurrentDiscount = item.Discount;
+                    od.CurrentPrice = item.Price;
+                    od.DeletedTime = DateTime.MinValue.AddHours(8);
+                    od.GoodsId = item.Id;
+                    od.IsDeleted = false;
+                    od.OrderId = order.Id;
+                    od.OrderNo = order.OrderNo;
+                    od.TotalPrice = od.Count * od.CurrentDiscount * od.CurrentPrice;
 
-                    //添加新订单
-                    if (_orderBLL.Add(order))
+                    // 添加订单详情
+
+                    // 如果添加失败 则回滚
+
+                    if (!_orderDetailBLL.Add(od))
                     {
-                        JArray ja = (JArray)JsonConvert.DeserializeObject(json);
-                        for (int i = 0; i < ja.Count; i++)
-                        {
-                            Goods goods = _goodsBLL.GetGoodsById(Guid.Parse(ja[i]["Id"].ToString()));
-
-                            OrderDetail od = new OrderDetail();
-                            od.Id = Guid.NewGuid();
-
-                            od.GoodsId = goods.Id;
-                            od.Count = int.Parse(ja[i]["Count"].ToString());
-                            od.OrderId = order.Id;
-                            od.OrderNo = order.OrderNo;
-
-                            od.CurrentPrice = goods.Price;
-
-                            od.CurrentDiscount = goods.Discount;
-                            od.IsDeleted = false;
-                            od.DeletedTime = DateTime.MinValue.AddHours(8);
-                            od.CreatedTime = DateTime.Now.Date;
-                            od.TotalPrice = od.CurrentDiscount * od.CurrentPrice * od.Count;
-
-                            order.TotalPrice += od.TotalPrice;
-                            _orderDetailBLL.Add(od);
-
-                        }
-
-                        List<Address> addressList = new List<Address>();
-                        addressList = _addressBLL.GetAddressByMemberId(member.Id).ToList();
-
-                        if (addressList != null && addressList.Count() > 0)
-                        {
-                            Address address = addressList.First();
-                            order.AddressId = address.Id;
-                            ViewData["Address"] = address;
-
-                            _orderBLL.Update(order);
-                        }
-
-                        // 添加成功后跳转到 订单的详细页面
-                        return Json("True", JsonRequestBehavior.AllowGet);
+                        // 删除已添加的 OrderDetail
+                        _orderDetailBLL.Remove(odList);
+                        return Json("Error", JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return Json("False", JsonRequestBehavior.AllowGet);
+                        odList.Add(od);
                     }
                 }
-                catch (Exception ex)
-                {
-                    LogHelper.Log.Write(ex.Message);
-                    LogHelper.Log.Write(ex.StackTrace);
-                    throw;
-                }
-
+                return Json("OK", JsonRequestBehavior.AllowGet);
             }
-            return Json("False", JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
         }
 
         //[HttpPost]
@@ -232,6 +222,7 @@ namespace com.jiechengbao.wx.Controllers
                 
                 // 所以要用新的 Address对象
                 Address address = _addressBLL.GetAddressById(Guid.Parse(Request.QueryString["AddressId"].ToString()));
+                System.Web.HttpContext.Current.Session["Address"] = address;
                 ViewBag.Address = address;
             }
 

@@ -21,7 +21,7 @@ namespace com.jiechengbao.admin.Models
             this.Name = goods.Name;
             this.Price = goods.Price;
             this.Description = goods.Description;
-            
+            this.ServiceCount = goods.ServiceCount;
         }
         public string PicturePath { get; set; }
         public string[] CategoryList { get; set; }
