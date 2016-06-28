@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "支付详情";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+
+@{ 
+    WxPayAPI.WxPayData result = ViewData["Result"] as WxPayAPI.WxPayData;
+
+    foreach (var item in result.GetValues())
+    {
+        <p>@item.Key:@item.Value</p>
+    }
+
+    <p class="jsonresult">@Html.Raw(ViewData["JsonResult"] as string)</p> 
+}
+
+
+<form>
+    <br />
+    <div align="center">
+        <br /><br /><br />
+        <button type="button" onclick="callpay();" style="width:210px; height:50px; border-radius: 15px;background-color:#00CD00; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;">立即支付</button>
+    </div>
+</form>
+<script type="text/javascript">
+               //调用微信JS api 支付
+               function jsApiCall()
+               {
+
+                   WeixinJSBridge.invoke(
+                   'getBrandWCPayRequest',
+                   @Html.Raw(ViewData["JsonResult"] as string),
+                    function (res)
+                    {
+                        WeixinJSBridge.log(res.err_msg);
+                        alert(res.err_code + res.err_desc + res.err_msg);
+                     }
+                    );
+               }
+
+               function callpay()
+               {
+                   if (typeof WeixinJSBridge == "undefined")
+                   {
+                       if (document.addEventListener)
+                       {
+                           document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                       }
+                       else if (document.attachEvent)
+                       {
+                           document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                           document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                       }
+                   }
+                   else
+                   {
+                       jsApiCall();
+                   }
+               }
+</script>
+

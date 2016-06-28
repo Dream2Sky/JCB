@@ -3,6 +3,7 @@ using com.jiechengbao.Ibll;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -36,8 +37,13 @@ namespace com.jiechengbao.wx.Controllers
             Member member = new Member();
             try
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 goods = _goodsBLL.GetGoodsByCode(goodsCode);
                 member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+
+                sw.Stop();
+                LogHelper.Log.Write("添加到购物车花了 " + sw.Elapsed);
             }
             catch (Exception ex)
             {
@@ -78,13 +84,30 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult List()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
+            sw.Stop();
+            LogHelper.Log.Write("根据 用户的Id 查询订单列表 所花时间：" + sw.Elapsed);
 
             List<CartModel> cartModelList = new List<CartModel>();
+
+
+
             foreach (var item in cartList)
+
             {
+                sw.Restart();
                 CartModel cm = new CartModel(_goodsBLL.GetGoodsById(item.GoodsId));
+                sw.Stop();
+                LogHelper.Log.Write("根据商品id 获得商品 所花的时间 :" + sw.Elapsed);
+
+                sw.Restart();
+                
                 GoodsImage gi = _goodsImageBLL.GetPictureByGoodsId(item.GoodsId);
+
+                sw.Stop();
+                LogHelper.Log.Write("根据商品id 获得对应的图片所花时间:" + sw.Elapsed);
 
                 cm.PicturePath = gi.ImagePath;
                 cm.Count = item.Count;

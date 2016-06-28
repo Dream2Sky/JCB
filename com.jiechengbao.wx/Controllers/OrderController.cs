@@ -54,7 +54,7 @@ namespace com.jiechengbao.wx.Controllers
             order.DeletedTime = DateTime.MinValue.AddHours(8);
             order.AddressId = address.Id;
             order.MemberId = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString()).Id;
-            string gid = Guid.NewGuid().ToString().Replace("-", "");
+            string gid = Guid.NewGuid().ToString().Replace("-", "").ToUpper().Substring(0, 6);
             order.OrderNo = gid + TimeManager.GetCurrentTimestamp().ToString();
             order.Status = 0;
             order.TotalPrice = TotalPrice;
@@ -93,7 +93,12 @@ namespace com.jiechengbao.wx.Controllers
                         odList.Add(od);
                     }
                 }
-                return Json("OK", JsonRequestBehavior.AllowGet);
+
+                var jsonResult = new {
+                    totalprice = order.TotalPrice,
+                    orderNo = order.OrderNo
+                };
+                return Json(jsonResult, JsonRequestBehavior.AllowGet);
             }
             else
             {

@@ -5,6 +5,9 @@
 }
 @using com.jiechengbao.entity
 @using com.jiechengbao.wx.Models
+<script src="~/Content/js/json2.js"></script>
+<script src="~/Content/js/json_parse.js"></script>
+<script src="~/Content/js/json_parse_state.js"></script>
 <style>
     .mui-bar-nav {
         background-color: #FFFFFF;
@@ -78,27 +81,28 @@
     </li>
 </ul>
 <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="CreateOrder();">提交订单</button>
-
+@*<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>*@
 <script>
     function CreateOrder() {
         $.ajax({
             url: "/Order/Add",
             type: "POST",
-            success: function(data) {
+            success: function (data) {
                 if (data == "Expired") {
                     mui.alert("生成订单超时,请重新提交");
                     window.location.href = "/Cart/List";
                 }
-                else if (data == "Error")
-                {
+                else if (data == "Error") {
                     mui.alert("订单生成发生错误");
                     window.location.href = "/Cart/List";
                 }
                 else {
-                    window.location.href = "/WxPay/Pay";
+                    console.log(data);
+
+                    window.location.href = "/WxPay/Pay?totalprice=1&orderNo=" + data.orderNo + "&ip=117.27.245.188";
                 }
             },
-            error: function() {
+            error: function () {
                 mui.alert("网页发生错误");
             }
         });
