@@ -23,6 +23,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 获取账户的所有订单
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public IEnumerable<Order> GetAllOrders(Guid memberId)
+        {
+            return _orderDAL.SelectAllByMemberId(memberId);
+        }
+
+        /// <summary>
         /// 获得已完成的订单
         /// order status
         /// 0 表示 未完成的订单
@@ -61,6 +71,17 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 根据订单状态获取订单
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public IEnumerable<Order> GetOrdersByStatus(Guid memberId, int status)
+        {
+            return _orderDAL.SelectByStatus(status, memberId);
+        }
+
+        /// <summary>
         /// 获取未完成的订单 status = 0
         /// </summary>
         /// <returns></returns>
@@ -86,6 +107,20 @@ namespace com.jiechengbao.bll
         public IEnumerable<Order> GetYesterDayOrders()
         {
             return _orderDAL.SelectOrderByDate(DateTime.Now.AddDays(-1).Date);
+        }
+
+        /// <summary>
+        /// 判断是否有为完成的订单
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public bool HasUncompletedOrders(Guid memberId)
+        {
+            if (_orderDAL.SelectByStatus(0,memberId).Count()>0)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

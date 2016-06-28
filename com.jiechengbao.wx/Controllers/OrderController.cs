@@ -22,8 +22,8 @@ namespace com.jiechengbao.wx.Controllers
         private IAddressBLL _addressBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
         private ICartBLL _cartBLL;
-        public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL, 
-            IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL, 
+        public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL,
+            IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL,
             IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL)
         {
             _orderDetailBLL = orderDetailBLL;
@@ -39,8 +39,8 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Add(int payway)
         {
             // 先判断 各个session是否为空
-            if (System.Web.HttpContext.Current.Session["CartModelList"] == null 
-                || System.Web.HttpContext.Current.Session["Address"] == null 
+            if (System.Web.HttpContext.Current.Session["CartModelList"] == null
+                || System.Web.HttpContext.Current.Session["Address"] == null
                 || System.Web.HttpContext.Current.Session["TotalPrice"] == null)
             {
                 // 如果为空 则返回超时提示
@@ -130,13 +130,29 @@ namespace com.jiechengbao.wx.Controllers
         //{
         //    return View();
         //}
-
         public ActionResult Detail(string orderNo)
         {
+            // 先获得订单对象
             Order order = _orderBLL.GetOrderByOrderNo(orderNo);
+            ViewBag.OrderNo = order.OrderNo;
+            ViewBag.Status = order.Status == 0 ? "未完成" : (order.Status == 1 ? "已完成" : "已取消");
+            ViewBag.TotalPrice = order.TotalPrice;
+            ViewBag.CreateTime = order.CreatedTime;
+            ViewBag.Payway = order.PayWay == 0 ? "微信支付" : "余额支付";
 
+            // 获取地址
             Address address = _addressBLL.GetAddressById(order.AddressId);
-            ViewData["address"] = address;
+
+            // 构造 AddressModel
+            AddressModel ad = new AddressModel();
+            ad.City = address.City;
+            ad.Consignee = address.Consignee;
+            ad.County = address.County;
+            ad.Detail = address.Detail;
+            ad.Phone = address.Phone;
+            ad.Province = address.Province;
+
+            ViewData["address"] = ad;
 
             List<OrderDetail> odList = new List<OrderDetail>();
             odList = _orderDetailBLL.GetOrderDetailByOrderNo(orderNo).ToList();
@@ -160,17 +176,72 @@ namespace com.jiechengbao.wx.Controllers
         /// 订单列表
         /// </summary>
         /// <returns></returns>
-        public ActionResult List()
+        public ActionResult List(int type)
         {
-            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
-            List<Order> uncompletedorderList = _orderBLL.GetUnCompletedOrders(member.Id).ToList();
-            ViewData["UnCompletedOrderList"] = uncompletedorderList;
+            ViewBag.Title = type == 0 ? "未完成订单" : (type == 1 ? "已完成订单" : "全部订单");
 
-            List<Order> completedorderList = _orderBLL.GetCompletedOrders(member.Id).ToList();
-            ViewData["CompletedOrderList"] = completedorderList;
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            // 临时的订单列表
+            List<Order> orderList = new List<Order>();
+
+            // 要提交的 OrderModel 列表
+            List<OrderModel> omList = new List<OrderModel>();
+
+            if (type != 2)
+            {
+                orderList = _orderBLL.GetOrdersByStatus(member.Id, type).ToList();
+                omList = CreateOrderModelList(orderList);
+            }
+            else
+            {
+                orderList = _orderBLL.GetAllOrders(member.Id).ToList();
+                omList = CreateOrderModelList(orderList);
+            }
+
+            ViewData["OrderList"] = omList;
             return View();
         }
 
+        /// <summary>
+        /// 构造 orderModelList 的私有方法
+        /// </summary>
+        /// <param name="orderList"></param>
+        /// <returns></returns>
+        [NonAction]
+        private List<OrderModel> CreateOrderModelList(List<Order> orderList)
+        {
+            // 要返回的 OrderModel 列表
+            List<OrderModel> omList = new List<OrderModel>();
+
+
+            foreach (var item in orderList)
+            {
+                OrderModel om = new OrderModel(item);
+                List<OrderDetailModel> odmList = new List<OrderDetailModel>();
+                foreach (OrderDetail model in _orderDetailBLL.GetOrderDetailByOrderNo(item.OrderNo))
+                {
+                    OrderDetailModel orm = new OrderDetailModel(model);
+                    Goods good = _goodsBLL.GetGoodsById(model.GoodsId);
+                    orm.GoodsName = good.Name;
+                    orm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(model.GoodsId).ImagePath;
+                    orm.Description = good.Description;
+                    orm.GoodsCode = good.Code;
+
+                    odmList.Add(orm);
+                }
+                om.GoodsModelList = odmList;
+                omList.Add(om);
+            }
+
+            return omList;
+        }
+
+        /// <summary>
+        ///  填写订单
+        ///  从购物车中获取和构造订单数据 并 保存到 session中
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult WriteOrder()
         {
@@ -229,10 +300,14 @@ namespace com.jiechengbao.wx.Controllers
             return Json("True", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 填写订单页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Write()
         {
             // 判断传递进来的AddressId是否为空 
-            
+
             // 如果为空这表示不是从编辑地址页返回
 
             // 所以就直接用在 write 里面保存好的 Address
@@ -243,7 +318,7 @@ namespace com.jiechengbao.wx.Controllers
             else
             {
                 // 如果不为空 说明是从编辑地址页 传来的
-                
+
                 // 所以要用新的 Address对象
                 Address address = _addressBLL.GetAddressById(Guid.Parse(Request.QueryString["AddressId"].ToString()));
                 System.Web.HttpContext.Current.Session["Address"] = address;
@@ -254,6 +329,20 @@ namespace com.jiechengbao.wx.Controllers
             ViewBag.TotalPrice = System.Web.HttpContext.Current.Session["TotalPrice"];
 
             return View();
+        }
+
+        /// <summary>
+        ///  监测是否有未完成的订单
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Check()
+        {
+            if (_orderBLL.HasUncompletedOrders(_memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString()).Id))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            return Json("False", JsonRequestBehavior.AllowGet);
         }
 
     }

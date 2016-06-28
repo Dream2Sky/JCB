@@ -10,6 +10,20 @@ namespace com.jiechengbao.dal
 {
     public class OrderDAL : DataBaseDAL<Order>, IOrderDAL
     {
+        public IEnumerable<Order> SelectAllByMemberId(Guid memberId)
+        {
+            try
+            {
+                return db.Set<Order>().Where(n => n.MemberId == memberId);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Order SelectByOrderNo(string orderNo)
         {
             try

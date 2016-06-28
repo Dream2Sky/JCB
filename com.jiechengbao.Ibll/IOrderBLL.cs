@@ -20,6 +20,10 @@ namespace com.jiechengbao.Ibll
         Order GetOrderByOrderNo(string orderNo);
         IEnumerable<Order> GetCompletedOrders(Guid memberId);
         IEnumerable<Order> GetUnCompletedOrders(Guid memberId);
+        bool HasUncompletedOrders(Guid memberId);
+
+        IEnumerable<Order> GetOrdersByStatus(Guid memberId, int status);
+        IEnumerable<Order> GetAllOrders(Guid memberId);
 
     }
 }

@@ -229,6 +229,7 @@
     <Compile Include="Models\JsApiPay.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderResultModel.cs" />
     <Compile Include="Models\WxPayApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

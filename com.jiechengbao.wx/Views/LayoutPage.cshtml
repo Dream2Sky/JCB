@@ -38,10 +38,28 @@
         .mui-bar-nav {
             background-color: #ffffff;
         }
-        .mui-badge{
-            width:16px;
-            height:16px;
+        .navbar-badge{
+            width:15px;
+            height:15px;
         }
+        
+			#popover {
+				height: 165px;
+				width: 130px;
+                padding:0px;
+			}
+            #popover .mui-scroll-wrapper{
+                margin-top:0px;
+                margin-bottom:0px;
+                background-color:#fff;
+            }
+            #popover .mui-scroll-wrapper ul,#popover .mui-scroll-wrapper ul li{
+                background-color:#fff;
+            }
+            #popover .mui-scroll-wrapper ul li a{
+                border:none;
+                text-decoration:none;
+            }
     </style>
 </head>
 <body>
@@ -54,38 +72,6 @@
             <div style="display: block; height: 100px;"></div>
         </div>
     </div>
-    @*<nav class="navbar navbar-fixed-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                        <div class="btn-group" role="group">
-                            <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location='/Home/Index'">
-                                <img style="width:20px;height:20px;" src="~/Content/images/home.png">
-                                <p><small>首页</small></p>
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" id="btn_shopping" class="btn btn-default" onclick="javascript:window.location='/Cart/List'">
-                                <img style="width:20px;height:20px;" src="~/Content/images/cart.png">
-                                <p id="img_shoppingCar"><small>购物车</small></p>
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" id="btn_car" class="btn btn-default" onclick="javascript:window.location='/Order/List'">
-                                <img id="img_shoppingCar" style="width:20px;height:20px;" src="~/Content/images/order.png">
-                                <p><small>订单</small></p>
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" id="btn_user" class="btn btn-default" onclick="javascript:window.location='/Setting/Index'">
-                                <img style="width:20px;height:20px;" src="~/Content/images/setting.png">
-                                <p><small>设置</small></p>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>*@
 
     <nav class="mui-bar mui-bar-tab">
         <a class="mui-tab-item mui-active" id="atohome" href="/Home/Index">
@@ -96,8 +82,8 @@
             <span class="mui-icon iconfont icon-cart"></span>
             <span class="mui-tab-label">购物车</span>
         </a>
-        <a class="mui-tab-item" id="atoorder" href="/Order/List">
-            <span class="mui-icon mui-icon-bars"></span>
+        <a class="mui-tab-item" id="atoorder" href="#popover">
+            <span class="mui-icon mui-icon-bars icon-order"></span>
             <span class="mui-tab-label">订单</span>
         </a>
         <a class="mui-tab-item" id="atosetting" href="/Setting/Index">
@@ -105,11 +91,21 @@
             <span class="mui-tab-label">设置</span>
         </a>
     </nav>
+    <div id="popover" class="mui-popover">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell"><a href="/Order/List?type=2">全部订单</a></li>
+                    <li class="mui-table-view-cell"><a href="/Order/List?type=1">已完成订单</a></li>
+                    <li class="mui-table-view-cell"><a href="/Order/List?type=0">未完成订单</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script>
-        mui.init({
-            
-        });
         mui('.mui-scroll-wrapper').scroll();
+
+        // 判断是否有商品在购物车上
         function IsanythingOnShoppingCar() {
             $.ajax({
                 url: "/Cart/Check",
@@ -117,13 +113,29 @@
                 data: {},
                 success: function (data) {
                     if (data == "True") {
-                        $(".icon-cart").append("<span class=\"mui-badge\"></span>");
+                        $(".icon-cart").append("<span class=\"mui-badge navbar-badge\"></span>");
                     }
                 }
             });
         };
+
+        // 判断是否有未完成的订单
+        function HasUnCompletedOrders() {
+            $.ajax({
+                url: "/Order/Check",
+                type: "POST",
+                data: {},
+                success: function(data) {
+                    if (data == "True") {
+                        $(".icon-order").append("<span class=\"mui-badge navbar-badge\"></span>");
+                    }
+                }
+            })
+        }
+
         $(document).ready(function () {
             IsanythingOnShoppingCar();
+            HasUnCompletedOrders();
         });
 
         // 页面跳转操作

@@ -25,6 +25,8 @@ namespace com.jiechengbao.wx.Models
         }
 
         public string GoodsName { get; set; }
+        public string GoodsCode { get; set; }
         public string PicturePath { get; set; }
+        public string Description { get; set; }
     }
 }

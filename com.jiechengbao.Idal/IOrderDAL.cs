@@ -13,5 +13,6 @@ namespace com.jiechengbao.Idal
         IEnumerable<Order> SelectByStatus(int status);
         Order SelectByOrderNo(string orderNo);
         IEnumerable<Order> SelectByStatus(int status, Guid memberId);
+        IEnumerable<Order> SelectAllByMemberId(Guid memberId);
     }
 }

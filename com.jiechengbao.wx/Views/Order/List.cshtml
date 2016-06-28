@@ -1,18 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "List";
     Layout = "~/Views/LayoutPage.cshtml";
 }
-@using com.jiechengbao.entity
+@using com.jiechengbao.wx.Models
 
 <style>
     .mui-bar-nav {
         background-color: #ffffff;
     }
 
-    #popover {
-        height: 100px;
-        width: 130px;
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view a{
+        color:#000;
     }
 
     .mui-table-view {
@@ -20,27 +21,33 @@
     }
 </style>
 <script type="text/javascript" charset="utf-8">
-	mui.init();
+    mui.init();
 </script>
-@foreach (var item in ViewData["UnCompletedOrderList"] as List<Order>)
+@foreach (var item in ViewData["OrderList"] as List<OrderModel>)
 {
     <div class="mui-control-content mui-active">
         <ul class="mui-table-view">
             <li class="mui-table-view-cell">
-                <small>订单号:@item.OrderNo</small>
+                <small><a href="/Order/Detail?orderNo=@item.OrderNo">订单号:@item.OrderNo</a></small>
                 <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">删除</button>
             </li>
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
-                    <img class="mui-media-object mui-pull-left" src="images/default.png">
-                    <div class="mui-media-body">
-                        
-                        <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-                    </div>
-                </a>
+            @foreach (var good in item.GoodsModelList)
+            {
+                <li class="mui-table-view-cell mui-media">
+                    <a href="/Home/Detail?code=@good.GoodsCode">
+                        <img class="mui-media-object mui-pull-left" src="/Upload/@good.PicturePath">
+                        <div class="mui-media-body">
+                            @good.GoodsName
+                            <p class='mui-ellipsis'>@good.Description</p>
+                            <p class='mui-ellipsis'>数量 x @good.Count</p>
+                        </div>
+                    </a>
+                </li>
+
+            }
+            <li class="mui-table-view-cell">
+                <small><a>金额:￥@item.TotalPrice<span class="mui-pull-right">@(item.Status == 0 ? "未完成" : (item.Status == 1 ? "已完成" : "已取消"))</span></a></small>
             </li>
-            <li class="mui-table-view-cell"><small>时间了都快疯了似的发射点发: ￥366</small></li>
         </ul>
-        <div style="display: block; height: 100px;"></div>
     </div>
 }
