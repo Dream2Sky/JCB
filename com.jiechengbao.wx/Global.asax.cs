@@ -53,6 +53,8 @@ namespace com.jiechengbao.wx
             builder.RegisterType<OrderDetailDAL>().As<IOrderDetailDAL>();
             builder.RegisterType<AddressBLL>().As<IAddressBLL>();
             builder.RegisterType<AddressDAL>().As<IAddressDAL>();
+            builder.RegisterType<TransactionBLL>().As<ITransactionBLL>();
+            builder.RegisterType<TransactionDAL>().As<ITransactionDAL>();
         }
     }
 }

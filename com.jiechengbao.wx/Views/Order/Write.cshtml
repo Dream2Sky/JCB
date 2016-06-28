@@ -29,7 +29,12 @@
     .money-ul {
         margin-top: 10px;
     }
-
+    .payway-ul{
+        margin-top:10px;
+    }
+    .payway-ul input{
+        margin-top:0px;
+    }
     .mui-btn-block {
         padding: 10px;
         font-size: 15px;
@@ -73,7 +78,14 @@
         </li>
     }
 </ul>
-
+<ul class="mui-table-view payway-ul">
+    <li class="mui-table-view-cell mui-radio mui-right">
+        <input name="payway" type="radio" value="0">微信支付
+    </li>
+    <li class="mui-table-view-cell mui-radio mui-right">
+        <input name="payway" type="radio" value="1">使用余额
+    </li>
+</ul>
 <ul class="mui-table-view money-ul">
     <li class="mui-table-view-cell">
         商品金额
@@ -81,12 +93,15 @@
     </li>
 </ul>
 <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="CreateOrder();">提交订单</button>
-@*<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>*@
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>
     function CreateOrder() {
         $.ajax({
             url: "/Order/Add",
             type: "POST",
+            data:{
+                payway:$("input[name='payway']:checked").val()
+            },
             success: function (data) {
                 if (data == "Expired") {
                     mui.alert("生成订单超时,请重新提交");
@@ -98,8 +113,14 @@
                 }
                 else {
                     console.log(data);
-
-                    window.location.href = "/WxPay/Pay?totalprice=1&orderNo=" + data.orderNo + "&ip=117.27.245.188";
+                    if (data.payway == 0) {
+                        // 微信支付
+                        window.location.href = "/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
+                    }
+                    else {
+                        // 余额支付
+                        window.location.href = "/Pay/BalancePay?orderNo=" + data.orderNo;
+                    }
                 }
             },
             error: function () {

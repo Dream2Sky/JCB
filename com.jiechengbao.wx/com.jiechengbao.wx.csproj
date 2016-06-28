@@ -215,7 +215,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
-    <Compile Include="Controllers\WxPayController.cs" />
+    <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,7 +254,8 @@
     <Content Include="Views\Order\Write.cshtml" />
     <Content Include="Views\Address\Editor.cshtml" />
     <Content Include="Views\Address\Add.cshtml" />
-    <Content Include="Views\WxPay\Pay.cshtml" />
+    <Content Include="Views\Pay\WxPay.cshtml" />
+    <Content Include="Views\Pay\BalancePay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

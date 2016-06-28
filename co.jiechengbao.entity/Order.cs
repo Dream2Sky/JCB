@@ -28,8 +28,7 @@ namespace com.jiechengbao.entity
         [Required]
         public Guid AddressId { get; set; }
 
-        [MaxLength(10)]
-        public string PayWay { get; set; }
+        public int PayWay { get; set; }
 
         public DateTime PayTime { get; set; }
 

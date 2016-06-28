@@ -68,11 +68,17 @@ namespace com.jiechengbao.dal
             }
         }
 
+        /// <summary>
+        /// 获取状态为 未标记为删除的 购物车对象
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="goodsId"></param>
+        /// <returns></returns>
         public Cart SelectByMemberIdAndGoodsId(Guid memberId, Guid goodsId)
         {
             try
             {
-                return db.Set<Cart>().Where(n => n.MemberId == memberId).Where(n => n.GoodsId == goodsId).FirstOrDefault();
+                return db.Set<Cart>().Where(n => n.MemberId == memberId).Where(n => n.GoodsId == goodsId).Where(n=>n.IsDeleted == false).SingleOrDefault();
             }
             catch (Exception ex)
             {

@@ -14,5 +14,6 @@ namespace com.jiechengbao.Ibll
         IEnumerable<Member> GetNewMembersAtYesterDay();
         Member GetMemberById(Guid id);
         Member GetMemberByOpenId(string openId);
+        bool Update(Member member);
     }
 }

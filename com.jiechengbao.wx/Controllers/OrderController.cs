@@ -21,7 +21,10 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsBLL _goodsBLL;
         private IAddressBLL _addressBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
-        public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL, IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL, IGoodsImagesBLL goodsImagesBLL)
+        private ICartBLL _cartBLL;
+        public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL, 
+            IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL, 
+            IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL)
         {
             _orderDetailBLL = orderDetailBLL;
             _orderBLL = orderBLL;
@@ -29,10 +32,11 @@ namespace com.jiechengbao.wx.Controllers
             _goodsBLL = goodsBLL;
             _addressBLL = addressBLL;
             _goodsImagesBLL = goodsImagesBLL;
+            _cartBLL = cartBLL;
         }
 
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult Add(int payway)
         {
             // 先判断 各个session是否为空
             if (System.Web.HttpContext.Current.Session["CartModelList"] == null 
@@ -46,6 +50,7 @@ namespace com.jiechengbao.wx.Controllers
             List<CartModel> cartList = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
             double TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalPrice"].ToString());
             Address address = System.Web.HttpContext.Current.Session["Address"] as Address;
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
             Order order = new Order();
             order.Id = Guid.NewGuid();
@@ -53,11 +58,12 @@ namespace com.jiechengbao.wx.Controllers
             order.CreatedTime = DateTime.Now;
             order.DeletedTime = DateTime.MinValue.AddHours(8);
             order.AddressId = address.Id;
-            order.MemberId = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString()).Id;
+            order.MemberId = member.Id;
             string gid = Guid.NewGuid().ToString().Replace("-", "").ToUpper().Substring(0, 6);
             order.OrderNo = gid + TimeManager.GetCurrentTimestamp().ToString();
             order.Status = 0;
             order.TotalPrice = TotalPrice;
+            order.PayWay = payway;
 
             List<OrderDetail> odList = new List<OrderDetail>();
 
@@ -94,11 +100,24 @@ namespace com.jiechengbao.wx.Controllers
                     }
                 }
 
-                var jsonResult = new {
+                // 添加订单成功后 要把购物车上的物品标记成 已删除
+                foreach (CartModel item in cartList)
+                {
+                    Cart cart = new Cart();
+                    cart = _cartBLL.GetCartByMemberIdAndGoodsId(member.Id, item.Id);
+                    cart.IsDeleted = true;
+
+                    _cartBLL.Update(cart);
+                }
+
+                var jsonResult = new
+                {
+                    payway = payway,
                     totalprice = order.TotalPrice,
                     orderNo = order.OrderNo
                 };
                 return Json(jsonResult, JsonRequestBehavior.AllowGet);
+
             }
             else
             {

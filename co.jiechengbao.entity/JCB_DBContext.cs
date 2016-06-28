@@ -21,5 +21,8 @@ namespace com.jiechengbao.entity
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Recharge> Recharges { get; set; }
+        public DbSet<Transaction> TransactionSet { get; set; }
     }
 }

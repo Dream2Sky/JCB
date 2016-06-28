@@ -50,6 +50,7 @@
     <Compile Include="IMemberBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="IOrderDetailBLL.cs" />
+    <Compile Include="ITransactionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

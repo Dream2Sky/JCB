@@ -74,5 +74,15 @@ namespace com.jiechengbao.bll
         {
             return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-1).Date);
         }
+
+        /// <summary>
+        ///  修改对象
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        public bool Update(Member member)
+        {
+            return _memberDAL.Update(member);
+        }
     }
 }

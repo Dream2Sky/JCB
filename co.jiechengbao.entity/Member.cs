@@ -34,5 +34,17 @@ namespace com.jiechengbao.entity
         /// </summary>
         [MaxLength(20)]
         public string Phone { get; set; }
+
+        /// <summary>
+        /// vip等级 默认为0
+        /// </summary>
+        [Required]
+        public int Vip { get; set; } = 0;
+
+        /// <summary>
+        /// 会员钱包余额
+        /// </summary>
+        [Required]
+        public double Assets { get; set; } = 0;
     }
 }

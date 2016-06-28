@@ -51,6 +51,7 @@
     <Compile Include="OrderBLL.cs" />
     <Compile Include="OrderDetailBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
