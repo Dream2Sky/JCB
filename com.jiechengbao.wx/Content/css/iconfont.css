@@ -1,6 +1,6 @@
 
 @font-face {font-family: "iconfont";
-  src: url('../fonts/iconfont.ttf?t=1466645824') format('truetype') ;/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  src: url('../fonts/iconfont.ttf') format('truetype');
 }
 
 .iconfont {
@@ -10,6 +10,10 @@
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
 }
-.icon-cart:before { content: "\e600"; }
-.icon-shopping:before { content: "\e601"; }
+.icon-shezhi:before { content: "\e600"; }
+.icon-dingdan:before { content: "\e601"; }
 .icon-car:before { content: "\e602"; }
+.icon-dianpu:before { content: "\e603"; }
+.icon-gouwuche:before { content: "\e604"; }
+.icon-geren-copy:before { content: "\e605"; }
+.icon-shouyeshouye:before { content: "\e606"; }
