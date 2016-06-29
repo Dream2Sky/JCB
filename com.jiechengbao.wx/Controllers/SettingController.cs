@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    public class SettingControllerL:Controller
+    public class SettingController:Controller
     {
     }
 }

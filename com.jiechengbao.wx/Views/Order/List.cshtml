@@ -12,12 +12,19 @@
     .mui-table-view span.mui-pull-right {
         color: #999;
     }
-    .mui-table-view a{
-        color:#000;
+
+    .mui-table-view a {
+        color: #000;
     }
 
     .mui-table-view {
         margin-top: 10px;
+    }
+
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
     }
 </style>
 <script type="text/javascript" charset="utf-8">
@@ -50,4 +57,8 @@
             </li>
         </ul>
     </div>
+}
+@if ((ViewData["OrderList"] as List<OrderModel>).Count == 0)
+{
+    <div class="title">您还没有产生任何交易订单，快去购买您中意的商品吧</div>
 }

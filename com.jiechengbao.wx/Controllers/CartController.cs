@@ -53,7 +53,7 @@ namespace com.jiechengbao.wx.Controllers
             }
 
             // 判断是否已经存在购物车上
-            if (_cartBLL.IsInCart(member.Id,goods.Id))
+            if (!_cartBLL.IsInCart(member.Id,goods.Id))
             {
                 // 不在购物车上时 直接添加到购物车上
                 Cart cart = new Cart();

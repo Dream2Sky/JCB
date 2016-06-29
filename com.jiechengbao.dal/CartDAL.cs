@@ -36,7 +36,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                IEnumerable<Cart> cartList = db.Set<Cart>().Where(n => n.MemberId == memberId).Where(n => n.GoodsId == goodsId);
+                IEnumerable<Cart> cartList = db.Set<Cart>().Where(n => n.MemberId == memberId).Where(n => n.GoodsId == goodsId).Where(n=>n.IsDeleted == false);
                 if (cartList == null || cartList.Count() == 0)
                 {
                     return false;

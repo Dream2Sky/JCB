@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<style>
+    input[name='radio'] {
+        width: 20px;
+        height: 20px;
+        margin-left: -8px;
+        margin-top: 10px;
+    }
+
+    .address-view-cell {
+        padding-left: 0px;
+    }
+
+    .content-table {
+        margin-left: 50px;
+    }
+
+    .address-cell {
+        padding-right: 50px;
+    }
+
+    .mui-bar-nav {
+        background-color: #FFFFFF;
+    }
+
+    .mui-content {
+        margin-top: 10px;
+    }
+
+    .hidden-module {
+        display: none;
+    }
+
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+</style>
+
+@{
+    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed address-view">
+        @foreach (var item in ViewData["AddressList"] as List<Address>)
+        {
+            <li class="mui-table-view-cell address-view-cell">
+                <div class="mui-slider-right mui-disabled">
+                    <a class="mui-btn mui-btn-grey mui-icon mui-icon-compose" href="/Address/Editor?Id=@item.Id"><small>编辑</small></a>
+                    <a class="mui-btn mui-btn-yellow mui-icon mui-icon-star" href="javascript:;" onclick="SetDefault('@item.Id');"><small>默认</small></a>
+                </div>
+                <div class="mui-slider-handle">
+                    <div class="mui-table-cell mui-radio mui-left">
+                        <input name="radio" type="radio" value="@item.Id" />
+                        <div class="mui-table content-table">
+                            <div class="mui-table name-cell">
+                                <div class="mui-table-cell mui-col-xs-6">
+                                    <h4 class="mui-ellipsis"><strong>@item.Consignee</strong></h4>
+                                </div>
+                                <div class="mui-table-cell mui-col-xs-6 mui-text-left">
+                                    <span class="mui-h5">@item.Phone</span>
+                                </div>
+                            </div>
+                            <div class="mui-table address-cell">
+                                <div class="mui-table-cell">
+                                    <p class="mui-h6 mui-ellipsis"><i class="mui-icon mui-icon-location"></i>@item.Province @item.City @item.County @item.Detail</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}
+<button type="button" class="mui-btn mui-btn-danger mui-btn-block btn-save" onclick="BackToOrder();">保存并使用</button>
+<button type="button" class="mui-btn mui-btn-danger mui-btn-block btn-add" onclick="javascript:window.location.href='/Address/Add'">新建配送地址</button>
+
+<script>
+    function SetDefault(Id) {
+        $.ajax({
+            url: "/Address/SetDefault",
+            type: "POST",
+            data: {
+                addressId: Id
+            },
+            success: function (data) {
+                if (data == "True") {
+                    mui.alert("设置成功", "默认配送地址设置");
+                }
+                else {
+                    mui.alert("设置失败", "默认配送地址设置");
+                }
+            },
+            error: function () {
+                mui.alert("系统错误", "默认配送地址设置");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        var ref = '';
+        if (document.referrer.length > 0) {
+            ref = document.referrer;
+        }
+        try {
+            if (ref.length == 0 && opener.location.href.length > 0) {
+
+                ref = opener.location.href;
+            }
+        } catch (e) {
+
+        }
+        var url = ref.substring(7);
+        var part = url.split("/");
+        console.log(part[2]);
+
+        var action = part[2].split("?");
+        console.log(action[0]);
+        if (action[0] != "Write") {
+
+            $("input[name='radio']").remove();
+            $(".btn-save").addClass("hidden-module");
+        }
+    });
+
+    function BackToOrder() {
+        var radio = $("input[type='radio']:checked").val();
+        if (radio == undefined || radio == null) {
+            mui.alert("请选择一个配送地址");
+        }
+        else {
+            window.location.href = "/Order/Write?AddressId=" + $("input[type='radio']:checked").val();
+        }
+    }
+</script>

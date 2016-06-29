@@ -48,17 +48,26 @@
 				width: 130px;
                 padding:0px;
 			}
-            #popover .mui-scroll-wrapper{
+            #popover .mui-scroll-wrapper,#popover-address .mui-scroll-wrapper{
                 margin-top:0px;
                 margin-bottom:0px;
                 background-color:#fff;
             }
-            #popover .mui-scroll-wrapper ul,#popover .mui-scroll-wrapper ul li{
+
+            #popover .mui-scroll-wrapper ul,#popover .mui-scroll-wrapper ul li,
+            #popover-address .mui-scroll-wrapper ul,
+            #popover-address .mui-scroll-wrapper ul li{
                 background-color:#fff;
             }
-            #popover .mui-scroll-wrapper ul li a{
+            #popover .mui-scroll-wrapper ul li a,#popover-address .mui-scroll-wrapper ul li a{
                 border:none;
                 text-decoration:none;
+            }
+
+            #popover-address{
+                height:60px;
+                width:130px;
+                padding:0px;
             }
     </style>
 </head>
@@ -86,7 +95,7 @@
             <span class="mui-icon mui-icon-bars icon-order"></span>
             <span class="mui-tab-label">订单</span>
         </a>
-        <a class="mui-tab-item" id="atosetting" href="/Setting/Index">
+        <a class="mui-tab-item" id="atosetting" href="#popover-address">
             <span class="mui-icon mui-icon-gear"></span>
             <span class="mui-tab-label">设置</span>
         </a>
@@ -98,6 +107,15 @@
                     <li class="mui-table-view-cell"><a href="/Order/List?type=2">全部订单</a></li>
                     <li class="mui-table-view-cell"><a href="/Order/List?type=1">已完成订单</a></li>
                     <li class="mui-table-view-cell"><a href="/Order/List?type=0">未完成订单</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="popover-address" class="mui-popover">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell"><a href="/Address/List">配送地址</a></li>
                 </ul>
             </div>
         </div>
