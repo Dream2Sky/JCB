@@ -25,5 +25,10 @@ namespace com.jiechengbao.entity
         public DbSet<Recharge> Recharges { get; set; }
         public DbSet<Transaction> TransactionSet { get; set; }
         public DbSet<Rules> Ruleses { get; set; }
+
+        /// <summary>
+        /// 推荐商品表
+        /// </summary>
+        public DbSet<ReCommend> ReCommends { get; set; }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="IMemberDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IOrderDetailDAL.cs" />
+    <Compile Include="IReCommendDAL.cs" />
     <Compile Include="IRulesDAL.cs" />
     <Compile Include="ITransactionDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

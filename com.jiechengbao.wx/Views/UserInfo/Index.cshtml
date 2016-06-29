@@ -3,6 +3,7 @@
     ViewBag.Title = "会员中心";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
+@using com.jiechengbao.wx.Models
 <link href="~/Content/css/mui.min.css" rel="stylesheet" />
 <link href="~/Content/css/iconfont.css" rel="stylesheet" />
 <script src="~/Content/js/jquery.min.js"></script>
@@ -13,6 +14,16 @@
         border-radius: 0px;
         background: #fff;
         border: none;
+    }
+    .title-view{
+        margin-top:20px;
+    }
+    .title {
+        text-align:center;
+        padding-top:15px;
+        padding-bottom:15px;
+        color: #6d6d72;
+        font-size: 14px;
     }
 </style>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -57,3 +68,38 @@
     </div>
 </nav>
 
+<ul class="mui-table-view title-view">
+    <li class="mui-table-view-cell">
+        为您推荐
+    </li>
+</ul>
+<ul id="OA_task_1" class="mui-table-view">
+    @{
+        List<GoodsModel> goodsModelList = ViewData["GoodsModelList"] as List<GoodsModel>;
+        foreach (var item in goodsModelList)
+        {
+            <li class="mui-table-view-cell mui-media">
+                <div class="mui-slider-handle">
+                    <div class="mui-input-row mui-left content-table">
+                        <a href="javascript:;">
+                            <img class="mui-media-object mui-pull-left" src="/Uploads/@item.PicturePath">
+                            <div class="mui-media-body">
+                                @item.Name
+                                <p class='mui-ellipsis'><small>@item.Description</small></p>
+                                <div class='mui-ellipsis money-div'>
+                                    <span class="mui-left"><small>￥@item.Price</small></span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        }
+    }
+    @{
+        if (goodsModelList == null || goodsModelList.Count <= 0)
+        {
+            <div class="title">对不起，此模块在维护中，请原谅</div>
+        }
+    }
+</ul>

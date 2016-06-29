@@ -6,9 +6,15 @@
 @using com.jiechengbao.admin.Models
 
 <style>
-    img{
-        width:32px;
-        height:32px;
+    img {
+        width: 32px;
+        height: 32px;
+    }
+
+    input[type='checkbox'] {
+        width: 15px;
+        height: 15px;
+        margin-top: 10px;
     }
 </style>
 <div class="container">
@@ -19,7 +25,6 @@
                 <th>商品名称</th>
                 <th>商品图片</th>
                 <th>当前单价</th>
-                <th>当前折扣</th>
                 <th></th>
             </tr>
         </thead>
@@ -30,10 +35,58 @@
                     <td>@item.Name</td>
                     <td><img src="/Uploads/@item.PicturePath" /></td>
                     <td>@item.Price</td>
-                    <td>@item.Discount</td>
-                    <td><a href="/Goods/Update?GoodsCode=@item.Code">编辑</a></td>
+                    <td>
+                        <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> |
+                        @if (item.IsRecommend)
+                        {
+                            <input type="checkbox" name="IsRecommend" checked value="@item.Code" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="IsRecommend" value="@item.Code" />
+                        }
+                        是否为推荐商品
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+<script>
+
+    $(function () {
+        //if ($.browser.msie) {
+        //    $('input:checkbox').click(function () {
+        //        this.blur();
+        //        this.focus();
+        //    });
+        //};
+        $("input[type='checkbox']").change(function () {
+            $.ajax({
+                url: "/Goods/SetReCommend",
+                type: "POST",
+                data: {
+                    goodsCode:$(this).val()
+                },
+                success: function(data) {
+                    if (data == "True") {
+                        alert("设置成功");
+                    }
+                    else if (data == "NullParam") {
+                        alert("提交的参数不能为空");
+                    }
+                    else if (data == "ErrorParam") {
+                        alert("提交的参数有误");
+                    }
+                    else if(data == "False"){
+                        alert("设置失败");
+                    }
+                },
+                error: function () {
+                    alert("系统错误，设置失败");
+                }
+            })
+        });
+    });
+
+</script>

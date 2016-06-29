@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/iconfont.css" rel="stylesheet" />
+
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <style>
@@ -28,6 +29,10 @@
             top: 10px;
             right: 20px;
             position: absolute;
+        }
+
+        .mui-bar-nav {
+            background-color: #ffffff !important;
         }
     </style>
 </head>
@@ -59,5 +64,8 @@
             <span class="mui-tab-label">个人</span>
         </a>
     </nav>
+    <script>
+        mui('.mui-scroll-wrapper').scroll();
+    </script>
 </body>
 </html>

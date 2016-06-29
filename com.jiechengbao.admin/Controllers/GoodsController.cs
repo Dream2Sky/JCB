@@ -16,13 +16,16 @@ namespace com.jiechengbao.admin.Controllers
         private ICategoryBLL _categoryBLL;
         private IGoodsCategoryBLL _goodsCategoryBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
-
-        public GoodsController(IGoodsBLL goodsBLL, ICategoryBLL categoryBLL, IGoodsCategoryBLL goodsCategoryBLL, IGoodsImagesBLL goodsImagesBLL)
+        private IReCommendBLL _recommendBLL;
+        public GoodsController(IGoodsBLL goodsBLL, ICategoryBLL categoryBLL,
+            IGoodsCategoryBLL goodsCategoryBLL, IGoodsImagesBLL goodsImagesBLL,
+            IReCommendBLL recommendBLL)
         {
             _goodsBLL = goodsBLL;
             _categoryBLL = categoryBLL;
             _goodsCategoryBLL = goodsCategoryBLL;
             _goodsImagesBLL = goodsImagesBLL;
+            _recommendBLL = recommendBLL;
         }
 
         public ActionResult List(string msg)
@@ -32,6 +35,7 @@ namespace com.jiechengbao.admin.Controllers
             {
                 GoodsModel gm = new GoodsModel(item);
                 gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.Id).ImagePath;
+                gm.IsRecommend = _recommendBLL.IsRecommend(gm.Id);
                 modelList.Add(gm);
             }
             ViewData["GoodsList"] = modelList;
@@ -227,6 +231,63 @@ namespace com.jiechengbao.admin.Controllers
             #endregion
 
             return RedirectToAction("List",new { msg = "更新成功"});
+        }
+
+        /// <summary>
+        /// 设置商品为推荐商品
+        /// </summary>
+        /// <param name="goodsCode"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SetRecommend(string goodsCode)
+        {
+            // 先判断传递的参数是否为空
+            if (string.IsNullOrEmpty(goodsCode))
+            {
+                return Json("NullParam", JsonRequestBehavior.AllowGet);
+            }
+            // 再用 Code 来获取 goods 对象
+            Goods goods = _goodsBLL.GetGoodsByCode(goodsCode);
+            if (goods == null)
+            {
+                return Json("ErrorParam", JsonRequestBehavior.AllowGet);
+            }
+
+            // 判断是否已经是推荐商品了
+            // 如果是 则删掉它
+            if (_recommendBLL.IsRecommend(goods.Id))
+            {
+                if(_recommendBLL.Remove(goods.Id))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+            }
+            // 不是 则新加
+            else
+            {
+                ReCommend rec = new ReCommend();
+                rec.Id = Guid.NewGuid();
+                rec.IsDeleted = false;
+                rec.GoodsId = goods.Id;
+                rec.DeletedTime = DateTime.MinValue.AddHours(8);
+                rec.CreatedTime = DateTime.Now.Date;
+
+                if (_recommendBLL.Add(rec))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
+
         }
     }
 }

@@ -22,6 +22,7 @@ namespace com.jiechengbao.admin.Models
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
         }
+        public bool IsRecommend { get; set; } // 是否是推荐商品
         public double Discount { get; set; }
         public string PicturePath { get; set; }
         public string[] CategoryList { get; set; }
