@@ -6,6 +6,8 @@
 @using com.jiechengbao.entity
 @using com.jiechengbao.admin.Models
 @model List<VIPModel>
+<script src="~/Content/js/json2.js"></script>
+<script src="~/Content/js/json_parse.js"></script>
 <style>
     .vip-group {
         margin-top: 10px;
@@ -14,23 +16,20 @@
 <div class="container container-add-followitem">
     <form id="vip-form" method="post" action="/Member/VIPSetting" name="vipList">
         @{
-            @*List<Rules> rulesList = ViewData["RulesList"] as List<Rules>;
-            for (int i = 0; i < rulesList.Count; i++)
-            {
-                <div class="form-group vip-group">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">VIP @rulesList[i].VIP</span>
-                        <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
-                        <span class="input-group-addon" id="basic-addon1">￥</span>
-                        <input type="text" class="form-control" placeholder="所需充值" name="TotalMoney" value="@rulesList[i].TotalMoney" aria-describedby="basic-addon1">
-                        <span class="input-group-addon" id="basic-addon1">折扣</span>
-                        <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">删除</button>
-                        </span>
+            List<Rules> rulesList = ViewData["RulesList"] as List<Rules>;
+                for (int i = 0; i < rulesList.Count; i++)
+                {
+                    <div class="form-group vip-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">VIP @rulesList[i].VIP</span>
+                            <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
+                            <span class="input-group-addon" id="basic-addon1">￥</span>
+                            <input type="text" class="form-control" placeholder="所需充值" name="TotalMoney" value="@rulesList[i].TotalMoney" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">折扣</span>
+                            <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
+                        </div>
                     </div>
-                </div>
-            }*@
+                }
             <div class="form-group vip-group">
 
             </div>
@@ -39,7 +38,7 @@
                     <button type="button" class="btn btn-primary" onclick="AddInputGroup();">添加</button>
 
                 </div>
-                <div class="input-group">
+                <div class="input-group" style="margin-top:10px;">
                     <button type="button" onclick="Save();" class="btn btn-primary">保存</button>
                 </div>
             </div>
@@ -48,31 +47,53 @@
 </div>
 
 <script>
-    var count = 0; @*@rulesList.Count*@
+    var count = @rulesList.Count;
 
     function AddInputGroup() {
         count += 1;
         var group = $(".vip-group");
-        $(group[group.length-1]).append("<div class=\"input-group\"><span class=\"input-group-addon\" id=\"basic-addon1\">VIP"+count+"</span><input type=\"hidden\" name=\"VIP\" value=\""+count+"\"/><span class=\"input-group-addon\" id=\"basic-addon1\">￥</span><input type=\"text\" class=\"form-control\" placeholder=\"所需充值\" name=\"TotalMoney\" aria-describedby=\"basic-addon1\"><span class=\"input-group-addon\" id=\"basic-addon1\">折扣</span><input type=\"text\" class=\"form-control\" placeholder=\"折扣\" name=\"Discount\" aria-describedby=\"basic-addon1\"></div><div class=\"form-group vip-group\"></div>");
+        $(group[group.length - 1]).append("<div class=\"input-group\"><span class=\"input-group-addon\" id=\"basic-addon1\">VIP" + count + "</span><input type=\"hidden\" name=\"VIP\" value=\"" + count + "\"/><span class=\"input-group-addon\" id=\"basic-addon1\">￥</span><input type=\"text\" class=\"form-control\" placeholder=\"所需充值\" name=\"TotalMoney\" aria-describedby=\"basic-addon1\"><span class=\"input-group-addon\" id=\"basic-addon1\">折扣</span><input type=\"text\" class=\"form-control\" placeholder=\"折扣\" name=\"Discount\" aria-describedby=\"basic-addon1\"></div><div class=\"form-group vip-group\"></div>");
     }
 
     function Save() {
-        var result = new Array();
-        var data = new Array();
-        
-        for (var i = 0; i < $(".vip-group"); i++) {
+        var result = '{"hehe":['
+        var arra = new Array();
+        $(".vip-group").each(function() {
+            arra.push($(this));
+        })
+        arra.pop();
 
+        console.log(arra.length);
+
+        for (var i = 0; i < arra.length; i++) {
+            result += '{';
+            result += '"VIP":"' + $(arra[i]).find("input[name='VIP']").val() + '",';
+            result += '"TotalMoney":"' + $(arra[i]).find("input[name='TotalMoney']").val() + '",';
+            result += '"Discount":"' + $(arra[i]).find("input[name='Discount']").val() + '"},';
         }
+        result = result.substring(0, result.length - 1);
+        result += ']}';
+        console.log(result);
 
-        //$.ajax({
-        //    type:"POST",
-        //    contentType:"application/json",
-        //    url:"/Member/VIPSetting",
-        //    data:$("#vip-form").serialize(),
-        //    dataType:"json",
-        //    success:function(result) {
-        //        console.log(result);
-        //    }
-        //})
+        $.ajax({
+            url: "/Member/SaveVIPSetting",
+            type: "POST",
+            data: result,
+            success: function (data) {
+                if (data == "True") {
+                    alert("设置成功");
+                    window.location.href = "/Member/VIPSetting";
+                }
+                else if(data == "CountError"){
+                    alert("新设置的vip等级数量不能少于之前的数量, 请重新设置");
+                }
+                else {
+                    alert("设置失败");
+                }
+            },
+            error:function() {
+                alert("页面提交失败");
+            }
+        });
     }
 </script>

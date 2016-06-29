@@ -17,6 +17,26 @@ namespace com.jiechengbao.bll
             _rulesDAL = rulesDAL;
         }
 
+        public bool Add(Rules rules)
+        {
+            return _rulesDAL.Insert(rules);
+        }
+
+        /// <summary>
+        /// 批量添加
+        /// </summary>
+        /// <param name="rulesList"></param>
+        /// <returns></returns>
+        public bool Add(List<Rules> rulesList)
+        {
+            return _rulesDAL.Insert(rulesList);
+        }
+
+        public bool Clear()
+        {
+            return _rulesDAL.Clear();
+        }
+
         public List<Rules> GetAllRules()
         {
             return _rulesDAL.SelectAll().ToList();

@@ -55,6 +55,8 @@ namespace com.jiechengbao.wx
             builder.RegisterType<AddressDAL>().As<IAddressDAL>();
             builder.RegisterType<TransactionBLL>().As<ITransactionBLL>();
             builder.RegisterType<TransactionDAL>().As<ITransactionDAL>();
+            builder.RegisterType<RulesBLL>().As<IRulesBLL>();
+            builder.RegisterType<RulesDAL>().As<IRulesDAL>();
         }
     }
 }

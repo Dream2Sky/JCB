@@ -10,6 +10,32 @@ namespace com.jiechengbao.dal
 {
     public class RulesDAL : DataBaseDAL<Rules>, IRulesDAL
     {
+        /// <summary>
+        ///  批量添加
+        /// </summary>
+        /// <param name="rulesList"></param>
+        /// <returns></returns>
+        public bool Insert(List<Rules> rulesList)
+        {
+            try
+            {
+                foreach (var item in rulesList)
+                {
+                    db.Ruleses.Attach(item);
+                    db.Entry(item).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Rules SelectByVIP(int VIP)
         {
             try

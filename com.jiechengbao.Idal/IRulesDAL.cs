@@ -10,5 +10,6 @@ namespace com.jiechengbao.Idal
     public interface IRulesDAL:IDataBaseDAL<Rules>
     {
         Rules SelectByVIP(int VIP);
+        bool Insert(List<Rules> rulesList);
     }
 }

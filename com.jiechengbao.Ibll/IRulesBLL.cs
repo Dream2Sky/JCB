@@ -11,5 +11,9 @@ namespace com.jiechengbao.Ibll
     {
         double GetDiscountByVIP(int VIP);
         List<Rules> GetAllRules();
+        bool Clear();
+
+        bool Add(List<Rules> rulesList);
+        bool Add(Rules rules);
     }
 }

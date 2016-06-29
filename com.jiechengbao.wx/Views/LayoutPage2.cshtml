@@ -31,41 +31,32 @@
     </style>
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
-
-    <nav class="navbar navbar-fixed-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location='/UserInfo/Index'">
-                            <img style="width:20px;height:20px;" src="~/Content/images/home.png">
-                            <p><small>首页</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_shopping" class="btn btn-default" onclick="javascript:window.location='/Home/Index'">
-                            <img style="width:20px;height:20px;" src="~/Content/images/store.png">
-                            <p id="img_shoppingCar"><small>商城</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_car" class="btn btn-default" onclick="javascript:window.location='/UserInfo/CarList'">
-                            <img id="img_shoppingCar" style="width:20px;height:20px;" src="~/Content/images/car.png">
-                            <p><small>爱车</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_user" class="btn btn-default" onclick="javascript:window.location='/UserInfo/Info'">
-                            <img style="width:20px;height:20px;" src="~/Content/images/user.png">
-                            <p><small>用户</small></p>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">@ViewBag.Title</h1>
+    </header>
+    <div class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            @RenderBody()
+            <div style="display: block; height: 100px;"></div>
         </div>
+    </div>
+    <nav class="mui-bar mui-bar-tab">
+        <a class="mui-tab-item mui-active">
+            <span class="mui-icon mui-icon-home"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" href="Detail.html">
+            <span class="mui-icon iconfont icon-shopping"></span>
+            <span class="mui-tab-label">商城</span>
+        </a>
+        <a class="mui-tab-item" href="#popover">
+            <span class="mui-icon iconfont icon-car"></span>
+            <span class="mui-tab-label">爱车</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="mui-icon mui-icon-person"></span>
+            <span class="mui-tab-label">个人</span>
+        </a>
     </nav>
 </body>
 </html>

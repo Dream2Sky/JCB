@@ -22,9 +22,10 @@ namespace com.jiechengbao.wx.Controllers
         private IAddressBLL _addressBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
         private ICartBLL _cartBLL;
+        private IRulesBLL _rulesBLL;
         public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL,
             IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL,
-            IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL)
+            IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL, IRulesBLL rulesBLL)
         {
             _orderDetailBLL = orderDetailBLL;
             _orderBLL = orderBLL;
@@ -33,6 +34,7 @@ namespace com.jiechengbao.wx.Controllers
             _addressBLL = addressBLL;
             _goodsImagesBLL = goodsImagesBLL;
             _cartBLL = cartBLL;
+            _rulesBLL = rulesBLL;
         }
 
         [HttpPost]
@@ -254,6 +256,8 @@ namespace com.jiechengbao.wx.Controllers
                 try
                 {
                     Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+                    double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
+
                     Address address = new Address();
                     // 判断是否绑定了配送地址
                     if (!_addressBLL.IsBindAddress(member.Id))
@@ -275,6 +279,7 @@ namespace com.jiechengbao.wx.Controllers
                         CartModel cm = new CartModel(_goodsBLL.GetGoodsById(Guid.Parse(ja[i]["Id"].ToString())));
                         cm.Count = int.Parse(ja[i]["Count"].ToString());
                         cm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(Guid.Parse(ja[i]["Id"].ToString())).ImagePath;
+                        cm.Discount = discount;
                         TotalPrice += (cm.Price * cm.Count * cm.Discount);
                         cartList.Add(cm);
                     }

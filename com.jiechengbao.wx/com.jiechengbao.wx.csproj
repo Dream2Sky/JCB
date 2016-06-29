@@ -258,6 +258,7 @@
     <Content Include="Views\Pay\WxPay.cshtml" />
     <Content Include="Views\Pay\BalancePay.cshtml" />
     <Content Include="Views\Address\List.cshtml" />
+    <Content Include="Views\Car\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

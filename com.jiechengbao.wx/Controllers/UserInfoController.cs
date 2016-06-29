@@ -10,6 +10,7 @@ namespace com.jiechengbao.wx.Controllers
     {
         public ActionResult Index()
         {
+            System.Web.HttpContext.Current.Session["member"] = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
             return View();
         }
 
