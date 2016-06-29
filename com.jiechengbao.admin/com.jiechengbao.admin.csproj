@@ -192,6 +192,7 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\VIPModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +212,7 @@
     <Content Include="Views\Goods\List.cshtml" />
     <Content Include="Views\Goods\Add.cshtml" />
     <Content Include="Views\Goods\Update.cshtml" />
+    <Content Include="Views\Member\VIPSetting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "VIPSetting";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+@using com.jiechengbao.admin.Models
+@model List<VIPModel>
+<style>
+    .vip-group {
+        margin-top: 10px;
+    }
+</style>
+<div class="container container-add-followitem">
+    <form id="vip-form" method="post" action="/Member/VIPSetting" name="vipList">
+        @{
+            @*List<Rules> rulesList = ViewData["RulesList"] as List<Rules>;
+            for (int i = 0; i < rulesList.Count; i++)
+            {
+                <div class="form-group vip-group">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">VIP @rulesList[i].VIP</span>
+                        <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
+                        <span class="input-group-addon" id="basic-addon1">￥</span>
+                        <input type="text" class="form-control" placeholder="所需充值" name="TotalMoney" value="@rulesList[i].TotalMoney" aria-describedby="basic-addon1">
+                        <span class="input-group-addon" id="basic-addon1">折扣</span>
+                        <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">删除</button>
+                        </span>
+                    </div>
+                </div>
+            }*@
+            <div class="form-group vip-group">
+
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="button" class="btn btn-primary" onclick="AddInputGroup();">添加</button>
+
+                </div>
+                <div class="input-group">
+                    <button type="button" onclick="Save();" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+
+<script>
+    var count = 0; @*@rulesList.Count*@
+
+    function AddInputGroup() {
+        count += 1;
+        var group = $(".vip-group");
+        $(group[group.length-1]).append("<div class=\"input-group\"><span class=\"input-group-addon\" id=\"basic-addon1\">VIP"+count+"</span><input type=\"hidden\" name=\"VIP\" value=\""+count+"\"/><span class=\"input-group-addon\" id=\"basic-addon1\">￥</span><input type=\"text\" class=\"form-control\" placeholder=\"所需充值\" name=\"TotalMoney\" aria-describedby=\"basic-addon1\"><span class=\"input-group-addon\" id=\"basic-addon1\">折扣</span><input type=\"text\" class=\"form-control\" placeholder=\"折扣\" name=\"Discount\" aria-describedby=\"basic-addon1\"></div><div class=\"form-group vip-group\"></div>");
+    }
+
+    function Save() {
+        var result = new Array();
+        var data = new Array();
+        
+        for (var i = 0; i < $(".vip-group"); i++) {
+
+        }
+
+        //$.ajax({
+        //    type:"POST",
+        //    contentType:"application/json",
+        //    url:"/Member/VIPSetting",
+        //    data:$("#vip-form").serialize(),
+        //    dataType:"json",
+        //    success:function(result) {
+        //        console.log(result);
+        //    }
+        //})
+    }
+</script>

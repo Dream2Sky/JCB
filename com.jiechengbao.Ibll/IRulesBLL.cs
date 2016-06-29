@@ -10,5 +10,6 @@ namespace com.jiechengbao.Ibll
     public interface IRulesBLL
     {
         double GetDiscountByVIP(int VIP);
+        List<Rules> GetAllRules();
     }
 }

@@ -17,6 +17,11 @@ namespace com.jiechengbao.bll
             _rulesDAL = rulesDAL;
         }
 
+        public List<Rules> GetAllRules()
+        {
+            return _rulesDAL.SelectAll().ToList();
+        }
+
         /// <summary>
         /// 根据VIP等级找到折扣值
         /// </summary>
