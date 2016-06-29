@@ -17,12 +17,17 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsBLL _goodsBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
         private IGoodsCategoryBLL _goodsCategoryBLL;
-        public HomeController(ICategoryBLL categoryBLL,IGoodsBLL goodsBLL, IGoodsImagesBLL goodsImagesBLL, IGoodsCategoryBLL goodsCategoryBLL)
+        private IRulesBLL _rulesBLL;
+        private IMemberBLL _memberBLL;
+        public HomeController(ICategoryBLL categoryBLL,IGoodsBLL goodsBLL, 
+            IGoodsImagesBLL goodsImagesBLL, IGoodsCategoryBLL goodsCategoryBLL, IRulesBLL rulesBLL, IMemberBLL memberBLL)
         {
             _categoryBLL = categoryBLL;
             _goodsBLL = goodsBLL;
             _goodsImagesBLL = goodsImagesBLL;
             _goodsCategoryBLL = goodsCategoryBLL;
+            _rulesBLL = rulesBLL;
+            _memberBLL = memberBLL;
         }
 
         public ActionResult Index()
@@ -35,6 +40,10 @@ namespace com.jiechengbao.wx.Controllers
         [HttpPost]
         public ActionResult GetGoodsList(string categoryCode)
         {
+            // 先取出当前vip等级会员折扣
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
+
             List<GoodsModel> goodsList = new List<GoodsModel>();
 
             // 判断传递进来的categoryCode 是否为空
@@ -48,7 +57,7 @@ namespace com.jiechengbao.wx.Controllers
                 {
                     GoodsModel gm = new GoodsModel(item);
                     gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(gm.Id).ImagePath;
-
+                    gm.Discount = discount;
                     goodsList.Add(gm);
                 }
             }
@@ -68,7 +77,7 @@ namespace com.jiechengbao.wx.Controllers
                 {
                     GoodsModel gm = new GoodsModel(_goodsBLL.GetGoodsById(item.GoodsId));
                     gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.GoodsId).ImagePath;
-
+                    gm.Discount = discount;
                     goodsList.Add(gm);
                 }
             }
@@ -116,6 +125,10 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult Detail(string code)
         {
+            // 先取出当前vip等级会员折扣
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
+
             GoodsModel gm = new GoodsModel(_goodsBLL.GetGoodsByCode(code));
             if (gm == null)
             {
@@ -123,6 +136,8 @@ namespace com.jiechengbao.wx.Controllers
             }
             GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(gm.Id);
             gm.PicturePath = gi.ImagePath;
+            gm.Discount = discount;
+
             return View(gm);
         }
     }

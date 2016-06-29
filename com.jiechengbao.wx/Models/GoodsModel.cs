@@ -15,14 +15,14 @@ namespace com.jiechengbao.wx.Models
             this.Code = goods.Code;
             this.CreatedTime = goods.CreatedTime;
             this.DeletedTime = goods.DeletedTime;
-            this.Discount = goods.Discount;
             this.Id = goods.Id;
             this.IsDeleted = goods.IsDeleted;
             this.Name = goods.Name;
             this.Price = goods.Price;
             this.Description = goods.Description;
         }
-
+        [DataMember]
+        public double Discount { get; set; }
         [DataMember]
         public string PicturePath { get; set; }
         public string[] CategoryList { get; set; }

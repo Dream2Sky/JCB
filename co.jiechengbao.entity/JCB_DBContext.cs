@@ -24,5 +24,6 @@ namespace com.jiechengbao.entity
 
         public DbSet<Recharge> Recharges { get; set; }
         public DbSet<Transaction> TransactionSet { get; set; }
+        public DbSet<Rules> Ruleses { get; set; }
     }
 }

@@ -180,11 +180,28 @@
     <Compile Include="Migrations\201606280728109_AlterColumn_Transaction_Payway.Designer.cs">
       <DependentUpon>201606280728109_AlterColumn_Transaction_Payway.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606290142421_AddTable_Rules.cs" />
+    <Compile Include="Migrations\201606290142421_AddTable_Rules.Designer.cs">
+      <DependentUpon>201606290142421_AddTable_Rules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606290144171_DropColumn_Goods_Discount.cs" />
+    <Compile Include="Migrations\201606290144171_DropColumn_Goods_Discount.Designer.cs">
+      <DependentUpon>201606290144171_DropColumn_Goods_Discount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606290244182_AddColumn_Member_CumulativeMoney.cs" />
+    <Compile Include="Migrations\201606290244182_AddColumn_Member_CumulativeMoney.Designer.cs">
+      <DependentUpon>201606290244182_AddColumn_Member_CumulativeMoney.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606290250463_DropColumn_Member_CumulativeMoney.cs" />
+    <Compile Include="Migrations\201606290250463_DropColumn_Member_CumulativeMoney.Designer.cs">
+      <DependentUpon>201606290250463_DropColumn_Member_CumulativeMoney.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recharge.cs" />
+    <Compile Include="Rules.cs" />
     <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +292,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606280728109_AlterColumn_Transaction_Payway.resx">
       <DependentUpon>201606280728109_AlterColumn_Transaction_Payway.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606290142421_AddTable_Rules.resx">
+      <DependentUpon>201606290142421_AddTable_Rules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606290144171_DropColumn_Goods_Discount.resx">
+      <DependentUpon>201606290144171_DropColumn_Goods_Discount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606290244182_AddColumn_Member_CumulativeMoney.resx">
+      <DependentUpon>201606290244182_AddColumn_Member_CumulativeMoney.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606290250463_DropColumn_Member_CumulativeMoney.resx">
+      <DependentUpon>201606290250463_DropColumn_Member_CumulativeMoney.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

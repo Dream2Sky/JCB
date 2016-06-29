@@ -34,12 +34,12 @@ namespace com.jiechengbao.entity
         [DataMember]
         public double Price { get; set; }
 
-        /// <summary>
-        /// 商品折扣
-        /// </summary>
-        [Required]
-        [DataMember]
-        public double Discount { get; set; }
+        ///// <summary>
+        ///// 商品折扣
+        ///// </summary>
+        //[Required]
+        //[DataMember]
+        //public double Discount { get; set; }
 
         /// <summary>
         /// 商品描述

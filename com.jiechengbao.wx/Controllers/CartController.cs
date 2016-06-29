@@ -16,12 +16,14 @@ namespace com.jiechengbao.wx.Controllers
         private IMemberBLL _memberBLL;
         private IGoodsBLL _goodsBLL;
         private IGoodsImagesBLL _goodsImageBLL;
-        public CartController(ICartBLL cartBLL, IMemberBLL memberBLL, IGoodsBLL goodsBLL,IGoodsImagesBLL goodsImagesBLL)
+        private IRulesBLL _rulesBLL;
+        public CartController(ICartBLL cartBLL, IMemberBLL memberBLL, IGoodsBLL goodsBLL,IGoodsImagesBLL goodsImagesBLL,IRulesBLL rulesBLL)
         {
             _cartBLL = cartBLL;
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
             _goodsImageBLL = goodsImagesBLL;
+            _rulesBLL = rulesBLL;
         }
 
         /// <summary>
@@ -37,13 +39,8 @@ namespace com.jiechengbao.wx.Controllers
             Member member = new Member();
             try
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 goods = _goodsBLL.GetGoodsByCode(goodsCode);
                 member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
-
-                sw.Stop();
-                LogHelper.Log.Write("添加到购物车花了 " + sw.Elapsed);
             }
             catch (Exception ex)
             {
@@ -64,7 +61,7 @@ namespace com.jiechengbao.wx.Controllers
                 cart.GoodsId = goods.Id;
                 cart.MemberId = member.Id;
                 cart.IsDeleted = false;
-
+                
                 _cartBLL.Add(cart);
 
                 return Json("True", JsonRequestBehavior.AllowGet);
@@ -84,33 +81,20 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult List()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
-            sw.Stop();
-            LogHelper.Log.Write("根据 用户的Id 查询订单列表 所花时间：" + sw.Elapsed);
+            double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
 
+            List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
             List<CartModel> cartModelList = new List<CartModel>();
 
-
-
             foreach (var item in cartList)
-
             {
-                sw.Restart();
                 CartModel cm = new CartModel(_goodsBLL.GetGoodsById(item.GoodsId));
-                sw.Stop();
-                LogHelper.Log.Write("根据商品id 获得商品 所花的时间 :" + sw.Elapsed);
 
-                sw.Restart();
-                
                 GoodsImage gi = _goodsImageBLL.GetPictureByGoodsId(item.GoodsId);
-
-                sw.Stop();
-                LogHelper.Log.Write("根据商品id 获得对应的图片所花时间:" + sw.Elapsed);
 
                 cm.PicturePath = gi.ImagePath;
                 cm.Count = item.Count;
+                cm.Discount = discount;
 
                 cartModelList.Add(cm);
             }

@@ -15,7 +15,6 @@ namespace com.jiechengbao.admin.Models
             this.Code = goods.Code;
             this.CreatedTime = goods.CreatedTime;
             this.DeletedTime = goods.DeletedTime;
-            this.Discount = goods.Discount;
             this.Id = goods.Id;
             this.IsDeleted = goods.IsDeleted;
             this.Name = goods.Name;
@@ -23,6 +22,7 @@ namespace com.jiechengbao.admin.Models
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
         }
+        public double Discount { get; set; }
         public string PicturePath { get; set; }
         public string[] CategoryList { get; set; }
     }

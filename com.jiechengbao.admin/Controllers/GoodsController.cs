@@ -67,7 +67,6 @@ namespace com.jiechengbao.admin.Controllers
             goods.Code = "Goods_" + TimeManager.GetCurrentTimestamp();
             goods.CreatedTime = DateTime.Now.Date;
             goods.Description = model.Description;
-            goods.Discount = model.Discount;
             goods.ServiceCount = model.ServiceCount;
             #endregion
 
@@ -181,7 +180,6 @@ namespace com.jiechengbao.admin.Controllers
             #region 更新goods本身        
             Goods goods = _goodsBLL.GetGoodsByCode(model.Code);
             goods.Price = model.Price;
-            goods.Discount = model.Discount;
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
 
