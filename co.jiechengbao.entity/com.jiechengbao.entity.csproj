@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201606300155242_AddColumn_Cars_MemberId.Designer.cs">
       <DependentUpon>201606300155242_AddColumn_Cars_MemberId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606300957067_AlterColumn_Recharge_Payway.cs" />
+    <Compile Include="Migrations\201606300957067_AlterColumn_Recharge_Payway.Designer.cs">
+      <DependentUpon>201606300957067_AlterColumn_Recharge_Payway.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -327,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606300155242_AddColumn_Cars_MemberId.resx">
       <DependentUpon>201606300155242_AddColumn_Cars_MemberId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606300957067_AlterColumn_Recharge_Payway.resx">
+      <DependentUpon>201606300957067_AlterColumn_Recharge_Payway.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

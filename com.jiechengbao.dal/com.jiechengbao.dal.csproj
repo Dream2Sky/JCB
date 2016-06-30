@@ -70,6 +70,7 @@
     <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RechargeDAL.cs" />
     <Compile Include="ReCommendDAL.cs" />
     <Compile Include="RulesDAL.cs" />
     <Compile Include="TransactionDAL.cs" />

@@ -25,9 +25,9 @@ namespace com.jiechengbao.entity
         public double Amount { get; set; }
 
         /// <summary>
-        /// 充值方式
+        /// 充值方式 所有的支付方式都规定 0 代表 微信支付  1 代表余额支付 其他的以后再说
         /// </summary>
         [Required]
-        public string Payway { get; set; }
+        public int Payway { get; set; }
     }
 }

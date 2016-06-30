@@ -52,6 +52,7 @@
     <Compile Include="OrderBLL.cs" />
     <Compile Include="OrderDetailBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RechargeBLL.cs" />
     <Compile Include="ReCommendBLL.cs" />
     <Compile Include="RulesBLL.cs" />
     <Compile Include="TransactionBLL.cs" />

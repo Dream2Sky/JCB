@@ -9,13 +9,13 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    public class UserInfoController:Controller
+    public class UserInfoController : Controller
     {
         private IMemberBLL _memberBLL;
         private IGoodsBLL _goodsBLL;
         private IGoodsImagesBLL _goodsImageBLL;
         private IReCommendBLL _recommendBLL;
-        public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL, 
+        public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL)
         {
             _memberBLL = memberBLL;
@@ -52,11 +52,45 @@ namespace com.jiechengbao.wx.Controllers
         {
             return View();
         }
+
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
-           
+
             return View(member);
+        }
+
+        public ActionResult Phone()
+        {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            ViewBag.Phone = member.Phone;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Phone(string phone)
+        {
+            if (string.IsNullOrEmpty(phone))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            member.Phone = phone;
+
+            if (_memberBLL.Update(member))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Recharge()
+        {
+            return View();
         }
     }
 }
