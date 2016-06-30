@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@model com.jiechengbao.entity.Car
+<style>
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+</style>
+<ul class="mui-table-view mui-card">
+    <li class="mui-table-view-cell">
+        车牌号
+        <input type="text" name="Numberplate" value="@Model.Numberplate" />
+        <input type="hidden" name="CarId" value="@Model.Id" />
+    </li>
+    <li class="mui-table-view-cell">
+        车架号
+        <input type="text" name="ChassisNumber" value="@Model.ChassisNumber" />
+    </li>
+    <li class="mui-table-view-cell">
+        发动机号
+        <input type="text" name="EngineNumber" value="@Model.EngineNumber" />
+    </li>
+    <li class="mui-table-view-cell">
+        其他信息
+        <input type="text" name="CarDetailInfo" value="@Model.CarDetailInfo" />
+    </li>
+</ul>
+<button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Save();">修改并保存</button>
+
+<script>
+    function Save() {
+        $.ajax({
+            url: "/Car/Update",
+            type: "POST",
+            data: {
+                CarId: $("input[name='CarId']").val(),
+                Numberplate: $("input[name='Numberplate']").val(),
+                ChassisNumber: $("input[name='ChassisNumber']").val(),
+                EngineNumber: $("input[name='EngineNumber']").val(),
+                CarDetailInfo: $("input[name='CarDetailInfo']").val()
+            },
+            success: function(data) {
+                if (data == "True") {
+                    mui.alert("保存修改成功");
+                }
+                else {
+                    mui.alert("保存修改失败");
+                }
+            },
+            error: function () {
+                mui.alert("系统错误,保存失败");
+            }
+        })
+    }
+</script>

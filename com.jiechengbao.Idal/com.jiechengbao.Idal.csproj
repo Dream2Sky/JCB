@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
+    <Compile Include="ICarDAL.cs" />
     <Compile Include="ICartDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
     <Compile Include="IDataBaseDAL.cs" />

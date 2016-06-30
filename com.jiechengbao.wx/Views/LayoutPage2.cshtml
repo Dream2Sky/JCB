@@ -6,9 +6,12 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/iconfont.css" rel="stylesheet" />
+    <link href="~/Content/css/mui.min.css" rel="stylesheet" />
 
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/mui.min.js"></script>
+
     <style>
         .navbar-fixed-bottom {
             height: 32px;
@@ -47,25 +50,46 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab">
-        <a class="mui-tab-item mui-active">
+        <a class="mui-tab-item mui-active" href="/UserInfo/Index" id="atouserinfo">
             <span class="mui-icon iconfont icon-shouyeshouye"></span>
             <span class="mui-tab-label">首页</span>
         </a>
-        <a class="mui-tab-item" href="Detail.html">
+        <a class="mui-tab-item" href="/Home/Index" id="atohome">
             <span class="mui-icon iconfont icon-dianpu"></span>
             <span class="mui-tab-label">商城</span>
         </a>
-        <a class="mui-tab-item" href="#popover">
+        <a class="mui-tab-item" href="/Car/List" id="atocar">
             <span class="mui-icon iconfont icon-car"></span>
             <span class="mui-tab-label">爱车</span>
         </a>
         <a class="mui-tab-item">
-            <span class="mui-icon mui-icon-person"></span>
+            <span class="mui-icon mui-icon-person" id="atoperson"></span>
             <span class="mui-tab-label">个人</span>
         </a>
     </nav>
     <script>
         mui('.mui-scroll-wrapper').scroll();
+
+        function Go(url) {
+            window.location.href = url;
+        };
+        var atohome = document.getElementById("atohome");
+        var atocar = document.getElementById("atocar");
+        var atouserinfo = document.getElementById("atouserinfo");
+        var atoperson = document.getElementById("atoperson");
+
+        atohome.addEventListener('tap', function () {
+            Go(atohome.getAttribute("href"));
+        });
+        atocar.addEventListener('tap', function () {
+            Go(atocar.getAttribute("href"));
+        });
+        atouserinfo.addEventListener('tap', function () {
+            Go(atouserinfo.getAttribute("href"));
+        });
+        atoperson.addEventListener('tap', function () {
+            Go(atoperson.getAttribute("href"));
+        });
     </script>
 </body>
 </html>

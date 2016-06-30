@@ -1,6 +1,156 @@
 ﻿
 @{
-    ViewBag.Title = "爱车信息绑定";
+    ViewBag.Title = "我的爱车";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
+@using com.jiechengbao.entity
+<style>
+    .input-group {
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
+    .li-provice {
+        width: 50%;
+        height: 150px;
+    }
+
+    .btn-yellow {
+        border-color: #FE8100;
+        background: #FE8100;
+        color: #fff;
+    }
+
+    .li-provice li {
+        float: left;
+    }
+
+        .li-provice li a {
+            padding-left: 5px;
+            padding-right: 0px;
+        }
+
+    button {
+        height: 40px;
+    }
+
+    .carlist-ul {
+        margin-top: 20px;
+    }
+
+    .mui-card {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        margin-top: 10px;
+    }
+
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+    }
+</style>
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">填写爱车信息</li>
+</ul>
+<div class="input-group">
+    <div class="input-group-btn" style="width:100px;">
+        <button class="btn btn-default btn-yellow" type="button">车牌</button>
+        <button type="button" class="btn btn-default dropdown-toggle btn-carId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            粤 <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu li-provice">
+            <li><a href="#" id="1" onclick="selectProvice('1');">粤</a></li>
+            <li><a href="#" id="2" onclick="selectProvice('2');">京</a></li>
+            <li><a href="#" id="3" onclick="selectProvice('3');">川</a></li>
+        </ul>
+    </div>
+    <input type="text" name="Numberplate" class="form-control" placeholder="请输入车牌号">
+</div>
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-yellow" type="button" style="width:80px;">车架号</button>
+    </span>
+    <input type="text" name="ChassisNumber" class="form-control" placeholder="*请完整输入车辆识别号">
+</div>
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-yellow" type="button" style="width:80px;">发动机号</button>
+    </span>
+    <input type="text" name="EngineNumber" class="form-control" placeholder="*请完整输入发动机号">
+</div>
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-yellow" type="button" style="width:80px;">车辆信息</button>
+    </span>
+    <input type="text" name="CarDetailInfo" class="form-control" placeholder="*请输入您的爱车的信息">
+</div>
+<div class="input-group" style="width:100%;">
+    <button type="button" style="height:40px;border-radius:3px;" onclick="AddCar();" class="btn btn-yellow form-control">立即绑定</button>
+</div>
+
+<ul class="mui-table-view carlist-ul">
+    <li class="mui-table-view-cell">您的爱车列表</li>
+</ul>
+<div class="mui-card" style="margin-bottom: 35px;">
+    <ul class="mui-table-view car-ul">
+        @{
+            List<Car> carList = ViewData["carList"] as List<Car>;
+
+            foreach (var item in carList)
+            {
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" href="/Car/Detail?numberplate=@item.Numberplate">
+                        @item.Numberplate
+                    </a>
+                </li>
+            }
+        }
+
+        @if (carList == null || carList.Count <= 0)
+        {
+            <div class="title">
+                您还未绑定您的爱车信息，快去绑定吧
+            </div>
+        }
+    </ul>
+</div>
+
+
+<script>
+    function selectProvice(id) {
+        var pro = $('#' + id).html();
+        $('.btn-carId').html(pro + " <span class=\"caret\"></span>");
+    }
+
+    function AddCar() {
+        var pro = $.trim($(".btn-carId").text());
+        console.log(pro);
+        $.ajax({
+            url: "/Car/Add",
+            type: "POST",
+            data: {
+                Numberplate: pro + $("input[name='Numberplate']").val(),
+                ChassisNumber: $("input[name='ChassisNumber']").val(),
+                EngineNumber: $("input[name='EngineNumber']").val(),
+                CarDetailInfo: $("input[name='CarDetailInfo']").val()
+            },
+            success: function (data) {
+                if (data == "True") {
+                    mui.alert("绑定成功");
+                    $(".title").remove();
+                    $(".car-ul").append("<li class=\"mui-table-view-cell\"><a class=\"mui-navigate-right\" href=\"/Car/Detail?numberplate=" + $("input[name='Numberplate']").val() + "\">" + pro+$("input[name='Numberplate']").val() + "</a></li>");
+                }
+                else {
+                    mui.alert("绑定失败");
+                }
+            },
+            error: function () {
+                mui.alert("绑定失败");
+            }
+
+        })
+    }
+
+</script>

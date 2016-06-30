@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AddressDAL.cs" />
     <Compile Include="AdminDAL.cs" />
+    <Compile Include="CarDAL.cs" />
     <Compile Include="CartDAL.cs" />
     <Compile Include="CategoryDAL.cs" />
     <Compile Include="DataBaseDAL.cs" />

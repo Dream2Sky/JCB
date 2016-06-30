@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Admin.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataEntity.cs" />
@@ -200,6 +201,14 @@
     <Compile Include="Migrations\201606291935030_AddTable_ReCommend.Designer.cs">
       <DependentUpon>201606291935030_AddTable_ReCommend.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606300151550_AddTable_Cars.cs" />
+    <Compile Include="Migrations\201606300151550_AddTable_Cars.Designer.cs">
+      <DependentUpon>201606300151550_AddTable_Cars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606300155242_AddColumn_Cars_MemberId.cs" />
+    <Compile Include="Migrations\201606300155242_AddColumn_Cars_MemberId.Designer.cs">
+      <DependentUpon>201606300155242_AddColumn_Cars_MemberId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -312,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606291935030_AddTable_ReCommend.resx">
       <DependentUpon>201606291935030_AddTable_ReCommend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606300151550_AddTable_Cars.resx">
+      <DependentUpon>201606300151550_AddTable_Cars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606300155242_AddColumn_Cars_MemberId.resx">
+      <DependentUpon>201606300155242_AddColumn_Cars_MemberId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

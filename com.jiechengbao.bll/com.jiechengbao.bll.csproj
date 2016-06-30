@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AddressBLL.cs" />
     <Compile Include="AdminBLL.cs" />
+    <Compile Include="CarBLL.cs" />
     <Compile Include="CartBLL.cs" />
     <Compile Include="CategoryBLL.cs" />
     <Compile Include="GoodsBLL.cs" />

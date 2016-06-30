@@ -30,5 +30,6 @@ namespace com.jiechengbao.entity
         /// 推荐商品表
         /// </summary>
         public DbSet<ReCommend> ReCommends { get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }
