@@ -261,6 +261,7 @@
     <Content Include="Views\Address\List.cshtml" />
     <Content Include="Views\Car\List.cshtml" />
     <Content Include="Views\Car\Detail.cshtml" />
+    <Content Include="Views\UserInfo\Info.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

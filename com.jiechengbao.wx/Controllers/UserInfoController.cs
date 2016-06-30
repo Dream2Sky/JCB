@@ -52,10 +52,11 @@ namespace com.jiechengbao.wx.Controllers
         {
             return View();
         }
-
         public ActionResult Info()
         {
-            return View();
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+           
+            return View(member);
         }
     }
 }
