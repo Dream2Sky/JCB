@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarNotEntity.cs" />
     <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
     <Compile Include="ICarDAL.cs" />

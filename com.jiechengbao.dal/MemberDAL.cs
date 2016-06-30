@@ -52,5 +52,19 @@ namespace com.jiechengbao.dal
                 return 0;
             }
         }
+
+        public IEnumerable<Member> SelectNoDeletedMemberswithSpecifiedCount(int count)
+        {
+            try
+            {
+                return db.Set<Member>().OrderByDescending(n => n.CreatedTime).Take(count);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

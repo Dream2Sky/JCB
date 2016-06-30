@@ -37,6 +37,29 @@ namespace com.jiechengbao.bll
             return _carDAL.SelectById(Id);
         }
 
+        public IEnumerable<Car> GetCarListByAnythingCondition(string condition)
+        {
+            List<Car> carList = new List<Car>();
+            List<CarNotEntity> carEntityList = _carDAL.SelectByAnythingCondition(condition).ToList();
+            foreach (var item in carEntityList)
+            {
+                Car car = new Car();
+                car.Id = item.Id;
+                car.CreatedTime = item.CreatedTime;
+                car.CarDetailInfo = item.CarDetailInfo;
+                car.ChassisNumber = item.ChassisNumber;
+                car.DeletedTime = item.DeletedTime;
+                car.EngineNumber = item.EngineNumber;
+                car.IsDeleted = item.IsDeleted;
+                car.MemberId = item.MemberId;
+                car.Numberplate = item.Numberplate;
+
+                carList.Add(car);
+            }
+
+            return carList;
+        }
+
         public IEnumerable<Car> GetCarListByMemberId(Guid memberId)
         {
             return _carDAL.SelectByMemberId(memberId);

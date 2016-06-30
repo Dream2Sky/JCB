@@ -49,6 +49,8 @@ namespace com.jiechengbao.admin
             builder.RegisterType<RulesDAL>().As<IRulesDAL>();
             builder.RegisterType<ReCommendBLL>().As<IReCommendBLL>();
             builder.RegisterType<ReCommendDAL>().As<IReCommendDAL>();
+            builder.RegisterType<CarBLL>().As<ICarBLL>();
+            builder.RegisterType<CarDAL>().As<ICarDAL>();
         }
     }
 }

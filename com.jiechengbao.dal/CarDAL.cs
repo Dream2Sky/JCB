@@ -31,6 +31,43 @@ namespace com.jiechengbao.dal
             }
         }
 
+        /// <summary>
+        /// 根据任意条件查询Car列表
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public IEnumerable<CarNotEntity> SelectByAnythingCondition(string condition)
+        {
+            try
+            {
+                var result = from car in db.Cars
+                             join member in db.Members on car.MemberId equals member.Id
+                             where member.NickeName.Contains(condition) || car.CarDetailInfo.Contains(condition)
+                             || car.ChassisNumber.Contains(condition) || car.EngineNumber.Contains(condition) ||
+                             car.Numberplate.Contains(condition)
+                             select new CarNotEntity
+                             {
+                                 Id = car.Id,
+                                 CreatedTime = car.CreatedTime,
+                                 MemberId = car.MemberId,
+                                 CarDetailInfo = car.CarDetailInfo,
+                                 ChassisNumber = car.ChassisNumber,
+                                 EngineNumber = car.EngineNumber,
+                                 Numberplate = car.Numberplate,
+                                 IsDeleted = car.IsDeleted,
+                                 DeletedTime = car.DeletedTime
+                             };
+                return result.ToList();
+                             
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public IEnumerable<Car> SelectByMemberId(Guid memberId)
         {
             try

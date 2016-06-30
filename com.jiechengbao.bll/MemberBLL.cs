@@ -67,6 +67,16 @@ namespace com.jiechengbao.bll
         }
 
         /// <summary>
+        /// 获得指定数量的用户列表  已倒序排序
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<Member> GetMemberswithSpecifiedCount(int count)
+        {
+            return _memberDAL.SelectNoDeletedMemberswithSpecifiedCount(count);
+        }
+
+        /// <summary>
         /// 获得昨天的新用户列表
         /// </summary>
         /// <returns></returns>

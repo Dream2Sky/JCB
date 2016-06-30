@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "用户的爱车";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.admin.Models
+<style>
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+    }
+</style>
+<div class="navbar navbar-options">
+    <div class="container">
+        <form class="navbar-form navbar-left" method="post" action="/Car/List" role="search">
+            <div class="form-group">
+                <input type="text" name="condition" class="form-control" placeholder="搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <label>用户的爱车列表</label>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>用户昵称</th>
+                <th>用户手机</th>
+                <th>车牌号</th>
+                <th>车架号</th>
+                <th>发动机号</th>
+                <th>其他信息</th>
+                <th>绑定时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["CarList"] as List<CarModel>)
+            {
+                <tr>
+                    <td><img src="~/Uploads/@item.MemberImagePath" />@item.MemberName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Numberplate</td>
+                    <td>@item.ChassisNumber</td>
+                    <td>@item.EngineNumber</td>
+                    <td>@item.CarDetailInfo</td>
+                    <td>@item.CreatedTime</td>
+                </tr>
+            }
+        </tbody>
+        @if ((ViewData["CarList"] as List<CarModel>) == null || (ViewData["CarList"] as List<CarModel>).Count == 0)
+        {
+            <div class="title"><p>尚无用户绑定车辆信息/p></div>
+        }
+    </table>
+</div>

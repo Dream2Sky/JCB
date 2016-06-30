@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,6 +194,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\VIPModel.cs" />
@@ -216,6 +218,7 @@
     <Content Include="Views\Goods\Add.cshtml" />
     <Content Include="Views\Goods\Update.cshtml" />
     <Content Include="Views\Member\VIPSetting.cshtml" />
+    <Content Include="Views\Car\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

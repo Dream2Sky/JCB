@@ -12,5 +12,6 @@ namespace com.jiechengbao.Idal
         IEnumerable<Car> SelectByMemberId(Guid memberId);
         bool IsExist(string numberplate);
         Car SelectByNumberPlate(string numberplate);
+        IEnumerable<CarNotEntity> SelectByAnythingCondition(string condition);
     }
 }
