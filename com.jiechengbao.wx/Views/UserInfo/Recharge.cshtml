@@ -1,8 +1,66 @@
 ﻿
 @{
-    ViewBag.Title = "Recharge";
+    ViewBag.Title = "充值记录";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
+<style>
 
-<h2>Recharge</h2>
+    .btn-cell{
+        height:50px;
+    }
 
+</style>
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        开始时间
+        <div class="input-append date form-datetime">
+            <input type="date" name="startTime" />
+        </div>
+    </li>
+    <li class="mui-table-view-cell">
+        结束时间
+        <div class="input-append date form-datetime">
+            <input type="date" name="endTime" />
+        </div>
+        
+    </li>
+    <li class="mui-table-view-cell btn-cell">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="select();">查询充值记录</button>
+    </li>
+</ul>
+<script>
+    function select() {
+        var startTime = $("input[name='startTime']").val();
+        var endTime = $("input[name='endTime']").val();
+
+        if (startTime == undefined || startTime == "") {
+            mui.alert("请选择时间");
+        }
+
+        if (endTime == undefined || endTime == "") {
+            mui.alert("请选择时间")
+        }
+
+        $.ajax({
+            url: "/UserInfo/CheckRecharge",
+            type: "POST",
+            data: {
+                startTime: startTime,
+                endTime: endTime
+            },
+            success: function (data) {
+                if (data == "True") {
+                    window.location.href = "/UserInfo/RechargeList";
+                }
+                else {
+                    mui.alert(data.msg, "查询错误");
+                }
+            },
+            error: function() {
+                mui.aler("查询失败", "系统错误");
+            }
+        });
+
+       
+    }
+</script>

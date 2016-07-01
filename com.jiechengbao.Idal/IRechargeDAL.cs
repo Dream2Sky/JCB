@@ -9,5 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface IRechargeDAL:IDataBaseDAL<Recharge>
     {
+        IEnumerable<Recharge> SelectRechargeListByMemberId(DateTime startTime, DateTime endTime, Guid memberId);
     }
 }

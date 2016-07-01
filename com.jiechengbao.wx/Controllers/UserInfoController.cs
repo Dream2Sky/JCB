@@ -15,13 +15,15 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsBLL _goodsBLL;
         private IGoodsImagesBLL _goodsImageBLL;
         private IReCommendBLL _recommendBLL;
+        private IRechargeBLL _rechargeBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
-            IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL)
+            IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, IRechargeBLL rechargeBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
             _goodsImageBLL = goodsImagesBLL;
             _recommendBLL = recommendBLL;
+            _rechargeBLL = rechargeBLL;
         }
 
         public ActionResult Index()
@@ -91,6 +93,40 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Recharge()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CheckRecharge(DateTime startTime, DateTime endTime)
+        {
+            // 上来先获取 当前用户 的对象
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            if (startTime == null || endTime == null)
+            {
+                var res = new
+                {
+                    startTime = startTime,
+                    endTime = endTime
+                };
+                return Json(res, JsonRequestBehavior.AllowGet);
+            }
+
+            List<Recharge> rechargeList = _rechargeBLL.GetRechargeListByMemberId(startTime,endTime,member.Id).ToList();
+            System.Web.HttpContext.Current.Session["RechargeList"] = rechargeList;
+
+            return Json("True", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RechargeList()
+        {
+            if (null == (System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>))
+            {
+                return View();
+            }
+            else
+            {
+                ViewData["RechargeList"] = System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>;
+                return View();
+            }
         }
     }
 }

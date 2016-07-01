@@ -8,7 +8,20 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.dal
 {
-    public class RechargeDAL:DataBaseDAL<Recharge>,IRechargeDAL
+    public class RechargeDAL : DataBaseDAL<Recharge>, IRechargeDAL
     {
+        public IEnumerable<Recharge> SelectRechargeListByMemberId(DateTime startTime, DateTime endTime, Guid memberId)
+        {
+            try
+            {
+                return db.Set<Recharge>().Where(n => n.CreatedTime >= startTime).Where(n => n.CreatedTime <= endTime).Where(n => n.MemberId == memberId);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

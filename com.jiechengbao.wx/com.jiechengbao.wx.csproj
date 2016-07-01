@@ -197,8 +197,10 @@
     <Content Include="Content\js\json2.js" />
     <Content Include="Content\js\json_parse.js" />
     <Content Include="Content\js\json_parse_state.js" />
+    <Content Include="Content\js\mui.dtpicker.js" />
     <Content Include="Content\js\mui.min.js" />
     <Content Include="Content\js\mui.picker.js" />
+    <Content Include="Content\js\mui.picker.min.js" />
     <Content Include="Content\js\mui.poppicker.js" />
     <Content Include="Global.asax" />
     <Content Include="maptest.html" />
@@ -264,6 +266,7 @@
     <Content Include="Views\UserInfo\Info.cshtml" />
     <Content Include="Views\UserInfo\Phone.cshtml" />
     <Content Include="Views\UserInfo\Recharge.cshtml" />
+    <Content Include="Views\UserInfo\RechargeList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
