@@ -15,6 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using com.jiechengbao.common;
+using System.Text;
+using WxPayAPI;
 
 namespace com.jiechengbao.wx.Controllers
 {
@@ -24,6 +27,9 @@ namespace com.jiechengbao.wx.Controllers
         private IMemberBLL _memberBLL;
         private IOrderBLL _orderBLL;
         private ITransactionBLL _transactionBLL;
+
+        public string TimeManger { get; private set; }
+
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL ,ITransactionBLL transactionBLL)
         {
             _memberBLL = memberBLL;
@@ -52,7 +58,7 @@ namespace com.jiechengbao.wx.Controllers
             orm.body = "捷诚宝商城";
             orm.mch_id = WxPayAPI.WxPayConfig.MCHID;
             orm.nonce_str = WxPayAPI.WxPayApi.GenerateNonceStr();
-            orm.notify_url = HttpContext.Request.Url.Scheme+"://"+HttpContext.Request.Url.Host+":"+HttpContext.Request.Url.Port+"/WxPay/PayResult";
+            orm.notify_url = HttpContext.Request.Url.Scheme+"://"+HttpContext.Request.Url.Host+":"+HttpContext.Request.Url.Port+"/Pay/WxPayResult";
 
             WxPayAPI.WxPayData data = new WxPayAPI.WxPayData();
             data.SetValue("openid", orm.openid);
@@ -96,6 +102,45 @@ namespace com.jiechengbao.wx.Controllers
             string jsonParam = jsApiParam.ToJson();
             ViewData["Result"] = result;
             ViewData["JsonResult"] = jsonParam;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult WxPayResult()
+        {
+            //接收从微信后台POST过来的数据
+            System.IO.Stream s = Request.InputStream;
+            int count = 0;
+            byte[] buffer = new byte[1024];
+            StringBuilder builder = new StringBuilder();
+            while ((count = s.Read(buffer, 0, 1024)) > 0)
+            {
+                builder.Append(Encoding.UTF8.GetString(buffer, 0, count));
+            }
+            s.Flush();
+            s.Close();
+            s.Dispose();
+
+            
+            //转换数据格式并验证签名
+            WxPayData data = new WxPayData();
+            try
+            {
+                data.FromXml(builder.ToString());
+            }
+            catch (WxPayException ex)
+            {
+                //若签名错误，则立即返回结果给微信支付后台
+                WxPayData res = new WxPayData();
+                res.SetValue("return_code", "FAIL");
+                res.SetValue("return_msg", ex.Message);
+                Log.Error(this.GetType().ToString(), "Sign check error : " + res.ToXml());
+                Response.Write(res.ToXml());
+                Response.End();
+            }
+
+            Log.Info(this.GetType().ToString(), "Check sign success");
 
             return View();
         }
@@ -243,6 +288,92 @@ namespace com.jiechengbao.wx.Controllers
             };
 
             return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RechargePay(double money,string ip)
+        {
+            string url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+            string orderNo = Guid.NewGuid().ToString().Replace("-", "").ToUpper() + TimeManager.GetCurrentTimestamp();
+            ViewBag.OrderNo = orderNo;
+            ViewBag.TotalPrice = money;
+
+            OrderResultModel orm = new OrderResultModel();
+            orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
+            orm.total_fee = money;
+            orm.trade_type = "JSAPI";
+            orm.spbill_create_ip = ip;
+            orm.out_trade_no = orderNo;
+            orm.appid = WxPayAPI.WxPayConfig.APPID;
+            orm.body = "捷诚宝个人中心充值";
+            orm.mch_id = WxPayAPI.WxPayConfig.MCHID;
+            orm.nonce_str = WxPayAPI.WxPayApi.GenerateNonceStr();
+            orm.notify_url = HttpContext.Request.Url.Scheme + "://" + HttpContext.Request.Url.Host + ":" + HttpContext.Request.Url.Port + "/Pay/RechargePayResult";
+
+            WxPayAPI.WxPayData data = new WxPayAPI.WxPayData();
+            data.SetValue("openid", orm.openid);
+            data.SetValue("total_fee", orm.total_fee);
+            data.SetValue("trade_type", orm.trade_type);
+            data.SetValue("spbill_create_ip", orm.spbill_create_ip);
+            data.SetValue("out_trade_no", orm.out_trade_no);
+            data.SetValue("appid", orm.appid);
+            data.SetValue("body", orm.body);
+            data.SetValue("mch_id", orm.mch_id);
+            data.SetValue("nonce_str", orm.nonce_str);
+            data.SetValue("notify_url", orm.notify_url);
+
+
+
+            orm.sign = data.MakeSign();
+
+
+            data.SetValue("sign", orm.sign);
+
+            //LogHelper.Log.Write("openid:" + data.GetValue("openid"));
+            //LogHelper.Log.Write("total_fee:" + data.GetValue("total_fee"));
+            //LogHelper.Log.Write("appid:" + data.GetValue("appid"));
+
+            //LogHelper.Log.Write("notify_url:" + data.GetValue("notify_url"));
+
+            string xml = data.ToXml();
+            string response = WxPayAPI.HttpService.Post(xml, url, false, 5);
+
+            WxPayAPI.WxPayData result = new WxPayAPI.WxPayData();
+            result.FromXml(response);
+
+            WxPayAPI.WxPayData jsApiParam = new WxPayAPI.WxPayData();
+            jsApiParam.SetValue("appId", result.GetValue("appid"));
+            jsApiParam.SetValue("timeStamp", WxPayAPI.WxPayApi.GenerateTimeStamp());
+            jsApiParam.SetValue("nonceStr", WxPayAPI.WxPayApi.GenerateNonceStr());
+            jsApiParam.SetValue("package", "prepay_id=" + result.GetValue("prepay_id"));
+            jsApiParam.SetValue("signType", "MD5");
+            jsApiParam.SetValue("paySign", jsApiParam.MakeSign());
+
+            string jsonParam = jsApiParam.ToJson();
+            ViewData["Result"] = result;
+            ViewData["JsonResult"] = jsonParam;
+
+            return View();
+        }
+
+        public ActionResult RechargePayResult()
+        {
+            string returnCode = Request.QueryString["return_code"].ToString();
+            if (returnCode == null || returnCode == "FAIL")
+            {
+                ViewBag.ResultMsg = "支付失败";
+                return View();
+            }
+
+            string resultCode = Request.QueryString["result_code"].ToString();
+            if (resultCode == null || resultCode == "FAIL")
+            {
+                ViewBag.ResultMsg = "支付失败";
+                return View();
+            }
+
+            ViewBag.ResultMsg = "支付成功";
+            return View();
         }
     }
 }

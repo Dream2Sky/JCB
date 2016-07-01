@@ -137,6 +137,7 @@ namespace com.jiechengbao.wx.Controllers
             // 先获得订单对象
             Order order = _orderBLL.GetOrderByOrderNo(orderNo);
             ViewBag.OrderNo = order.OrderNo;
+            ViewBag.OrderStatus = order.Status;
             ViewBag.Status = order.Status == 0 ? "未完成" : (order.Status == 1 ? "已完成" : "已取消");
             ViewBag.TotalPrice = order.TotalPrice;
             ViewBag.CreateTime = order.CreatedTime;
@@ -350,5 +351,31 @@ namespace com.jiechengbao.wx.Controllers
             return Json("False", JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public ActionResult ContinuePay(string orderNo)
+        {
+            if (string.IsNullOrEmpty(orderNo))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Order order = _orderBLL.GetOrderByOrderNo(orderNo);
+
+            if (order == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            var orderInfo = new
+            {
+                payway = order.PayWay,
+                totalprice = order.TotalPrice,
+                orderNo = order.OrderNo
+            };
+
+            return Json(orderInfo, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }

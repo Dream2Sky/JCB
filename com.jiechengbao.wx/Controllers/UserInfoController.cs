@@ -1,4 +1,5 @@
-﻿using com.jiechengbao.entity;
+﻿using com.jiechengbao.common;
+using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using com.jiechengbao.wx.Models;
 using System;
@@ -127,6 +128,11 @@ namespace com.jiechengbao.wx.Controllers
                 ViewData["RechargeList"] = System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>;
                 return View();
             }
+        }
+
+        public ActionResult RechargeOptionsList()
+        {
+            return View();
         }
     }
 }
