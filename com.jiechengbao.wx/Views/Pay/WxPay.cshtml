@@ -3,25 +3,32 @@
     ViewBag.Title = "微信支付";
     Layout = "~/Views/LayoutPage.cshtml";
 }
-
-@{
-    WxPayAPI.WxPayData result = ViewData["Result"] as WxPayAPI.WxPayData;
-
-    foreach (var item in result.GetValues())
-    {
-        <p>@item.Key:@item.Value</p>
+<style>
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
     }
 
-    <p class="jsonresult">@Html.Raw(ViewData["JsonResult"] as string)</p>
-}
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
 
-<form>
-    <br />
-    <div align="center">
-        <br /><br /><br />
-        <button type="button" onclick="callpay();" style="width:210px; height:50px; border-radius: 15px;background-color:#00CD00; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;">立即支付</button>
-    </div>
-</form>
+    .mui-table-view {
+        margin-top: 20px;
+    }
+</style>
+
+<ul class="mui-table-view mui-table-view-chevron">
+    <li class="mui-table-view-cell">
+        <a>订单号:<span class="mui-pull-right order-span">@ViewBag.OrderNo</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a>支付金额:<span class="mui-pull-right money-span">￥@ViewBag.TotalPrice</span></a>
+    </li>
+</ul>
+<button id="confirmBtn" type="button" class="mui-btn mui-btn-danger mui-btn-block">立即支付</button>
+
 <script type="text/javascript">
     //调用微信JS api 支付
     function jsApiCall()
@@ -57,5 +64,14 @@
             jsApiCall();
         }
     }
+
+    document.getElementById("confirmBtn").addEventListener('tap', function () {
+        var btnArray = ['否', '是'];
+        mui.confirm('是否确定要此订单支付 ' +@Model.TotalPrice +' 元', '订单支付', btnArray, function (e) {
+            if (e.index == 1) {
+                callpay();
+            }
+        })
+    });
 </script>
 

@@ -39,6 +39,9 @@ namespace com.jiechengbao.wx.Controllers
         {
             string url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
+            ViewBag.OrderNo = Request.QueryString["orderNo"].ToString();
+            ViewBag.TotalPrice = double.Parse(Request.QueryString["totalprice"].ToString());
+
             OrderResultModel orm = new OrderResultModel();
             orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
             orm.total_fee = double.Parse(Request.QueryString["totalprice"].ToString());
@@ -70,11 +73,11 @@ namespace com.jiechengbao.wx.Controllers
 
             data.SetValue("sign", orm.sign);
 
-            LogHelper.Log.Write("openid:" + data.GetValue("openid"));
-            LogHelper.Log.Write("total_fee:" + data.GetValue("total_fee"));
-            LogHelper.Log.Write("appid:" + data.GetValue("appid"));
+            //LogHelper.Log.Write("openid:" + data.GetValue("openid"));
+            //LogHelper.Log.Write("total_fee:" + data.GetValue("total_fee"));
+            //LogHelper.Log.Write("appid:" + data.GetValue("appid"));
 
-            LogHelper.Log.Write("notify_url:" + data.GetValue("notify_url"));
+            //LogHelper.Log.Write("notify_url:" + data.GetValue("notify_url"));
 
             string xml = data.ToXml();
             string response = WxPayAPI.HttpService.Post(xml, url, false, 5);
