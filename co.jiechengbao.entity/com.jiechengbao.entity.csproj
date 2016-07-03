@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201607031416374_AddTable_SCRecord.Designer.cs">
       <DependentUpon>201607031416374_AddTable_SCRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607031706255_AddTable_ServiceQR.cs" />
+    <Compile Include="Migrations\201607031706255_AddTable_ServiceQR.Designer.cs">
+      <DependentUpon>201607031706255_AddTable_ServiceQR.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
@@ -243,6 +247,7 @@
     <Compile Include="ReCommend.cs" />
     <Compile Include="Rules.cs" />
     <Compile Include="ServiceConsumeRecord.cs" />
+    <Compile Include="ServiceQR.cs" />
     <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -372,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607031416374_AddTable_SCRecord.resx">
       <DependentUpon>201607031416374_AddTable_SCRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607031706255_AddTable_ServiceQR.resx">
+      <DependentUpon>201607031706255_AddTable_ServiceQR.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

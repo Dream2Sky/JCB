@@ -76,6 +76,7 @@
     <Compile Include="RulesDAL.cs" />
     <Compile Include="ServiceConsumeRecordDAL.cs" />
     <Compile Include="ServiceDAL.cs" />
+    <Compile Include="ServiceQRDAL.cs" />
     <Compile Include="TransactionDAL.cs" />
   </ItemGroup>
   <ItemGroup>

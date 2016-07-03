@@ -59,6 +59,7 @@
     <Compile Include="IRulesDAL.cs" />
     <Compile Include="IServiceConsumeRecordDAL.cs" />
     <Compile Include="IServiceDAL.cs" />
+    <Compile Include="IServiceQRDAL.cs" />
     <Compile Include="ITransactionDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

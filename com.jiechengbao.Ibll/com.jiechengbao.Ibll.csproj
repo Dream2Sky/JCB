@@ -57,6 +57,7 @@
     <Compile Include="IRulesBLL.cs" />
     <Compile Include="IServiceBLL.cs" />
     <Compile Include="IServiceConsumeRecordBLL.cs" />
+    <Compile Include="IServiceQRBLL.cs" />
     <Compile Include="ITransactionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

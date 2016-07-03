@@ -38,5 +38,7 @@ namespace com.jiechengbao.entity
         /// 服务消费记录表
         /// </summary>
         public DbSet<ServiceConsumeRecord> SCRecord { get; set; }
+
+        public DbSet<ServiceQR> ServiceQRs { get; set; }
     }
 }
