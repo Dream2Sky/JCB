@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace com.jiechengbao.entity
 {
+    /// <summary>
+    /// vip规则
+    /// </summary>
     public class Rules:DataEntity
     {
         /// <summary>

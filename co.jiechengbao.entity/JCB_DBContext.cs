@@ -31,5 +31,6 @@ namespace com.jiechengbao.entity
         /// </summary>
         public DbSet<ReCommend> ReCommends { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<CreditRecord> CreditRecords{ get; set; }
     }
 }

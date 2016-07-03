@@ -63,6 +63,7 @@
     <Compile Include="Car.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CreditRecord.cs" />
     <Compile Include="DataEntity.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsCategory.cs" />
@@ -213,6 +214,14 @@
     <Compile Include="Migrations\201606300957067_AlterColumn_Recharge_Payway.Designer.cs">
       <DependentUpon>201606300957067_AlterColumn_Recharge_Payway.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607030913523_AddColumn_Member_Credit.cs" />
+    <Compile Include="Migrations\201607030913523_AddColumn_Member_Credit.Designer.cs">
+      <DependentUpon>201607030913523_AddColumn_Member_Credit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607030921317_AddTable_CreditRecords.cs" />
+    <Compile Include="Migrations\201607030921317_AddTable_CreditRecords.Designer.cs">
+      <DependentUpon>201607030921317_AddTable_CreditRecords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -334,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606300957067_AlterColumn_Recharge_Payway.resx">
       <DependentUpon>201606300957067_AlterColumn_Recharge_Payway.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607030913523_AddColumn_Member_Credit.resx">
+      <DependentUpon>201607030913523_AddColumn_Member_Credit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607030921317_AddTable_CreditRecords.resx">
+      <DependentUpon>201607030921317_AddTable_CreditRecords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

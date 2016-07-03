@@ -10,7 +10,7 @@ namespace com.jiechengbao.entity
     /// <summary>
     /// 客户信息
     /// </summary>
-    public class Member:DataEntity
+    public class Member : DataEntity
     {
         /// <summary>
         /// 微信的openId
@@ -46,5 +46,11 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         public double Assets { get; set; } = 0;
+
+        /// <summary>
+        /// 会员积分
+        /// </summary>
+        [Required]
+        public double Credit { get; set; } = 0;
     }
 }

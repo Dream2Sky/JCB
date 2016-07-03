@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.entity
 {
+    /// <summary>
+    /// 商品推荐表
+    /// </summary>
     public class ReCommend:DataEntity
     {
         public Guid GoodsId { get; set; }
