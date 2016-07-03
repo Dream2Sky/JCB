@@ -32,5 +32,11 @@ namespace com.jiechengbao.entity
         public DbSet<ReCommend> ReCommends { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<CreditRecord> CreditRecords{ get; set; }
+        public DbSet<MyService> Services { get; set; }
+
+        /// <summary>
+        /// 服务消费记录表
+        /// </summary>
+        public DbSet<ServiceConsumeRecord> SCRecord { get; set; }
     }
 }

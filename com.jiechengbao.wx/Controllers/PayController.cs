@@ -25,7 +25,18 @@ namespace com.jiechengbao.wx.Controllers
 
     public class PayController : Controller
     {
+        /// <summary>
+        /// 升级VIP委托
+        /// </summary>
+        /// <param name="memberId"></param>
         private delegate void UpGradeDel(Guid memberId);
+
+        /// <summary>
+        /// 添加我的服务委托
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="orderNO"></param>
+        private delegate void AddMyServiceDel(Guid memberId, string orderNO);
 
         private IMemberBLL _memberBLL;
         private IOrderBLL _orderBLL;
@@ -33,16 +44,25 @@ namespace com.jiechengbao.wx.Controllers
         private IRechargeBLL _recharegeBLL;
         private ICreditRecordBLL _creditRecordBLL;
         private IRulesBLL _rulesBLL;
+        private IOrderDetailBLL _orderDetailBLL;
+        private IGoodsBLL _goodsBLL;
+        private IServiceBLL _serviceBLL;
 
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
             ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL, 
-            ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL)
+            ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL,
+            IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL,
+            IServiceBLL serviceBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
             _transactionBLL = transactionBLL;
             _recharegeBLL = rechargeBLL;
             _creditRecordBLL = creditRecordBLL;
+            _orderDetailBLL = orderDetailBLL;
+            _goodsBLL = goodsBLL;
+            _serviceBLL = serviceBLL;
+            _rulesBLL = rulesBLL;
         }
 
         /// <summary>
@@ -145,12 +165,16 @@ namespace com.jiechengbao.wx.Controllers
                     LogHelper.Log.Write("支付成功");
 
                     // 更新会员积分
-                    AddConsumeCredit(member, order.TotalPrice);
+                    if (AddConsumeCredit(member, order.TotalPrice))
+                    {
+                        // 异步判断是否有足够的积分进行升级
+                        UpGradeDel del = new UpGradeDel(UpGradeVIP);
+                        IAsyncResult result = del.BeginInvoke(member.Id, CallBackMethod, null);
 
-                    // 异步判断是否有足够的积分进行升级
-                    UpGradeDel del = new UpGradeDel(UpGradeVIP);
-                    IAsyncResult result = del.BeginInvoke(member.Id, CallBackMethod, null);
-
+                        // 异步找到此订单所有的服务  并添加
+                        AddMyServiceDel msDel = new AddMyServiceDel(AddMyService);
+                        IAsyncResult ra = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
+                    }
                 }
                 else
                 {
@@ -291,7 +315,12 @@ namespace com.jiechengbao.wx.Controllers
                     // 当修改消费积分成功时 异步判断是否够积分升级vip
                     UpGradeDel del = new UpGradeDel(UpGradeVIP);
                     IAsyncResult ra = del.BeginInvoke(member.Id, CallBackMethod, null);
+
+                    // 异步找到服务商品 并添加
+                    AddMyServiceDel msDel = new AddMyServiceDel(AddMyService);
+                    IAsyncResult msResult = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
                 }
+
                 // 修改账户余额
                 member.Assets = member.Assets - order.TotalPrice;
                 if (!_memberBLL.Update(member))
@@ -570,6 +599,55 @@ namespace com.jiechengbao.wx.Controllers
             del.EndInvoke(ar);
         }
 
+        /// <summary>
+        ///  添加我的服务
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="OrderNo"></param>
+        [NonAction]
+        private void AddMyService(Guid memberId, string OrderNo)
+        {
+            // 先根据orderNo 获取到所有的 OrderDetail 里面的商品列表
+            
+            List<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(OrderNo).ToList();
+            List<Goods> serviceList = new List<Goods>();
 
+            // 再判断 servicecount 是否大于 0 来找出服务对象
+            foreach (var item in odList)
+            {
+                Goods goods = _goodsBLL.GetGoodsById(item.GoodsId);
+                if (goods.ServiceCount > 0)
+                {
+                    serviceList.Add(goods);
+                }
+            }
+            // 最后根据所得服务列表  添加 MyService 表
+            foreach (var item in serviceList)
+            {
+                MyService ms = new MyService();
+                ms.Id = Guid.NewGuid();
+                ms.IsDeleted = false;
+                ms.MemberId = memberId;
+                ms.TotalCount = item.ServiceCount;
+                ms.CurrentCount = item.ServiceCount;
+                ms.CreatedTime = DateTime.Now;
+                ms.DeletedTime = DateTime.MinValue.AddHours(8);
+                ms.GoodsId = item.Id;
+                ms.GoodsName = item.Name;
+
+                _serviceBLL.Add(ms);
+            }
+        }
+
+        /// <summary>
+        /// 添加我的服务的回调方法
+        /// </summary>
+        /// <param name="ar"></param>
+        [NonAction]
+        private void MyServiceCallBackMethod(IAsyncResult ar)
+        {
+            AddMyServiceDel del = (AddMyServiceDel)ar.AsyncState;
+            del.EndInvoke(ar);
+        }
     }
 }
