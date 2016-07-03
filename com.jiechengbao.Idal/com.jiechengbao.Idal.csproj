@@ -46,6 +46,7 @@
     <Compile Include="ICarDAL.cs" />
     <Compile Include="ICartDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
+    <Compile Include="ICreditRecordDAL.cs" />
     <Compile Include="IDataBaseDAL.cs" />
     <Compile Include="IGoodsCategoryDAL.cs" />
     <Compile Include="IGoodsDAL.cs" />
