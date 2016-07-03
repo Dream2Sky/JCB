@@ -219,6 +219,7 @@
     <Content Include="Views\Goods\Update.cshtml" />
     <Content Include="Views\Member\VIPSetting.cshtml" />
     <Content Include="Views\Car\List.cshtml" />
+    <None Include="Properties\PublishProfiles\com.jiechengbao.admin.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

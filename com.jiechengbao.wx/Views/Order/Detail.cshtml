@@ -161,7 +161,8 @@
                     mui.alert("支付失败");
                 }
                 else {
-                    if (data.payway==0) {
+                    if (data.payway == 0) {
+                        alert("/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"]);
                         window.location.href = "/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
                     }
                     else {

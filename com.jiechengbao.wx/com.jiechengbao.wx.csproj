@@ -271,6 +271,7 @@
     <Content Include="Views\Pay\RechargePay.cshtml" />
     <Content Include="Views\Pay\WxPayResult.cshtml" />
     <Content Include="Views\Pay\RechargePayResult.cshtml" />
+    <Content Include="Views\UserInfo\Check.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

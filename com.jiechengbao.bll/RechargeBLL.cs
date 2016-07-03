@@ -17,6 +17,11 @@ namespace com.jiechengbao.bll
             _rechargeDAL = rechargeDAL;
         }
 
+        public bool Add(Recharge recharge)
+        {
+            return _rechargeDAL.Insert(recharge);
+        }
+
         public IEnumerable<Recharge> GetRechargeListByMemberId(DateTime startTime, DateTime endTime, Guid memberId)
         {
             return _rechargeDAL.SelectRechargeListByMemberId(startTime, endTime, memberId);

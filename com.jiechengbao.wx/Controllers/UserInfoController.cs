@@ -17,14 +17,17 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsImagesBLL _goodsImageBLL;
         private IReCommendBLL _recommendBLL;
         private IRechargeBLL _rechargeBLL;
+        private ICarBLL _carBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
-            IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, IRechargeBLL rechargeBLL)
+            IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
+            IRechargeBLL rechargeBLL,ICarBLL carBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
             _goodsImageBLL = goodsImagesBLL;
             _recommendBLL = recommendBLL;
             _rechargeBLL = rechargeBLL;
+            _carBLL = carBLL;
         }
 
         public ActionResult Index()
@@ -53,6 +56,16 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult Help()
         {
+            return View();
+        }
+
+        public ActionResult Check()
+        {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
+
+            ViewData["carList"] = carList;
+
             return View();
         }
 

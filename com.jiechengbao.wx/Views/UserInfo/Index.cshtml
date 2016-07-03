@@ -25,6 +25,9 @@
         color: #6d6d72;
         font-size: 14px;
     }
+    button:hover,button:after,button:focus{
+        background-color:#fff;
+    }
 </style>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
@@ -40,25 +43,25 @@
         <div class="row">
             <div class="btn-group btn-group-justified btn-group-options" role="group" aria-label="..." style="padding:0px;">
                 <div class="btn-group" role="group">
-                    <button type="button" id="btn_home" class="btn btn-default">
+                    <button type="button" id="btn_home" class="btn btn-default" onclick="Go('/Home/Index')">
                         <img style="width:48px;height:48px;" src="~/Content/images/在线购物图标.jpg">
                         <p><small>商城</small></p>
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" id="btn_shopping" class="btn btn-default">
+                    <button type="button" id="btn_shopping" class="btn btn-default" onclick="Go('/UserInfo/Check');">
                         <img id="img_shoppingCar" style="width:48px;height:48px;" src="~/Content/images/违章查询图标.jpg">
                         <p><small>违章查询</small></p>
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" id="btn_user" class="btn btn-default">
+                    <button type="button" id="btn_user" class="btn btn-default" onclick="Go('/UserInfo/Help')">
                         <img style="width:48px;height:48px;" src="~/Content/images/车辆救援图标.jpg">
                         <p><small>紧急救援</small></p>
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" id="btn_user" class="btn btn-default">
+                    <button type="button" id="btn_user" class="btn btn-default" onclick="Go('/Car/List');">
                         <img style="width:48px;height:48px;" src="~/Content/images/爱车管理图标.jpg">
                         <p><small>爱车管理</small></p>
                     </button>
@@ -103,3 +106,9 @@
         }
     }
 </ul>
+
+<script>
+    function Go(url) {
+        window.location.href = url;
+    }
+</script>

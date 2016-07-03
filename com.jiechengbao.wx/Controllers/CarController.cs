@@ -121,5 +121,23 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        public ActionResult GetCarByNumberPlate(string Numberplate)
+        {
+            if (string.IsNullOrEmpty(Numberplate))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Car car = _carBLL.GetCarByCarNumber(Numberplate);
+                var data = new
+                {
+                    ChassicNumber = car.ChassisNumber,
+                    EngineNumber = car.EngineNumber
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

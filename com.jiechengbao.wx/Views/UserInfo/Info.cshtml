@@ -65,6 +65,12 @@
         <a href="/UserInfo/Recharge" class="mui-navigate-right">余额<span class="mui-pull-right">￥@Model.Assets</span></a>
     </li>
     <li class="recharge-li">
-        <button class="mui-btn recharge-btn">充值</button>
+        <button class="mui-btn recharge-btn" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>
     </li>
 </ul>
+
+<script>
+    function Go(url) {
+        window.location.href = url;
+    }
+</script>
