@@ -23,8 +23,8 @@
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">VIP @rulesList[i].VIP</span>
                             <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
-                            <span class="input-group-addon" id="basic-addon1">￥</span>
-                            <input type="text" class="form-control" placeholder="所需充值" name="TotalMoney" value="@rulesList[i].TotalMoney" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">累计积分</span>
+                            <input type="text" class="form-control" placeholder="所需积分" name="TotalCredit" value="@rulesList[i].TotalCredit" aria-describedby="basic-addon1">
                             <span class="input-group-addon" id="basic-addon1">折扣</span>
                             <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
                         </div>
@@ -52,7 +52,7 @@
     function AddInputGroup() {
         count += 1;
         var group = $(".vip-group");
-        $(group[group.length - 1]).append("<div class=\"input-group\"><span class=\"input-group-addon\" id=\"basic-addon1\">VIP" + count + "</span><input type=\"hidden\" name=\"VIP\" value=\"" + count + "\"/><span class=\"input-group-addon\" id=\"basic-addon1\">￥</span><input type=\"text\" class=\"form-control\" placeholder=\"所需充值\" name=\"TotalMoney\" aria-describedby=\"basic-addon1\"><span class=\"input-group-addon\" id=\"basic-addon1\">折扣</span><input type=\"text\" class=\"form-control\" placeholder=\"折扣\" name=\"Discount\" aria-describedby=\"basic-addon1\"></div><div class=\"form-group vip-group\"></div>");
+        $(group[group.length - 1]).append("<div class=\"input-group\"><span class=\"input-group-addon\" id=\"basic-addon1\">VIP" + count + "</span><input type=\"hidden\" name=\"VIP\" value=\"" + count + "\"/><span class=\"input-group-addon\" id=\"basic-addon1\">累计积分</span><input type=\"text\" class=\"form-control\" placeholder=\"所需积分\" name=\"TotalCredit\" aria-describedby=\"basic-addon1\"><span class=\"input-group-addon\" id=\"basic-addon1\">折扣</span><input type=\"text\" class=\"form-control\" placeholder=\"折扣\" name=\"Discount\" aria-describedby=\"basic-addon1\"></div><div class=\"form-group vip-group\"></div>");
     }
 
     function Save() {
@@ -68,7 +68,7 @@
         for (var i = 0; i < arra.length; i++) {
             result += '{';
             result += '"VIP":"' + $(arra[i]).find("input[name='VIP']").val() + '",';
-            result += '"TotalMoney":"' + $(arra[i]).find("input[name='TotalMoney']").val() + '",';
+            result += '"TotalCredit":"' + $(arra[i]).find("input[name='TotalCredit']").val() + '",';
             result += '"Discount":"' + $(arra[i]).find("input[name='Discount']").val() + '"},';
         }
         result = result.substring(0, result.length - 1);

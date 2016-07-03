@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.jiechengbao.entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace com.jiechengbao.Ibll
 {
     public interface ICreditRecordBLL
     {
+        bool Add(CreditRecord cr);
     }
 }

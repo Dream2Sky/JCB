@@ -56,5 +56,21 @@ namespace com.jiechengbao.bll
             }
             return rules.Discount;
         }
+
+        public bool UpGradeVIP(double totalCredit, int currentVIP, out int TargetVIP)
+        {
+            Rules rules = _rulesDAL.SelectByTotalCreditWithOrderDesc(totalCredit);
+
+            if (rules.VIP > currentVIP)
+            {
+                TargetVIP = rules.VIP;
+                return true;
+            }
+            else
+            {
+                TargetVIP = 0;
+                return false;
+            }
+        }
     }
 }

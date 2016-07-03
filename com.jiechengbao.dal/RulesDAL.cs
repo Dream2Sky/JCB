@@ -36,6 +36,23 @@ namespace com.jiechengbao.dal
             }
         }
 
+        public Rules SelectByTotalCreditWithOrderDesc(double totalCredit)
+        {
+            try
+            {
+                // 找到比传递进来的总积分小的最大的vip规则
+                Rules rule = db.Set<Rules>().Where(n => n.TotalCredit <= totalCredit).OrderByDescending(n => n.TotalCredit).FirstOrDefault();
+
+                return rule;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Rules SelectByVIP(int VIP)
         {
             try

@@ -48,9 +48,15 @@ namespace com.jiechengbao.entity
         public double Assets { get; set; } = 0;
 
         /// <summary>
-        /// 会员积分
+        /// 会员当前积分
         /// </summary>
         [Required]
         public double Credit { get; set; } = 0;
+
+        /// <summary>
+        /// 会员累计总积分
+        /// </summary>
+        [Required]
+        public double TotalCredit { get; set; } = 0;
     }
 }

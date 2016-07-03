@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201607030921317_AddTable_CreditRecords.Designer.cs">
       <DependentUpon>201607030921317_AddTable_CreditRecords.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607031128545_AlterColumn_Rules_TotalCredit.cs" />
+    <Compile Include="Migrations\201607031128545_AlterColumn_Rules_TotalCredit.Designer.cs">
+      <DependentUpon>201607031128545_AlterColumn_Rules_TotalCredit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607030921317_AddTable_CreditRecords.resx">
       <DependentUpon>201607030921317_AddTable_CreditRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607031128545_AlterColumn_Rules_TotalCredit.resx">
+      <DependentUpon>201607031128545_AlterColumn_Rules_TotalCredit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

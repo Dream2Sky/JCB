@@ -72,7 +72,7 @@ namespace com.jiechengbao.admin.Controllers
                         rules.DeletedTime = DateTime.MinValue.AddHours(8);
                         rules.Discount = double.Parse(item["Discount"].ToString());
                         rules.IsDeleted = false;
-                        rules.TotalMoney = double.Parse(item["TotalMoney"].ToString());
+                        rules.TotalCredit = double.Parse(item["TotalMoney"].ToString());
                         rules.VIP = int.Parse(item["VIP"].ToString());
 
                         rulesList.Add(rules);
@@ -81,7 +81,7 @@ namespace com.jiechengbao.admin.Controllers
                     Rules rules0 = new Rules();
                     rules0.Id = Guid.NewGuid();
                     rules0.IsDeleted = false;
-                    rules0.TotalMoney = 0;
+                    rules0.TotalCredit = 0;
                     rules0.VIP = 0;
                     rules0.Discount = 1;
                     rules0.DeletedTime = DateTime.MinValue.AddHours(8);

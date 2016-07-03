@@ -11,5 +11,6 @@ namespace com.jiechengbao.Idal
     {
         Rules SelectByVIP(int VIP);
         bool Insert(List<Rules> rulesList);
+        Rules SelectByTotalCreditWithOrderDesc(double totalCredit);
     }
 }

@@ -15,5 +15,6 @@ namespace com.jiechengbao.Ibll
 
         bool Add(List<Rules> rulesList);
         bool Add(Rules rules);
+        bool UpGradeVIP(double totalCredit, int currentVIP, out int TargetVIP);
     }
 }

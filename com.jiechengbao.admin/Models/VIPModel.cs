@@ -12,7 +12,7 @@ namespace com.jiechengbao.admin.Models
         [DataMember]
         public int VIP { get; set; }
         [DataMember]
-        public double TotalMoney { get; set; }
+        public double TotalCredit { get; set; }
         [DataMember]
         public double Discount { get; set; }
     }

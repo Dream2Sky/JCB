@@ -18,24 +18,31 @@ using System.Web.Mvc;
 using com.jiechengbao.common;
 using System.Text;
 using WxPayAPI;
+using System.Configuration;
 
 namespace com.jiechengbao.wx.Controllers
 {
 
     public class PayController : Controller
     {
+        private delegate void UpGradeDel(Guid memberId);
+
         private IMemberBLL _memberBLL;
         private IOrderBLL _orderBLL;
         private ITransactionBLL _transactionBLL;
         private IRechargeBLL _recharegeBLL;
+        private ICreditRecordBLL _creditRecordBLL;
+        private IRulesBLL _rulesBLL;
 
-        public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL, 
-            ITransactionBLL transactionBLL,IRechargeBLL rechargeBLL)
+        public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
+            ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL, 
+            ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
             _transactionBLL = transactionBLL;
             _recharegeBLL = rechargeBLL;
+            _creditRecordBLL = creditRecordBLL;
         }
 
         /// <summary>
@@ -130,9 +137,20 @@ namespace com.jiechengbao.wx.Controllers
                 data.FromXml(builder.ToString());
                 Order order = _orderBLL.GetOrderByOrderNo(data.GetValue("out_trade_no").ToString());
                 order.Status = 1;
+
+                Member member = _memberBLL.GetMemberByOpenId(data.GetValue("openid").ToString());
+
                 if (_orderBLL.Update(order))
                 {
                     LogHelper.Log.Write("支付成功");
+
+                    // 更新会员积分
+                    AddConsumeCredit(member, order.TotalPrice);
+
+                    // 异步判断是否有足够的积分进行升级
+                    UpGradeDel del = new UpGradeDel(UpGradeVIP);
+                    IAsyncResult result = del.BeginInvoke(member.Id, CallBackMethod, null);
+
                 }
                 else
                 {
@@ -204,7 +222,7 @@ namespace com.jiechengbao.wx.Controllers
             // 取得 order对象 
             Order order = _orderBLL.GetOrderByOrderNo(orderNo);
 
-            #region 判断余额是否充值
+            #region 判断余额是否充足
             // 判断余额 是否 充值
             if (member.Assets < order.TotalPrice)
             {
@@ -267,6 +285,13 @@ namespace com.jiechengbao.wx.Controllers
                     return Json(res, JsonRequestBehavior.AllowGet);
                 }
 
+                // 添加消费积分记录 并修改会员积分
+                if(AddConsumeCredit(member, order.TotalPrice))
+                {
+                    // 当修改消费积分成功时 异步判断是否够积分升级vip
+                    UpGradeDel del = new UpGradeDel(UpGradeVIP);
+                    IAsyncResult ra = del.BeginInvoke(member.Id, CallBackMethod, null);
+                }
                 // 修改账户余额
                 member.Assets = member.Assets - order.TotalPrice;
                 if (!_memberBLL.Update(member))
@@ -414,6 +439,13 @@ namespace com.jiechengbao.wx.Controllers
                     if (_recharegeBLL.Add(recharge))
                     {
                         LogHelper.Log.Write("充值成功");
+                        // 添加充值积分记录
+                        if(AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())))
+                        {
+                            // 异步判断是否够积分升级vip
+                            UpGradeDel del = new UpGradeDel(UpGradeVIP);
+                            IAsyncResult ar = del.BeginInvoke(member.Id, CallBackMethod, null);
+                        }
                     }
                     else
                     {
@@ -446,5 +478,98 @@ namespace com.jiechengbao.wx.Controllers
 
             return Content(successData.ToXml());
         }
+
+        /// <summary>
+        /// 添加充值积分记录
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="money"></param>
+        /// <returns></returns>
+        [NonAction]
+        private bool AddRechargeCredit(Member member, double money)
+        {
+            CreditRecord cr = new CreditRecord();
+            cr.Id = Guid.NewGuid();
+            cr.MemberId = member.Id;
+            cr.IsDeleted = false;
+            cr.Money = money;
+            cr.OperationType = "Recharge";
+            cr.CreatedTime = DateTime.Now;
+            cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Recharge"].ToString());
+            cr.DeletedTime = DateTime.MinValue.AddHours(8);
+
+            if (_creditRecordBLL.Add(cr))
+            {
+                member.Credit += cr.Money * cr.CurrentCreditCoefficient; // 当前积分
+                member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient; // 累计总积分
+                _memberBLL.Update(member);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 添加消费积分记录
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="money"></param>
+        /// <returns></returns>
+        [NonAction]
+        private bool AddConsumeCredit(Member member, double money)
+        {
+            CreditRecord cr = new CreditRecord();
+            cr.Id = Guid.NewGuid();
+            cr.CreatedTime = DateTime.Now;
+            cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Consumption"].ToString());
+            cr.DeletedTime = DateTime.MinValue.AddHours(8);
+            cr.IsDeleted = false;
+            cr.MemberId = member.Id;
+            cr.Money = money;
+            cr.OperationType = "Consumption";
+
+            if (_creditRecordBLL.Add(cr))
+            {
+                member.Credit += cr.Money * cr.CurrentCreditCoefficient;
+                member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient;
+                _memberBLL.Update(member);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 升级vip函数  先判断是否够积分升级vip 如果够则直接升级vip
+        /// </summary>
+        /// <param name="memberId"></param>
+        [NonAction]
+        private void UpGradeVIP(Guid memberId)
+        {
+            Member member = _memberBLL.GetMemberById(memberId);
+            int targetVIP;
+            if (_rulesBLL.UpGradeVIP(member.TotalCredit,member.Vip,out targetVIP))
+            {
+                member.Vip = targetVIP;
+                _memberBLL.Update(member);
+            }
+        }
+
+        /// <summary>
+        /// UpGradeDel 的回调方法
+        /// </summary>
+        /// <param name="ar"></param>
+        [NonAction]
+        private void CallBackMethod(IAsyncResult ar)
+        {
+            UpGradeDel del = (UpGradeDel)ar.AsyncState;
+            del.EndInvoke(ar);
+        }
+
+
     }
 }

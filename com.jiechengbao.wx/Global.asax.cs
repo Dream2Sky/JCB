@@ -63,6 +63,8 @@ namespace com.jiechengbao.wx
             builder.RegisterType<CarDAL>().As<ICarDAL>();
             builder.RegisterType<RechargeBLL>().As<IRechargeBLL>();
             builder.RegisterType<RechargeDAL>().As<IRechargeDAL>();
+            builder.RegisterType<CreditRecordBLL>().As<ICreditRecordBLL>();
+            builder.RegisterType<CreditRecordDAL>().As<ICreditRecordDAL>();
         }
     }
 }

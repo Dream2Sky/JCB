@@ -13,10 +13,10 @@ namespace com.jiechengbao.entity
     public class Rules:DataEntity
     {
         /// <summary>
-        /// 会员累计充值的钱数
+        /// 会员累计的总积分
         /// </summary>
         [Required]
-        public double TotalMoney { get; set; }
+        public double TotalCredit { get; set; }
 
         /// <summary>
         /// 钱数对应的VIP等级
