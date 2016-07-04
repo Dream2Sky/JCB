@@ -10,6 +10,5 @@ namespace com.jiechengbao.Ibll
     public interface IServiceConsumePasswordBLL
     {
         ServiceConsumePassword GetServicePassword();
-        bool Update(ServiceConsumePassword scp);
     }
 }
