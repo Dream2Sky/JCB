@@ -1,14 +1,14 @@
 ﻿using com.jiechengbao.entity;
+using com.jiechengbao.Idal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.jiechengbao.Idal
+namespace com.jiechengbao.dal
 {
-    public interface IServiceDAL:IDataBaseDAL<MyService>
+    public class ServiceConsumePasswordDAL:DataBaseDAL<ServiceConsumePassword>,IServiceConsumePasswordDAL
     {
-        IEnumerable<MyService> SelectByMemberId(Guid memberId);
     }
 }

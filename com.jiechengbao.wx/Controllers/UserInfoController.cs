@@ -18,9 +18,10 @@ namespace com.jiechengbao.wx.Controllers
         private IReCommendBLL _recommendBLL;
         private IRechargeBLL _rechargeBLL;
         private ICarBLL _carBLL;
+        private IServiceBLL _serviceBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
-            IRechargeBLL rechargeBLL,ICarBLL carBLL)
+            IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
@@ -72,7 +73,6 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
-
             return View(member);
         }
 
@@ -80,6 +80,28 @@ namespace com.jiechengbao.wx.Controllers
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
             ViewBag.Phone = member.Phone;
+            return View();
+        }
+
+        public ActionResult MyServices()
+        {
+            List<MyService> msList = new List<MyService>();
+            List<ServiceDetailModel> sdmList = new List<ServiceDetailModel>();
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            msList = _serviceBLL.GetMyServiceByMemberId(member.Id).ToList();
+
+            foreach (var item in msList)
+            {
+                ServiceDetailModel sdm = new ServiceDetailModel();
+                sdm.CurrentCount = item.CurrentCount;
+                sdm.ServcieId = item.Id;
+                sdm.ServiceImagePath = _goodsImageBLL.GetPictureByGoodsId(item.GoodsId).ImagePath;
+                sdm.ServiceName = item.GoodsName;
+                sdm.TotalCount = item.TotalCount;
+
+                sdmList.Add(sdm);
+            }
+            ViewData["SDMList"] = sdmList;
             return View();
         }
 

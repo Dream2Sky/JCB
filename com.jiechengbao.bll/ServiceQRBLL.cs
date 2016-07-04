@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using com.jiechengbao.entity;
 
 namespace com.jiechengbao.bll
 {
@@ -14,6 +15,16 @@ namespace com.jiechengbao.bll
         public ServiceQRBLL(IServiceQRDAL serviceQRDAL)
         {
             _serviceQRDAL = serviceQRDAL;
+        }
+
+        public bool Add(ServiceQR qr)
+        {
+            return _serviceQRDAL.Insert(qr);
+        }
+
+        public ServiceQR GetServiceQRByServcieId(Guid serviceId)
+        {
+            return _serviceQRDAL.SelectByServcieId(serviceId);
         }
     }
 }

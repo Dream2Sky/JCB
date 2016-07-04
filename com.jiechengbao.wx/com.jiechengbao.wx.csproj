@@ -235,6 +235,8 @@
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderResultModel.cs" />
+    <Compile Include="Models\ServiceDetailModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\WxPayApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -273,6 +275,9 @@
     <Content Include="Views\Pay\WxPayResult.cshtml" />
     <Content Include="Views\Pay\RechargePayResult.cshtml" />
     <Content Include="Views\UserInfo\Check.cshtml" />
+    <Content Include="Views\Pay\ConsumeService.cshtml" />
+    <Content Include="Views\UserInfo\MyServices.cshtml" />
+    <Content Include="Views\Pay\MyServiceQR.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -282,11 +287,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="QR\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyLibrary\ch.lib.common.QR\ch.lib.common.QR.csproj">
+      <Project>{7ebbeca6-a1fb-4ae8-8bb9-9161fcd53377}</Project>
+      <Name>ch.lib.common.QR</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
       <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>

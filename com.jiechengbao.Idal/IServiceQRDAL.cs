@@ -9,5 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface IServiceQRDAL:IDataBaseDAL<ServiceQR>
     {
+        ServiceQR SelectByServcieId(Guid serviceId);
     }
 }

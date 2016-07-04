@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "MyServices";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.wx.Models
+
+<ul class="mui-table-view goods-ul">
+    <li class="mui-table-view-cell">
+        <small>服务列表</small>
+    </li>
+    @foreach (var item in ViewData["SDMList"] as List<ServiceDetailModel>)
+    {
+        <li class="mui-table-view-cell mui-media">
+            <a href="/Pay/MyServiceQR?serviceId=@item.ServcieId">
+                <img class="mui-media-object mui-pull-left" src="/Uploads/@item.ServiceImagePath">
+                <div class="mui-media-body">
+                    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed goods-view">
+                        <li class="mui-table-view-cell goods-cell">
+                            <div class="mui-table name-cell">
+                                <div class="mui-table-cell mui-col-xs-8">
+                                    <p class="mui-ellipsis">@item.ServiceName</p>
+                                </div>
+                                <div class="mui-table-cell mui-col-xs-4 mui-text-right">
+                                    <span class="mui-h5">剩余使用次数:@item.CurrentCount</span>
+                                </div>
+                            </div>
+                            <div class="mui-table address-cell">
+                                <div class="mui-table-cell mui-col-xs-12">
+                                    <p class="mui-h6 mui-ellipsis">总使用次数:@item.TotalCount</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </a>
+        </li>
+    }
+</ul>

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.jiechengbao.Idal
+namespace com.jiechengbao.Ibll
 {
-    public interface IServiceDAL:IDataBaseDAL<MyService>
+    public interface IServiceConsumePasswordBLL
     {
-        IEnumerable<MyService> SelectByMemberId(Guid memberId);
+        ServiceConsumePassword GetServicePassword();
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using com.jiechengbao.entity;
 
 namespace com.jiechengbao.bll
 {
@@ -14,6 +15,11 @@ namespace com.jiechengbao.bll
         public ServiceConsumeRecordBLL(IServiceConsumeRecordDAL serviceConsumeRecordDAL)
         {
             _serviceConsumeRecordDAL = serviceConsumeRecordDAL;
+        }
+
+        public bool Add(ServiceConsumeRecord scr)
+        {
+            return _serviceConsumeRecordDAL.Insert(scr);
         }
     }
 }

@@ -19,6 +19,7 @@ using com.jiechengbao.common;
 using System.Text;
 using WxPayAPI;
 using System.Configuration;
+using ch.lib.common.QR;
 
 namespace com.jiechengbao.wx.Controllers
 {
@@ -47,12 +48,16 @@ namespace com.jiechengbao.wx.Controllers
         private IOrderDetailBLL _orderDetailBLL;
         private IGoodsBLL _goodsBLL;
         private IServiceBLL _serviceBLL;
-
+        private IServiceQRBLL _serviceQRBLL;
+        private IServiceConsumeRecordBLL _serviceConsumeRecoredBLL;
+        private IServiceConsumePasswordBLL _serviceConsumePasswordBLL;
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
             ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL, 
             ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL,
             IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL,
-            IServiceBLL serviceBLL)
+            IServiceBLL serviceBLL, IServiceQRBLL serviceQRBLL,
+            IServiceConsumeRecordBLL serviceConsumeRecordBLL,
+            IServiceConsumePasswordBLL serviceConsumePasswordBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
@@ -63,6 +68,9 @@ namespace com.jiechengbao.wx.Controllers
             _goodsBLL = goodsBLL;
             _serviceBLL = serviceBLL;
             _rulesBLL = rulesBLL;
+            _serviceQRBLL = serviceQRBLL;
+            _serviceConsumeRecoredBLL = serviceConsumeRecordBLL;
+            _serviceConsumePasswordBLL = serviceConsumePasswordBLL;
         }
 
         /// <summary>
@@ -508,6 +516,83 @@ namespace com.jiechengbao.wx.Controllers
             return Content(successData.ToXml());
         }
 
+        public ActionResult ConsumeService(Guid serviceId)
+        {
+            if (serviceId==null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
+
+            if (ms == null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            ServiceModel sm = new ServiceModel();
+            sm.MemberName = _memberBLL.GetMemberById(ms.MemberId).NickeName;
+            sm.ServiceId = ms.Id;
+            sm.ServiceName = ms.GoodsName;
+
+            return View(sm);
+        }
+
+        [HttpPost]
+        public ActionResult ConsumeService(Guid serviceId, string password)
+        {
+            if (serviceId == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return Json("PasswordError", JsonRequestBehavior.AllowGet);
+            }
+
+            ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
+            if (scp.Password == password)
+            {
+                ServiceConsumeRecord scr = new ServiceConsumeRecord();
+                scr.Id = Guid.NewGuid();
+                scr.IsDeleted = false;
+                scr.ServiceId = serviceId;
+                scr.CreatedTime = DateTime.Now;
+                scr.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                if(_serviceConsumeRecoredBLL.Add(scr))
+                {
+                    MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
+                    if (ms.CurrentCount>0)
+                    {
+                        ms.CurrentCount -= 1;
+                    }
+                    else
+                    {
+                        return Json("False", JsonRequestBehavior.AllowGet);
+                    }
+                    _serviceBLL.Update(ms);
+
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json("PasswordError", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult MyServiceQR(Guid serviceId)
+        {
+            ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
+            return View(qr);
+        }
+
+
         /// <summary>
         /// 添加充值积分记录
         /// </summary>
@@ -636,6 +721,9 @@ namespace com.jiechengbao.wx.Controllers
                 ms.GoodsName = item.Name;
 
                 _serviceBLL.Add(ms);
+
+                // 生成二维码
+                CreateServiceQR(memberId, ms.Id);
             }
         }
 
@@ -648,6 +736,31 @@ namespace com.jiechengbao.wx.Controllers
         {
             AddMyServiceDel del = (AddMyServiceDel)ar.AsyncState;
             del.EndInvoke(ar);
+        }
+
+        /// <summary>
+        /// 生成二维码 并添加路径
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="serviceId"></param>
+        [NonAction]
+        private void CreateServiceQR(Guid memberId,Guid serviceId)
+        {
+            string dir = Server.MapPath("~/QR/");
+            ServiceQR sqr = new ServiceQR();
+            sqr.Id = Guid.NewGuid();
+            sqr.IsDeleted = false;
+            sqr.MemberId = memberId;
+            sqr.ServcieId = serviceId;
+            sqr.CreatedTime = DateTime.Now;
+            sqr.DeletedTime = DateTime.MinValue.AddHours(8);
+            string sourceString = Request.Url.Scheme + Request.Url.Port + Request.Url.Host + "/Pay/ConsumeService?serviceId=" + serviceId;
+            string qrPath = QRCodeCreator.Create(sourceString, dir);
+
+            sqr.QRPath = qrPath;
+
+            _serviceQRBLL.Add(sqr);
+
         }
     }
 }

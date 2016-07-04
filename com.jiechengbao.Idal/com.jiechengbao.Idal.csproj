@@ -57,6 +57,7 @@
     <Compile Include="IRechargeDAL.cs" />
     <Compile Include="IReCommendDAL.cs" />
     <Compile Include="IRulesDAL.cs" />
+    <Compile Include="IServiceConsumePasswordDAL.cs" />
     <Compile Include="IServiceConsumeRecordDAL.cs" />
     <Compile Include="IServiceDAL.cs" />
     <Compile Include="IServiceQRDAL.cs" />

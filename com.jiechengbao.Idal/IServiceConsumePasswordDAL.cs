@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.Idal
 {
-    public interface IServiceDAL:IDataBaseDAL<MyService>
+    public interface IServiceConsumePasswordDAL:IDataBaseDAL<ServiceConsumePassword>
     {
-        IEnumerable<MyService> SelectByMemberId(Guid memberId);
     }
 }

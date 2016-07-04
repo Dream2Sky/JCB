@@ -57,6 +57,7 @@
     <Compile Include="ReCommendBLL.cs" />
     <Compile Include="RulesBLL.cs" />
     <Compile Include="ServiceBLL.cs" />
+    <Compile Include="ServiceConsumePasswordBLL.cs" />
     <Compile Include="ServiceConsumeRecordBLL.cs" />
     <Compile Include="ServiceQRBLL.cs" />
     <Compile Include="TransactionBLL.cs" />

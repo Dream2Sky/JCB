@@ -8,7 +8,20 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.dal
 {
-    public class ServiceDAL:DataBaseDAL<MyService>,IServiceDAL
+    public class ServiceDAL : DataBaseDAL<MyService>, IServiceDAL
     {
+        public IEnumerable<MyService> SelectByMemberId(Guid memberId)
+        {
+            try
+            {
+                return db.Set<MyService>().Where(n => n.MemberId == memberId);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

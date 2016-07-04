@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "MyServiceQR";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@model com.jiechengbao.entity.ServiceQR
+
+<style>
+    .qrView{
+        max-height:250px;
+        max-width:250px;
+    }
+</style>
+<div class="mui-content-padded">
+    <p>
+        <img class="qrView" src="/QR/@Model.QRPath"/>
+    </p>
+</div>
