@@ -65,6 +65,14 @@ namespace com.jiechengbao.wx
             builder.RegisterType<RechargeDAL>().As<IRechargeDAL>();
             builder.RegisterType<CreditRecordBLL>().As<ICreditRecordBLL>();
             builder.RegisterType<CreditRecordDAL>().As<ICreditRecordDAL>();
+            builder.RegisterType<ServiceBLL>().As<IServiceBLL>();
+            builder.RegisterType<ServiceDAL>().As<IServiceDAL>();
+            builder.RegisterType<ServiceConsumePasswordBLL>().As<IServiceConsumePasswordBLL>();
+            builder.RegisterType<ServiceConsumePasswordDAL>().As<IServiceConsumePasswordDAL>();
+            builder.RegisterType<ServiceConsumeRecordBLL>().As<IServiceConsumeRecordBLL>();
+            builder.RegisterType<ServiceConsumeRecordDAL>().As<IServiceConsumeRecordDAL>();
+            builder.RegisterType<ServiceQRBLL>().As<IServiceQRBLL>();
+            builder.RegisterType<ServiceQRDAL>().As<IServiceQRDAL>();
         }
     }
 }

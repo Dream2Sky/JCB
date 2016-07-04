@@ -5,6 +5,14 @@
 }
 @using com.jiechengbao.wx.Models
 
+<style>
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+    }
+</style>
+
 <ul class="mui-table-view goods-ul">
     <li class="mui-table-view-cell">
         <small>服务列表</small>
@@ -35,5 +43,9 @@
                 </div>
             </a>
         </li>
+    }
+    @if ((ViewData["SDMList"] as List<ServiceDetailModel>) == null || (ViewData["SDMList"] as List<ServiceDetailModel>).Count == 0)
+    {
+        <div class="title">您还没有购买任何服务，快去商品拦购买吧</div>
     }
 </ul>
