@@ -3,244 +3,279 @@
     ViewBag.Title = "Check";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
+@using com.jiechengbao.entity
+<link href="http://static.weizhang8.cn/myskin/index_m_150629.css?v=3" rel="stylesheet" type="text/css" />
+<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/cityinfo.js?v=20150619"></script>
+<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/weizhang8_all_150822.js?v=1"></script>
+<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/mobile_150711.js?v=1"></script>
 <style>
-    .Adv {
-        padding: 10px 0px 10px 0px;
-        height: 100px;
-    }
-
-    #NewsContent {
-        float: left;
-        width: 700px;
-        border: #CCC solid 1px;
-        margin-left: 10px;
-        background-color: #FFF;
-    }
-
-    #NewsHeader {
-        background: url(http://www.cx580.com/Web/images/headerbg.jpg) no-repeat;
-        height: 19px;
-        line-height: 19px;
-        padding: 15px;
-        font-size: 18px;
-        font-family: 微软雅黑;
-        color: #FFF;
-    }
-
-    .Icon_TopNews {
-        float: left;
-        width: 30px;
-        height: 22px;
-        background: url(http://www.cx580.com/Web/images/icon.png) no-repeat;
-        background-position: -48px -15px;
-        margin-right: 10px;
-    }
-
-    .header {
-        height: 80px;
-        padding: 20px;
-        color: #333;
-    }
-
-        .header h3 {
-            font-size: 24px;
-            font-family: 微软雅黑;
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
-
-    .NewsInfo {
-        display: block;
-        clear: both;
-        width: 100%;
-        margin: auto;
-    }
-
-    .publisher, .releasetime {
-        float: left;
-        padding-right: 20px;
-    }
-
-    .Content {
-        padding: 20px;
-    }
-
-        .Content a {
-            color: #178CE6;
-        }
-
-            .Content a:hover {
-                color: #178CE6;
-                text-decoration: underline;
-            }
-    #Paltform {
-        float: left;
-    }
-
-    .HotLine {
-        border: #d1d1d1 solid 1px;
-        height: 143px;
-        width: 335px;
-        margin-top: 10px;
-        background: url(http://www.cx580.com/Web/images/bg_143.png) repeat-x;
+    select {
+        border-style: solid !important;
+        border-width: thin !important;
+        border-color: #d0d0d0 !important;
         text-align: center;
     }
 
-        .HotLine img {
-            margin: 15px auto;
-        }
-
-        .HotLine label {
-            display: block;
-            clear: both;
-            width: 275px;
-            margin: auto;
-            border-top: #CCC dashed 1px;
-            line-height: 32px;
-        }
-
-    .fx_div {
-        height: 37px;
-        width: 662px;
-        border-bottom: 1px dashed #B4B4B4;
-        border-top: 1px dashed #B4B4B4;
-        padding: 20px 0px 10px 0px;
-        vertical-align: middle;
-        line-height: 20px;
-        margin: auto;
+    .citysel {
+        padding-right: 10px;
     }
 
-    .fxzt {
-        float: left;
-        margin-right: 4px;
-        font-size: 12px;
-        font-weight: bold;
+    .hpzl {
+        padding-right: 10px;
     }
 
-    .fxzt2 {
-        float: left;
-        margin-right: 8px;
-        margin-top: 3px;
+    .myinput {
+        margin-bottom: 0px !important;
+    }
+    /*.mui-btn-block {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                height: 35px;
+            }*/
+
+    .container {
+        padding-left: 10px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
 
-    .syp {
-        line-height: 25px;
+    .mui-btn-block {
         font-size: 14px;
-        margin-left: 20px;
-    }
-
-        .syp a {
-            color: #3754C2;
-            font-size: 14px;
-        }
-
-
-
-
-    .xyp {
-        line-height: 25px;
-        font-size: 14px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-
-        .xyp a {
-            color: #3754C2;
-            font-size: 14px;
-        }
-
-    .xxx_ {
-        width: 672px;
-        border-bottom: 1px dashed #B4B4B4;
-        margin: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 </style>
-<link type="text/css" rel="stylesheet" href="http://v1.jiathis.com/code/css/jiathis_share.css">
-<link href="http://www.cx580.com/Web/css/QueryForm.css" rel="stylesheet" type="text/css" />
-<link href="http://www.cx580.com/Web/css/zebra_dialog.css" rel="stylesheet" type="text/css" />
-<script src="http://www.cx580.com/Web/scripts/zebra_dialog.js" type="text/javascript"></script>
-<script src="http://www.cx580.com/Web/scripts/zebra_dialog.src.js" type="text/javascript"></script>
-<script src="http://www.cx580.com/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="http://www.cx580.com/Order/JS/jquery.url.js" type="text/javascript"></script>
-<script src="~/Content/js/queryform.js" type="text/javascript"></script>
+
+<div class="container">
+    <select class="mui-btn mui-btn-block mycar-select">
+        <option selected="selected" value="0">点击选择您的爱车</option>
+        @foreach (var item in ViewData["carList"] as List<Car>)
+        {
+            <option>@item.Numberplate</option>
+        }
+    </select>
+</div>
+
+<form name="my_form" method="post" id="my_form" action="" onSubmit="" target="_self">
+    <div class="inputbox">
+        <div class="top2">
+            <div class="leftbox">
+                <div class="provincesel" id="provincesel">
+                    <select name="province" id="selProvince" style="width:100%;" onChange="getCity(this.options[this.selectedIndex].value);updateAll();" onFocus="lockedcode(0);" class="myselect">
+                        <option value="">-省份-</option>
+                        <option value="北京" id="京">北京</option>
+                        <option value="上海" id="沪">上海</option>
+                        <option value="天津" id="津">天津</option>
+                        <option value="重庆" id="渝">重庆</option>
+
+                        <option value="河北" id="冀">河北</option>
+                        <option value="山西" id="晋">山西</option>
+                        <option value="内蒙古" id="蒙">内蒙古</option>
+                        <option value="辽宁" id="辽">辽宁</option>
+                        <option value="吉林" id="吉">吉林</option>
+                        <option value="黑龙江" id="黑">黑龙江</option>
+
+                        <option value="江苏" id="苏">江苏</option>
+                        <option value="浙江" id="浙">浙江</option>
+                        <option value="安徽" id="皖">安徽</option>
+                        <option value="福建" id="闽">福建</option>
+                        <option value="江西" id="赣">江西</option>
+                        <option value="山东" id="鲁">山东</option>
+
+                        <option value="河南" id="豫">河南</option>
+                        <option value="湖北" id="鄂">湖北</option>
+                        <option value="湖南" id="湘">湖南</option>
+                        <option value="广东" id="粤">广东</option>
+                        <option value="广西" id="桂">广西</option>
+                        <option value="海南" id="琼">海南</option>
+
+                        <option value="四川" id="川">四川</option>
+                        <option value="贵州" id="贵">贵州</option>
+                        <option value="云南" id="云">云南</option>
+                        <option value="西藏" id="藏">西藏</option>
+                        <option value="陕西" id="陕">陕西</option>
+                        <option value="甘肃" id="甘">甘肃</option>
+
+                        <option value="宁夏" id="宁">宁夏</option>
+                        <option value="青海" id="青">青海</option>
+                        <option value="新疆" id="新">新疆</option>
+                    </select>
+                </div>
+                <div class="hphmjc">
+                    <div class="hphmjc1">
+                        <select name="province_sn" id="my_jc_select1" style="width:100%; height:40px;" onChange="" class="myselect">
+                            <option selected="selected" value="粤">粤</option>
+                            <option value="浙">浙</option>
+                            <option value="京">京</option>
+                            <option value="沪">沪</option>
+                            <option value="川">川</option>
+
+                            <option value="津">津</option>
+                            <option value="渝">渝</option>
+                            <option value="鄂">鄂</option>
+                            <option value="赣">赣</option>
+                            <option value="冀">冀</option>
+                            <option value="蒙">蒙</option>
+
+                            <option value="鲁">鲁</option>
+                            <option value="苏">苏</option>
+                            <option value="辽">辽</option>
+                            <option value="吉">吉</option>
+                            <option value="皖">皖</option>
+                            <option value="湘">湘</option>
+
+                            <option value="黑">黑</option>
+                            <option value="琼">琼</option>
+                            <option value="贵">贵</option>
+                            <option value="桂">桂</option>
+                            <option value="云">云</option>
+                            <option value="藏">藏</option>
+
+                            <option value="陕">陕</option>
+                            <option value="甘">甘</option>
+                            <option value="宁">宁</option>
+                            <option value="青">青</option>
+                            <option value="豫">豫</option>
+                            <option value="闽">闽</option>
+
+                            <option value="新">新</option>
+                            <option value="晋">晋</option>
+                        </select>
+                    </div>
+                    <div class="hphmjc2">
+                        <select name="city_sn" id="my_jc_select2" style="width:100%; height:40px;" onChange="" class="myselect">
+                            <option selected="selected" value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z">Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="rightbox">
+                <div class="citysel" id="citysel">
+                    <select name="c_id" id="selCity" onChange="updateAll();" onFocus="" style="width:100%;" class="myselect">
+                        <option>-城市-</option>
+                    </select>
+                </div>
+                <div class="hphmno">
+                    <input name="cphm" type="text" id="my_cphm" size="10" style="width:100%" onKeyUp="checkinput_m(this)" onFocus="onFocusCphm(this)" onblur="onblurCphm(this)" class="myinput" />
+                </div>
+            </div>
+        </div>
+        <div class="hpzl">
+            <select name="hpzl" id="my_leixing" size="1" style="width:100%; height:40px;" class="myselect">
+                <option value="01">大型汽车</option>
+
+                <option selected="selected" value="02">小型汽车</option>
+                <option value="03">使馆汽车</option>
+                <option value="04">领馆汽车</option>
+                <option value="05">境外汽车</option>
+                <option value="06">外籍汽车</option>
+                <option value="07">两、三轮摩托车</option>
+
+                <option value="08">轻便摩托车</option>
+                <option value="09">使馆摩托车</option>
+                <option value="10">领馆摩托车</option>
+                <option value="11">境外摩托车</option>
+                <option value="12">外籍摩托车</option>
+                <option value="13">低速车</option>
+
+                <option value="14">拖拉机</option>
+                <option value="15">挂车</option>
+                <option value="16">教练汽车</option>
+                <option value="17">教练摩托车</option>
+                <option value="20">临时入境汽车</option>
+                <option value="21">临时入境摩托车</option>
+
+                <option value="22">临时行驶车</option>
+                <option value="23">警用汽车</option>
+                <option value="24">警用摩托</option>
+                <option value="99">其它</option>
+            </select>
+        </div>
+        <div class="classno" id="chejiatr">
+            <input name="classnumber" type="text" id="my_cjhm" class="myinput" placeholder="车架号后6位" value="" />
+        </div>
+        <div class="engineno" id="fadongjitr">
+            <input name="enginenumber" type="text" id="my_fdjh" class="myinput" placeholder="发动机号后6位" />
+        </div>
+        <div class="querybtn">
+            <input id="line1" class="btn" onclick="fsubmit_m(1);" value="违章查询" type="button">
+        </div>
+    </div>
+    <input name="areacode" type="hidden" id="areacode" value="" />
+    <input name="city_id" type="hidden" id="city_id" value="" />
+    <input name="province_id" type="hidden" id="province_id" value="" />
+    <input name="pid" type="hidden" id="pid" value="" />
+    <input name="jhcc" type="hidden" id="jhcc" value="" />
+    <input name="id360" type="hidden" id="id360" value="" />
+    <input name="sourceline" type="hidden" id="sourceline" value="" />
+    <input name="hpzl_text" type="hidden" id="hpzl_text" value="" />
+</form>
+
+			</div>
+		</div>
+
 <script>
-        $('#aboutus').attr('class', "");
-        $('#latestnews').attr('class', "On");
-        $('#news').attr('class', "");
-        $('#orders').attr('class', "");
-        $('#illegal').attr('class', "");
-        $('#index').attr('class', "");
+    $(".mycar-select").on("change", function () {
+        var str = $(".mycar-select").find("option:selected").text();
+        if (str != 0) {
+            var pro =str.substring(0, 1);
+            $("select[name='province_sn']").val(str.substring(0, 1));
+            $("select[name='city_sn']").val(str.substring(2, 1));
+
+            $("input[name='cphm']").val(str.substring(2));
+            getChassisNumberAndEngineNumber(str);
+        }
+    })
+
+    function getChassisNumberAndEngineNumber(Numberplate) {
+        $.ajax({
+            url: "/Car/GetCarByNumberPlate",
+            type: "POST",
+            data:{
+
+                Numberplate:Numberplate
+            },
+            success: function(data) {
+                if (data == "False") {
+                    mui.alert("获取车架号和发动机号失败");
+                }
+                else {
+                    $("input[name='classnumber']").val(data.ChassicNumber);
+                    $("input[name='enginenumber']").val(data.EngineNumber);
+                }
+            }
+        })
+    }
 </script>
-
-
-<div class="QueryForm">
-    <ul>
-        <li>
-            <div class="InfoLabel">
-                <label>
-                    选择城市
-                </label>
-            </div>
-            <div class="DataInput">
-                <select class="search_iconBg_sel" name="Province" id="Province"></select>
-                <select class="search_iconBg_sel" name="City" id="City">
-                    <option value="北京">北京</option>
-                </select>
-            </div>
-        </li>
-        <li>
-            <div class="InfoLabel">
-                <label>
-                    车牌号码
-                </label>
-            </div>
-            <div class="DataInput">
-                <select class="search_iconBg_sel1" name="prefix" id="prefix">
-                    <option value="京">京</option>
-                </select>
-            </div>
-            <div style="float: left">
-                <input name="txtCarNumber" id="txtCarNumber" type="text" placeholder="请输入车牌号" maxlength="8"
-                       style="width: 105px; margin-left: 10px;" class="textinput" />
-            </div>
-        </li>
-        <li id="liCarFrame">
-            <div class="InfoLabel">
-                <label id="lblCarCodeTip">
-                    车架号
-                </label>
-            </div>
-            <div class="DataInput">
-                <input placeholder="请输入车架号" type="text" style="width: 185px" id="txtCarCode" class="textinput" />
-            </div>
-            <div class="ForTips">
-            </div>
-        </li>
-        <li id="liCardrive">
-            <div class="InfoLabel">
-                <label id="lblCarDriveCode">
-                    发动机号
-                </label>
-            </div>
-            <div class="DataInput">
-                <input type="text" placeholder="请输入发动机号" style="width: 185px" id="txtCarDrive" class="textinput">
-            </div>
-            <div class="ForTips">
-            </div>
-        </li>
-        @*<li id="Code_Li">
-            <div class="InfoLabel">
-                <label>
-                    验证码
-                </label>
-            </div>
-            <div class="DataInput">
-                <input type="text" id="Code" placeholder="请输入验证码" maxlength="6" style="width: 90px"
-                       class="textinput">
-            </div>
-            <img id='imgCode' src='/CommonAshx/GenerateValImge.ashx' title='看不清？点击切换' height="25px" width="70px" style='cursor: pointer;margin-left:24px;' />
-        </li>*@
-        <li>
-            <input type="button" class="submit" value="" id="btnSubmit" onclick="onSubmit()" />
-        </li>
-    </ul>
