@@ -203,6 +203,7 @@
     <Content Include="Content\js\mui.picker.js" />
     <Content Include="Content\js\mui.picker.min.js" />
     <Content Include="Content\js\mui.poppicker.js" />
+    <Content Include="Content\js\queryform.js" />
     <Content Include="Global.asax" />
     <Content Include="maptest.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />

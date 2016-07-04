@@ -62,10 +62,10 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult Check()
         {
-            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
-            List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
+            //Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            //List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
 
-            ViewData["carList"] = carList;
+            //ViewData["carList"] = carList;
 
             return View();
         }
