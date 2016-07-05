@@ -21,5 +21,9 @@ namespace com.jiechengbao.bll
         {
             return _serviceConsumePasswordDAL.SelectAll().FirstOrDefault();
         }
+        public bool Update(ServiceConsumePassword scp)
+        {
+            return _serviceConsumePasswordDAL.Update(scp);
+        }
     }
 }

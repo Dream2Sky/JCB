@@ -190,6 +190,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +198,7 @@
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\VIPModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -220,6 +222,8 @@
     <Content Include="Views\Member\VIPSetting.cshtml" />
     <Content Include="Views\Car\List.cshtml" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.admin.pubxml" />
+    <Content Include="Views\Service\List.cshtml" />
+    <Content Include="Views\Service\PassswordSetting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
