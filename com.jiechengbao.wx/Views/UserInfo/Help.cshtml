@@ -18,32 +18,66 @@
 <ol class="breadcrumb">
     <li><strong>救援电话</strong></li>
 </ol>
-<div class="container-fluid">
-    <div class="input-group">
-        <span class="input-group-addon" style="width:100px;background:#fff;">24小时救援</span>
-        <input type="text" class="form-control" value="1345678663" style="height:36px;">
-        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><a href="tel://1234567890982"><img src="~/Content/images/call.png" style="height:34px;"></a></span>
-    </div>
-    <div class="input-group" style="margin-top:3px;">
-        <span class="input-group-addon" style="width:100px;background:#fff;">联系交警</span>
-        <input type="text" class="form-control" value="122" style="height:36px;">
-        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><img src="~/Content/images/call.png" style="height:34px;"></span>
-    </div>
+<div class="mui-content-padded">
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>救援电话</label>
+            <input type="text" class="mui-input-clear" disabled placeholder="input" value="15889523622">
+        </div>
+        <div class="mui-button-row">
+            <a href="tel://15889523622" class="mui-btn mui-btn-green">拨打电话</a>
+        </div>
+    </form>
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>交警电话</label>
+            <input type="text" class="mui-input-clear" disabled placeholder="input" value="122">
+        </div>
+        <div class="mui-button-row">
+            <a href="tel://122" class="mui-btn mui-btn-green">拨打电话</a>
+        </div>
+    </form>
 </div>
-<ol class="breadcrumb">
-    <li><strong>我的保险公司</strong></li>
-</ol>
-<div class="container-fluid">
-    <div class="input-group" style="margin-top:3px;">
-        <span class="input-group-addon" style="width:100px;background:#fff;">中国人寿</span>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%;border-radius:0px;border-width:1px;height:36px;padding-right:15px;">121123123123 <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">121123123123</a></li>
-            <li><a href="#">121123123123</a></li>
-            <li><a href="#">121123123123</a></li>
-            <li><a href="#">121123123123</a></li>
-        </ul>
-        <span class="input-group-addon" style="padding-left:10px;padding-right:10px;padding-top:0px;padding-bottom:0px;background:#83CF51;border-color:#83CF51;"><img src="~/Content/images/call.png" style="height:34px;"></span>
-    </div>
+<div class="mui-content-padded">
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>保险公司</label>
+            <select class="phone">
+                <option>中国人保：95518</option>
+                <option>中国人寿：95519</option>
+                <option>太平洋保险：95500</option>
+                <option>平安保险：95511</option>
+                <option>中华联合保险：95585</option>
+                <option>大地保险：95590</option>
+                <option>天安保险：95505</option>
+                <option>华泰保险：95509</option>
+                <option>永安保险：95502</option>
+                <option>华安保险：95556</option>
+                <option>安邦保险：95569</option>
+                <option>阳光保险：95510</option>
+                <option>太平保险：95589</option>
+                <option>永城保险：95552</option>
+                <option>长安责任保险：95592</option>
+                <option>大众保险：96012345</option>
+                <option>中银保险：400-699-5566</option>
+                <option>都邦保险：400-889-5586</option>
+                <option>渤海保险：400-611-6666</option>
+                <option>众诚保险：400-860-0600</option>
+                <option>富邦财险：400-881-7518</option>
+                <option>英大财险：400-018-8688</option>
+                <option>锦泰保险：400-866-6555</option>
+            </select>
+        </div>
+        <div class="mui-button-row">
+            <a href="tel://95518" class="mui-btn mui-btn-green a-phone">拨打电话</a>
+        </div>
+    </form>
 </div>
-<div class="blank_block"></div>
+<script>
+
+			$(".phone").on("change",function(){
+				var value= "tel://"+$(".phone").find("option:selected").text().split('：')[1];
+				console.log(value);
+				$(".a-phone").attr("href",value);
+			})
+</script>

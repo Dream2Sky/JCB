@@ -7,6 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using com.jiechengbao.common;
+using System.Net;
+using System.Collections;
+using Winista.Text.HtmlParser;
+using Winista.Text.HtmlParser.Lex;
+using Winista.Text.HtmlParser.Util;
+using Winista.Text.HtmlParser.Tags;
+using Winista.Text.HtmlParser.Filters;
 
 namespace com.jiechengbao.wx.Controllers
 {
@@ -139,5 +147,32 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Check(string cookieName, string cookieStr)
+        {
+            string url = "http://www.cx580.com/Web/Query.aspx";
+            Cookie cookie = new Cookie();
+            cookie.Name = cookieName;
+            cookie.Domain = "www.cx580.com";
+            cookie.Path = "/";
+            cookie.Value = cookieStr;
+            cookie.Expires = DateTime.Now.AddDays(1);
+
+            CookieContainer cc = new CookieContainer();
+            cc.Add(new Uri(url),cookie);
+            
+            string response = HttpManager.AccessURL_GET(url,cc);
+
+            if (response == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Parser parser = new Parser(new Winista.Text.HtmlParser.Lex.Lexer(response));
+            
+
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
     }
 }

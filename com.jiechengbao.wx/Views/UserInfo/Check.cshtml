@@ -1,279 +1,79 @@
-﻿
-@{
-    ViewBag.Title = "Check";
-    Layout = "~/Views/LayoutPage2.cshtml";
+﻿@{
+    ViewBag.Title = "违章查询";
+    Layout = "~/Views/LayoutPage.cshtml";
 }
-@using com.jiechengbao.entity
-<link href="http://static.weizhang8.cn/myskin/index_m_150629.css?v=3" rel="stylesheet" type="text/css" />
-<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/cityinfo.js?v=20150619"></script>
-<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/weizhang8_all_150822.js?v=1"></script>
-<script language="javascript" charset="UTF-8" type="text/javascript" src="http://static.weizhang8.cn/myjs/mobile_150711.js?v=1"></script>
-<style>
-    select {
-        border-style: solid !important;
-        border-width: thin !important;
-        border-color: #d0d0d0 !important;
-        text-align: center;
-    }
-
-    .citysel {
-        padding-right: 10px;
-    }
-
-    .hpzl {
-        padding-right: 10px;
-    }
-
-    .myinput {
-        margin-bottom: 0px !important;
-    }
-    /*.mui-btn-block {
-                margin-top: 10px;
-                margin-bottom: 10px;
-                margin-left: 10px;
-                margin-right: 10px;
-                height: 35px;
-            }*/
-
-    .container {
-        padding-left: 10px;
-        padding-right: 20px;
-        margin-top: 10px;
-        margin-bottom: 0px;
-    }
-
-    .mui-btn-block {
-        font-size: 14px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-</style>
-
-<div class="container">
-    <select class="mui-btn mui-btn-block mycar-select">
-        <option selected="selected" value="0">点击选择您的爱车</option>
-        @foreach (var item in ViewData["carList"] as List<Car>)
-        {
-            <option>@item.Numberplate</option>
-        }
-    </select>
-</div>
-
-<form name="my_form" method="post" id="my_form" action="" onSubmit="" target="_self">
-    <div class="inputbox">
-        <div class="top2">
-            <div class="leftbox">
-                <div class="provincesel" id="provincesel">
-                    <select name="province" id="selProvince" style="width:100%;" onChange="getCity(this.options[this.selectedIndex].value);updateAll();" onFocus="lockedcode(0);" class="myselect">
-                        <option value="">-省份-</option>
-                        <option value="北京" id="京">北京</option>
-                        <option value="上海" id="沪">上海</option>
-                        <option value="天津" id="津">天津</option>
-                        <option value="重庆" id="渝">重庆</option>
-
-                        <option value="河北" id="冀">河北</option>
-                        <option value="山西" id="晋">山西</option>
-                        <option value="内蒙古" id="蒙">内蒙古</option>
-                        <option value="辽宁" id="辽">辽宁</option>
-                        <option value="吉林" id="吉">吉林</option>
-                        <option value="黑龙江" id="黑">黑龙江</option>
-
-                        <option value="江苏" id="苏">江苏</option>
-                        <option value="浙江" id="浙">浙江</option>
-                        <option value="安徽" id="皖">安徽</option>
-                        <option value="福建" id="闽">福建</option>
-                        <option value="江西" id="赣">江西</option>
-                        <option value="山东" id="鲁">山东</option>
-
-                        <option value="河南" id="豫">河南</option>
-                        <option value="湖北" id="鄂">湖北</option>
-                        <option value="湖南" id="湘">湖南</option>
-                        <option value="广东" id="粤">广东</option>
-                        <option value="广西" id="桂">广西</option>
-                        <option value="海南" id="琼">海南</option>
-
-                        <option value="四川" id="川">四川</option>
-                        <option value="贵州" id="贵">贵州</option>
-                        <option value="云南" id="云">云南</option>
-                        <option value="西藏" id="藏">西藏</option>
-                        <option value="陕西" id="陕">陕西</option>
-                        <option value="甘肃" id="甘">甘肃</option>
-
-                        <option value="宁夏" id="宁">宁夏</option>
-                        <option value="青海" id="青">青海</option>
-                        <option value="新疆" id="新">新疆</option>
-                    </select>
-                </div>
-                <div class="hphmjc">
-                    <div class="hphmjc1">
-                        <select name="province_sn" id="my_jc_select1" style="width:100%; height:40px;" onChange="" class="myselect">
-                            <option selected="selected" value="粤">粤</option>
-                            <option value="浙">浙</option>
-                            <option value="京">京</option>
-                            <option value="沪">沪</option>
-                            <option value="川">川</option>
-
-                            <option value="津">津</option>
-                            <option value="渝">渝</option>
-                            <option value="鄂">鄂</option>
-                            <option value="赣">赣</option>
-                            <option value="冀">冀</option>
-                            <option value="蒙">蒙</option>
-
-                            <option value="鲁">鲁</option>
-                            <option value="苏">苏</option>
-                            <option value="辽">辽</option>
-                            <option value="吉">吉</option>
-                            <option value="皖">皖</option>
-                            <option value="湘">湘</option>
-
-                            <option value="黑">黑</option>
-                            <option value="琼">琼</option>
-                            <option value="贵">贵</option>
-                            <option value="桂">桂</option>
-                            <option value="云">云</option>
-                            <option value="藏">藏</option>
-
-                            <option value="陕">陕</option>
-                            <option value="甘">甘</option>
-                            <option value="宁">宁</option>
-                            <option value="青">青</option>
-                            <option value="豫">豫</option>
-                            <option value="闽">闽</option>
-
-                            <option value="新">新</option>
-                            <option value="晋">晋</option>
-                        </select>
-                    </div>
-                    <div class="hphmjc2">
-                        <select name="city_sn" id="my_jc_select2" style="width:100%; height:40px;" onChange="" class="myselect">
-                            <option selected="selected" value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="G">G</option>
-                            <option value="H">H</option>
-                            <option value="I">I</option>
-
-                            <option value="J">J</option>
-                            <option value="K">K</option>
-                            <option value="L">L</option>
-                            <option value="M">M</option>
-                            <option value="N">N</option>
-                            <option value="O">O</option>
-
-                            <option value="P">P</option>
-                            <option value="Q">Q</option>
-                            <option value="R">R</option>
-                            <option value="S">S</option>
-                            <option value="T">T</option>
-                            <option value="U">U</option>
-
-                            <option value="V">V</option>
-                            <option value="W">W</option>
-                            <option value="X">X</option>
-                            <option value="Y">Y</option>
-                            <option value="Z">Z</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="rightbox">
-                <div class="citysel" id="citysel">
-                    <select name="c_id" id="selCity" onChange="updateAll();" onFocus="" style="width:100%;" class="myselect">
-                        <option>-城市-</option>
-                    </select>
-                </div>
-                <div class="hphmno">
-                    <input name="cphm" type="text" id="my_cphm" size="10" style="width:100%" onKeyUp="checkinput_m(this)" onFocus="onFocusCphm(this)" onblur="onblurCphm(this)" class="myinput" />
-                </div>
-            </div>
-        </div>
-        <div class="hpzl">
-            <select name="hpzl" id="my_leixing" size="1" style="width:100%; height:40px;" class="myselect">
-                <option value="01">大型汽车</option>
-
-                <option selected="selected" value="02">小型汽车</option>
-                <option value="03">使馆汽车</option>
-                <option value="04">领馆汽车</option>
-                <option value="05">境外汽车</option>
-                <option value="06">外籍汽车</option>
-                <option value="07">两、三轮摩托车</option>
-
-                <option value="08">轻便摩托车</option>
-                <option value="09">使馆摩托车</option>
-                <option value="10">领馆摩托车</option>
-                <option value="11">境外摩托车</option>
-                <option value="12">外籍摩托车</option>
-                <option value="13">低速车</option>
-
-                <option value="14">拖拉机</option>
-                <option value="15">挂车</option>
-                <option value="16">教练汽车</option>
-                <option value="17">教练摩托车</option>
-                <option value="20">临时入境汽车</option>
-                <option value="21">临时入境摩托车</option>
-
-                <option value="22">临时行驶车</option>
-                <option value="23">警用汽车</option>
-                <option value="24">警用摩托</option>
-                <option value="99">其它</option>
-            </select>
-        </div>
-        <div class="classno" id="chejiatr">
-            <input name="classnumber" type="text" id="my_cjhm" class="myinput" placeholder="车架号后6位" value="" />
-        </div>
-        <div class="engineno" id="fadongjitr">
-            <input name="enginenumber" type="text" id="my_fdjh" class="myinput" placeholder="发动机号后6位" />
-        </div>
-        <div class="querybtn">
-            <input id="line1" class="btn" onclick="fsubmit_m(1);" value="违章查询" type="button">
-        </div>
+<script src="~/Content/js/PCASClass.js"></script>
+<script src="~/Content/js/cookie.js"></script>
+<form class="mui-input-group">
+    <div class="mui-input-row">
+        <label>选择省份</label>
+        <select name="Province" id="Province"></select>
     </div>
-    <input name="areacode" type="hidden" id="areacode" value="" />
-    <input name="city_id" type="hidden" id="city_id" value="" />
-    <input name="province_id" type="hidden" id="province_id" value="" />
-    <input name="pid" type="hidden" id="pid" value="" />
-    <input name="jhcc" type="hidden" id="jhcc" value="" />
-    <input name="id360" type="hidden" id="id360" value="" />
-    <input name="sourceline" type="hidden" id="sourceline" value="" />
-    <input name="hpzl_text" type="hidden" id="hpzl_text" value="" />
+    <div class="mui-input-row">
+        <label>选择城市</label>
+        <select name="City" id="City"></select>
+    </div>
+    <div class="mui-input-row">
+        <label>车牌号码</label>
+        <input type="text" class="mui-input-clear" id="txtCarNumber" placeholder="请输入车牌号码" />
+    </div>
+    <div class="mui-input-row">
+        <label>车架号</label>
+        <input type="text" class="mui-input-clear" id="txtCarCode" placeholder="请输入车架号码后6位" />
+    </div>
+    <div class="mui-input-row">
+        <label>发动机号</label>
+        <input type="text" class="mui-input-clear" id="txtCarDrive" placeholder="请输入发动机号后6位" />
+    </div>
+    <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="onSubmit();">查询</button>
+    </div>
 </form>
 
-			</div>
-		</div>
-
 <script>
-    $(".mycar-select").on("change", function () {
-        var str = $(".mycar-select").find("option:selected").text();
-        if (str != 0) {
-            var pro =str.substring(0, 1);
-            $("select[name='province_sn']").val(str.substring(0, 1));
-            $("select[name='city_sn']").val(str.substring(2, 1));
+    new PCAS("Province", "City");
+    var cookieStr = '';
 
-            $("input[name='cphm']").val(str.substring(2));
-            getChassisNumberAndEngineNumber(str);
-        }
-    })
+    var addCookie = function () {
 
-    function getChassisNumberAndEngineNumber(Numberplate) {
+        var carPrefix = $('#txtCarNumber').val().toUpperCase().substring(0, 1);
+        var carNumber = $('#txtCarNumber').val().toUpperCase();
+        var carCode = $('#txtCarCode').val().replace(/undefined/g, '');
+        var carEngine = $('#txtCarDrive').val().replace(/undefined/g, '');
+
+        var phone = '';
+        var code = ''; 
+        var cookie = '';
+
+        var province = $("#Province").find("option:selected").text();
+        var city = $("#City").find("option:selected").text();
+        var cookieInfor = "?carPrefix=" + carPrefix + "&carNumber=" + carNumber + "&carCode=" + carCode + "&carEngine=" + carEngine + "&phone=" + phone + "&province=" + province + "&city=" + city + "&code=" + code;
+
+        cookie = "http://www.cx580.com" + cookieInfor;
+        console.log(cookie);
+        cookieStr = cookie;
+        console.log(cookieStr);
+        $.cookie('carCookie', cookie, {
+            expires: 1,
+            path: '/'
+        });
+    }
+
+    function onSubmit() {
+        addCookie();
         $.ajax({
-            url: "/Car/GetCarByNumberPlate",
+            url: "/Car/Check",
             type: "POST",
-            data:{
-
-                Numberplate:Numberplate
+            data: {
+                cookieName: 'carCookie',
+                cookieStr: cookieStr
             },
-            success: function(data) {
-                if (data == "False") {
-                    mui.alert("获取车架号和发动机号失败");
+            success: function (data) {
+                if (data == "True") {
+                    mui.alert("success");
                 }
                 else {
-                    $("input[name='classnumber']").val(data.ChassicNumber);
-                    $("input[name='enginenumber']").val(data.EngineNumber);
+                    mui.alert("Error");
                 }
             }
         })

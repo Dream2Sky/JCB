@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using com.jiechengbao.common;
 using com.jiechengbao.dal;
+using System.Net;
 
 namespace com.jiechengbao.dataTest
 {
@@ -37,19 +38,22 @@ namespace com.jiechengbao.dataTest
             #endregion
 
             #region 添加一个会员
-            Member member = new Member();
-            member.Id = Guid.NewGuid();
-            member.IsDeleted = false;
-            member.NickeName = "hehe";
-            member.OpenId = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
-            member.HeadImage = "/Imaegs/Default.png";
-            member.CreatedTime = DateTime.Now.Date;
-            member.DeletedTime = DateTime.MinValue.AddHours(8);
+            //Member member = new Member();
+            //member.Id = Guid.NewGuid();
+            //member.IsDeleted = false;
+            //member.NickeName = "hehe";
+            //member.OpenId = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
+            //member.HeadImage = "/Imaegs/Default.png";
+            //member.CreatedTime = DateTime.Now.Date;
+            //member.DeletedTime = DateTime.MinValue.AddHours(8);
 
-            MemberDAL dal = new MemberDAL();
-            dal.Insert(member);
+            //MemberDAL dal = new MemberDAL();
+            //dal.Insert(member);
             #endregion
 
+            string url = "http://www.baidu.com";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            
             Console.WriteLine("Finished");
 
             Console.Read();
