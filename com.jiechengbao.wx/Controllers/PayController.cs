@@ -24,7 +24,7 @@ using com.jiechengbao.wx.Global;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+
     public class PayController : Controller
     {
         /// <summary>
@@ -53,7 +53,7 @@ namespace com.jiechengbao.wx.Controllers
         private IServiceConsumeRecordBLL _serviceConsumeRecoredBLL;
         private IServiceConsumePasswordBLL _serviceConsumePasswordBLL;
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
-            ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL, 
+            ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL,
             ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL,
             IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL,
             IServiceBLL serviceBLL, IServiceQRBLL serviceQRBLL,
@@ -321,7 +321,7 @@ namespace com.jiechengbao.wx.Controllers
                 }
 
                 // 添加消费积分记录 并修改会员积分
-                if(AddConsumeCredit(member, order.TotalPrice))
+                if (AddConsumeCredit(member, order.TotalPrice))
                 {
                     // 当修改消费积分成功时 异步判断是否够积分升级vip
                     UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -480,7 +480,7 @@ namespace com.jiechengbao.wx.Controllers
                     {
                         LogHelper.Log.Write("充值成功");
                         // 添加充值积分记录
-                        if(AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())))
+                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())))
                         {
                             // 异步判断是否够积分升级vip
                             UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -521,7 +521,7 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult ConsumeService(Guid serviceId)
         {
-            if (serviceId==null)
+            if (serviceId == null)
             {
                 return RedirectToAction("Error");
             }
@@ -563,10 +563,10 @@ namespace com.jiechengbao.wx.Controllers
                 scr.CreatedTime = DateTime.Now;
                 scr.DeletedTime = DateTime.MinValue.AddHours(8);
 
-                if(_serviceConsumeRecoredBLL.Add(scr))
+                if (_serviceConsumeRecoredBLL.Add(scr))
                 {
                     MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
-                    if (ms.CurrentCount>0)
+                    if (ms.CurrentCount > 0)
                     {
                         ms.CurrentCount -= 1;
                     }
@@ -589,7 +589,7 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
-        
+
         public ActionResult MyServiceQR(Guid serviceId)
         {
             ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
@@ -670,7 +670,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             Member member = _memberBLL.GetMemberById(memberId);
             int targetVIP;
-            if (_rulesBLL.UpGradeVIP(member.TotalCredit,member.Vip,out targetVIP))
+            if (_rulesBLL.UpGradeVIP(member.TotalCredit, member.Vip, out targetVIP))
             {
                 member.Vip = targetVIP;
                 _memberBLL.Update(member);
@@ -697,7 +697,7 @@ namespace com.jiechengbao.wx.Controllers
         private void AddMyService(Guid memberId, string OrderNo)
         {
             // 先根据orderNo 获取到所有的 OrderDetail 里面的商品列表
-            
+
             List<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(OrderNo).ToList();
             List<Goods> serviceList = new List<Goods>();
 
@@ -748,23 +748,41 @@ namespace com.jiechengbao.wx.Controllers
         /// <param name="memberId"></param>
         /// <param name="serviceId"></param>
         [NonAction]
-        private void CreateServiceQR(Guid memberId,Guid serviceId)
+        private void CreateServiceQR(Guid memberId, Guid serviceId)
         {
-            string dir = Server.MapPath("~/QR/");
-            ServiceQR sqr = new ServiceQR();
-            sqr.Id = Guid.NewGuid();
-            sqr.IsDeleted = false;
-            sqr.MemberId = memberId;
-            sqr.ServcieId = serviceId;
-            sqr.CreatedTime = DateTime.Now;
-            sqr.DeletedTime = DateTime.MinValue.AddHours(8);
-            string sourceString = Request.Url.Scheme + Request.Url.Port + Request.Url.Host + "/Pay/ConsumeService?serviceId=" + serviceId;
-            string qrPath = QRCodeCreator.Create(sourceString, dir);
+            try
+            {
+                string dir = Server.MapPath("~/QR/");
 
-            sqr.QRPath = qrPath;
+                ServiceQR sqr = new ServiceQR();
+                sqr.Id = Guid.NewGuid();
 
-            _serviceQRBLL.Add(sqr);
+                sqr.IsDeleted = false;
+                sqr.MemberId = memberId;
 
+                sqr.ServcieId = serviceId;
+
+                sqr.CreatedTime = DateTime.Now;
+
+                sqr.DeletedTime = DateTime.MinValue.AddHours(8);
+                
+
+                string sourceString = "http://jcb.ybtx88.com/Pay/ConsumeService?serviceId=" + serviceId.ToString();
+
+                LogHelper.Log.Write("sourceString: " + sourceString);
+
+                string qrPath = QRCodeCreator.Create(sourceString, dir);
+
+                sqr.QRPath = qrPath;
+
+                _serviceQRBLL.Add(sqr);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
         }
     }
 }

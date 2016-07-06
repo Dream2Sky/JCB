@@ -16,5 +16,6 @@ namespace com.jiechengbao.Ibll
         Car GetCarByCarNumber(string numberplate);
         bool Update(Car car);
         IEnumerable<Car> GetCarListByAnythingCondition(string condition);
+        bool RemoveById(Guid Id);
     }
 }

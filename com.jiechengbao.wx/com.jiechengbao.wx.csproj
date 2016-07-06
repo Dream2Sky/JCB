@@ -287,6 +287,7 @@
     <Content Include="Views\Pay\ConsumeService.cshtml" />
     <Content Include="Views\UserInfo\MyServices.cshtml" />
     <Content Include="Views\Pay\MyServiceQR.cshtml" />
+    <Content Include="Views\UserInfo\InfoDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

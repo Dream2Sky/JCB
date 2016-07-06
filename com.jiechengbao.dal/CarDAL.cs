@@ -86,7 +86,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<Car>().SingleOrDefault(n => n.Numberplate == numberplate);
+                return db.Set<Car>().Where(n => n.Numberplate == numberplate).Where(n=>n.IsDeleted == false).SingleOrDefault();
             }
             catch (Exception ex)
             {

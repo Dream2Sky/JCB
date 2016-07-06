@@ -9,6 +9,13 @@
         padding: 10px;
         font-size: 15px;
         margin-top: 10px;
+        margin-left:20px;
+        margin-right:20px;
+    }
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
     }
 </style>
 <ul class="mui-table-view mui-card">
@@ -29,8 +36,13 @@
         其他信息
         <input type="text" name="CarDetailInfo" value="@Model.CarDetailInfo" />
     </li>
+    <li>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Delete();">删除</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Save();">修改并保存</button>
+    </li>
+
 </ul>
-<button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Save();">修改并保存</button>
+
 
 <script>
     function Save() {
@@ -54,6 +66,30 @@
             },
             error: function () {
                 mui.alert("系统错误,保存失败");
+            }
+        })
+    }
+
+    function Delete() {
+        var carId = $("input[name='CarId']").val();
+
+        $.ajax({
+            url: "/Car/Delete",
+            type: "POST",
+            data: {
+                carId:carId
+            },
+            success: function(data) {
+                if (data == "True") {
+                    mui.alert("删除成功");
+                    window.location.href = "/Car/List";
+                }
+                else {
+                    mui.alert("删除失败");
+                }
+            },
+            error: function () {
+                mui.alert("ERROR");
             }
         })
     }

@@ -86,8 +86,9 @@ namespace com.jiechengbao.wx.Controllers
             // 上来先判断 传递进来的参数是否为空
             if (string.IsNullOrEmpty(numberplate))
             {
-                return Content("<div class='title'>传递的参数有误,请重新提交</div>");
+                return Content("<div class='title'  style=\"margin: 20px 15px 10px;color: #6d6d72;font-size: 15px;\">传递的参数有误,请重新提交</div>");
             }
+            LogHelper.Log.Write("车牌号: "+numberplate);
 
             // 根据车牌号 获得车辆信息
             Car car = _carBLL.GetCarByCarNumber(numberplate);
@@ -95,7 +96,7 @@ namespace com.jiechengbao.wx.Controllers
             // 如果为空 则返回错误信息
             if (car == null)
             {
-                return Content("<div class='title'>未能查询到此车牌号的车辆信息</div>");
+                return Content("<div class='title' style=\"margin: 20px 15px 10px;color: #6d6d72;font-size: 15px;\">未能查询到此车牌号的车辆信息</div>");
             }
 
             // 不为空就返回对象
@@ -175,6 +176,29 @@ namespace com.jiechengbao.wx.Controllers
 
 
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string carId)
+        {
+            try
+            {
+                if (_carBLL.RemoveById(Guid.Parse(carId)))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+
         }
     }
 }

@@ -36,8 +36,8 @@
                     url: "/Pay/ConsumeService",
                     type: "POST",
                     data: {
-                        serviceId:@Model.ServiceId,
-                        password:e.value
+                        serviceId: '@Model.ServiceId',
+                        password: e.value
                     },
                     success:function(data) {
                         if (data == "False") {

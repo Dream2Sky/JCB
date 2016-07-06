@@ -72,6 +72,7 @@ namespace com.jiechengbao.admin.Controllers
             goods.CreatedTime = DateTime.Now.Date;
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
+            goods.DeletedTime = DateTime.MinValue.AddHours(8);
             #endregion
 
             // 添加新的Goods 对象
@@ -84,19 +85,29 @@ namespace com.jiechengbao.admin.Controllers
 
                 // 添加成功后 构造 goodsimage 对象
                 // 并添加到数据库
+
+                LogHelper.Log.Write("添加商品成功,现在正在构造goodsImage");
+
                 GoodsImage gi = new GoodsImage();
                 gi.Id = Guid.NewGuid();
                 gi.ImagePath = model.PicturePath;
                 gi.CreatedTime = DateTime.Now.Date;
                 gi.GoodsId = goods.Id;
                 gi.IsDeleted = false;
+                gi.DeletedTime = DateTime.MinValue.AddHours(8);
 
                 _goodsImagesBLL.Add(gi);
+
+                LogHelper.Log.Write("添加商品图片成功");
 
                 // 添加成功 则 遍历传递过来的分类列表
                 // 并添加到数据库
                 foreach (var item in model.CategoryList)
                 {
+                    if (item==null)
+                    {
+                        LogHelper.Log.Write("获取商品分类列表失败");
+                    }
                     // 构造 GoodsCategory 对象
                     GoodsCategory gc = new GoodsCategory();
                     gc.Id = Guid.NewGuid();
@@ -104,6 +115,7 @@ namespace com.jiechengbao.admin.Controllers
                     gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
                     gc.IsDeleted = false;
                     gc.GoodsId = goods.Id;
+                    gc.DeletedTime = DateTime.MinValue.AddHours(8);
 
                     _goodsCategoryBLL.Add(gc);
                 }

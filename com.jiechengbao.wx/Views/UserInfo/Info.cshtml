@@ -19,8 +19,8 @@
         }
 
     .head-img {
-        width: 40px;
-        height: 40px;
+        width: 56px;
+        height: 56px;
     }
     .recharge-btn{
         width:100%;
@@ -35,14 +35,14 @@
 </style>
 <ul class="mui-table-view mui-table-view-chevron">
     <li class="mui-table-view-cell mui-media">
-        <div class="mui-navigate-right">
-            <img class="mui-media-object mui-pull-left head-img" id="head-img" src="/Uploads/@Model.HeadImage">
+        <a class="mui-navigate-right" href="/UserInfo/InfoDetail?openId=@Model.OpenId">
+            <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@Model.HeadImage">
             <div class="mui-media-body">
                 @Model.NickeName
                 <p>vip:@Model.Vip</p>
-                <p>积分:@Model.Credit</p>
+                <p><small>积分:@Model.Credit</small></p>
             </div>
-        </div>
+        </a>
     </li>
 </ul>
 

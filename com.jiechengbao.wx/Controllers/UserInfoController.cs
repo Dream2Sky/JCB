@@ -33,7 +33,7 @@ namespace com.jiechengbao.wx.Controllers
             _carBLL = carBLL;
             _serviceBLL = serviceBLL;
         }
-        
+        [IsLogin]
         public ActionResult Index()
         {
             // 先获得推荐商品的索引 即商品的guid list
@@ -43,7 +43,17 @@ namespace com.jiechengbao.wx.Controllers
             foreach (var item in recommendList)
             {
                 Goods goods = _goodsBLL.GetGoodsById(item.GoodsId);
+                if (goods == null)
+                {
+                    LogHelper.Log.Write("goods is null");
+                }
+
                 GoodsImage gi = _goodsImageBLL.GetPictureByGoodsId(goods.Id);
+
+                if (gi == null)
+                {
+                    LogHelper.Log.Write("gi is null");
+                }
 
                 GoodsModel gm = new GoodsModel(goods);
                 gm.PicturePath = gi.ImagePath;
@@ -70,7 +80,8 @@ namespace com.jiechengbao.wx.Controllers
 
             return View();
         }
-        
+
+        [IsLogin]
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -195,6 +206,22 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult RechargeOptionsList()
         {
             return View();
+        }
+
+        public ActionResult InfoDetail(string openId)
+        {
+            if (string.IsNullOrEmpty(openId))
+            {
+                return View();
+            }
+
+            Member member = _memberBLL.GetMemberByOpenId(openId);
+
+            if (member == null)
+            {
+                return View();
+            }
+            return View(member);
         }
     }
 }

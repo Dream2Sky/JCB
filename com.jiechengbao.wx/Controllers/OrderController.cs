@@ -225,7 +225,6 @@ namespace com.jiechengbao.wx.Controllers
             // 要返回的 OrderModel 列表
             List<OrderModel> omList = new List<OrderModel>();
 
-
             foreach (var item in orderList)
             {
                 OrderModel om = new OrderModel(item);

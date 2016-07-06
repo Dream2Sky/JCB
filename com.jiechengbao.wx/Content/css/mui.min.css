@@ -2299,10 +2299,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 }
 .mui-table-view .mui-media-object
 {
-    line-height: 42px;
+    line-height: 56px;
 
-    max-width: 42px;
-    height: 42px;
+    max-width: 56px;
+    height: 56px;
 }
 .mui-table-view .mui-media-object.mui-pull-left
 {

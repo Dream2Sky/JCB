@@ -70,6 +70,32 @@ namespace com.jiechengbao.bll
             return _carDAL.IsExist(numberplate);
         }
 
+        public bool RemoveById(Guid Id)
+        {
+            try
+            {
+                Car car = _carDAL.SelectById(Id);
+                if (car == null)
+                {
+                    return false;
+                }
+                if (_carDAL.Delete(car))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                return false;
+            }
+        }
+
         public bool Update(Car car)
         {
             return _carDAL.Update(car);
