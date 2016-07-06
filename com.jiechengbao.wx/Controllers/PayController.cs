@@ -20,10 +20,11 @@ using System.Text;
 using WxPayAPI;
 using System.Configuration;
 using ch.lib.common.QR;
+using com.jiechengbao.wx.Global;
 
 namespace com.jiechengbao.wx.Controllers
 {
-
+    
     public class PayController : Controller
     {
         /// <summary>
@@ -142,7 +143,7 @@ namespace com.jiechengbao.wx.Controllers
         }
 
         [HttpPost]
-        public ActionResult WxPayResult()
+        public void WxPayResult()
         {
             //接收从微信后台POST过来的数据
             System.IO.Stream s = Request.InputStream;
@@ -206,7 +207,9 @@ namespace com.jiechengbao.wx.Controllers
             successData.SetValue("return_code", "SUCCESS");
             successData.SetValue("return_msg", "OK");
 
-            return Content(successData.ToXml());
+            Response.Write(successData.ToXml());
+            Response.End();
+            //return Content(successData.ToXml());
         }
 
         /// <summary>
@@ -586,6 +589,7 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        
         public ActionResult MyServiceQR(Guid serviceId)
         {
             ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);

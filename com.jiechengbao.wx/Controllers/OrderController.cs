@@ -1,6 +1,7 @@
 ﻿using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
+    
     public class OrderController : Controller
     {
         private IMemberBLL _memberBLL;
@@ -179,9 +181,15 @@ namespace com.jiechengbao.wx.Controllers
         /// 订单列表
         /// </summary>
         /// <returns></returns>
+        [IsLogin]
         public ActionResult List(int type)
         {
             ViewBag.Title = type == 0 ? "未完成订单" : (type == 1 ? "已完成订单" : "全部订单");
+
+            if (System.Web.HttpContext.Current.Session["member"] == null)
+            {
+                LogHelper.Log.Write("Order List: member session is null");
+            }
 
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 

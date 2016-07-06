@@ -11,5 +11,6 @@ namespace com.jiechengbao.Ibll
     {
         ServiceConsumePassword GetServicePassword();
         bool Update(ServiceConsumePassword scp);
+        bool Add(ServiceConsumePassword scp);
     }
 }

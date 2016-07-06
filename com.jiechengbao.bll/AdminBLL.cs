@@ -18,6 +18,16 @@ namespace com.jiechengbao.bll
             _adminDAL = adminDAL;
         }
 
+        public bool Add(Admin admin)
+        {
+            return _adminDAL.Insert(admin);
+        }
+
+        public Admin GetAdminByAccount(string account)
+        {
+            return _adminDAL.SelectByName(account);
+        }
+
         public bool Login(string account, string password)
         {
             try

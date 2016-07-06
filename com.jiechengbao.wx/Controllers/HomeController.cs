@@ -1,5 +1,6 @@
 ﻿using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
+    
     public class HomeController : Controller
     {
         private ICategoryBLL _categoryBLL;
@@ -30,9 +32,9 @@ namespace com.jiechengbao.wx.Controllers
             _memberBLL = memberBLL;
         }
 
+        [IsLogin]
         public ActionResult Index()
         {
-            System.Web.HttpContext.Current.Session["member"] = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
             return View();
         }

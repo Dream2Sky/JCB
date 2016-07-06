@@ -35,6 +35,7 @@
 <script>
 
     function Save() {
+        alert($("input[name='phone']").val());
         $.ajax({
             url: "/UserInfo/Phone",
             type: "POST",
@@ -50,10 +51,10 @@
                     mui.alert("保存失败");
                 }
             },
-            error: function () {
+            error: function (XMLHttpRequest) {
+                alert(XMLHttpRequest.status)
                 mui.alert("系统错误，保存失败");
             }
-        })
+        });
     }
-
 </script>

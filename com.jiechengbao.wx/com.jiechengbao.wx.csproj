@@ -221,13 +221,15 @@
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OauthController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Global\IsLoginAttribute.cs" />
+    <Compile Include="Models\Access_Token_JsonModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\CartModel.cs" />
@@ -243,6 +245,7 @@
     <Compile Include="Models\OrderResultModel.cs" />
     <Compile Include="Models\ServiceDetailModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
+    <Compile Include="Models\UserInfo_JsonModel.cs" />
     <Compile Include="Models\WxPayApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -133,3 +133,15 @@ The entity or complex type 'com.jiechengbao.entity.Car' cannot be constructed in
    在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
    在 com.jiechengbao.dal.CarDAL.SelectByAnythingCondition(String condition) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\CarDAL.cs:行号 59
 ========================================================================
+2016/7/6 0:43:42 : 
+未将对象引用设置到对象的实例。
+========================================================================
+2016/7/6 0:43:42 : 
+   在 com.jiechengbao.admin.Controllers.MemberController.SaveVIPSetting() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\MemberController.cs:行号 75
+========================================================================
+2016/7/6 0:49:10 : 
+未将对象引用设置到对象的实例。
+========================================================================
+2016/7/6 0:49:10 : 
+   在 com.jiechengbao.admin.Controllers.MemberController.SaveVIPSetting() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\MemberController.cs:行号 75
+========================================================================

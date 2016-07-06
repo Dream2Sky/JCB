@@ -1,5 +1,6 @@
 ﻿using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
+    
     public class AddressController:Controller
     {
         private IMemberBLL _memberBLL;
@@ -83,7 +85,7 @@ namespace com.jiechengbao.wx.Controllers
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
         }
-
+        [IsLogin]
         public ActionResult List()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());

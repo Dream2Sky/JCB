@@ -224,6 +224,8 @@
     <None Include="Properties\PublishProfiles\com.jiechengbao.admin.pubxml" />
     <Content Include="Views\Service\List.cshtml" />
     <Content Include="Views\Service\PassswordSetting.cshtml" />
+    <Content Include="Views\Service\PasswordSetting.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -17,6 +17,11 @@ namespace com.jiechengbao.bll
             _memberDAL = memberDAL;
         }
 
+        public bool Add(Member member)
+        {
+            return _memberDAL.Insert(member);
+        }
+
         /// <summary>
         /// 获取未标记为删除的用户的集合
         /// </summary>
@@ -83,6 +88,23 @@ namespace com.jiechengbao.bll
         public IEnumerable<Member> GetNewMembersAtYesterDay()
         {
             return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-1).Date);
+        }
+
+        /// <summary>
+        /// 判断指定的openid用户是否已经注册
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public bool IsExist(string openId)
+        {
+            if (GetMemberByOpenId(openId) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>

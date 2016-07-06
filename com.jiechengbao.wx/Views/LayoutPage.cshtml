@@ -107,6 +107,10 @@
             <span class="mui-icon mui-icon-settings"></span>
             <span class="mui-tab-label">设置</span>
         </a>
+        <a class="mui-tab-item" id="atosetting" href="/UserInfo/Index">
+            <span class="mui-icon mui-icon-person"></span>
+            <span class="mui-tab-label">会员中心</span>
+        </a>
     </nav>
     @*<nav class="navbar navbar-fixed-top">
         <div class="container">
@@ -225,40 +229,44 @@
         });
 
         // 页面跳转操作
-        function Go(url) {
-            window.location.href = url;
-        };
-        var atogoods = document.getElementById("atogoods");
-        var atocart = document.getElementById("atocart");
-        var atoorder = document.getElementById("atoorder");
 
-        atogoods.addEventListener('tap', function () {
-            Go(atogoods.getAttribute("href"));
+        mui('.mui-bar').on('tap', 'a', function () {
+            document.location.href = this.href;
         });
-        atoorder.addEventListener('tap', function () {
-            Go(atoorder.getAttribute("href"));
-        });
-        atocart.addEventListener('tap', function () {
-            Go(atocart.getAttribute("href"));
-        })
+        //function Go(url) {
+        //    window.location.href = url;
+        //};
+        //var atogoods = document.getElementById("atogoods");
+        //var atocart = document.getElementById("atocart");
+        //var atoorder = document.getElementById("atoorder");
 
-        var atohome = document.getElementById("atohome");
-        var atocar = document.getElementById("atocar");
-        var atouserinfo = document.getElementById("atouserinfo");
-        var atoinfo = document.getElementById("atoinfo");
+        //atogoods.addEventListener('tap', function () {
+        //    Go(atogoods.getAttribute("href"));
+        //});
+        //atoorder.addEventListener('tap', function () {
+        //    Go(atoorder.getAttribute("href"));
+        //});
+        //atocart.addEventListener('tap', function () {
+        //    Go(atocart.getAttribute("href"));
+        //})
 
-        atohome.addEventListener('tap', function () {
-            Go(atohome.getAttribute("href"));
-        });
-        atocar.addEventListener('tap', function () {
-            Go(atocar.getAttribute("href"));
-        });
-        atouserinfo.addEventListener('tap', function () {
-            Go(atouserinfo.getAttribute("href"));
-        });
-        atoinfo.addEventListener('tap', function () {
-            Go(atoinfo.getAttribute("href"));
-        });
+        //var atohome = document.getElementById("atohome");
+        //var atocar = document.getElementById("atocar");
+        //var atouserinfo = document.getElementById("atouserinfo");
+        //var atoinfo = document.getElementById("atoinfo");
+
+        //atohome.addEventListener('tap', function () {
+        //    Go(atohome.getAttribute("href"));
+        //});
+        //atocar.addEventListener('tap', function () {
+        //    Go(atocar.getAttribute("href"));
+        //});
+        //atouserinfo.addEventListener('tap', function () {
+        //    Go(atouserinfo.getAttribute("href"));
+        //});
+        //atoinfo.addEventListener('tap', function () {
+        //    Go(atoinfo.getAttribute("href"));
+        //});
     </script>
 </body>
 </html>

@@ -25,7 +25,17 @@ namespace com.jiechengbao.bll
         public IEnumerable<MyService> GetMyServiceByMemberId(Guid memberId)
         {
             // 找到当前用户的所有可用的服务列表
-            return _serviceDAL.SelectByMemberId(memberId).Where(n => n.CurrentCount > 0);
+            try
+            {
+                return _serviceDAL.SelectByMemberId(memberId).Where(n => n.CurrentCount > 0);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                return null;
+            }
+            
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using com.jiechengbao.admin.Models;
+using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,18 @@ namespace com.jiechengbao.admin.Controllers
                 System.Web.HttpContext.Current.Session["admin"] = null;
             }
             return RedirectToAction("Login");
+        }
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(string oldpassword,string newpassword)
+        {
+
+            return View();
         }
     }
 }

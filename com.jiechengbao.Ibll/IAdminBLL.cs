@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.jiechengbao.entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,7 @@ namespace com.jiechengbao.Ibll
     public interface IAdminBLL
     {
         bool Login(string account, string password);
+        bool Add(Admin admin);
+        Admin GetAdminByAccount(string account);
     }
 }

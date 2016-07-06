@@ -15,7 +15,12 @@ namespace com.jiechengbao.bll
         public ServiceConsumePasswordBLL(IServiceConsumePasswordDAL serviceConsumePasswordDAL)
         {
             _serviceConsumePasswordDAL = serviceConsumePasswordDAL;
-        } 
+        }
+
+        public bool Add(ServiceConsumePassword scp)
+        {
+            return _serviceConsumePasswordDAL.Insert(scp);
+        }
 
         public ServiceConsumePassword GetServicePassword()
         {

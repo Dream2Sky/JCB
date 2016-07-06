@@ -1,6 +1,7 @@
 ﻿using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
+    
     public class UserInfoController : Controller
     {
         private IMemberBLL _memberBLL;
@@ -29,12 +31,11 @@ namespace com.jiechengbao.wx.Controllers
             _recommendBLL = recommendBLL;
             _rechargeBLL = rechargeBLL;
             _carBLL = carBLL;
+            _serviceBLL = serviceBLL;
         }
-
+        
         public ActionResult Index()
         {
-            System.Web.HttpContext.Current.Session["member"] = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
-
             // 先获得推荐商品的索引 即商品的guid list
             IEnumerable<ReCommend> recommendList = _recommendBLL.GetAllReCommendListwithSortByTime();
 
@@ -54,12 +55,12 @@ namespace com.jiechengbao.wx.Controllers
             ViewData["GoodsModelList"] = goodsModelList;
             return View();
         }
-
+        
         public ActionResult Help()
         {
             return View();
         }
-
+        
         public ActionResult Check()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -69,29 +70,54 @@ namespace com.jiechengbao.wx.Controllers
 
             return View();
         }
-
+        
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
             return View(member);
         }
-
         public ActionResult Phone()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
             ViewBag.Phone = member.Phone;
             return View();
         }
-
+        
         public ActionResult MyServices()
         {
             List<MyService> msList = new List<MyService>();
             List<ServiceDetailModel> sdmList = new List<ServiceDetailModel>();
-            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
-            msList = _serviceBLL.GetMyServiceByMemberId(member.Id).ToList();
+
+          
+            string openId = System.Web.HttpContext.Current.Session["member"].ToString();
+
+            Member member = _memberBLL.GetMemberByOpenId(openId);
+
+            try
+            {
+                IEnumerable<MyService> mstmpList = _serviceBLL.GetMyServiceByMemberId(member.Id);
+
+                if (mstmpList != null)
+                {
+                    LogHelper.Log.Write("mstmpList 不为空");
+                    msList = mstmpList.ToList();
+                }
+                else
+                {
+                    LogHelper.Log.Write("mstmpList == null");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
 
             foreach (var item in msList)
             {
+                
                 ServiceDetailModel sdm = new ServiceDetailModel();
                 sdm.CurrentCount = item.CurrentCount;
                 sdm.ServcieId = item.Id;
@@ -102,11 +128,12 @@ namespace com.jiechengbao.wx.Controllers
                 sdmList.Add(sdm);
             }
             ViewData["SDMList"] = sdmList;
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult Phone(string phone)
+        public JsonResult Phone(string phone)
         {
             if (string.IsNullOrEmpty(phone))
             {
@@ -125,7 +152,7 @@ namespace com.jiechengbao.wx.Controllers
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
         }
-
+        
         public ActionResult Recharge()
         {
             return View();
@@ -151,7 +178,7 @@ namespace com.jiechengbao.wx.Controllers
 
             return Json("True", JsonRequestBehavior.AllowGet);
         }
-
+        
         public ActionResult RechargeList()
         {
             if (null == (System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>))
@@ -164,7 +191,7 @@ namespace com.jiechengbao.wx.Controllers
                 return View();
             }
         }
-
+        
         public ActionResult RechargeOptionsList()
         {
             return View();

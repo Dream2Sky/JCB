@@ -43,4 +43,11 @@
             </a>
         </li>
     }
+
+    @if (ViewData["SDMList"] as List<ServiceDetailModel> == null)
+    {
+        <div class="title">
+            <p>您暂时还没有购买任何服务，快去商城购买吧。。。</p>
+        </div>
+    }
 </ul>

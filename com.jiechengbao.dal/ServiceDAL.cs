@@ -14,7 +14,12 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<MyService>().Where(n => n.MemberId == memberId);
+                IEnumerable<MyService> msList = db.Set<MyService>().Where(n => n.MemberId == memberId);
+                if (msList == null)
+                {
+                    LogHelper.Log.Write("DAL: msList is null");
+                }
+                return msList;
             }
             catch (Exception ex)
             {

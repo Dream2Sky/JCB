@@ -72,7 +72,7 @@ namespace com.jiechengbao.admin.Controllers
                         rules.DeletedTime = DateTime.MinValue.AddHours(8);
                         rules.Discount = double.Parse(item["Discount"].ToString());
                         rules.IsDeleted = false;
-                        rules.TotalCredit = double.Parse(item["TotalMoney"].ToString());
+                        rules.TotalCredit = double.Parse(item["TotalCredit"].ToString());
                         rules.VIP = int.Parse(item["VIP"].ToString());
 
                         rulesList.Add(rules);

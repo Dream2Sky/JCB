@@ -15,9 +15,11 @@ using Winista.Text.HtmlParser.Lex;
 using Winista.Text.HtmlParser.Util;
 using Winista.Text.HtmlParser.Tags;
 using Winista.Text.HtmlParser.Filters;
+using com.jiechengbao.wx.Global;
 
 namespace com.jiechengbao.wx.Controllers
 {
+    
     public class CarController:Controller
     {
         private IMemberBLL _memberBLL;

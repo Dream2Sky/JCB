@@ -52,11 +52,15 @@ namespace com.jiechengbao.admin.Controllers
             return View();
         }
 
-        public ActionResult PassswordSetting()
+        public ActionResult PasswordSetting()
         {
             ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
-
-            ViewBag.password = scp.Password;
+            string currentpassword = string.Empty;
+            if (scp != null)
+            {
+                currentpassword = scp.Password;
+            }
+            ViewBag.password = currentpassword;
             return View();
         }
         [HttpPost]
@@ -68,16 +72,37 @@ namespace com.jiechengbao.admin.Controllers
             }
             ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
 
-            scp.Password = password;
-            scp.CreatedTime = DateTime.Now;
-
-            if (_serviceConsumePasswordBLL.Update(scp))
+            if (scp != null)
             {
-                return Json("True", JsonRequestBehavior.AllowGet);
+                scp.Password = password;
+                scp.CreatedTime = DateTime.Now;
+
+                if (_serviceConsumePasswordBLL.Update(scp))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                ServiceConsumePassword scp_new = new ServiceConsumePassword();
+                scp_new.Id = Guid.NewGuid();
+                scp_new.IsDeleted = false;
+                scp_new.Password = password;
+                scp_new.DeletedTime = DateTime.MinValue.AddHours(8);
+                scp_new.CreatedTime = DateTime.Now;
+
+                if (_serviceConsumePasswordBLL.Add(scp_new))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
             }
         }
     }

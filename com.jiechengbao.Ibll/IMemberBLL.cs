@@ -16,5 +16,7 @@ namespace com.jiechengbao.Ibll
         Member GetMemberByOpenId(string openId);
         bool Update(Member member);
         IEnumerable<Member> GetMemberswithSpecifiedCount(int count);
+        bool IsExist(string openId);
+        bool Add(Member member);
     }
 }
