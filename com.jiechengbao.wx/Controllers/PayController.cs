@@ -166,14 +166,25 @@ namespace com.jiechengbao.wx.Controllers
                 data.FromXml(builder.ToString());
                 Order order = _orderBLL.GetOrderByOrderNo(data.GetValue("out_trade_no").ToString());
                 order.Status = 1;
+                order.PayTime = DateTime.Now;
 
                 Member member = _memberBLL.GetMemberByOpenId(data.GetValue("openid").ToString());
 
                 if (_orderBLL.Update(order))
                 {
-                    LogHelper.Log.Write("支付成功");
+                    // 添加交易记录
+                    Transaction trans = new Transaction();
+                    trans.Amount = order.TotalPrice;
+                    trans.CreatedTime = DateTime.Now;
+                    trans.DeletedTime = DateTime.MinValue.AddHours(8);
+                    trans.Id = Guid.NewGuid();
+                    trans.IsDeleted = false;
+                    trans.MemberId = member.Id;
+                    trans.OrderId = order.Id;
+                    trans.PayWay = 0;
 
-                    // 更新会员积分
+                    _transactionBLL.Add(trans);
+
                     if (AddConsumeCredit(member, order.TotalPrice))
                     {
                         // 异步判断是否有足够的积分进行升级
