@@ -23,5 +23,19 @@ namespace com.jiechengbao.dal
                 throw;
             }
         }
+
+        public IEnumerable<Recharge> SelectRechargeListByMemberIdTakeTopCount(Guid memberId, int count)
+        {
+            try
+            {
+                return db.Set<Recharge>().Take(count).OrderByDescending(n => n.CreatedTime);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

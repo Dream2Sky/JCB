@@ -68,7 +68,7 @@
     {
         <li class="mui-table-view-cell mui-media">
             <a href="javascript:;">
-                <img class="mui-media-object mui-pull-left" src="Uploads/@item.PicturePath">
+                <img class="mui-media-object mui-pull-left" src="@item.PicturePath">
                 <div class="mui-media-body">
                     @item.Name
                     <p class='mui-ellipsis'><small>@item.Description</small></p>
@@ -122,6 +122,12 @@
                         window.location.href = "/Pay/BalancePay?orderNo=" + data.orderNo;
                     }
                 }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
             },
             error: function () {
                 mui.alert("网页发生错误");

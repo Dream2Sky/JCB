@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "MyServices";
+    ViewBag.Title = "我的服务";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
 @using com.jiechengbao.wx.Models
@@ -29,7 +29,7 @@
                                     <p class="mui-ellipsis">@item.ServiceName</p>
                                 </div>
                                 <div class="mui-table-cell mui-col-xs-4 mui-text-right">
-                                    <span class="mui-h5"><small>剩余使用次数:@item.CurrentCount</small></span>
+                                    <span class="mui-h5"><small>剩余次数:@item.CurrentCount</small></span>
                                 </div>
                             </div>
                             <div class="mui-table address-cell">
@@ -43,11 +43,10 @@
             </a>
         </li>
     }
-
-    @if (ViewData["SDMList"] as List<ServiceDetailModel> == null)
-    {
-        <div class="title">
-            <p>您暂时还没有购买任何服务，快去商城购买吧。。。</p>
-        </div>
-    }
 </ul>
+@if ((ViewData["SDMList"] as List<ServiceDetailModel>) == null || (ViewData["SDMList"] as List<ServiceDetailModel>).Count == 0)
+{
+    <div class="title">
+        <p>您暂时还没有购买任何服务，快去商城购买吧。。。</p>
+    </div>
+}

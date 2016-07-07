@@ -6,7 +6,7 @@
 @using com.jiechengbao.entity
 <div class="container">
     <label>注册用户的数量</label>
-    <table class="table table-striped table-hover table-expandable table-bordered">
+    <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
                 <th>用户昵称</th>
@@ -27,6 +27,18 @@
                     <td>@item.Vip</td>
                     <td>@item.Assets</td>
                     <td>@item.Credit</td>
+                </tr>
+            }
+            @if (ViewBag.Member != null)
+            {
+                Member member = ViewBag.Member as Member;
+                <tr>
+                    <td><img src="@member.HeadImage" />@member.NickeName</td>
+                    <td>@member.Phone</td>
+                    <td>@member.CreatedTime</td>
+                    <td>@member.Vip</td>
+                    <td>@member.Assets</td>
+                    <td>@member.Credit</td>
                 </tr>
             }
         </tbody>

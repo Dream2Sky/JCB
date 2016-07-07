@@ -51,6 +51,12 @@
                     mui.alert("保存失败");
                 }
             },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
             error: function (XMLHttpRequest) {
                 alert(XMLHttpRequest.status)
                 mui.alert("系统错误，保存失败");

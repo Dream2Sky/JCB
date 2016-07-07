@@ -169,6 +169,8 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
 
+        // 业务修改  不需要主动搜索充值记录
+        // 这个方法就不用了
         [HttpPost]
         public ActionResult CheckRecharge(DateTime startTime, DateTime endTime)
         {
@@ -192,15 +194,32 @@ namespace com.jiechengbao.wx.Controllers
         
         public ActionResult RechargeList()
         {
-            if (null == (System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>))
+            // 业务修改 不用用户自己搜索充值记录
+            // 在客户端只显示充值记录的前10条
+
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            if (member == null)
             {
+                ViewData["RechargeList"] = null;
                 return View();
             }
-            else
-            {
-                ViewData["RechargeList"] = System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>;
-                return View();
-            }
+
+            List<Recharge> rechargeList = _rechargeBLL.GetRechargeListTop10ByMemberId(member.Id).ToList();
+
+            ViewData["RechargeList"] = rechargeList;
+
+            return View();
+
+            //if (null == (System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>))
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    ViewData["RechargeList"] = System.Web.HttpContext.Current.Session["RechargeList"] as List<Recharge>;
+            //    return View();
+            //}
         }
         
         public ActionResult RechargeOptionsList()

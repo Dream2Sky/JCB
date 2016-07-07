@@ -71,6 +71,11 @@ namespace com.jiechengbao.bll
             return _memberDAL.SelectByWxOpenId(openId);
         }
 
+        public Member GetMembersByNickNameAndPhone(string condition)
+        {
+            return _memberDAL.SelectByNickNameandPhone(condition);
+        }
+
         /// <summary>
         /// 获得指定数量的用户列表  已倒序排序
         /// </summary>

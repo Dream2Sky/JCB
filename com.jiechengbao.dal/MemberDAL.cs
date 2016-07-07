@@ -10,6 +10,20 @@ namespace com.jiechengbao.dal
 {
     public class MemberDAL : DataBaseDAL<Member>, IMemberDAL
     {
+        public Member SelectByNickNameandPhone(string condition)
+        {
+            try
+            {
+                return db.Set<Member>().Where(n => n.NickeName == condition || n.Phone == condition).SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Member SelectByWxOpenId(string openId)
         {
             try

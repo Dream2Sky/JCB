@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "添加配送地址";
-    Layout = "~/Views/LayoutPage.cshtml";
+    Layout = "~/Views/LayoutPage2.cshtml";
 }
 <script src="~/Content/js/city.data-3.js"></script>
 <style>
@@ -103,6 +103,9 @@
                 Phone: $("input[name='phone']").val(),
                 Detail: $("input[name='detail']").val()
             },
+            beforeSend:function(){
+                $('.mask').show();
+            },
             success: function (data) {
                 if (data == "False") {
                     mui.alert("保存地址发生错误");
@@ -113,7 +116,11 @@
             },
             error: function () {
                 mui.alert("Error");
+            },
+            complete: function () {
+                $('.mask').hide();
             }
+            
         });
     }
 </script>

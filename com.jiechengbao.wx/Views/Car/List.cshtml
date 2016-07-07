@@ -176,8 +176,14 @@
                     mui.alert("绑定失败");
                 }
             },
+            beforeSend:function(){
+                $('.mask').show();
+            },
             error: function () {
                 mui.alert("ERROR");
+            },
+            complete: function () {
+                $('.mask').hide();
             }
 
         })

@@ -40,7 +40,7 @@
             @foreach (var item in ViewData["CarList"] as List<CarModel>)
             {
                 <tr>
-                    <td><img src="~/Uploads/@item.MemberImagePath" />@item.MemberName</td>
+                    <td><img src="@item.MemberImagePath" />@item.MemberName</td>
                     <td>@item.Phone</td>
                     <td>@item.Numberplate</td>
                     <td>@item.ChassisNumber</td>

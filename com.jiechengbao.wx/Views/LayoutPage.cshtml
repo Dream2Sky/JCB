@@ -15,6 +15,10 @@
     <script src="~/Content/js/mui.picker.js"></script>
     <script src="~/Content/js/mui.poppicker.js"></script>
     <style>
+        a:hover {
+            text-decoration: none;
+        }
+
         .navbar-fixed-bottom {
             height: 32px;
         }
@@ -78,12 +82,35 @@
             width: 20px;
             height: 20px;
         }
+
+        .mask {
+            position: absolute;
+            z-index: 900;
+            opacity: 0.6;
+            filter: alpha(opacity: 50);
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .icon-loading {
+            position: absolute;
+            top: 50%;
+        }
+
+            .icon-loading span {
+                color: #FFFFFF;
+            }
         /*.mui-content{
             margin-top:50px;
         }*/
     </style>
 </head>
 <body>
+    <div class="mask" hidden>
+        <a class="icon-loading"><span class="mui-spinner"></span></a>
+    </div>
     <div class="mui-content mui-scroll-wrapper">
         <div class="mui-scroll">
             @RenderBody()
@@ -93,7 +120,7 @@
     <nav class="mui-bar mui-bar-tab">
         <a class="mui-tab-item mui-active" id="atogoods" href="/Home/Index">
             <span class="mui-icon iconfont icon-dianpu"></span>
-            <span class="mui-tab-label">首页</span>
+            <span class="mui-tab-label">商城</span>
         </a>
         <a class="mui-tab-item" id="atocart" href="/Cart/List">
             <span class="mui-icon iconfont icon-gouwuche icon-cart"></span>
@@ -113,65 +140,65 @@
         </a>
     </nav>
     @*<nav class="navbar navbar-fixed-top">
-        <div class="container">
-            <div class="row">
-                <div class="btn-group btn-group-justified" role="group" aria-label="..." style="padding:0px;height:50px;">
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location='/Home/Index'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
-                            <img style="width:20px;height:20px;" src="~/Content/images/home.png">
-                            <p><small>商品</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_shopping" class="btn btn-default" onclick="javascript:window.location='/Cart/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
-                            <img style="width:20px;height:20px;" src="~/Content/images/cart.png">
-                            <p id="img_shoppingCar"><small>购物车</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_car" class="btn btn-default" onclick="javascript:window.location='/Order/List?type=2'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
-                            <img id="img_shoppingCar" style="width:20px;height:20px;" src="~/Content/images/order.png">
-                            <p><small>订单</small></p>
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" id="btn_user" class="btn btn-default" onclick="javascript:window.location='/Address/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
-                            <img style="width:20px;height:20px;" src="~/Content/images/setting.png">
-                            <p><small>设置</small></p>
-                        </button>
+            <div class="container">
+                <div class="row">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="..." style="padding:0px;height:50px;">
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location='/Home/Index'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/home.png">
+                                <p><small>商品</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_shopping" class="btn btn-default" onclick="javascript:window.location='/Cart/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/cart.png">
+                                <p id="img_shoppingCar"><small>购物车</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_car" class="btn btn-default" onclick="javascript:window.location='/Order/List?type=2'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img id="img_shoppingCar" style="width:20px;height:20px;" src="~/Content/images/order.png">
+                                <p><small>订单</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_user" class="btn btn-default" onclick="javascript:window.location='/Address/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/setting.png">
+                                <p><small>设置</small></p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>*@
+        </nav>*@
     @*<nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/Home/Index">Link <span class="sr-only">商品</span></a></li>
-                <li class="active"><a href="/Cart/List">Link <span class="sr-only">购物车</span></a></li>
-                <li class="active"><a href="#popover">Link <span class="sr-only">顶单</span></a></li>
-                <li class="active"><a href="#popover-address">Link <span class="sr-only">设置</span></a></li>
-            </ul>
-        </div>
-    </nav>*@
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Home/Index">Link <span class="sr-only">商品</span></a></li>
+                    <li class="active"><a href="/Cart/List">Link <span class="sr-only">购物车</span></a></li>
+                    <li class="active"><a href="#popover">Link <span class="sr-only">顶单</span></a></li>
+                    <li class="active"><a href="#popover-address">Link <span class="sr-only">设置</span></a></li>
+                </ul>
+            </div>
+        </nav>*@
     @*<nav class="mui-bar mui-bar-tab">
-        <a class="mui-tab-item mui-active" href="/UserInfo/Index" id="atouserinfo">
-            <span class="mui-icon iconfont icon-shouyeshouye"></span>
-            <span class="mui-tab-label">首页</span>
-        </a>
-        <a class="mui-tab-item" href="/Home/Index" id="atohome">
-            <span class="mui-icon iconfont icon-dianpu"></span>
-            <span class="mui-tab-label">商城</span>
-        </a>
-        <a class="mui-tab-item" href="/Car/List" id="atocar">
-            <span class="mui-icon iconfont icon-car"></span>
-            <span class="mui-tab-label">爱车</span>
-        </a>
-        <a class="mui-tab-item" href="/UserInfo/Info" id="atoinfo">
-            <span class="mui-icon mui-icon-person" id="atoperson"></span>
-            <span class="mui-tab-label">个人</span>
-        </a>
-    </nav>*@
+            <a class="mui-tab-item mui-active" href="/UserInfo/Index" id="atouserinfo">
+                <span class="mui-icon iconfont icon-shouyeshouye"></span>
+                <span class="mui-tab-label">首页</span>
+            </a>
+            <a class="mui-tab-item" href="/Home/Index" id="atohome">
+                <span class="mui-icon iconfont icon-dianpu"></span>
+                <span class="mui-tab-label">商城</span>
+            </a>
+            <a class="mui-tab-item" href="/Car/List" id="atocar">
+                <span class="mui-icon iconfont icon-car"></span>
+                <span class="mui-tab-label">爱车</span>
+            </a>
+            <a class="mui-tab-item" href="/UserInfo/Info" id="atoinfo">
+                <span class="mui-icon mui-icon-person" id="atoperson"></span>
+                <span class="mui-tab-label">个人</span>
+            </a>
+        </nav>*@
     <div id="popover" class="mui-popover">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">

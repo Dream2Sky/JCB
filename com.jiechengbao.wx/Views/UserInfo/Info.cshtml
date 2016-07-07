@@ -22,15 +22,20 @@
         width: 56px;
         height: 56px;
     }
-    .recharge-btn{
-        width:100%;
-        margin-top:10px;
-        margin-bottom:10px;
 
+    .recharge-btn {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
-    .recharge-li{
-        padding-left:10px;
-        padding-right:10px;
+
+    .recharge-li {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .toleft {
+        margin-right: 20px;
     }
 </style>
 <ul class="mui-table-view mui-table-view-chevron">
@@ -46,27 +51,48 @@
     </li>
 </ul>
 
-<ul class="mui-table-view mui-table-view-chevron">
+<ul class="mui-table-view">
     <li class="mui-table-view-cell">
-        
         @if (string.IsNullOrEmpty(Model.Phone))
         {
-            <a href="/UserInfo/Phone" class="mui-navigate-right">电话<span class="mui-pull-right">未绑定</span></a>
+            <a href="/UserInfo/Phone" class="mui-navigate-right">电话<span class="mui-pull-right toleft">未绑定</span></a>
         }
         else
         {
-            <a href="/UserInfo/Phone" class="mui-navigate-right">电话<span class="mui-pull-right">@Model.Phone</span></a>
+            <a href="/UserInfo/Phone" class="mui-navigate-right">电话<span class="mui-pull-right toleft">@Model.Phone</span></a>
         }
 
     </li>
-    <li  class="mui-table-view-cell">
-        <a href="/UserInfo/MyServices" class="mui-navigate-right">我的服务</a>
+    <li class="mui-table-view-cell">
+        <a href="#" class="mui-navigate-right">QQ号<span class="mui-pull-right toleft">未绑定</span></a>
+    </li>
+
+    <li class="mui-table-view-cell">
+        <a href="#" class="mui-navigate-right">邮箱地址<span class="mui-pull-right toleft">未绑定</span></a>
     </li>
 </ul>
 
-<ul class="mui-table-view mui-table-view-chevron">
+<ul class="mui-table-view">
     <li class="mui-table-view-cell">
-        <a href="/UserInfo/Recharge" class="mui-navigate-right">余额<span class="mui-pull-right">￥@Model.Assets</span></a>
+        <a href="/UserInfo/MyServices" class="mui-navigate-right">我的服务</a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a>VIP<span class="mui-pull-right">@Model.Vip</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a href="#" class="mui-navigate-right">积分<span class="mui-pull-right toleft">@Model.Credit</span></a>
+    </li>
+</ul>
+
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        <a href="/Address/List" class="mui-navigate-right">配送地址<span class="mui-pull-right"></span></a>
+    </li>
+</ul>
+
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        <a href="/UserInfo/Recharge" class="mui-navigate-right">余额<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
     </li>
     <li class="recharge-li">
         <button class="mui-btn recharge-btn" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>

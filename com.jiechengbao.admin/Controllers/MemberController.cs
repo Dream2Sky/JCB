@@ -29,6 +29,21 @@ namespace com.jiechengbao.admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult List(string condition)
+        {
+            if (string.IsNullOrEmpty(condition))
+            {
+                return RedirectToAction("List");
+            }
+
+            Member member = _memberBLL.GetMembersByNickNameAndPhone(condition);
+
+            ViewBag.Member = member;
+
+            return View();
+        }
+
         public ActionResult VIPSetting()
         {
             // 因为系统会默认的在 Rules 表中添加VIP0的记录 但是又不需要显示出来 所以查询的时候就要忽略掉第0个

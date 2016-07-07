@@ -169,6 +169,12 @@
                     window.location.href = "/Order/Write";
                 }
             },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
             error: function () {
                 alert("生成订单失败");
             }

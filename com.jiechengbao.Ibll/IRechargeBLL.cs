@@ -11,5 +11,6 @@ namespace com.jiechengbao.Ibll
     {
         IEnumerable<Recharge> GetRechargeListByMemberId(DateTime startTime, DateTime endTime, Guid MemberId);
         bool Add(Recharge recharge);
+        IEnumerable<Recharge> GetRechargeListTop10ByMemberId(Guid memberId);
     }
 }

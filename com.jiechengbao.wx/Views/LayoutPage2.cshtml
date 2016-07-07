@@ -13,7 +13,7 @@
     <script src="~/Content/js/mui.min.js"></script>
     <script src="~/Content/js/mui.picker.js"></script>
     <script src="~/Content/js/mui.poppicker.js"></script>
-
+    <script src="~/Content/js/mui.view.js"></script>
     <style>
         .navbar-fixed-bottom {
             height: 32px;
@@ -39,9 +39,36 @@
         .mui-bar-nav {
             background-color: #ffffff !important;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .mask {
+            position: absolute;
+            z-index: 900;
+            opacity: 0.6;
+            filter: alpha(opacity: 50);
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .icon-loading {
+            position: absolute;
+            top: 50%;
+        }
+
+            .icon-loading span {
+                color: #FFFFff;
+            }
     </style>
 </head>
 <body>
+    <div class="mask">
+        <a class="icon-loading"><span class="mui-spinner"></span></a>
+    </div>
     <div class="mui-content mui-scroll-wrapper">
         <div class="mui-scroll">
             @RenderBody()
@@ -72,6 +99,7 @@
         mui(".mui-bar").on("tap", "a", function () {
             window.location.href = this.href;
         });
+
         //function Go(url) {
         //    window.location.href = url;
         //};

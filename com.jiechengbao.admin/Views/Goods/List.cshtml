@@ -17,6 +17,18 @@
         margin-top: 10px;
     }
 </style>
+
+<div class="navbar navbar-options">
+    <div class="container">
+        <form class="navbar-form navbar-left" method="post" action="/Goods/Search" role="search">
+            <div class="form-group">
+                <input type="text" name="condition" class="form-control" placeholder="搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div>
+</div>
+
 <div class="container">
     <label>商品列表</label>
     <table class="table table-striped table-hover table-bordered">
