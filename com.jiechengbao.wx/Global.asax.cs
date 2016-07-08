@@ -73,6 +73,10 @@ namespace com.jiechengbao.wx
             builder.RegisterType<ServiceConsumeRecordDAL>().As<IServiceConsumeRecordDAL>();
             builder.RegisterType<ServiceQRBLL>().As<IServiceQRBLL>();
             builder.RegisterType<ServiceQRDAL>().As<IServiceQRDAL>();
+            builder.RegisterType<ExchangeServiceBLL>().As<IExchangeServiceBLL>();
+            builder.RegisterType<ExchangeServiceDAL>().As<IExchangeServiceDAL>();
+            builder.RegisterType<ExchangeServiceRecordBLL>().As<IExchangeServiceRecordBLL>();
+            builder.RegisterType<ExchangeServiceRecordDAL>().As<IExchangeServiceRecordDAL>();
         }
     }
 }

@@ -64,6 +64,8 @@
     <Compile Include="CategoryDAL.cs" />
     <Compile Include="CreditRecordDAL.cs" />
     <Compile Include="DataBaseDAL.cs" />
+    <Compile Include="ExchangeServiceDAL.cs" />
+    <Compile Include="ExchangeServiceRecordDAL.cs" />
     <Compile Include="GoodsCategoryDAL.cs" />
     <Compile Include="GoodsDAL.cs" />
     <Compile Include="GoodsImagesDAL.cs" />

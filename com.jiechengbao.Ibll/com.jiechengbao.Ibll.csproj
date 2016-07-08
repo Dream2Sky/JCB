@@ -46,6 +46,8 @@
     <Compile Include="ICartBLL.cs" />
     <Compile Include="ICategoryBLL.cs" />
     <Compile Include="ICreditRecordBLL.cs" />
+    <Compile Include="IExchangeServiceBLL.cs" />
+    <Compile Include="IExchangeServiceRecordBLL.cs" />
     <Compile Include="IGoodsBLL.cs" />
     <Compile Include="IGoodsCategoryBLL.cs" />
     <Compile Include="IGoodsImagesBLL.cs" />
