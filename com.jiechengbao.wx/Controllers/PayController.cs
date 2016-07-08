@@ -209,6 +209,7 @@ namespace com.jiechengbao.wx.Controllers
                 res.SetValue("return_code", "FAIL");
                 res.SetValue("return_msg", ex.Message);
                 Log.Error(this.GetType().ToString(), "Sign check error : " + res.ToXml());
+                
                 Response.Write(res.ToXml());
                 Response.End();
             }

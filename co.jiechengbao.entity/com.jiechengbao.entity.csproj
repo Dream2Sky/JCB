@@ -65,6 +65,8 @@
     <Compile Include="Category.cs" />
     <Compile Include="CreditRecord.cs" />
     <Compile Include="DataEntity.cs" />
+    <Compile Include="ExchangeService.cs" />
+    <Compile Include="ExchangeServiceRecord.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsCategory.cs" />
     <Compile Include="GoodsImage.cs" />
@@ -242,6 +244,14 @@
     <Compile Include="Migrations\201607032153024_AddTable_ServcieConsumePassword.Designer.cs">
       <DependentUpon>201607032153024_AddTable_ServcieConsumePassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607080416014_AddTable_ExchangeServices.cs" />
+    <Compile Include="Migrations\201607080416014_AddTable_ExchangeServices.Designer.cs">
+      <DependentUpon>201607080416014_AddTable_ExchangeServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607080422485_AddTable_ExchangeRecords.cs" />
+    <Compile Include="Migrations\201607080422485_AddTable_ExchangeRecords.Designer.cs">
+      <DependentUpon>201607080422485_AddTable_ExchangeRecords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
@@ -388,6 +398,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607032153024_AddTable_ServcieConsumePassword.resx">
       <DependentUpon>201607032153024_AddTable_ServcieConsumePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607080416014_AddTable_ExchangeServices.resx">
+      <DependentUpon>201607080416014_AddTable_ExchangeServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607080422485_AddTable_ExchangeRecords.resx">
+      <DependentUpon>201607080422485_AddTable_ExchangeRecords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

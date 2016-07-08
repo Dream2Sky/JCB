@@ -41,5 +41,15 @@ namespace com.jiechengbao.entity
 
         public DbSet<ServiceQR> ServiceQRs { get; set; }
         public DbSet<ServiceConsumePassword> SCPassword { get; set; }
+
+        /// <summary>
+        /// 兑换服务
+        /// </summary>
+        public DbSet<ExchangeService> ExchangeServices { get; set; }
+
+        /// <summary>
+        ///  服务购买记录表
+        /// </summary>
+        public DbSet<ExchangeServiceRecord> ExchageServiceRecords { get; set; }
     }
 }
