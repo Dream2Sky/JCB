@@ -20,6 +20,8 @@ namespace com.jiechengbao.wx.Models
             this.Name = goods.Name;
             this.Price = goods.Price;
             this.Description = goods.Description;
+            this.ServiceCount = goods.ServiceCount;
+            this.OriginalPrice = goods.OriginalPrice;
         }
         [DataMember]
         public double Discount { get; set; }

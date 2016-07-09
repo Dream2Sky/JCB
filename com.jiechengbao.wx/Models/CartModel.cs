@@ -19,6 +19,7 @@ namespace com.jiechengbao.wx.Models
             this.Price = goods.Price;
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
+            this.OriginalPrice = goods.OriginalPrice;
         }
         public double Discount { get; set; }
         public int Count { get; set; }

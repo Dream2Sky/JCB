@@ -16,12 +16,16 @@
         border-color:red;
         color:red;
     }
+    .p-gray s{
+        color:#515151;
+    }
 </style>
 <div class="thumbnail">
     <img src="/Uploads/@Model.PicturePath">
     <div class="caption">
         <h3>@Model.Name</h3>
         <p>@Model.Description</p>
+        <p class="p-gray"><s>原价:￥@Model.OriginalPrice</s></p>
         <p class="p-red"><strong>￥@Model.Price</strong></p>
         <p class="p-red">折扣:@Model.Discount</p>
         @if (Model.ServiceCount>0)
