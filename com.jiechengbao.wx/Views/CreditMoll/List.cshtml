@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+
+@using com.jiechengbao.entity
+
+@{
+    foreach (var item in ViewData["ExchangeServiceList"] as List<ExchangeService>)
+    {
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell mui-media">
+                <a class="mui-navigate-right" href="/CreditMoll/Exchange?code=@item.Code">
+                    <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@item.ImagePath">
+                    <div class="mui-media-body">
+                        @item.Name
+                        <p>兑换积分 :@item.Credit</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    }
+}

@@ -21,6 +21,7 @@ namespace com.jiechengbao.admin.Models
             this.Price = goods.Price;
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
+            this.OriginalPrice = goods.OriginalPrice;
         }
         public bool IsRecommend { get; set; } // 是否是推荐商品
         public string PicturePath { get; set; }

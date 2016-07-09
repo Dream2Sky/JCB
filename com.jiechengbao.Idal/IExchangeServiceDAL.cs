@@ -9,6 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface IExchangeServiceDAL:IDataBaseDAL<ExchangeService>
     {
-
+        ExchangeService selectByCode(string code);
     }
 }

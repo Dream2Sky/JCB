@@ -115,7 +115,7 @@
                     console.log(data);
                     if (data.payway == 0) {
                         // 微信支付
-                        window.location.href = "/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
+                        window.location.href = "/Pay/WxPay?totalprice="+@ViewBag.TotalPrice+"&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
                     }
                     else {
                         // 余额支付

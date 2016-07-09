@@ -40,12 +40,11 @@
 </style>
 <ul class="mui-table-view mui-table-view-chevron">
     <li class="mui-table-view-cell mui-media">
-        <a class="mui-navigate-right" href="/UserInfo/InfoDetail?openId=@Model.OpenId">
+        <a class="mui-navigate-right" href="#">
             <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@Model.HeadImage">
             <div class="mui-media-body">
                 @Model.NickeName
                 <p>vip:@Model.Vip</p>
-                <p><small>积分:@Model.Credit</small></p>
             </div>
         </a>
     </li>
@@ -70,6 +69,9 @@
     <li class="mui-table-view-cell">
         <a href="#" class="mui-navigate-right">邮箱地址<span class="mui-pull-right toleft">未绑定</span></a>
     </li>
+    <li class="mui-table-view-cell">
+        <a href="/Address/List" class="mui-navigate-right">配送地址<span class="mui-pull-right"></span></a>
+    </li>
 </ul>
 
 <ul class="mui-table-view">
@@ -77,19 +79,9 @@
         <a href="/UserInfo/MyServices" class="mui-navigate-right">我的服务</a>
     </li>
     <li class="mui-table-view-cell">
-        <a>VIP<span class="mui-pull-right">@Model.Vip</span></a>
-    </li>
-    <li class="mui-table-view-cell">
         <a href="#" class="mui-navigate-right">积分<span class="mui-pull-right toleft">@Model.Credit</span></a>
     </li>
 </ul>
-
-<ul class="mui-table-view">
-    <li class="mui-table-view-cell">
-        <a href="/Address/List" class="mui-navigate-right">配送地址<span class="mui-pull-right"></span></a>
-    </li>
-</ul>
-
 <ul class="mui-table-view">
     <li class="mui-table-view-cell">
         <a href="/UserInfo/Recharge" class="mui-navigate-right">余额<span class="mui-pull-right toleft">￥@Model.Assets</span></a>

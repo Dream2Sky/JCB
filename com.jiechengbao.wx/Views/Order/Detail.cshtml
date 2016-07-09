@@ -163,7 +163,7 @@
                 else {
                     if (data.payway == 0) {
                         alert("/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"]);
-                        window.location.href = "/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
+                        window.location.href = "/Pay/WxPay?totalprice="+@ViewBag.TotalPrice+"&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
                     }
                     else {
                         window.location.href = "/Pay/BalancePay?orderNo=" + data.orderNo;

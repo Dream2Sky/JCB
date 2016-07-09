@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201607080422485_AddTable_ExchangeRecords.Designer.cs">
       <DependentUpon>201607080422485_AddTable_ExchangeRecords.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607090412371_AddColumn_OriginalPrice.cs" />
+    <Compile Include="Migrations\201607090412371_AddColumn_OriginalPrice.Designer.cs">
+      <DependentUpon>201607090412371_AddColumn_OriginalPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
@@ -404,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607080422485_AddTable_ExchangeRecords.resx">
       <DependentUpon>201607080422485_AddTable_ExchangeRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607090412371_AddColumn_OriginalPrice.resx">
+      <DependentUpon>201607090412371_AddColumn_OriginalPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

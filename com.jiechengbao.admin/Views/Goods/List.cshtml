@@ -37,6 +37,7 @@
                 <th>商品名称</th>
                 <th>商品图片</th>
                 <th>当前单价</th>
+                <th>原价</th>
                 <th></th>
             </tr>
         </thead>
@@ -47,6 +48,7 @@
                     <td>@item.Name</td>
                     <td><img src="/Uploads/@item.PicturePath" /></td>
                     <td>@item.Price</td>
+                    <td>@item.OriginalPrice</td>
                     <td>
                         <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> |
                         @if (item.IsRecommend)

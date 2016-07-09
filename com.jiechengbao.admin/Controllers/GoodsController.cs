@@ -73,6 +73,13 @@ namespace com.jiechengbao.admin.Controllers
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
             goods.DeletedTime = DateTime.MinValue.AddHours(8);
+
+            // 商品新家字段  OriginalPrice  原价  
+
+            // 该字段不影响原来商品添加的逻辑
+            goods.OriginalPrice = model.OriginalPrice;
+
+
             #endregion
 
             // 添加新的Goods 对象
@@ -198,6 +205,9 @@ namespace com.jiechengbao.admin.Controllers
             goods.Price = model.Price;
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
+
+            // 商品添加新的字段 OriginalPrice 更新时 也要更新
+            goods.OriginalPrice = model.OriginalPrice;
 
             if (!_goodsBLL.Update(goods))
             {

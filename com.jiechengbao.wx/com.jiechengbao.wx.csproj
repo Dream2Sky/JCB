@@ -220,6 +220,7 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CreditMollController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OauthController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -288,6 +289,8 @@
     <Content Include="Views\UserInfo\MyServices.cshtml" />
     <Content Include="Views\Pay\MyServiceQR.cshtml" />
     <Content Include="Views\UserInfo\InfoDetail.cshtml" />
+    <Content Include="Views\CreditMoll\List.cshtml" />
+    <Content Include="Views\CreditMoll\Exchange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

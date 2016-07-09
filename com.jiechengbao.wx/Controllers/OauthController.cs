@@ -70,7 +70,112 @@ namespace com.jiechengbao.wx.Controllers
             {
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            
+        }
+
+        public ActionResult GetHelpCode(string code)
+        {
+            LogHelper.Log.Write("传递的code:" + code);
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetHelpCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+                System.Web.HttpContext.Current.Response.Redirect(url);
+
+                return RedirectToAction("GetHelpCode");
+            }
+            else
+            {
+                CacheManager.SetCache("code", code);
+            }
+            UserInfo_JsonModel user = GetWxUserInfo();
+
+            LogHelper.Log.Write("openid:" + user.openid + ", nickname:" + user.nickname + ", sex:" + user.sex + ", headerimage:" + user.headimgurl);
+
+            if (!_memberBLL.IsExist(user.openid))
+            {
+                Member member = new Member();
+                member.Id = Guid.NewGuid();
+                member.IsDeleted = false;
+                member.NickeName = user.nickname;
+                member.OpenId = user.openid;
+                member.Vip = 0;
+                member.HeadImage = user.headimgurl;
+                member.Assets = 0;
+                member.CreatedTime = DateTime.Now;
+                member.Credit = 0;
+                member.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                if (!_memberBLL.Add(member))
+                {
+                    LogHelper.Log.Write("添加新用户失败");
+                }
+
+            }
+            LogHelper.Log.Write("user's openid = " + user.openid);
+
+            System.Web.HttpContext.Current.Session["member"] = user.openid;
+
+            if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
+            {
+                return RedirectToAction("Help", "UserInfo");
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
+
+        public ActionResult GetRechargeCode(string code)
+        {
+            LogHelper.Log.Write("传递的code:" + code);
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetRechargeCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+                System.Web.HttpContext.Current.Response.Redirect(url);
+
+                return RedirectToAction("GetRechargeCode");
+            }
+            else
+            {
+                CacheManager.SetCache("code", code);
+            }
+            UserInfo_JsonModel user = GetWxUserInfo();
+
+            LogHelper.Log.Write("openid:" + user.openid + ", nickname:" + user.nickname + ", sex:" + user.sex + ", headerimage:" + user.headimgurl);
+
+            if (!_memberBLL.IsExist(user.openid))
+            {
+                Member member = new Member();
+                member.Id = Guid.NewGuid();
+                member.IsDeleted = false;
+                member.NickeName = user.nickname;
+                member.OpenId = user.openid;
+                member.Vip = 0;
+                member.HeadImage = user.headimgurl;
+                member.Assets = 0;
+                member.CreatedTime = DateTime.Now;
+                member.Credit = 0;
+                member.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                if (!_memberBLL.Add(member))
+                {
+                    LogHelper.Log.Write("添加新用户失败");
+                }
+
+            }
+            LogHelper.Log.Write("user's openid = " + user.openid);
+
+            System.Web.HttpContext.Current.Session["member"] = user.openid;
+
+            if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
+            {
+                return RedirectToAction("RechargeOptionsList", "UserInfo");
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
         }
 
         private UserInfo_JsonModel GetWxUserInfo()

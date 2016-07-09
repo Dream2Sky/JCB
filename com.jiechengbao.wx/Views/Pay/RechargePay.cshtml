@@ -42,7 +42,7 @@
          {
              WeixinJSBridge.log(res.err_msg);
              if (res.err_msg == "get_brand_wcpay_request:ok") {
-                 window.location.href = "/UserInfo/Info"; 
+                 mui.alert("支付成功");
              }
              else if(res.err_msg == "get_brand_wcpay_request:cancel"){
                  mui.alert("已取消微信支付");

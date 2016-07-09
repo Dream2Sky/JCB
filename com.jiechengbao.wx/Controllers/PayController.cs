@@ -87,7 +87,7 @@ namespace com.jiechengbao.wx.Controllers
 
             OrderResultModel orm = new OrderResultModel();
             orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
-            orm.total_fee = double.Parse(Request.QueryString["totalprice"].ToString());
+            orm.total_fee = double.Parse(Request.QueryString["totalprice"].ToString())*100;
             orm.trade_type = "JSAPI";
             orm.spbill_create_ip = Request.QueryString["ip"].ToString();
             orm.out_trade_no = Request.QueryString["orderNo"].ToString();
@@ -393,7 +393,7 @@ namespace com.jiechengbao.wx.Controllers
 
             OrderResultModel orm = new OrderResultModel();
             orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
-            orm.total_fee = money;
+            orm.total_fee = money*100;
             orm.trade_type = "JSAPI";
             orm.spbill_create_ip = ip;
             orm.out_trade_no = orderNo;
@@ -453,7 +453,7 @@ namespace com.jiechengbao.wx.Controllers
         }
 
         [HttpPost]
-        public ActionResult RechargePayResult()
+        public void RechargePayResult()
         {
             //接收从微信后台POST过来的数据
             System.IO.Stream s = Request.InputStream;
@@ -528,7 +528,8 @@ namespace com.jiechengbao.wx.Controllers
             successData.SetValue("return_code", "SUCCESS");
             successData.SetValue("return_msg", "OK");
 
-            return Content(successData.ToXml());
+            Response.Write(successData.ToXml());
+            Response.End();
         }
 
         public ActionResult ConsumeService(Guid serviceId)

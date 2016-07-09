@@ -28,7 +28,7 @@ namespace com.jiechengbao.entity
         public string Code { get; set; }
 
         /// <summary>
-        /// 商品单价  当前单价
+        /// 商品单价  当前单价 == vip0价格
         /// </summary>
         [Required]
         [DataMember]
@@ -56,5 +56,13 @@ namespace com.jiechengbao.entity
         [Required]
         [DataMember]
         public int ServiceCount { get; set; }
+
+        /// <summary>
+        /// 商品原价
+        /// </summary>
+        [Required]
+        [DataMember]
+        public double OriginalPrice { get; set; }
+
     }
 }
