@@ -21,9 +21,12 @@ namespace com.jiechengbao.wx.Controllers
         private IRechargeBLL _rechargeBLL;
         private ICarBLL _carBLL;
         private IServiceBLL _serviceBLL;
+        private IExchangeServiceRecordBLL _exchangeServiceRecordBLL;
+        private IExchangeServiceBLL _exchangeServiceBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
-            IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL)
+            IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL,
+            IExchangeServiceRecordBLL exchangeServiceRecordBLL, IExchangeServiceBLL exchangeServiceBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
@@ -32,6 +35,7 @@ namespace com.jiechengbao.wx.Controllers
             _rechargeBLL = rechargeBLL;
             _carBLL = carBLL;
             _serviceBLL = serviceBLL;
+            _exchangeServiceBLL = exchangeServiceBLL;
         }
         [IsLogin]
         public ActionResult Index()
@@ -139,6 +143,40 @@ namespace com.jiechengbao.wx.Controllers
                 sdmList.Add(sdm);
             }
             ViewData["SDMList"] = sdmList;
+
+            return View();
+        }
+
+        /// <summary>
+        ///  我的积分 已购买的兑换商品列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MyCreditServices()
+        {
+            // 同样先 获得当前用户对象
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            // 根据用户id 获取已兑换的商品列表
+            IEnumerable<ExchangeServiceRecord> esrList = _exchangeServiceRecordBLL.GetMyESR(member.Id);
+
+            List<ExchangeServiceListModel> eslmList = new List<ExchangeServiceListModel>();
+
+            // 构造 ExchangeServiceListModel 列表
+            foreach (var item in esrList)
+            {
+                ExchangeServiceListModel eslm = new ExchangeServiceListModel();
+
+                eslm.CreatedTime = item.CreatedTime;
+                eslm.ExchangeServiceRecordId = item.Id;
+                ExchangeService es = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(item.ExchangeSerivceId);
+
+                eslm.ExchangeServiceName = es.Name;
+                eslm.ImagePath = es.ImagePath;
+
+                eslmList.Add(eslm);
+            }
+
+            ViewData["MyCreditServices"] = eslmList;
 
             return View();
         }

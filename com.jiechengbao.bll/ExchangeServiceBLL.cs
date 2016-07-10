@@ -26,5 +26,10 @@ namespace com.jiechengbao.bll
         {
             return _exchangeServiceDAL.selectByCode(code);
         }
+
+        public ExchangeService GetNoDeletedExchangeServiceById(Guid Id)
+        {
+            return _exchangeServiceDAL.SelectById(Id);
+        }
     }
 }

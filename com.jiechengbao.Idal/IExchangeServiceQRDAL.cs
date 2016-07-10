@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.Idal
 {
-    public interface IExchangeServiceRecordDAL:IDataBaseDAL<ExchangeServiceRecord>
+    public interface IExchangeServiceQRDAL:IDataBaseDAL<ExchangeServiceQR>
     {
-        IEnumerable<ExchangeServiceRecord> SelectByMemberId(Guid memberId);
     }
 }

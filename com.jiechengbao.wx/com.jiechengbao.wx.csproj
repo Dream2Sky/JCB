@@ -237,6 +237,8 @@
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\Exception.cs" />
+    <Compile Include="Models\ExchangeServiceListModel.cs" />
+    <Compile Include="Models\ExchangeServiceModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
     <Compile Include="Models\HttpService.cs" />
     <Compile Include="Models\JsApiPay.cs" />
@@ -290,7 +292,10 @@
     <Content Include="Views\Pay\MyServiceQR.cshtml" />
     <Content Include="Views\UserInfo\InfoDetail.cshtml" />
     <Content Include="Views\CreditMoll\List.cshtml" />
-    <Content Include="Views\CreditMoll\Exchange.cshtml" />
+    <Content Include="Views\CreditMoll\PreExchange.cshtml" />
+    <Content Include="Views\Pay\ConsumeExchangeService.cshtml" />
+    <Content Include="Views\UserInfo\MyCreditServices.cshtml" />
+    <Content Include="Views\Pay\MyExchangeServiceQR.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -300,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ExchangeQR\" />
     <Folder Include="QR\" />
   </ItemGroup>
   <ItemGroup>

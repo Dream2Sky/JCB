@@ -47,6 +47,7 @@
     <Compile Include="CategoryBLL.cs" />
     <Compile Include="CreditRecordBLL.cs" />
     <Compile Include="ExchangeServiceBLL.cs" />
+    <Compile Include="ExchangeServiceQRBLL.cs" />
     <Compile Include="ExchangeServiceRecordBLL.cs" />
     <Compile Include="GoodsBLL.cs" />
     <Compile Include="GoodsCategoryBLL.cs" />

@@ -52,13 +52,19 @@ namespace com.jiechengbao.wx.Controllers
         private IServiceQRBLL _serviceQRBLL;
         private IServiceConsumeRecordBLL _serviceConsumeRecoredBLL;
         private IServiceConsumePasswordBLL _serviceConsumePasswordBLL;
+        private IExchangeServiceRecordBLL _exchangeServiceRecordBLL;
+        private IExchangeServiceBLL _exchangeServiceBLL;
+        private IExchangeServiceQRBLL _exchangeServiceQRBLL;
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
             ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL,
             ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL,
             IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL,
             IServiceBLL serviceBLL, IServiceQRBLL serviceQRBLL,
             IServiceConsumeRecordBLL serviceConsumeRecordBLL,
-            IServiceConsumePasswordBLL serviceConsumePasswordBLL)
+            IServiceConsumePasswordBLL serviceConsumePasswordBLL,
+            IExchangeServiceRecordBLL exchangeServiceRecordBLL,
+            IExchangeServiceBLL exchangeServiceBLL,
+            IExchangeServiceQRBLL exchangeServiceQRBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
@@ -72,6 +78,9 @@ namespace com.jiechengbao.wx.Controllers
             _serviceQRBLL = serviceQRBLL;
             _serviceConsumeRecoredBLL = serviceConsumeRecordBLL;
             _serviceConsumePasswordBLL = serviceConsumePasswordBLL;
+            _exchangeServiceRecordBLL = exchangeServiceRecordBLL;
+            _exchangeServiceBLL = exchangeServiceBLL;
+            _exchangeServiceQRBLL = exchangeServiceQRBLL;
         }
 
         /// <summary>
@@ -565,7 +574,7 @@ namespace com.jiechengbao.wx.Controllers
             {
                 return Json("PasswordError", JsonRequestBehavior.AllowGet);
             }
-
+            // 获取消费密码
             ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
             if (scp.Password == password)
             {
@@ -602,13 +611,68 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
-
         public ActionResult MyServiceQR(Guid serviceId)
         {
             ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
             return View(qr);
         }
 
+        public ActionResult MyExchangeServiceQR(Guid exchangeServiceQRId)
+        {
+            ExchangeServiceQR qr = _exchangeServiceQRBLL.GetExchangeServiceQRById(exchangeServiceQRId);
+            return View(qr);
+        }
+
+
+        public ActionResult ConsumeExchangeService(Guid esrId)
+        {
+            if (esrId == null)
+            {
+                return RedirectToAction("Error");
+            }
+            ExchangeServiceRecord esr = _exchangeServiceRecordBLL.GetESRById(esrId);
+            ExchangeServiceModel esm = new ExchangeServiceModel();
+
+            esm.MemberName = _memberBLL.GetMemberById(esr.MemberId).NickeName;
+            esm.ExchangeServiceId = esr.Id;
+            esm.ExchangeServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.ExchangeSerivceId).Name; 
+
+            return View(esm);
+        }
+
+        [HttpPost]
+        public ActionResult ConsumeExchangeService(Guid esrId, string password)
+        {
+            if (esrId == null)
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            // 获取消费密码
+            ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
+            if (scp.Password == password)
+            {
+                ExchangeServiceRecord esr = _exchangeServiceRecordBLL.GetESRById(esrId);
+                esr.IsUse = true;
+
+                if (_exchangeServiceRecordBLL.Update(esr))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
 
         /// <summary>
         /// 添加充值积分记录
@@ -772,13 +836,9 @@ namespace com.jiechengbao.wx.Controllers
 
                 sqr.IsDeleted = false;
                 sqr.MemberId = memberId;
-
                 sqr.ServcieId = serviceId;
-
                 sqr.CreatedTime = DateTime.Now;
-
                 sqr.DeletedTime = DateTime.MinValue.AddHours(8);
-                
 
                 string sourceString = "http://jcb.ybtx88.com/Pay/ConsumeService?serviceId=" + serviceId.ToString();
 

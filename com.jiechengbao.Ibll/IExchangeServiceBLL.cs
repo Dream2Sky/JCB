@@ -11,5 +11,7 @@ namespace com.jiechengbao.Ibll
     {
         IEnumerable<ExchangeService> GetAllNoDeletedExchangeServiceList();
         ExchangeService GetNoDeletedExchangeServiceByCode(string code);
+        ExchangeService GetNoDeletedExchangeServiceById(Guid Id);
+
     }
 }

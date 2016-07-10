@@ -49,6 +49,7 @@
     <Compile Include="ICreditRecordDAL.cs" />
     <Compile Include="IDataBaseDAL.cs" />
     <Compile Include="IExchangeServiceDAL.cs" />
+    <Compile Include="IExchangeServiceQRDAL.cs" />
     <Compile Include="IExchangeServiceRecordDAL.cs" />
     <Compile Include="IGoodsCategoryDAL.cs" />
     <Compile Include="IGoodsDAL.cs" />

@@ -8,24 +8,27 @@ using System.ComponentModel.DataAnnotations;
 namespace com.jiechengbao.entity
 {
     /// <summary>
-    /// 兑换服务的交易记录仪=
+    /// 记录兑换商品的消费二维码
     /// </summary>
-    public class ExchangeServiceRecord:DataEntity
+    public class ExchangeServiceQR:DataEntity
     {
+        /// <summary>
+        /// 谁的二维码
+        /// </summary>
         [Required]
         public Guid MemberId { get; set; }
 
+        /// <summary>
+        /// 哪个商品Id
+        /// </summary>
         [Required]
-        public Guid ExchangeSerivceId { get; set; }
+        public Guid ExchangeServiceId { get; set; }
 
-        [Required]
-        public double Credit { get; set; }
-
+        /// <summary>
+        /// 二维码的路径
+        /// </summary>
         [Required]
         [MaxLength(255)]
         public string QRPath { get; set; }
-
-        [Required]
-        public bool IsUse { get; set; }
     }
 }

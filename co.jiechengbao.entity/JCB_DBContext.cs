@@ -51,5 +51,10 @@ namespace com.jiechengbao.entity
         ///  服务购买记录表
         /// </summary>
         public DbSet<ExchangeServiceRecord> ExchageServiceRecords { get; set; }
+
+        /// <summary>
+        /// 存放兑换服务消费二维码
+        /// </summary>
+        public DbSet<ExchangeServiceQR> ExchangeServiceQRs { get; set; }
     }
 }

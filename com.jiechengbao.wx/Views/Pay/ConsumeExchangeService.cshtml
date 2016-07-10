@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "积分兑换";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@model com.jiechengbao.wx.Models.ExchangeServiceModel
+
+<style>
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+
+    .mui-table-view {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="mui-content-padded">
+    <p>您是否确定要使用【@Model.MemberName】用户的【@Model.ExchangeServiceName】服务</p>
+    <p>如果是则点击下方按钮减掉该用户的 @Model.ExchangeServiceName 服务的使用次数，如果不是则请关掉页面</p>
+    <button id='promptBtn' class="mui-btn mui-btn-block" type='button'>点击消费服务次数</button>
+</div>
+<script>
+    document.getElementById("promptBtn").addEventListener('tap', function (e) {
+        e.detail.gesture.preventDefault();
+        var btnArray = ['取消', '确定'];
+        mui.prompt('请输入服务消费密码：', '服务消费密码', '系统通知', btnArray, function (e) {
+            if (e.index == 1) {
+                $.ajax({
+                    url: "/Pay/ConsumeExchangeService",
+                    type: "POST",
+                    data: {
+                        esrId: '@Model.ExchangeServiceId',
+                        password: e.value
+                    },
+                    success:function(data) {
+                        if (data == "False") {
+                            mui.alert("服务消费失败");
+                        }
+                        else if(data == "PasswordError") {
+                            mui.alert("服务消费密码错误");
+                        }
+                        else {
+                            mui.alert("消费成功");
+                        }
+                    }
+                })
+            }
+        })
+    });
+</script>

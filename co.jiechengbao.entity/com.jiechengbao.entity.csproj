@@ -66,6 +66,7 @@
     <Compile Include="CreditRecord.cs" />
     <Compile Include="DataEntity.cs" />
     <Compile Include="ExchangeService.cs" />
+    <Compile Include="ExchangeServiceQR.cs" />
     <Compile Include="ExchangeServiceRecord.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsCategory.cs" />
@@ -256,6 +257,14 @@
     <Compile Include="Migrations\201607090412371_AddColumn_OriginalPrice.Designer.cs">
       <DependentUpon>201607090412371_AddColumn_OriginalPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607090646317_AddColumn_ExchangeServiceRecord_QRPath.cs" />
+    <Compile Include="Migrations\201607090646317_AddColumn_ExchangeServiceRecord_QRPath.Designer.cs">
+      <DependentUpon>201607090646317_AddColumn_ExchangeServiceRecord_QRPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607101711191_AddTable_ExchangeServcieQRs.cs" />
+    <Compile Include="Migrations\201607101711191_AddTable_ExchangeServcieQRs.Designer.cs">
+      <DependentUpon>201607101711191_AddTable_ExchangeServcieQRs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
@@ -411,6 +420,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607090412371_AddColumn_OriginalPrice.resx">
       <DependentUpon>201607090412371_AddColumn_OriginalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607090646317_AddColumn_ExchangeServiceRecord_QRPath.resx">
+      <DependentUpon>201607090646317_AddColumn_ExchangeServiceRecord_QRPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607101711191_AddTable_ExchangeServcieQRs.resx">
+      <DependentUpon>201607101711191_AddTable_ExchangeServcieQRs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
