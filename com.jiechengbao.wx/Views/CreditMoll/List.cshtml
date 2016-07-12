@@ -7,12 +7,12 @@
 @using com.jiechengbao.entity
 
 @{
-    foreach (var item in ViewData["ExchangeServiceList"] as List<ExchangeService>)
+    foreach (var item in ViewData["ExchangeServiceList"] as IEnumerable<ExchangeService>)
     {
         <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell mui-media">
-                <a class="mui-navigate-right" href="/CreditMoll/Exchange?code=@item.Code">
-                    <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@item.ImagePath">
+                <a class="mui-navigate-right" href="/CreditMoll/PreExchange?code=@item.Code">
+                    <img class="mui-media-object mui-pull-left head-img" id="head-img" src="/Uploads/@item.ImagePath">
                     <div class="mui-media-body">
                         @item.Name
                         <p>兑换积分 :@item.Credit</p>

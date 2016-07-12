@@ -12,9 +12,16 @@
         width: 128px;
         height: 128px;
     }
+
+    img {
+        max-height: 50px;
+        min-width: 50px;
+    }
+
 </style>
 @using com.jiechengbao.admin.Models
 @using com.jiechengbao.entity
+
 <div class="container">
     <label>商品列表</label>
     @if (!string.IsNullOrEmpty(ViewBag.Msg))
@@ -24,7 +31,7 @@
             @ViewBag.msg
         </div>
     }
-    <form action="/Goods/Add" method="post">
+    <form @*action="/Goods/Add" method="post"*@>
         <table class="table">
             <tr>
                 <td>
@@ -147,4 +154,33 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        $('form').on('submit', function () {
+            
+            if ($('.td-category').html() == undefined || $('.td-category').html() == "") {
+                alert("请选择商品分类");
+            }
+            else {
+                $.ajax({
+                    url: "/Goods/Add",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    beforeSend: function () {
+                        $('.mask').show();
+                    },
+                    success: function () {
+                        alert("添加成功");
+                    },
+                    completed: function () {
+                        $('.mask').hide();
+                    },
+                    error: function myfunction() {
+
+                        alert("ERROR");
+                    }
+                });
+            }
+        })
+    })
 </script>

@@ -10,5 +10,7 @@ namespace com.jiechengbao.Idal
     public interface IExchangeServiceDAL:IDataBaseDAL<ExchangeService>
     {
         ExchangeService selectByCode(string code);
+        IEnumerable<ExchangeService> SelectByAnyCondition(string condition);
+        IEnumerable<ExchangeService> SelectByName(string name);
     }
 }

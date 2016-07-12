@@ -85,7 +85,6 @@ namespace com.jiechengbao.wx.Controllers
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
         }
-        [IsLogin]
         public ActionResult List()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());

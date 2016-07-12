@@ -103,7 +103,7 @@
                 Phone: $("input[name='phone']").val(),
                 Detail: $("input[name='detail']").val()
             },
-            beforeSend:function(){
+            beforeSend: function () {
                 $('.mask').show();
             },
             success: function (data) {
@@ -111,7 +111,7 @@
                     mui.alert("保存地址发生错误");
                 }
                 else {
-                    window.location.href = "/Address/List";
+                    window.location.href = "/Cart/List";
                 }
             },
             error: function () {

@@ -17,9 +17,24 @@ namespace com.jiechengbao.bll
             _exchangeServiceDAL = exchangeServiceDAL;
         }
 
+        public bool Add(ExchangeService es)
+        {
+            return _exchangeServiceDAL.Insert(es);
+        }
+
         public IEnumerable<ExchangeService> GetAllNoDeletedExchangeServiceList()
         {
             return _exchangeServiceDAL.SelectAll().Where(n => n.IsDeleted == false);
+        }
+
+        public IEnumerable<ExchangeService> GetExchangeServiceByName(string name)
+        {
+            return _exchangeServiceDAL.SelectByName(name);
+        }
+
+        public IEnumerable<ExchangeService> GetNoDeletedExchangeServiceByAnyCondition(string condition)
+        {
+            return _exchangeServiceDAL.SelectByAnyCondition(condition);
         }
 
         public ExchangeService GetNoDeletedExchangeServiceByCode(string code)
@@ -30,6 +45,11 @@ namespace com.jiechengbao.bll
         public ExchangeService GetNoDeletedExchangeServiceById(Guid Id)
         {
             return _exchangeServiceDAL.SelectById(Id);
+        }
+
+        public bool Update(ExchangeService es)
+        {
+            return _exchangeServiceDAL.Update(es);
         }
     }
 }

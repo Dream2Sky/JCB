@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "兑换商品列表";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<style>
+    img {
+        width: 32px;
+        height: 32px;
+    }
+</style>
+
+<div class="navbar navbar-options">
+    <div class="container">
+        <form class="navbar-form navbar-left" method="post" action="/CreditMoll/List" role="search">
+            <div class="form-group">
+                <input type="text" name="condition" class="form-control" placeholder="搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <label>积分兑换商品列表</label>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>商品图片</th>
+                <th>商品价钱</th>
+                <th>所需积分</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["ExchangeServiceList"] as IEnumerable<ExchangeService>)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><img src="/Uploads/@item.ImagePath" /></td>
+                    <td>@item.Price</td>
+                    <td>@item.Credit</td>
+                    <td>
+                        <a href="/CreditMoll/Update?ExchangeServiceCode=@item.Code">编辑</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+
+    //$(function () {
+        //if ($.browser.msie) {
+        //    $('input:checkbox').click(function () {
+        //        this.blur();
+        //        this.focus();
+        //    });
+        //};
+    //    $("input[type='checkbox']").change(function () {
+    //        $.ajax({
+    //            url: "/Goods/SetReCommend",
+    //            type: "POST",
+    //            data: {
+    //                goodsCode:$(this).val()
+    //            },
+    //            success: function(data) {
+    //                if (data == "True") {
+    //                    alert("设置成功");
+    //                }
+    //                else if (data == "NullParam") {
+    //                    alert("提交的参数不能为空");
+    //                }
+    //                else if (data == "ErrorParam") {
+    //                    alert("提交的参数有误");
+    //                }
+    //                else if(data == "False"){
+    //                    alert("设置失败");
+    //                }
+    //            },
+    //            error: function () {
+    //                alert("系统错误，设置失败");
+    //            }
+    //        })
+    //    });
+    //});
+
+</script>

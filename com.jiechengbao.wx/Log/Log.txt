@@ -6370,3 +6370,49 @@ notify_url:http://localhost:47190/WxPay/PayResult
 </html>
 
 ========================================================================
+2016/7/11 5:42:48 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 5:42:48 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 5:42:48 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 5:44:32 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 5:44:32 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 5:44:32 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 6:04:16 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 6:04:16 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 6:04:16 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 6:26:02 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 6:26:11 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 6:26:12 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 6:53:11 : 
+QRFileName:fa85b56b43a94733a49620690abdad45.jpg
+========================================================================
+2016/7/11 6:59:43 : 
+mstmpList 不为空
+========================================================================

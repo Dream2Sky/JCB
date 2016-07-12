@@ -66,6 +66,8 @@ namespace com.jiechengbao.admin
             builder.RegisterType<ExchangeServiceDAL>().As<IExchangeServiceDAL>();
             builder.RegisterType<ExchangeServiceRecordBLL>().As<IExchangeServiceRecordBLL>();
             builder.RegisterType<ExchangeServiceRecordDAL>().As<IExchangeServiceRecordDAL>();
+            builder.RegisterType<ExchangeServiceQRBLL>().As<IExchangeServiceQRBLL>();
+            builder.RegisterType<ExchangeServiceQRDAL>().As<IExchangeServiceQRDAL>();
         }
     }
 }

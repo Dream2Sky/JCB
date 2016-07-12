@@ -16,6 +16,7 @@
 @using com.jiechengbao.admin.Models
 @using com.jiechengbao.entity
 @model com.jiechengbao.admin.Models.GoodsModel
+
 <div class="container">
     <label>商品详情</label>
     @if (!string.IsNullOrEmpty(ViewBag.Msg))
@@ -25,7 +26,7 @@
             @ViewBag.msg
         </div>
     }
-    <form action="/Goods/Update" method="post">
+    <form>
         <table class="table">
             <tr>
                 <td>
@@ -166,4 +167,29 @@
             }
         });
     }
+
+    $('form').on('submit', function() {
+        if ($('.td-category').html() == undefined || $('.td-category').html() == "") {
+            alert("商品类型不能为空 请至少选择一种分类 再提交");
+        }
+        else {
+            $.ajax({
+                url: "/Goods/Update",
+                type: "POST",
+                data: $(this).serialize(),
+                beforeSend: function() {
+                    $('.mask').show();
+                },
+                success: function() {
+                    alert("修改成功");
+                },
+                completed: function() {
+                    $('.mask').hide();
+                },
+                error: function () {
+                    alert("修改失败");
+                }
+            })
+        }
+    })
 </script>

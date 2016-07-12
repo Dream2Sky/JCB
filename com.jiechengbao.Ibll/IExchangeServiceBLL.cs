@@ -12,6 +12,9 @@ namespace com.jiechengbao.Ibll
         IEnumerable<ExchangeService> GetAllNoDeletedExchangeServiceList();
         ExchangeService GetNoDeletedExchangeServiceByCode(string code);
         ExchangeService GetNoDeletedExchangeServiceById(Guid Id);
-
+        IEnumerable<ExchangeService> GetNoDeletedExchangeServiceByAnyCondition(string condition);
+        IEnumerable<ExchangeService> GetExchangeServiceByName(string name);
+        bool Add(ExchangeService es);
+        bool Update(ExchangeService es);
     }
 }

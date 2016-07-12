@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using com.jiechengbao.common;
+using System.Threading;
 
 namespace com.jiechengbao.admin.Controllers
 {
@@ -126,6 +127,8 @@ namespace com.jiechengbao.admin.Controllers
 
                     _goodsCategoryBLL.Add(gc);
                 }
+
+                Thread.Sleep(2000);
 
                 return RedirectToAction("Add", new { msg = "添加成功" });
             }

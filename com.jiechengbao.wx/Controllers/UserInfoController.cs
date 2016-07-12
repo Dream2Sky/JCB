@@ -36,6 +36,7 @@ namespace com.jiechengbao.wx.Controllers
             _carBLL = carBLL;
             _serviceBLL = serviceBLL;
             _exchangeServiceBLL = exchangeServiceBLL;
+            _exchangeServiceRecordBLL = exchangeServiceRecordBLL;
         }
         [IsLogin]
         public ActionResult Index()

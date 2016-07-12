@@ -88,6 +88,11 @@ namespace com.jiechengbao.wx.Controllers
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
 
+            if (es.Credit >= member.Credit)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
             // 构造兑换服务记录
             ExchangeServiceRecord esr = new ExchangeServiceRecord();
 
@@ -102,7 +107,7 @@ namespace com.jiechengbao.wx.Controllers
 
             // 兑换服务的二维码 先空出来 因为要异步生成二维码
             // 等生成之后再 补充
-            esr.QRPath = "";
+            esr.QRPath = "hehe";
 
             if (_exchangeServiceRecordBLL.Add(esr))
             {
@@ -110,7 +115,6 @@ namespace com.jiechengbao.wx.Controllers
                 ConsumeCreditDel conDel = new ConsumeCreditDel(ConsumeCredit);
                 IAsyncResult consumeResult = conDel.BeginInvoke(member.Id, esr.Credit,CreditCallBackMethod,null);
  
-
                 // 如果兑换服务记录表更新成功 则 异步生成二维码
                 GenerateQRDel del = new GenerateQRDel(GenerateQR);
                 IAsyncResult result = del.BeginInvoke(esr.Id,member.Id,CallBackMethod, null);
@@ -168,7 +172,6 @@ namespace com.jiechengbao.wx.Controllers
             member.Credit -= credit;
 
             _memberBLL.Update(member);
-
         }
 
         [NonAction]

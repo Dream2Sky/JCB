@@ -5,25 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using com.jiechengbao.entity;
+using com.jiechengbao.Idal;
 
 namespace com.jiechengbao.bll
 {
     public class ExchangeServiceQRBLL:IExchangeServiceQRBLL
     {
-        private IExchangeServiceQRBLL _exchangeServiceQRBLL;
-        public ExchangeServiceQRBLL(IExchangeServiceQRBLL exchangeServiceQRBLL)
+        private IExchangeServiceQRDAL _exchangeServiceQRDAL;
+        public ExchangeServiceQRBLL(IExchangeServiceQRDAL exchangeServiceQRDAL)
         {
-            _exchangeServiceQRBLL = exchangeServiceQRBLL;
+            _exchangeServiceQRDAL = exchangeServiceQRDAL;
         }
 
         public bool Add(ExchangeServiceQR qr)
         {
-            return _exchangeServiceQRBLL.Add(qr);
+            return _exchangeServiceQRDAL.Insert(qr);
         }
 
-        public ExchangeServiceQR GetExchangeServiceQRById(Guid exchangeServiceId)
+        public ExchangeServiceQR GetExchangeServiceQRById(Guid exchangeServiceRecordId)
         {
-            return _exchangeServiceQRBLL.GetExchangeServiceQRById(exchangeServiceId);
+            return _exchangeServiceQRDAL.SelectByExchangeServiceId(exchangeServiceRecordId);
         }
     }
 }

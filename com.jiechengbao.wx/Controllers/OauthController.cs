@@ -178,6 +178,55 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        public ActionResult GetUserInfoCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetUserInfoCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+                System.Web.HttpContext.Current.Response.Redirect(url);
+
+                return RedirectToAction("GetRechargeCode");
+            }
+            else
+            {
+                CacheManager.SetCache("code", code);
+            }
+            UserInfo_JsonModel user = GetWxUserInfo();
+
+            if (!_memberBLL.IsExist(user.openid))
+            {
+                Member member = new Member();
+                member.Id = Guid.NewGuid();
+                member.IsDeleted = false;
+                member.NickeName = user.nickname;
+                member.OpenId = user.openid;
+                member.Vip = 0;
+                member.HeadImage = user.headimgurl;
+                member.Assets = 0;
+                member.CreatedTime = DateTime.Now;
+                member.Credit = 0;
+                member.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                if (!_memberBLL.Add(member))
+                {
+                    LogHelper.Log.Write("添加新用户失败");
+                }
+
+            }
+            System.Web.HttpContext.Current.Session["member"] = user.openid;
+
+            if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
+            {
+                return RedirectToAction("Info", "UserInfo");
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
+
+
         private UserInfo_JsonModel GetWxUserInfo()
         {
             string code = CacheManager.GetCache("code").ToString();

@@ -9,5 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface IExchangeServiceQRDAL:IDataBaseDAL<ExchangeServiceQR>
     {
+        ExchangeServiceQR SelectByExchangeServiceId(Guid exchangeServiceRecordId);
     }
 }

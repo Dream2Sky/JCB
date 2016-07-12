@@ -169,6 +169,8 @@
     <Content Include="Content\css\bootstrap-table-expandable.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrapValidator.min.css" />
+    <Content Include="Content\images\default.png" />
+    <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\js\bootstrap-table-expandable.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrapValidator.min.js" />
@@ -186,6 +188,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CreditMollController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -196,6 +199,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CarModel.cs" />
+    <Compile Include="Models\ExchangeServiceModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
@@ -226,6 +230,9 @@
     <Content Include="Views\Service\PassswordSetting.cshtml" />
     <Content Include="Views\Service\PasswordSetting.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\CreditMoll\List.cshtml" />
+    <Content Include="Views\CreditMoll\Add.cshtml" />
+    <Content Include="Views\CreditMoll\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -235,7 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">

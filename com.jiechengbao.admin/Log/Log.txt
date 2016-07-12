@@ -145,3 +145,125 @@ The entity or complex type 'com.jiechengbao.entity.Car' cannot be constructed in
 2016/7/6 0:49:10 : 
    在 com.jiechengbao.admin.Controllers.MemberController.SaveVIPSetting() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\MemberController.cs:行号 75
 ========================================================================
+2016/7/11 4:21:59 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:21:59 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:21:59 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 4:23:02 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:23:02 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:23:02 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/11 4:42:38 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:42:38 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:42:38 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Update(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 114
+========================================================================
+2016/7/11 4:43:24 : 
+未将对象引用设置到对象的实例。
+========================================================================
+2016/7/11 4:43:24 : 
+   在 com.jiechengbao.admin.Controllers.CreditMollController.Upload(HttpPostedFileBase file) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\CreditMollController.cs:行号 91
+========================================================================
+2016/7/11 4:44:17 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:44:17 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/11 4:44:17 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Update(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 114
+========================================================================
+2016/7/11 4:44:34 : 
+未将对象引用设置到对象的实例。
+========================================================================
+2016/7/11 4:44:34 : 
+   在 com.jiechengbao.admin.Controllers.CreditMollController.Upload(HttpPostedFileBase file) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\CreditMollController.cs:行号 91
+========================================================================
+2016/7/11 7:36:14 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/11 7:36:14 : 
+添加商品图片成功
+========================================================================
+2016/7/11 14:00:24 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/11 14:00:24 : 
+添加商品图片成功
+========================================================================
+2016/7/11 14:05:14 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/11 14:05:14 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:02:10 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:02:10 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:07:56 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:07:56 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:10:21 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:10:21 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:11:24 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/12 10:11:24 : 
+error:Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.,
+========================================================================
+2016/7/12 10:11:24 : 
+   在 com.jiechengbao.dal.DataBaseDAL`1.SaveChanges() 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 144
+   在 com.jiechengbao.dal.DataBaseDAL`1.Insert(T t) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\DataBaseDAL.cs:行号 66
+========================================================================
+2016/7/12 10:15:52 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:15:52 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:16:41 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:16:41 : 
+添加商品图片成功
+========================================================================
+2016/7/12 10:49:14 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 10:49:14 : 
+添加商品图片成功
+========================================================================
+2016/7/12 11:04:13 : 
+添加商品成功,现在正在构造goodsImage
+========================================================================
+2016/7/12 11:04:13 : 
+添加商品图片成功
+========================================================================

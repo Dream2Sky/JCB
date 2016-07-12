@@ -614,12 +614,21 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult MyServiceQR(Guid serviceId)
         {
             ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
+            MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
+
+            ViewBag.Service = ms;
+            
             return View(qr);
         }
 
-        public ActionResult MyExchangeServiceQR(Guid exchangeServiceQRId)
+        public ActionResult MyExchangeServiceQR(Guid ExchangeServiceRecordId)
         {
-            ExchangeServiceQR qr = _exchangeServiceQRBLL.GetExchangeServiceQRById(exchangeServiceQRId);
+            ExchangeServiceQR qr = _exchangeServiceQRBLL.GetExchangeServiceQRById(ExchangeServiceRecordId);
+            ExchangeServiceRecord esr = _exchangeServiceRecordBLL.GetESRById(ExchangeServiceRecordId);
+
+            ViewBag.ServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.Id).Name;
+            ViewBag.CreateTime = esr.CreatedTime;
+
             return View(qr);
         }
 
