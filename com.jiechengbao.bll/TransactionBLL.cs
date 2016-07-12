@@ -22,6 +22,11 @@ namespace com.jiechengbao.bll
             return _transactionDAL.Insert(transaction);
         }
 
+        public IEnumerable<Transaction> GetTransactionByMemberIdwithCount(Guid memberId, int count)
+        {
+            return _transactionDAL.SelectByMemberIdwithCount(memberId, count);
+        }
+
         public bool Remove(Transaction transaction)
         {
             return _transactionDAL.Delete(transaction);

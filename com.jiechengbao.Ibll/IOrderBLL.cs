@@ -24,6 +24,7 @@ namespace com.jiechengbao.Ibll
 
         IEnumerable<Order> GetOrdersByStatus(Guid memberId, int status);
         IEnumerable<Order> GetAllOrders(Guid memberId);
+        Order GetOrderByOrderId(Guid orderId);
 
     }
 }

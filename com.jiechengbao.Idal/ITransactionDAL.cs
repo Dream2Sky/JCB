@@ -9,5 +9,6 @@ namespace com.jiechengbao.Idal
 {
     public interface ITransactionDAL:IDataBaseDAL<Transaction>
     {
+        IEnumerable<Transaction> SelectByMemberIdwithCount(Guid memberId, int count);
     }
 }

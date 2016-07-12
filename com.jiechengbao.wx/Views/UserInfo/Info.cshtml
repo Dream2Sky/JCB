@@ -89,7 +89,13 @@
 </ul>
 <ul class="mui-table-view">
     <li class="mui-table-view-cell">
-        <a href="/UserInfo/RechargeList" class="mui-navigate-right">余额<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
+        <a href="/UserInfo/RechargeOptionsList" class="mui-navigate-right">我的余额<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a href="/UserInfo/RechargeList" class="mui-navigate-right">充值记录<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a href="/UserInfo/TransactionRecordList" class="mui-navigate-right">消费记录<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
     </li>
     <li class="recharge-li">
         <button class="mui-btn recharge-btn" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>

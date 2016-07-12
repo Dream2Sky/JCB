@@ -177,6 +177,7 @@
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\iconfont.css" />
+    <Content Include="Content\css\pay.css" />
     <Content Include="Content\css\mui.min.css" />
     <Content Include="Content\css\mui.picker.css" />
     <Content Include="Content\css\mui.picker.min.css" />
@@ -248,6 +249,7 @@
     <Compile Include="Models\OrderResultModel.cs" />
     <Compile Include="Models\ServiceDetailModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
+    <Compile Include="Models\TransactionModel.cs" />
     <Compile Include="Models\UserInfo_JsonModel.cs" />
     <Compile Include="Models\WxPayApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Views\Pay\ConsumeExchangeService.cshtml" />
     <Content Include="Views\UserInfo\MyCreditServices.cshtml" />
     <Content Include="Views\Pay\MyExchangeServiceQR.cshtml" />
+    <Content Include="Views\UserInfo\TransactionRecordList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

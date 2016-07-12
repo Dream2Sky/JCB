@@ -23,10 +23,13 @@ namespace com.jiechengbao.wx.Controllers
         private IServiceBLL _serviceBLL;
         private IExchangeServiceRecordBLL _exchangeServiceRecordBLL;
         private IExchangeServiceBLL _exchangeServiceBLL;
+        private ITransactionBLL _transactionBLL;
+        private IOrderBLL _orderBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
             IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL,
-            IExchangeServiceRecordBLL exchangeServiceRecordBLL, IExchangeServiceBLL exchangeServiceBLL)
+            IExchangeServiceRecordBLL exchangeServiceRecordBLL, 
+            IExchangeServiceBLL exchangeServiceBLL, ITransactionBLL transactionBLL, IOrderBLL orderBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
@@ -37,6 +40,8 @@ namespace com.jiechengbao.wx.Controllers
             _serviceBLL = serviceBLL;
             _exchangeServiceBLL = exchangeServiceBLL;
             _exchangeServiceRecordBLL = exchangeServiceRecordBLL;
+            _transactionBLL = transactionBLL;
+            _orderBLL = orderBLL;
         }
         [IsLogin]
         public ActionResult Index()
@@ -280,6 +285,32 @@ namespace com.jiechengbao.wx.Controllers
                 return View();
             }
             return View(member);
+        }
+
+        public ActionResult TransactionRecordList()
+        {
+            // 先找到当前用户
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            // 再找到当前用户下的最近30条余额交易记录
+            List<Transaction> transList = _transactionBLL.GetTransactionByMemberIdwithCount(member.Id, 30).ToList();
+            //
+            //  构造出TransactionModelList  并返回
+            List<TransactionModel> modelList = new List<TransactionModel>();
+
+            foreach (var item in transList)
+            {
+                TransactionModel tm = new TransactionModel();
+                tm.Amount = item.Amount;
+                tm.CreateTime = item.CreatedTime;
+                Order order = _orderBLL.GetOrderByOrderId(item.OrderId);
+                tm.OrderNo = order.OrderNo;
+
+                modelList.Add(tm);
+            }
+            ViewData["TransactionModelList"] = modelList;
+            
+            return View();
         }
     }
 }

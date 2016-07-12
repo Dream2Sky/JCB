@@ -60,6 +60,11 @@ namespace com.jiechengbao.bll
             return _orderDAL.SelectOrderByDate(DateTime.Now.AddDays(-1).Date).Count();
         }
 
+        public Order GetOrderByOrderId(Guid orderId)
+        {
+            return _orderDAL.SelectById(orderId);
+        }
+
         /// <summary>
         /// 根据 订单号 获取订单
         /// </summary>

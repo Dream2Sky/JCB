@@ -11,5 +11,6 @@ namespace com.jiechengbao.Ibll
     {
         bool Add(Transaction transaction);
         bool Remove(Transaction transaction);
+        IEnumerable<Transaction> GetTransactionByMemberIdwithCount(Guid memberId, int count);
     }
 }

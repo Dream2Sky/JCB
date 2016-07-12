@@ -140,8 +140,6 @@ namespace com.jiechengbao.wx.Controllers
             {
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
-
-
         }
     }
 }
