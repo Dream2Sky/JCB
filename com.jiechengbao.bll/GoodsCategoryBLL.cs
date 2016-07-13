@@ -51,5 +51,10 @@ namespace com.jiechengbao.bll
         {
             return _goodsCategoryDAL.DeleteByGoodsId(goodsId);
         }
+
+        public bool Update(GoodsCategory gc)
+        {
+            return _goodsCategoryDAL.Update(gc);
+        }
     }
 }

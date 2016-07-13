@@ -7,8 +7,8 @@
 
 <style>
     img {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
     }
 
     input[type='checkbox'] {
@@ -50,7 +50,8 @@
                     <td>@item.Price</td>
                     <td>@item.OriginalPrice</td>
                     <td>
-                        <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> |
+                        <a href="javascript:;" data-toggle="modal" data-target=".@item.Code">删除</a> | 
+                        <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> | 
                         @if (item.IsRecommend)
                         {
                             <input type="checkbox" name="IsRecommend" checked value="@item.Code" />
@@ -62,19 +63,27 @@
                         是否为推荐商品
                     </td>
                 </tr>
+                <div class="modal fade @item.Code" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="@item.Code">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                是否确定要删除此商品？
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" onclick="Delete('@item.Code')">确定删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </tbody>
     </table>
 </div>
-<script>
 
+
+<script>
     $(function () {
-        //if ($.browser.msie) {
-        //    $('input:checkbox').click(function () {
-        //        this.blur();
-        //        this.focus();
-        //    });
-        //};
         $("input[type='checkbox']").change(function () {
             $.ajax({
                 url: "/Goods/SetReCommend",
@@ -103,4 +112,27 @@
         });
     });
 
+    function Delete(code) {
+        $.ajax({
+            url: "/Goods/Delete",
+            type: "POST",
+            data: {
+                GoodsCode: code
+            },
+            success: function (data) {
+                if (data == "True") {
+                    alert("删除成功");
+                    window.location.href = "/Goods/List";
+                }
+                else {
+                    alert("删除失败");
+                    $("#" + code).modal('hide');
+                }
+            },
+            error: function () {
+                alert("系统错误， 删除失败");
+                $("#" + code).modal('hide');
+            }
+        });
+    }
 </script>

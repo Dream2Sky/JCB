@@ -13,6 +13,8 @@ namespace com.jiechengbao.admin.Controllers
 {
     public class GoodsController : Controller
     {
+        private delegate void DelGoodsCategoryDel(List<GoodsCategory> gcList);
+
         private IGoodsBLL _goodsBLL;
         private ICategoryBLL _categoryBLL;
         private IGoodsCategoryBLL _goodsCategoryBLL;
@@ -112,7 +114,7 @@ namespace com.jiechengbao.admin.Controllers
                 // 并添加到数据库
                 foreach (var item in model.CategoryList)
                 {
-                    if (item==null)
+                    if (item == null)
                     {
                         LogHelper.Log.Write("获取商品分类列表失败");
                     }
@@ -165,15 +167,15 @@ namespace com.jiechengbao.admin.Controllers
         {
             // 根据 传递过来的goodsCode 获取对应的goods 
             Goods goods = _goodsBLL.GetGoodsByCode(GoodsCode);
-            
+
             // 再生成 goodsModel 这个将作为model传递到前台
             GoodsModel gm = new GoodsModel(goods);
 
             // 构造 categoryList
             List<Category> categoryList = new List<Category>();
-            
+
             // 先根据 goodsId 获取 该 goods对应的分类Id列表
-            
+
             // 再 找到对应的分类列表
             foreach (var item in _goodsCategoryBLL.GetGoodsCategoryListByGoodsId(gm.Id))
             {
@@ -220,7 +222,7 @@ namespace com.jiechengbao.admin.Controllers
 
             // 更新 商品图片
             #region 更新商品图片
- 
+
             GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
             if (gi.ImagePath != model.PicturePath)
             {
@@ -255,7 +257,7 @@ namespace com.jiechengbao.admin.Controllers
             }
             #endregion
 
-            return RedirectToAction("List",new { msg = "更新成功"});
+            return RedirectToAction("List", new { msg = "更新成功" });
         }
 
         /// <summary>
@@ -282,7 +284,7 @@ namespace com.jiechengbao.admin.Controllers
             // 如果是 则删掉它
             if (_recommendBLL.IsRecommend(goods.Id))
             {
-                if(_recommendBLL.Remove(goods.Id))
+                if (_recommendBLL.Remove(goods.Id))
                 {
                     return Json("True", JsonRequestBehavior.AllowGet);
                 }
@@ -312,6 +314,75 @@ namespace com.jiechengbao.admin.Controllers
 
             }
 
+
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string GoodsCode)
+        {
+            if (string.IsNullOrEmpty(GoodsCode))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Goods goods = _goodsBLL.GetGoodsByCode(GoodsCode);
+
+            if (goods == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            goods.IsDeleted = true;
+            goods.DeletedTime = DateTime.Now;
+
+            if (_goodsBLL.Update(goods))
+            {
+                // 删除商品图片
+                GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
+                gi.IsDeleted = true;
+                gi.DeletedTime = DateTime.Now;
+
+                _goodsImagesBLL.Update(gi);
+
+                // 获取商品分类列表
+                List<GoodsCategory> gcList = _goodsCategoryBLL.GetGoodsCategoryListByGoodsId(goods.Id).ToList();
+
+                // 异步删除商品分类列表
+                DelGoodsCategoryDel del = new DelGoodsCategoryDel(DeleteGoodsCategory);
+                IAsyncResult result = del.BeginInvoke(gcList, CallBack, null);
+
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void DeleteGoodsCategory(List<GoodsCategory> gcList)
+        {
+            foreach (var gc in gcList)
+            {
+                gc.IsDeleted = true;
+                gc.DeletedTime = DateTime.Now;
+
+                bool result = _goodsCategoryBLL.Update(gc);
+
+                LogHelper.Log.Write("商品分类处理结果: " + result);
+            }
+        }
+
+        private void CallBack(IAsyncResult ar)
+        {
+            try
+            {
+                DelGoodsCategoryDel del = (DelGoodsCategoryDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+
+            }
 
         }
     }
