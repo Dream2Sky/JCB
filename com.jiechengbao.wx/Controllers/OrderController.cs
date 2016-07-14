@@ -14,9 +14,12 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+
     public class OrderController : Controller
     {
+
+        private delegate void DeleteOrderDetailDel(string orderNo);
+
         private IMemberBLL _memberBLL;
         private IOrderBLL _orderBLL;
         private IOrderDetailBLL _orderDetailBLL;
@@ -129,6 +132,36 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Delete(string OrderNo)
+        {
+            if (string.IsNullOrEmpty(OrderNo))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            Order order = _orderBLL.GetOrderByOrderNo(OrderNo);
+            if (order == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            order.IsDeleted = true;
+            order.DeletedTime = DateTime.Now;
+
+            if (_orderBLL.Update(order))
+            {
+                // 删除一条订单时  异步删除订单下的订单详情
+                DeleteOrderDetailDel del = new DeleteOrderDetailDel(DeleteOrderDetail);
+                IAsyncResult ar = del.BeginInvoke(order.OrderNo, Callback, null);
+
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         //[HttpPost]
         //public ActionResult Create()
         //{
@@ -190,7 +223,10 @@ namespace com.jiechengbao.wx.Controllers
             {
                 LogHelper.Log.Write("Order List: member session is null");
             }
-
+            else
+            {
+                LogHelper.Log.Write("session member:" + System.Web.HttpContext.Current.Session["member"].ToString());
+            }
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
             // 临时的订单列表
@@ -358,7 +394,11 @@ namespace com.jiechengbao.wx.Controllers
             return Json("False", JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 继续支付
+        /// </summary>
+        /// <param name="orderNo"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ContinuePay(string orderNo)
         {
@@ -383,6 +423,32 @@ namespace com.jiechengbao.wx.Controllers
 
             return Json(orderInfo, JsonRequestBehavior.AllowGet);
         }
-        
+
+
+        private void DeleteOrderDetail(string orderNo)
+        {
+            List<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(orderNo).ToList();
+
+            foreach (var item in odList)
+            {
+                item.IsDeleted = true;
+                item.DeletedTime = DateTime.Now;
+
+                _orderDetailBLL.Update(item);
+            }
+        }
+
+        private void Callback(IAsyncResult ar)
+        {
+            try
+            {
+                DeleteOrderDetailDel del = (DeleteOrderDetailDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
+
 }

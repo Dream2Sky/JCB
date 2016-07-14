@@ -139,6 +139,7 @@ namespace com.jiechengbao.wx.Controllers
                 esr.QRPath = qrPath;
 
                 ExchangeServiceQR qr = new ExchangeServiceQR();
+                qr.Id = Guid.NewGuid();
                 qr.CreatedTime = DateTime.Now;
                 qr.DeletedTime = DateTime.MinValue.AddHours(8);
                 qr.ExchangeServiceId = esr.Id;
@@ -161,8 +162,15 @@ namespace com.jiechengbao.wx.Controllers
         [NonAction]
         private void CallBackMethod(IAsyncResult ar)
         {
-            GenerateQRDel del = (GenerateQRDel)ar.AsyncState;
-            del.EndInvoke(ar);
+            try
+            {
+                GenerateQRDel del = (GenerateQRDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+            }
+
         }
 
         [NonAction]
@@ -177,8 +185,15 @@ namespace com.jiechengbao.wx.Controllers
         [NonAction]
         private void CreditCallBackMethod(IAsyncResult ar)
         {
-            ConsumeCreditDel del = (ConsumeCreditDel)ar.AsyncState;
-            del.EndInvoke(ar);
+            try
+            {
+                ConsumeCreditDel del = (ConsumeCreditDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+            }
+
         }
     }
 }

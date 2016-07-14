@@ -21,15 +21,15 @@
         </a>
     </li>
 </ul>
-<button class="mui-btn mui-btn-danger" onclick="Exchange('@Model.Code');">立即兑换</button>
+<button class="mui-btn mui-btn-danger" >立即兑换</button>
 
 <script>
-    function Exchange(code) {
+    $('.mui-btn').on('click', function () {
         $.ajax({
             url: "/CreditMoll/Exchange",
             type: "POST",
             data: {
-                exchangeCode: code
+                exchangeCode: '@Model.Code'
             },
             success: function (data) {
                 if (data == "True") {
@@ -50,5 +50,5 @@
                 $('.mask').hide();
             }
         });
-    }
+    });
 </script>

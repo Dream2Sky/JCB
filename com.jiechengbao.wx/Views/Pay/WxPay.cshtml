@@ -108,7 +108,7 @@
              WeixinJSBridge.log(res.err_msg);
              if (res.err_msg == "get_brand_wcpay_request:ok") {
                  mui.alert("支付成功");
-                 window.location.href = "/UserInfo/Index";
+                 window.location.href = "/Order/List?type=0";
              }
              else if(res.err_msg == "get_brand_wcpay_request:cancel"){
                  mui.alert("已取消微信支付");
@@ -139,14 +139,5 @@
             jsApiCall();
         }
     }
-
-    @*document.getElementById("confirmBtn").addEventListener('tap', function () {
-        var btnArray = ['否', '是'];
-        mui.confirm('是否确定要此订单支付 ' +@ViewBag.TotalPrice +' 元', '订单支付', btnArray, function (e) {
-            if (e.index == 1) {
-                callpay();
-            }
-        })
-    });*@
 </script>
 

@@ -24,7 +24,7 @@ namespace com.jiechengbao.bll
 
         public IEnumerable<ExchangeService> GetAllNoDeletedExchangeServiceList()
         {
-            return _exchangeServiceDAL.SelectAll().Where(n => n.IsDeleted == false);
+            return _exchangeServiceDAL.SelectAll().Where(n => n.IsDeleted == false).OrderByDescending(n=>n.CreatedTime);
         }
 
         public IEnumerable<ExchangeService> GetExchangeServiceByName(string name)

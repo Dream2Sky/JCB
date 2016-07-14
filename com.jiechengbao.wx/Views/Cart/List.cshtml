@@ -68,7 +68,7 @@
                         <div class="mui-media-body">
                             @item.Name
                             <p class='mui-ellipsis'><small>@item.Description</small></p>
-                            @if (item.ServiceCount>0)
+                            @if (item.ServiceCount > 0)
                             {
                                 <p><small>服务次数:@item.ServiceCount</small></p>
                             }
@@ -89,14 +89,14 @@
             </div>
         </li>
     }
-    @if ((ViewData["CartModelList"] as List<CartModel>).Count<=0)
+    @if ((ViewData["CartModelList"] as List<CartModel>).Count <= 0)
     {
         <li style="padding-top:10px;padding-bottom:10px;"><small><p style="color:#999;text-align:center;">没有商品在您的购物车上</p></small></li>
     }
 </ul>
 <ul class="mui-table-view button-view">
     <li class="mui-table-view-cell">
-        <strong>合计: ￥<span id="totalPrice"></span></strong>
+        <strong>合计: ￥<span id="totalPrice">0</span></strong>
         <button type="button" class="mui-btn mui-btn-danger" onclick="submitToOrder();">去结算</button>
     </li>
 </ul>
@@ -110,14 +110,13 @@
             data.Id = Id;
             data.Count = $('#count_' + Id).val();
             itemList.push(data);
-            getTotalPrice();
-
+			getTotalPrice();
         }
         else {
             for (var i = 0; i < itemList.length; i++) {
                 if (itemList[i].Id == Id) {
                     itemList.splice(i, 1);
-                    getTotalPrice();
+					getTotalPrice();
                 }
             }
         }
@@ -134,18 +133,17 @@
                 itemList.push(data);
             }
         })
-        //getTotalPrice();
     });
 
     function getTotalPrice() {
         var currentTotalPrice = 0;
         $('.goods-li').each(function () {
-            if ($("input[type='checkbox']").is(':checked'))
+           if ($("input[type='checkbox']").is(':checked'))
             {
                 var singlePrice = $(this).find('.singlePrice').text();
                 var count = $(this).find('.itemCount').val();
                 currentTotalPrice += (Number(singlePrice) * Number(count));
-                currentTotalPrice = currentTotalPrice.toFixed(2);
+				currentTotalPrice = currentTotalPrice.toFixed(2);
             }
         });
 
@@ -163,35 +161,34 @@
     });
 
     function submitToOrder() {
-        mui.alert("去结算");
-        if (itemList.length <= 0) {
+	 if (itemList.length <= 0) {
             mui.alert("没有选择任何商品，请至少选择一件商品再提交订单");
         }
         else {
-            $.ajax({
-                url: "/Order/WriteOrder",
-                type: "POST",
-                data: JSON.stringify(itemList),
-                contentType: "application/json",
-                success: function (data) {
-                    if (data == "NoAddress") {
-                        window.location.href = "/Address/Add";
-                    }
-                    else {
-                        window.location.href = "/Order/Write";
-                    }
-                },
-                beforeSend: function () {
-                    $('.mask').show();
-                },
-                complete: function () {
-                    $('.mask').hide();
-                },
-                error: function () {
-                    alert("生成订单失败");
+        $.ajax({
+            url: "/Order/WriteOrder",
+            type: "POST",
+            data: JSON.stringify(itemList),
+            contentType: "application/json",
+            success: function (data) {
+                if (data == "NoAddress") {
+                    window.location.href = "/Address/Add";
                 }
-            });
-        }
+                else {
+                    window.location.href = "/Order/Write";
+                }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
+            error: function () {
+                mui.alert("生成订单失败");
+            }
+        });
+		}
     }
 
     function Delete(goodsCode,Id) {
@@ -211,7 +208,7 @@
                     }
                     $('#li_' + goodsCode).remove();
                     getTotalPrice();
-                    
+
                 }
                 else {
                     mui.alert("删除商品失败");

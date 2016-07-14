@@ -13,5 +13,6 @@ namespace com.jiechengbao.Ibll
         IEnumerable<OrderDetail> GetOrderDetailByOrderNo(string orderNo);
         bool Remove(OrderDetail od);
         bool Remove(List<OrderDetail> odList);
+        bool Update(OrderDetail od);
     }
 }

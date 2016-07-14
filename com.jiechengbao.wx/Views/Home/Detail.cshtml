@@ -55,6 +55,15 @@
                 else{
                     alert("加入购物车失败");
                 }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
+            error: function () {
+                mui.alert("加入购物车失败");
             }
         });
     }

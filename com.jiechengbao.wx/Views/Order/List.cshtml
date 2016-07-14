@@ -36,7 +36,7 @@
         <ul class="mui-table-view">
             <li class="mui-table-view-cell">
                 <small><a href="/Order/Detail?orderNo=@item.OrderNo">订单号:@item.OrderNo</a></small>
-                <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">删除</button>
+                <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="preDelete('@item.OrderNo');">删除</button>
             </li>
             @foreach (var good in item.GoodsModelList)
             {
@@ -62,3 +62,51 @@
 {
     <div class="title">您还没有产生任何交易订单，快去购买您中意的商品吧</div>
 }
+
+<script>
+
+    function preDelete(orderNo) {
+        var btnArray = ['否', '是'];
+        mui.confirm('是否确定删除此订单', '删除订单', btnArray, function (e) {
+            if (e.index == 1) {
+                Delete(orderNo);
+            }
+        })
+    };
+    //document.getElementById("confirmBtn").addEventListener('tap', function () {
+    //    var btnArray = ['否', '是'];
+    //    mui.confirm('是否确定删除此订单', '删除订单', btnArray, function (e) {
+    //        if (e.index == 1) {
+    //            Delete();
+    //        }
+    //    })
+    //});
+
+    function Delete(orderNo) {
+        $.ajax({
+            url: "/Order/Delete",
+            type: "POST",
+            data: {
+                OrderNo: orderNo
+            },
+            success: function (data) {
+                if (data == "True") {
+                    window.location.href = window.location.href;
+                }
+                else {
+                    mui.alert("删除失败");
+                }
+            },
+            beforeSend: function() {
+                $('.mask').show();
+            },
+            completed: function() {
+                $('.mask').hide();
+            },
+            error: function () {
+                mui.alert('删除失败');
+            }
+        });
+        
+    }
+</script>

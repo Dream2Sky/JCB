@@ -96,7 +96,7 @@ namespace com.jiechengbao.wx.Controllers
 
             OrderResultModel orm = new OrderResultModel();
             orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
-            orm.total_fee = double.Parse(Request.QueryString["totalprice"].ToString())*100;
+            orm.total_fee = double.Parse(Request.QueryString["totalprice"].ToString()) * 100;
             orm.trade_type = "JSAPI";
             orm.spbill_create_ip = Request.QueryString["ip"].ToString();
             orm.out_trade_no = Request.QueryString["orderNo"].ToString();
@@ -218,7 +218,7 @@ namespace com.jiechengbao.wx.Controllers
                 res.SetValue("return_code", "FAIL");
                 res.SetValue("return_msg", ex.Message);
                 Log.Error(this.GetType().ToString(), "Sign check error : " + res.ToXml());
-                
+
                 Response.Write(res.ToXml());
                 Response.End();
             }
@@ -402,7 +402,7 @@ namespace com.jiechengbao.wx.Controllers
 
             OrderResultModel orm = new OrderResultModel();
             orm.openid = System.Web.HttpContext.Current.Session["member"].ToString();
-            orm.total_fee = money*100;
+            orm.total_fee = money * 100;
             orm.trade_type = "JSAPI";
             orm.spbill_create_ip = ip;
             orm.out_trade_no = orderNo;
@@ -501,7 +501,7 @@ namespace com.jiechengbao.wx.Controllers
                     {
                         LogHelper.Log.Write("充值成功");
                         // 添加充值积分记录
-                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())))
+                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())/100))
                         {
                             // 异步判断是否够积分升级vip
                             UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -617,16 +617,17 @@ namespace com.jiechengbao.wx.Controllers
             MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
 
             ViewBag.Service = ms;
-            
+
             return View(qr);
         }
 
         public ActionResult MyExchangeServiceQR(Guid ExchangeServiceRecordId)
         {
             ExchangeServiceQR qr = _exchangeServiceQRBLL.GetExchangeServiceQRById(ExchangeServiceRecordId);
+
             ExchangeServiceRecord esr = _exchangeServiceRecordBLL.GetESRById(ExchangeServiceRecordId);
 
-            ViewBag.ServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.Id).Name;
+            ViewBag.ServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.ExchangeSerivceId).Name;
             ViewBag.CreateTime = esr.CreatedTime;
 
             return View(qr);
@@ -644,7 +645,7 @@ namespace com.jiechengbao.wx.Controllers
 
             esm.MemberName = _memberBLL.GetMemberById(esr.MemberId).NickeName;
             esm.ExchangeServiceId = esr.Id;
-            esm.ExchangeServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.ExchangeSerivceId).Name; 
+            esm.ExchangeServiceName = _exchangeServiceBLL.GetNoDeletedExchangeServiceById(esr.ExchangeSerivceId).Name;
 
             return View(esm);
         }
@@ -770,8 +771,15 @@ namespace com.jiechengbao.wx.Controllers
         [NonAction]
         private void CallBackMethod(IAsyncResult ar)
         {
-            UpGradeDel del = (UpGradeDel)ar.AsyncState;
-            del.EndInvoke(ar);
+            try
+            {
+                UpGradeDel del = (UpGradeDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+            }
+
         }
 
         /// <summary>
@@ -824,8 +832,15 @@ namespace com.jiechengbao.wx.Controllers
         [NonAction]
         private void MyServiceCallBackMethod(IAsyncResult ar)
         {
-            AddMyServiceDel del = (AddMyServiceDel)ar.AsyncState;
-            del.EndInvoke(ar);
+            try
+            {
+                AddMyServiceDel del = (AddMyServiceDel)ar.AsyncState;
+                del.EndInvoke(ar);
+            }
+            catch (Exception)
+            {
+            }
+
         }
 
         /// <summary>

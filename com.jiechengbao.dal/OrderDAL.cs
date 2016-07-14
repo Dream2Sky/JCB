@@ -14,7 +14,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<Order>().Where(n => n.MemberId == memberId);
+                return db.Set<Order>().Where(n => n.MemberId == memberId).Where(n=>n.IsDeleted == false);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<Order>().Where(n => n.Status == status).Where(n => n.MemberId == memberId);
+                return db.Set<Order>().Where(n => n.Status == status).Where(n => n.MemberId == memberId).Where(n=>n.IsDeleted == false);
             }
             catch (Exception ex)
             {

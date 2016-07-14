@@ -36,5 +36,10 @@ namespace com.jiechengbao.bll
         {
             return _orderDetailDAL.Delete(od);
         }
+
+        public bool Update(OrderDetail od)
+        {
+            return _orderDetailDAL.Update(od);
+        }
     }
 }
