@@ -24,5 +24,9 @@ namespace com.jiechengbao.admin.Models
             this.PayWay = order.PayWay;
         }
         public string MemberName { get; set; }
+        public string Address { get; set; } //配送地址
+        public string Phone { get; set; } // 收货人电话号
+        public string Consignee { get; set; } // 收货人姓名
+        public int LogisticalStatus { get; set; } // 配送状态
     }
 }

@@ -54,6 +54,11 @@ namespace com.jiechengbao.bll
             return _goodsDAL.SelectByCode(code);
         }
 
+        public IEnumerable<Goods> GetGoodsByCondition(string condition)
+        {
+            return _goodsDAL.SelectByCondition(condition);
+        }
+
         /// <summary>
         /// 根据GoodsId 获取Goods对象
         /// </summary>

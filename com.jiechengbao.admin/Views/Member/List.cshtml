@@ -4,6 +4,18 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
+
+<div class="navbar navbar-options">
+    <div class="container">
+        <form class="navbar-form navbar-left" method="post" action="/Member/List" role="search">
+            <div class="form-group">
+                <input type="text" name="condition" class="form-control" placeholder="搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div>
+</div>
+
 <div class="container">
     <label>注册用户的数量</label>
     <table class="table table-striped table-hover table-bordered">

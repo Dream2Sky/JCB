@@ -15,5 +15,6 @@ namespace com.jiechengbao.Ibll
         Goods GetGoodsByName(string name);
         bool Update(Goods goods);
         Goods GetGoodsById(Guid Id);
+        IEnumerable<Goods> GetGoodsByCondition(string condition);
     }
 }

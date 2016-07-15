@@ -52,6 +52,7 @@
     <Compile Include="GoodsBLL.cs" />
     <Compile Include="GoodsCategoryBLL.cs" />
     <Compile Include="GoodsImagesBLL.cs" />
+    <Compile Include="OrderStatusBLL.cs" />
     <Compile Include="MemberBLL.cs" />
     <Compile Include="OrderBLL.cs" />
     <Compile Include="OrderDetailBLL.cs" />

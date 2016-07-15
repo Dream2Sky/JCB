@@ -37,10 +37,7 @@ namespace com.jiechengbao.admin.Controllers
                 return RedirectToAction("List");
             }
 
-            Member member = _memberBLL.GetMembersByNickNameAndPhone(condition);
-
-            ViewBag.Member = member;
-
+            ViewData["MemberList"] = _memberBLL.GetMembersByNickNameAndPhone(condition);
             return View();
         }
 

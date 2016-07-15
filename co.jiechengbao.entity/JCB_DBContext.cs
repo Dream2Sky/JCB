@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace com.jiechengbao.entity
 {
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
-    public class JCB_DBContext:DbContext
+    public class JCB_DBContext : DbContext
     {
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Goods> GoodsSet { get; set; }
         public DbSet<GoodsCategory> GoodsCategorySet { get; set; }
-        public DbSet<GoodsImage> GoodsImages{ get; set; }
+        public DbSet<GoodsImage> GoodsImages { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -31,7 +31,7 @@ namespace com.jiechengbao.entity
         /// </summary>
         public DbSet<ReCommend> ReCommends { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CreditRecord> CreditRecords{ get; set; }
+        public DbSet<CreditRecord> CreditRecords { get; set; }
         public DbSet<MyService> Services { get; set; }
 
         /// <summary>
@@ -56,5 +56,10 @@ namespace com.jiechengbao.entity
         /// 存放兑换服务消费二维码
         /// </summary>
         public DbSet<ExchangeServiceQR> ExchangeServiceQRs { get; set; }
+
+        /// <summary>
+        /// 记录订单状态  0 已发货 1 未发货 2 确认收货
+        /// </summary>
+        public DbSet<OrderStatus> OrderStatusSet { get; set; }
     }
 }

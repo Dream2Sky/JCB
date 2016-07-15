@@ -31,7 +31,7 @@ namespace com.jiechengbao.admin.Controllers
             _recommendBLL = recommendBLL;
         }
 
-        public ActionResult List(string msg)
+        public ActionResult List()
         {
             List<GoodsModel> modelList = new List<GoodsModel>();
             foreach (var item in _goodsBLL.GetAllNoDeteledGoods())
@@ -42,9 +42,31 @@ namespace com.jiechengbao.admin.Controllers
                 modelList.Add(gm);
             }
             ViewData["GoodsList"] = modelList;
-            ViewBag.Msg = msg;
             return View();
         }
+
+        /// <summary>
+        /// 商品搜索
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult List(string condition)
+        {
+            List<GoodsModel> modelList = new List<GoodsModel>();
+            foreach (var item in _goodsBLL.GetGoodsByCondition(condition))
+            {
+                GoodsModel gm = new GoodsModel(item);
+                gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.Id).ImagePath;
+                gm.IsRecommend = _recommendBLL.IsRecommend(gm.Id);
+
+                modelList.Add(gm);
+            }
+
+            ViewData["GoodsList"] = modelList;
+            return View();
+        }
+
 
         public ActionResult Add(string msg)
         {

@@ -71,7 +71,7 @@ namespace com.jiechengbao.bll
             return _memberDAL.SelectByWxOpenId(openId);
         }
 
-        public Member GetMembersByNickNameAndPhone(string condition)
+        public IEnumerable<Member> GetMembersByNickNameAndPhone(string condition)
         {
             return _memberDAL.SelectByNickNameandPhone(condition);
         }
@@ -93,6 +93,15 @@ namespace com.jiechengbao.bll
         public IEnumerable<Member> GetNewMembersAtYesterDay()
         {
             return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-1).Date);
+        }
+
+        /// <summary>
+        ///  获得一周之内注册的会员
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Member> GetNewMembersAWeek()
+        {
+            return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-7));
         }
 
         /// <summary>

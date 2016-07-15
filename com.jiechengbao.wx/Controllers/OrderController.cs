@@ -28,9 +28,11 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsImagesBLL _goodsImagesBLL;
         private ICartBLL _cartBLL;
         private IRulesBLL _rulesBLL;
+        private IOrderStatusBLL _orderStausBLL;
         public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL,
             IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL,
-            IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL, IRulesBLL rulesBLL)
+            IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL, IRulesBLL rulesBLL,
+            IOrderStatusBLL orderStatusBLL)
         {
             _orderDetailBLL = orderDetailBLL;
             _orderBLL = orderBLL;
@@ -40,6 +42,7 @@ namespace com.jiechengbao.wx.Controllers
             _goodsImagesBLL = goodsImagesBLL;
             _cartBLL = cartBLL;
             _rulesBLL = rulesBLL;
+            _orderStausBLL = orderStatusBLL;
         }
 
         [HttpPost]
@@ -108,6 +111,7 @@ namespace com.jiechengbao.wx.Controllers
                 }
 
                 // 添加订单成功后 要把购物车上的物品标记成 已删除
+
                 foreach (CartModel item in cartList)
                 {
                     Cart cart = new Cart();
@@ -116,6 +120,17 @@ namespace com.jiechengbao.wx.Controllers
 
                     _cartBLL.Update(cart);
                 }
+
+                //订单添加后 添加OrderStatus对象 标记订单的配送状态
+                OrderStatus os = new OrderStatus();
+                os.Id = Guid.NewGuid();
+                os.IsDeleted = false;
+                os.OrderId = order.Id;
+                os.Status = 0;
+                os.CreatedTime = DateTime.Now;
+                os.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                _orderStausBLL.Add(os);
 
                 var jsonResult = new
                 {
@@ -177,6 +192,10 @@ namespace com.jiechengbao.wx.Controllers
             ViewBag.TotalPrice = order.TotalPrice;
             ViewBag.CreateTime = order.CreatedTime;
             ViewBag.Payway = order.PayWay == 0 ? "微信支付" : "余额支付";
+
+            // 获取订单配送状态
+            OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
+            ViewBag.Logistical = os.Status;
 
             // 获取地址
             Address address = _addressBLL.GetAddressById(order.AddressId);
@@ -424,7 +443,6 @@ namespace com.jiechengbao.wx.Controllers
             return Json(orderInfo, JsonRequestBehavior.AllowGet);
         }
 
-
         private void DeleteOrderDetail(string orderNo)
         {
             List<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(orderNo).ToList();
@@ -449,6 +467,44 @@ namespace com.jiechengbao.wx.Controllers
             {
             }
         }
+
+        /// <summary>
+        /// 修改订单配送状态
+        /// </summary>
+        /// <param name="orderNo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Shipping(string orderNo)
+        {
+            if (string.IsNullOrEmpty(orderNo))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Order order = _orderBLL.GetOrderByOrderNo(orderNo);
+            if (order == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
+
+            if (os == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            os.Status = 2;
+            if (_orderStausBLL.Update(os))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 
 }

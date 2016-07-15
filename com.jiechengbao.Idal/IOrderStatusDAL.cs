@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.Idal
 {
-    public interface IGoodsDAL:IDataBaseDAL<Goods>
+    public interface IOrderStatusDAL:IDataBaseDAL<OrderStatus>
     {
-        Goods SelectByCode(string code);
-        Goods SelectByName(string name);
-        IEnumerable<Goods> SelectByCondition(string condition);
+        OrderStatus SelectByOrderId(Guid orderId);
     }
 }

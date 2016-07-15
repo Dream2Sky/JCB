@@ -13,6 +13,6 @@ namespace com.jiechengbao.Idal
         IEnumerable<Member> SelectNoDeletedMembersByDate(DateTime date);
         Member SelectByWxOpenId(string openId);
         IEnumerable<Member> SelectNoDeletedMemberswithSpecifiedCount(int count);
-        Member SelectByNickNameandPhone(string condition);
+        IEnumerable<Member> SelectByNickNameandPhone(string condition);
     }
 }

@@ -46,7 +46,6 @@ namespace com.jiechengbao.wx.Controllers
         [IsLogin]
         public ActionResult Index()
         {
-            System.Web.HttpContext.Current.Session["member"] = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
             // 先获得推荐商品的索引 即商品的guid list
             IEnumerable<ReCommend> recommendList = _recommendBLL.GetAllReCommendListwithSortByTime();
 

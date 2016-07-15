@@ -136,6 +136,22 @@
             <a>支付方式<span class="mui-pull-right">@ViewBag.PayWay</span></a>
         </li>
     </ul>
+    <ul class="mui-table-view payway-ul">
+        <li class="mui-table-view-cell li-orderstatus">
+            @if (int.Parse(ViewBag.Logistical.ToString()) == 0)
+            {
+                <a>配送状态<span class="mui-pull-right">未发货</span></a>
+            }
+            else if (int.Parse(ViewBag.Logistical.ToSring()) == 1)
+            {
+                <a>配送状态<span class="mui-pull-right">已发货<button class="mui-btn mui-btn-danger btn-check">确认收货</button></span></a>
+            }
+            else
+            {
+                <a>配送状态<span class="mui-pull-right">已收货</span></a>
+            }
+        </li>
+    </ul>
     <ul class="mui-table-view money-ul">
         <li class="mui-table-view-cell">商品总额<span class="mui-badge mui-badge-danger">￥@ViewBag.TotalPrice</span></li>
         <li class="mui-table-view-cell">
@@ -156,14 +172,14 @@
             url: "/Order/ContinuePay",
             type: "POST",
             data: { orderNo: OrderNo },
-            success: function(data) {
+            success: function (data) {
                 if (data == "False") {
                     mui.alert("支付失败");
                 }
                 else {
                     if (data.payway == 0) {
                         alert("/Pay/WxPay?totalprice=1&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"]);
-                        window.location.href = "/Pay/WxPay?totalprice="+@ViewBag.TotalPrice+"&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
+                        window.location.href = "/Pay/WxPay?totalprice=" +@ViewBag.TotalPrice +"&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
                     }
                     else {
                         window.location.href = "/Pay/BalancePay?orderNo=" + data.orderNo;
@@ -173,4 +189,31 @@
 
         })
     }
+
+    $('.btn-check').on('click', function () {
+        $.ajax({
+            url: "/Order/Shipping",
+            type: "POST",
+            data: {
+                orderNo: '@ViewBag.OrderNo'
+            },
+            success: function (data) {
+                if (data == "True") {
+                    $('.li-orderstatus .mui-pull-right').html("已收货");
+                }
+                else {
+                    mui.alert("修改订单状态失败");
+                }
+            },
+            error: function() {
+                mui.alert("系统错误");
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function() {
+                $('.mask').hide();
+            }
+        })
+    })
 </script>

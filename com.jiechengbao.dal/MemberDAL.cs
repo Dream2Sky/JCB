@@ -10,11 +10,11 @@ namespace com.jiechengbao.dal
 {
     public class MemberDAL : DataBaseDAL<Member>, IMemberDAL
     {
-        public Member SelectByNickNameandPhone(string condition)
+        public IEnumerable<Member> SelectByNickNameandPhone(string condition)
         {
             try
             {
-                return db.Set<Member>().Where(n => n.NickeName == condition || n.Phone == condition).SingleOrDefault();
+                return db.Set<Member>().Where(n => n.NickeName.Contains(condition) || n.Phone.Contains(condition));
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<Member>().Where(n => n.CreatedTime == date);
+                return db.Set<Member>().Where(n => n.CreatedTime >= date).Where(n => n.IsDeleted == false);
             }
             catch (Exception ex)
             {

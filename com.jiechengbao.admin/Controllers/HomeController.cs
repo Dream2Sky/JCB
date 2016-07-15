@@ -14,11 +14,17 @@ namespace com.jiechengbao.admin.Controllers
     {
         private IMemberBLL _memberBLL;
         private IOrderBLL _orderBLL;
+        private IOrderStatusBLL _orderStatusBLL;
+        private IAddressBLL _addressBLL;
 
-        public HomeController(IMemberBLL memberBLL, IOrderBLL orderBLL)
+        public HomeController(IMemberBLL memberBLL,
+            IOrderBLL orderBLL, IOrderStatusBLL orderStatusBLL,
+            IAddressBLL addressBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
+            _orderStatusBLL = orderStatusBLL;
+            _addressBLL = addressBLL;
         }        
 
         /// <summary>
@@ -49,6 +55,11 @@ namespace com.jiechengbao.admin.Controllers
                 // 主要是为了显示 MemberName
                 om.MemberName = _memberBLL.GetMemberById(item.MemberId).NickeName;
 
+                Address address = _addressBLL.GetAddressById(om.AddressId);
+                om.Phone = address.Phone;
+                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                om.Consignee = address.Consignee;
+               
                 orderModelList.Add(om);
             }
 

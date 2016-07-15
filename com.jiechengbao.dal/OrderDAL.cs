@@ -24,6 +24,20 @@ namespace com.jiechengbao.dal
             }
         }
 
+        public IEnumerable<Order> SelectByCondition(string condition)
+        {
+            try
+            {
+                return db.Set<Order>().Where(n => n.OrderNo == condition);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Order SelectByOrderNo(string orderNo)
         {
             try

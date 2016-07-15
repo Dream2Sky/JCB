@@ -24,6 +24,20 @@ namespace com.jiechengbao.dal
             }
         }
 
+        public IEnumerable<Goods> SelectByCondition(string condition)
+        {
+            try
+            {
+                return db.Set<Goods>().Where(n => n.Name.Contains(condition) || n.Code.Contains(condition));
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Goods SelectByName(string name)
         {
             try
