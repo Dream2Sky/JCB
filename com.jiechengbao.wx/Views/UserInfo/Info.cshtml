@@ -44,7 +44,14 @@
             <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@Model.HeadImage">
             <div class="mui-media-body">
                 @Model.NickeName
-                <p>vip:@Model.Vip</p>
+                @if (Model.Vip == 0)
+                {
+                    <p>普通会员</p>
+                }
+                else
+                {
+                    <p>VIP: @Model.Vip</p>
+                }
             </div>
         </a>
     </li>
@@ -69,9 +76,10 @@
     <li class="mui-table-view-cell">
         <a href="#" class="mui-navigate-right">邮箱地址<span class="mui-pull-right toleft">未绑定</span></a>
     </li>*@
-    <li class="mui-table-view-cell">
+    @* 没有了配送地址  *@
+    @*<li class="mui-table-view-cell">
         <a href="/Address/List" class="mui-navigate-right">配送地址<span class="mui-pull-right"></span></a>
-    </li>
+    </li>*@
 </ul>
 
 <ul class="mui-table-view">
@@ -82,15 +90,12 @@
         <a href="/UserInfo/MyCreditServices" class="mui-navigate-right">我的积分<span class="mui-pull-right toleft">@Model.Credit</span></a>
     </li>
 </ul>
-<ul class="mui-table-view">
+@*<ul class="mui-table-view">
     <li class="mui-table-view-cell">
         <a href="/CreditMoll/List" class="mui-navigate-right">积分商城</a>
     </li>
-</ul>
+</ul>*@
 <ul class="mui-table-view">
-    <li class="mui-table-view-cell">
-        <a>我的余额<span class="mui-pull-right toleft">￥@Model.Assets</span></a>
-    </li>
     <li class="mui-table-view-cell">
         <a href="/UserInfo/RechargeList" class="mui-navigate-right">充值记录</a>
     </li>

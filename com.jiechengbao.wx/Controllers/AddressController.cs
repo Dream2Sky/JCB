@@ -1,4 +1,17 @@
-﻿using com.jiechengbao.entity;
+﻿/*
+
+由于坑爹的老板说 商城不需要配送功能
+
+所以这个配送地址的类将不再启用
+
+但是不排除将来他妈的又想要有个配送功能  所以这里还是将这个类保留
+
+-- 写在 2016/07/16   
+-- 捷诚宝1.1版
+ 
+*/
+
+using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;

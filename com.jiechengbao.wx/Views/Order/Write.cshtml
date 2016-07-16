@@ -41,27 +41,32 @@
         margin-top: 10px;
     }
 </style>
-@{ Address address = ViewBag.Address as Address;
-    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed address-view">
-        <li class="mui-table-view-cell">
-            <a class="mui-navigate-right" id="atoAddress" href="/Address/List">
-                <div class="mui-table name-cell">
-                    <div class="mui-table-cell mui-col-xs-8">
-                        <h4 class="mui-ellipsis">@address.Consignee</h4>
+
+@*@{
+        // 去掉Address
+    // 整个都不要了
+
+    //Address address = ViewBag.Address as Address;
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed address-view">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" id="atoAddress" href="/Address/List">
+                    <div class="mui-table name-cell">
+                        <div class="mui-table-cell mui-col-xs-8">
+                            <h4 class="mui-ellipsis">@address.Consignee</h4>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-4 mui-text-right">
+                            <span class="mui-h5">@address.Phone</span>
+                        </div>
                     </div>
-                    <div class="mui-table-cell mui-col-xs-4 mui-text-right">
-                        <span class="mui-h5">@address.Phone</span>
+                    <div class="mui-table address-cell">
+                        <div class="mui-table-cell mui-col-xs-12">
+                            <p class="mui-h6 mui-ellipsis"><i class="mui-icon mui-icon-location"></i>@(address.Province + address.City + address.County + " " + address.Detail)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="mui-table address-cell">
-                    <div class="mui-table-cell mui-col-xs-12">
-                        <p class="mui-h6 mui-ellipsis"><i class="mui-icon mui-icon-location"></i>@(address.Province + address.City + address.County + " " + address.Detail)</p>
-                    </div>
-                </div>
-            </a>
-        </li>
-    </ul>
-}
+                </a>
+            </li>
+        </ul>
+    }*@
 
 <ul class="mui-table-view goods-ul">
     @foreach (var item in ViewData["CartModelList"] as List<CartModel>)
@@ -83,7 +88,7 @@
         <input name="payway" type="radio" value="0">微信支付
     </li>
     <li class="mui-table-view-cell mui-radio mui-right">
-        <input name="payway" type="radio" value="1">使用余额
+        <input name="payway" type="radio" value="1">积分支付
     </li>
 </ul>
 <ul class="mui-table-view money-ul">

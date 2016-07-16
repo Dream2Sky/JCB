@@ -11,7 +11,9 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+    /// <summary>
+    /// 购物车 Controller
+    /// </summary>
     public class CartController:Controller
     {
         private ICartBLL _cartBLL;
@@ -83,6 +85,9 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult List()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+
+            // 商品的折扣和 会员的vip等级挂钩 
+            // 所以这里要根据当前用户的vip等级找到对应的折扣
             double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
 
             List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();

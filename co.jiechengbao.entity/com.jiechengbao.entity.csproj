@@ -73,9 +73,21 @@
     <Compile Include="GoodsImage.cs" />
     <Compile Include="JCB_DBContext.cs" />
     <Compile Include="Member.cs" />
-    <Compile Include="Migrations\201607140423185_CreateDatabase.cs" />
-    <Compile Include="Migrations\201607140423185_CreateDatabase.Designer.cs">
-      <DependentUpon>201607140423185_CreateDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.cs" />
+    <Compile Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.Designer.cs">
+      <DependentUpon>201607160450432_AddColumn_Goods_ExchangeCredit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607160458000_DropColumn_Member_Asset.cs" />
+    <Compile Include="Migrations\201607160458000_DropColumn_Member_Asset.Designer.cs">
+      <DependentUpon>201607160458000_DropColumn_Member_Asset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607160500420_AddColumn_Member_RealName.cs" />
+    <Compile Include="Migrations\201607160500420_AddColumn_Member_RealName.Designer.cs">
+      <DependentUpon>201607160500420_AddColumn_Member_RealName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607160615124_DropColumn_Order_AddressId.cs" />
+    <Compile Include="Migrations\201607160615124_DropColumn_Order_AddressId.Designer.cs">
+      <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
@@ -96,8 +108,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607140423185_CreateDatabase.resx">
-      <DependentUpon>201607140423185_CreateDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.resx">
+      <DependentUpon>201607160450432_AddColumn_Goods_ExchangeCredit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607160458000_DropColumn_Member_Asset.resx">
+      <DependentUpon>201607160458000_DropColumn_Member_Asset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607160500420_AddColumn_Member_RealName.resx">
+      <DependentUpon>201607160500420_AddColumn_Member_RealName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607160615124_DropColumn_Order_AddressId.resx">
+      <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

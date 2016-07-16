@@ -23,10 +23,18 @@ namespace com.jiechengbao.entity
         public Guid MemberId { get; set; }
 
         /// <summary>
-        /// 配送的地址
+        /// 不要配送地址
         /// </summary>
-        [Required]
-        public Guid AddressId { get; set; }
+        #region 坑啊  老板说不要配送地址 所以这个AddressId就没用了
+
+        ///// <summary>
+        ///// 配送的地址
+        ///// </summary>
+        //[Required]
+        //public Guid AddressId { get; set; }
+
+        #endregion
+
 
         public int PayWay { get; set; }
 

@@ -50,7 +50,8 @@ namespace com.jiechengbao.wx.Controllers
         {
             // 先判断 各个session是否为空
             if (System.Web.HttpContext.Current.Session["CartModelList"] == null
-                || System.Web.HttpContext.Current.Session["Address"] == null
+                // 没有了配送地址  session['Address']就不需要了
+                //|| System.Web.HttpContext.Current.Session["Address"] == null
                 || System.Web.HttpContext.Current.Session["TotalPrice"] == null)
             {
                 // 如果为空 则返回超时提示
@@ -59,7 +60,11 @@ namespace com.jiechengbao.wx.Controllers
 
             List<CartModel> cartList = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
             double TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalPrice"].ToString());
-            Address address = System.Web.HttpContext.Current.Session["Address"] as Address;
+
+            //需求更改  不要配送地址 所以这里就不用获取Address对象了
+
+            //Address address = System.Web.HttpContext.Current.Session["Address"] as Address;
+
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
             Order order = new Order();
@@ -67,7 +72,11 @@ namespace com.jiechengbao.wx.Controllers
             order.IsDeleted = false;
             order.CreatedTime = DateTime.Now;
             order.DeletedTime = DateTime.MinValue.AddHours(8);
-            order.AddressId = address.Id;
+
+            // 还有这个
+
+            //order.AddressId = address.Id;
+
             order.MemberId = member.Id;
             string gid = Guid.NewGuid().ToString().Replace("-", "").ToUpper().Substring(0, 6);
             order.OrderNo = gid + TimeManager.GetCurrentTimestamp().ToString();
@@ -121,16 +130,24 @@ namespace com.jiechengbao.wx.Controllers
                     _cartBLL.Update(cart);
                 }
 
-                //订单添加后 添加OrderStatus对象 标记订单的配送状态
-                OrderStatus os = new OrderStatus();
-                os.Id = Guid.NewGuid();
-                os.IsDeleted = false;
-                os.OrderId = order.Id;
-                os.Status = 0;
-                os.CreatedTime = DateTime.Now;
-                os.DeletedTime = DateTime.MinValue.AddHours(8);
+                // 坑爹的老板说  不要配送功能
 
-                _orderStausBLL.Add(os);
+                // 这段代码不要了
+
+                #region 需求更改  不要 配送功能  所以这里的就不要添加配送状态了
+
+                //订单添加后 添加OrderStatus对象 标记订单的配送状态
+                //OrderStatus os = new OrderStatus();
+                //os.Id = Guid.NewGuid();
+                //os.IsDeleted = false;
+                //os.OrderId = order.Id;
+                //os.Status = 0;
+                //os.CreatedTime = DateTime.Now;
+                //os.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                //_orderStausBLL.Add(os);
+                #endregion
+
 
                 var jsonResult = new
                 {
@@ -193,23 +210,31 @@ namespace com.jiechengbao.wx.Controllers
             ViewBag.CreateTime = order.CreatedTime;
             ViewBag.Payway = order.PayWay == 0 ? "微信支付" : "余额支付";
 
+            // 没了  配送功能没了 所以这个订单配送状态就没了
+
+            // 也不用显示地址了 
+
+            #region 没有配送功能后的改动
             // 获取订单配送状态
-            OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
-            ViewBag.Logistical = os.Status;
+            //OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
+            //ViewBag.Logistical = os.Status;
+
 
             // 获取地址
-            Address address = _addressBLL.GetAddressById(order.AddressId);
+            // Address address = _addressBLL.GetAddressById(order.AddressId);
 
             // 构造 AddressModel
-            AddressModel ad = new AddressModel();
-            ad.City = address.City;
-            ad.Consignee = address.Consignee;
-            ad.County = address.County;
-            ad.Detail = address.Detail;
-            ad.Phone = address.Phone;
-            ad.Province = address.Province;
+            //AddressModel ad = new AddressModel();
+            //ad.City = address.City;
+            //ad.Consignee = address.Consignee;
+            //ad.County = address.County;
+            //ad.Detail = address.Detail;
+            //ad.Phone = address.Phone;
+            //ad.Province = address.Province;
 
-            ViewData["address"] = ad;
+            //ViewData["address"] = ad;
+            #endregion 
+
 
             List<OrderDetail> odList = new List<OrderDetail>();
             odList = _orderDetailBLL.GetOrderDetailByOrderNo(orderNo).ToList();
@@ -321,17 +346,25 @@ namespace com.jiechengbao.wx.Controllers
                     Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
                     double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
 
-                    Address address = new Address();
-                    // 判断是否绑定了配送地址
-                    if (!_addressBLL.IsBindAddress(member.Id))
-                    {
-                        return Json("NoAddress", JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        // 找到默认配送地址 或者是 第一个地址
-                        address = _addressBLL.GetDefaultOrFirstAddress(member.Id);
-                    }
+                    // 没有配送功能
+
+                    // 所以订单就不用绑定地址
+                    #region 没有配送功能的改动
+
+                    //Address address = new Address();
+                    //// 判断是否绑定了配送地址
+                    //if (!_addressBLL.IsBindAddress(member.Id))
+                    //{
+                    //    return Json("NoAddress", JsonRequestBehavior.AllowGet);
+                    //}
+                    //else
+                    //{
+                    //    // 找到默认配送地址 或者是 第一个地址
+                    //    address = _addressBLL.GetDefaultOrFirstAddress(member.Id);
+                    //}
+
+                    #endregion
+
 
                     double TotalPrice = 0;
                     List<CartModel> cartList = new List<CartModel>();
@@ -350,12 +383,18 @@ namespace com.jiechengbao.wx.Controllers
                     // 获得 在购物车上选择的商品列表 包括数量
                     ViewData["CartModelList"] = cartList;
                     ViewBag.TotalPrice = TotalPrice;
-                    ViewBag.Address = address;
+
+                    // 去掉配送地址
+
+                    // ViewBag.Address = address;
 
                     // 备份临时数据 如果用户在修改配送地址的时候可以用到
                     System.Web.HttpContext.Current.Session["CartModelList"] = cartList;
                     System.Web.HttpContext.Current.Session["TotalPrice"] = TotalPrice;
-                    System.Web.HttpContext.Current.Session["Address"] = address;
+
+                    // 没有了 session['address'] 
+
+                    // System.Web.HttpContext.Current.Session["Address"] = address;
                 }
                 catch (Exception ex)
                 {
@@ -374,24 +413,31 @@ namespace com.jiechengbao.wx.Controllers
         /// <returns></returns>
         public ActionResult Write()
         {
+            // 没有了配送功能
+            // Session['Address'] 就不能要了
+
+            #region 没有配送功能之后的改动
+
             // 判断传递进来的AddressId是否为空 
 
             // 如果为空这表示不是从编辑地址页返回
 
             // 所以就直接用在 write 里面保存好的 Address
-            if (Request.QueryString["AddressId"] == null)
-            {
-                ViewBag.Address = System.Web.HttpContext.Current.Session["Address"] as Address;
-            }
-            else
-            {
-                // 如果不为空 说明是从编辑地址页 传来的
+            //if (Request.QueryString["AddressId"] == null)
+            //{
+            //    ViewBag.Address = System.Web.HttpContext.Current.Session["Address"] as Address;
+            //}
+            //else
+            //{
+            //    // 如果不为空 说明是从编辑地址页 传来的
 
-                // 所以要用新的 Address对象
-                Address address = _addressBLL.GetAddressById(Guid.Parse(Request.QueryString["AddressId"].ToString()));
-                System.Web.HttpContext.Current.Session["Address"] = address;
-                ViewBag.Address = address;
-            }
+            //    // 所以要用新的 Address对象
+            //    //Address address = _addressBLL.GetAddressById(Guid.Parse(Request.QueryString["AddressId"].ToString()));
+            //    //System.Web.HttpContext.Current.Session["Address"] = address;
+            //    //ViewBag.Address = address;
+            //}
+            #endregion
+
 
             ViewData["CartModelList"] = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
             ViewBag.TotalPrice = System.Web.HttpContext.Current.Session["TotalPrice"];
@@ -443,6 +489,7 @@ namespace com.jiechengbao.wx.Controllers
             return Json(orderInfo, JsonRequestBehavior.AllowGet);
         }
 
+        [NonAction]
         private void DeleteOrderDetail(string orderNo)
         {
             List<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(orderNo).ToList();
@@ -456,6 +503,7 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        [NonAction]
         private void Callback(IAsyncResult ar)
         {
             try
@@ -468,43 +516,49 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
-        /// <summary>
-        /// 修改订单配送状态
-        /// </summary>
-        /// <param name="orderNo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult Shipping(string orderNo)
-        {
-            if (string.IsNullOrEmpty(orderNo))
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+        // 去除配送状态的修改
+        // 因为老板说不要配送功能了!!!
 
-            Order order = _orderBLL.GetOrderByOrderNo(orderNo);
-            if (order == null)
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+        #region 没有了配送功能  自然就没有了配送状态了
+        
+        ///// <summary>
+        ///// 修改订单配送状态
+        ///// </summary>
+        ///// <param name="orderNo"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ActionResult Shipping(string orderNo)
+        //{
+        //    if (string.IsNullOrEmpty(orderNo))
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
 
-            OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
+        //    Order order = _orderBLL.GetOrderByOrderNo(orderNo);
+        //    if (order == null)
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
 
-            if (os == null)
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+        //    OrderStatus os = _orderStausBLL.GetOrderStatusByOrderId(order.Id);
 
-            os.Status = 2;
-            if (_orderStausBLL.Update(os))
-            {
-                return Json("True", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
-        }
+        //    if (os == null)
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
 
+        //    os.Status = 2;
+        //    if (_orderStausBLL.Update(os))
+        //    {
+        //        return Json("True", JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        
+        #endregion
     }
 
 }

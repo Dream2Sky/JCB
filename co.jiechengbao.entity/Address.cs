@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+    坑爹的老板说 商城不要配送功能  所以这个地址类就不要用了
+
+    真不知道这样的奇葩商城有什么用
+ 
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

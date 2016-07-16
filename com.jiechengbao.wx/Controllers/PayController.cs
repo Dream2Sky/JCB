@@ -278,9 +278,13 @@ namespace com.jiechengbao.wx.Controllers
             // 取得 order对象 
             Order order = _orderBLL.GetOrderByOrderNo(orderNo);
 
+            // 判断当前用户的当前积分 是否够 支付 
+            
+            // 余额取消了 改为用积分购买
+
             #region 判断余额是否充足
             // 判断余额 是否 充值
-            if (member.Assets < order.TotalPrice)
+            if (member.Credit < order.TotalPrice)
             {
                 var res = new
                 {
@@ -353,8 +357,10 @@ namespace com.jiechengbao.wx.Controllers
                     IAsyncResult msResult = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
                 }
 
-                // 修改账户余额
-                member.Assets = member.Assets - order.TotalPrice;
+                
+
+                // 修改账户余额  修改账户当前余额
+                member.Credit = member.Credit - order.TotalPrice;
                 if (!_memberBLL.Update(member))
                 {
                     // 修改余额失败
@@ -484,7 +490,11 @@ namespace com.jiechengbao.wx.Controllers
                 data.FromXml(builder.ToString());
 
                 Member member = _memberBLL.GetMemberByOpenId(data.GetValue("openid").ToString());
-                member.Assets += double.Parse(data.GetValue("total_fee").ToString());
+
+                // 没有余额了 
+                // 充值都充到积分去 
+                member.Credit += double.Parse(data.GetValue("total_fee").ToString());
+                member.TotalCredit += double.Parse(data.GetValue("total_fee").ToString());
 
                 if (_memberBLL.Update(member))
                 {

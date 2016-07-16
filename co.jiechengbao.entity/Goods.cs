@@ -64,5 +64,12 @@ namespace com.jiechengbao.entity
         [DataMember]
         public double OriginalPrice { get; set; }
 
+        /// <summary>
+        /// 商品的兑换积分
+        /// </summary>
+        [Required]
+        [DataMember]
+        public double ExchangeCredit { get; set; }
+
     }
 }

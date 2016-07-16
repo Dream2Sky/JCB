@@ -35,17 +35,30 @@ namespace com.jiechengbao.entity
         [MaxLength(20)]
         public string Phone { get; set; }
 
+        #region 坑爹的老板 说要有个注册的功能 要用户填写姓名 所以要有个 realName字段
+        /// <summary>
+        /// 会员真实姓名
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string RealName { get; set; }
+
+        #endregion
+
         /// <summary>
         /// vip等级 默认为0
         /// </summary>
         [Required]
         public int Vip { get; set; } = 0;
 
-        /// <summary>
-        /// 会员钱包余额
-        /// </summary>
-        [Required]
-        public double Assets { get; set; } = 0;
+        #region 由于坑爹的老板改了需求 会员没有了余额的概念  然后要删掉这个字段
+
+        ///// <summary>
+        ///// 会员钱包余额
+        ///// </summary>
+        //[Required]
+        //public double Assets { get; set; } = 0;
+        #endregion
 
         /// <summary>
         /// 会员当前积分

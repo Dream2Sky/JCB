@@ -3,7 +3,7 @@ namespace com.jiechengbao.entity.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateDatabase : DbMigration
+    public partial class AddColumn_Goods_ExchangeCredit : DbMigration
     {
         public override void Up()
         {
@@ -182,6 +182,7 @@ namespace com.jiechengbao.entity.Migrations
                         Description = c.String(maxLength: 255, unicode: false, storeType: "nvarchar"),
                         ServiceCount = c.Int(nullable: false),
                         OriginalPrice = c.Double(nullable: false),
+                        ExchangeCredit = c.Double(nullable: false),
                         CreatedTime = c.DateTime(nullable: false, precision: 0),
                         IsDeleted = c.Boolean(nullable: false),
                         DeletedTime = c.DateTime(nullable: false, precision: 0),

@@ -7,13 +7,13 @@ namespace com.jiechengbao.entity.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class CreateDatabase : IMigrationMetadata
+    public sealed partial class AddColumn_Goods_ExchangeCredit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateDatabase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddColumn_Goods_ExchangeCredit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607140423185_CreateDatabase"; }
+            get { return "201607160450432_AddColumn_Goods_ExchangeCredit"; }
         }
         
         string IMigrationMetadata.Source
