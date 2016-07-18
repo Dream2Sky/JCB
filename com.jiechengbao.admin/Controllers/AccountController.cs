@@ -54,6 +54,11 @@ namespace com.jiechengbao.admin.Controllers
         [HttpPost]
         public ActionResult ResetPassword(string oldpassword,string newpassword)
         {
+            Admin admin = _adminBLL.GetAdminByAccount(System.Web.HttpContext.Current.Session["admin"].ToString());
+            if (true)
+            {
+                // 这个方法待定
+            }
 
             return View();
         }

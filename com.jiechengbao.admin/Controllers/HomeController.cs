@@ -55,11 +55,11 @@ namespace com.jiechengbao.admin.Controllers
                 // 主要是为了显示 MemberName
                 om.MemberName = _memberBLL.GetMemberById(item.MemberId).NickeName;
 
-                Address address = _addressBLL.GetAddressById(om.AddressId);
-                om.Phone = address.Phone;
-                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
-                om.Consignee = address.Consignee;
-               
+                //Address address = _addressBLL.GetAddressById(om.AddressId);
+                //om.Phone = address.Phone;
+                //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                //om.Consignee = address.Consignee;
+
                 orderModelList.Add(om);
             }
 

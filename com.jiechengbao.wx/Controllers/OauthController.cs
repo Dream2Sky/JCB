@@ -47,7 +47,7 @@ namespace com.jiechengbao.wx.Controllers
                 member.OpenId = user.openid;
                 member.Vip = 0;
                 member.HeadImage = user.headimgurl;
-                member.Assets = 0;
+                //member.Assets = 0;
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
@@ -100,7 +100,7 @@ namespace com.jiechengbao.wx.Controllers
                 member.OpenId = user.openid;
                 member.Vip = 0;
                 member.HeadImage = user.headimgurl;
-                member.Assets = 0;
+                //member.Assets = 0;
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
@@ -153,7 +153,7 @@ namespace com.jiechengbao.wx.Controllers
                 member.OpenId = user.openid;
                 member.Vip = 0;
                 member.HeadImage = user.headimgurl;
-                member.Assets = 0;
+                //member.Assets = 0;
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
@@ -203,7 +203,7 @@ namespace com.jiechengbao.wx.Controllers
                 member.OpenId = user.openid;
                 member.Vip = 0;
                 member.HeadImage = user.headimgurl;
-                member.Assets = 0;
+                //member.Assets = 0;
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);

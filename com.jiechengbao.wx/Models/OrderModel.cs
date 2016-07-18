@@ -13,7 +13,7 @@ namespace com.jiechengbao.wx.Models
         public OrderModel(Order order)
         {
             this.Id = order.Id;
-            this.AddressId = order.AddressId;
+            //this.AddressId = order.AddressId;
             this.CreatedTime = order.CreatedTime;
             this.DeletedTime = order.DeletedTime;
             this.IsDeleted = order.IsDeleted;

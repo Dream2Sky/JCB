@@ -99,11 +99,16 @@ namespace com.jiechengbao.admin.Controllers
             goods.ServiceCount = model.ServiceCount;
             goods.DeletedTime = DateTime.MinValue.AddHours(8);
 
+            // 增加商品的积分兑换项  另一种货币
+
+            // 任何商品可以通过积分购买
+
+            goods.ExchangeCredit = model.ExchangeCredit;
+
             // 商品新家字段  OriginalPrice  原价  
 
             // 该字段不影响原来商品添加的逻辑
             goods.OriginalPrice = model.OriginalPrice;
-
 
             #endregion
 
@@ -117,9 +122,6 @@ namespace com.jiechengbao.admin.Controllers
 
                 // 添加成功后 构造 goodsimage 对象
                 // 并添加到数据库
-
-                LogHelper.Log.Write("添加商品成功,现在正在构造goodsImage");
-
                 GoodsImage gi = new GoodsImage();
                 gi.Id = Guid.NewGuid();
                 gi.ImagePath = model.PicturePath;
@@ -129,9 +131,6 @@ namespace com.jiechengbao.admin.Controllers
                 gi.DeletedTime = DateTime.MinValue.AddHours(8);
 
                 _goodsImagesBLL.Add(gi);
-
-                LogHelper.Log.Write("添加商品图片成功");
-
                 // 添加成功 则 遍历传递过来的分类列表
                 // 并添加到数据库
                 foreach (var item in model.CategoryList)
@@ -152,7 +151,7 @@ namespace com.jiechengbao.admin.Controllers
                     _goodsCategoryBLL.Add(gc);
                 }
 
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
 
                 return RedirectToAction("Add", new { msg = "添加成功" });
             }
@@ -232,6 +231,9 @@ namespace com.jiechengbao.admin.Controllers
             goods.Price = model.Price;
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
+
+            // 商品添加新的消费字段 exchangeCredit 商品可以用积分购买
+            goods.ExchangeCredit = model.ExchangeCredit;
 
             // 商品添加新的字段 OriginalPrice 更新时 也要更新
             goods.OriginalPrice = model.OriginalPrice;

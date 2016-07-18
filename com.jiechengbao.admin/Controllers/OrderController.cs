@@ -41,13 +41,16 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
 
-                Address address = _addressBLL.GetAddressById(om.AddressId);
-                om.Phone = address.Phone;
-                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
-                om.Consignee = address.Consignee;
+                // 没有了配送系统 
+                // 所以这段代码就没用了
+
+                //Address address = _addressBLL.GetAddressById(om.AddressId);
+                //om.Phone = address.Phone;
+                //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                //om.Consignee = address.Consignee;
                 
-                // 添加配送状态
-                om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
+                //// 添加配送状态
+                //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
 
                 orderModelList.Add(om);
             }
@@ -75,13 +78,13 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
 
-                Address address = _addressBLL.GetAddressById(om.AddressId);
-                om.Phone = address.Phone;
-                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
-                om.Consignee = address.Consignee;
+                //Address address = _addressBLL.GetAddressById(om.AddressId);
+                //om.Phone = address.Phone;
+                //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                //om.Consignee = address.Consignee;
                 
-                // 添加配送地址
-                om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
+                //// 添加配送地址
+                //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
 
                 orderModelList.Add(om);
             }
@@ -90,12 +93,16 @@ namespace com.jiechengbao.admin.Controllers
             return View();
         }
 
+        #region 没有了配送系统 就不需要修改订单配送状态  所以此方法不用了
+
+       
         /// <summary>
         ///  修改订单的配送状态  后台的
         /// </summary>
         /// <param name="orderNo"></param>
         /// <returns></returns>
         [HttpPost]
+        [NonAction] // 此Action不用了 不能访问
         public ActionResult Shipping(string orderNo)
         {
             if (string.IsNullOrEmpty(orderNo))
@@ -126,6 +133,8 @@ namespace com.jiechengbao.admin.Controllers
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 获得未完成的订单
         /// </summary>
@@ -141,10 +150,10 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
 
-                Address address = _addressBLL.GetAddressById(om.AddressId);
-                om.Phone = address.Phone;
-                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
-                om.Consignee = address.Consignee;
+                //Address address = _addressBLL.GetAddressById(om.AddressId);
+                //om.Phone = address.Phone;
+                //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                //om.Consignee = address.Consignee;
 
                 //// 添加配送状态
                 //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
@@ -171,10 +180,10 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
 
-                Address address = _addressBLL.GetAddressById(om.AddressId);
-                om.Phone = address.Phone;
-                om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
-                om.Consignee = address.Consignee;
+                //Address address = _addressBLL.GetAddressById(om.AddressId);
+                //om.Phone = address.Phone;
+                //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
+                //om.Consignee = address.Consignee;
 
                 // 添加配送状态
                 //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;

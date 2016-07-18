@@ -84,10 +84,10 @@
 
 <ul class="mui-table-view">
     <li class="mui-table-view-cell">
-        <a href="/UserInfo/MyServices" class="mui-navigate-right">我的服务</a>
+        <a href="/UserInfo/MyServices" class="mui-navigate-right">已购买的服务</a>
     </li>
     <li class="mui-table-view-cell">
-        <a href="/UserInfo/MyCreditServices" class="mui-navigate-right">我的积分<span class="mui-pull-right toleft">@Model.Credit</span></a>
+        <a href="/UserInfo/MyCreditRecord?currentCredit=@Model.Credit" class="mui-navigate-right">我的积分<span class="mui-pull-right toleft">@Model.Credit</span></a>
     </li>
 </ul>
 @*<ul class="mui-table-view">
@@ -96,12 +96,14 @@
     </li>
 </ul>*@
 <ul class="mui-table-view">
-    <li class="mui-table-view-cell">
+
+    @* 新的积分系统似乎不用单独的查看充值记录和消费记录 *@
+    @*<li class="mui-table-view-cell">
         <a href="/UserInfo/RechargeList" class="mui-navigate-right">充值记录</a>
     </li>
     <li class="mui-table-view-cell">
         <a href="/UserInfo/TransactionRecordList" class="mui-navigate-right">消费记录</a>
-    </li>
+    </li>*@
     <li class="recharge-li">
         <button class="mui-btn recharge-btn btn-danger" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>
     </li>

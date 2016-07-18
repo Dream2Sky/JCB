@@ -38,6 +38,7 @@
                 <th>商品图片</th>
                 <th>当前单价</th>
                 <th>原价</th>
+                <th>兑换积分</th>
                 <th></th>
             </tr>
         </thead>
@@ -49,6 +50,7 @@
                     <td><img src="/Uploads/@item.PicturePath" /></td>
                     <td>@item.Price</td>
                     <td>@item.OriginalPrice</td>
+                    <td>@item.ExchangeCredit</td>
                     <td>
                         <a href="javascript:;" data-toggle="modal" data-target=".@item.Code">删除</a> | 
                         <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> | 

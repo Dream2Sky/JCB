@@ -25,7 +25,8 @@
                 <th>用户手机</th>
                 <th>注册时间</th>
                 <th>VIP等级</th>
-                <th>当前余额</th>
+                @*<th>当前余额</th>*@
+                <th></th>
                 <th>当前积分</th>
             </tr>
         </thead>
@@ -37,7 +38,7 @@
                     <td>@item.Phone</td>
                     <td>@item.CreatedTime</td>
                     <td>@item.Vip</td>
-                    <td>@item.Assets</td>
+                    @*<td>@item.Assets</td>*@
                     <td>@item.Credit</td>
                 </tr>
             }
@@ -48,8 +49,10 @@
                     <td><img src="@member.HeadImage" />@member.NickeName</td>
                     <td>@member.Phone</td>
                     <td>@member.CreatedTime</td>
+
                     <td>@member.Vip</td>
-                    <td>@member.Assets</td>
+                    @* 新的积分系统没有余额 所以。。 *@
+                    @*<td>@member.Assets</td>*@
                     <td>@member.Credit</td>
                 </tr>
             }

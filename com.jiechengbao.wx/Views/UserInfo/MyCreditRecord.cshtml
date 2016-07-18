@@ -38,6 +38,8 @@
         font-weight:600;
     }
 </style>
+
+<button type="button" class="mui-btn mui-btn-block">当前积分: @ViewBag.CurrentCredit</button>
 @{
     List<CreditRecord> creditRecordList = ViewData["creditRecordList"] as List<CreditRecord>;
     <ul class="mui-table-view goods-ul">
