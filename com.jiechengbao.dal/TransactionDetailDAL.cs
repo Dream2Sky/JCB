@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.jiechengbao.Idal
+namespace com.jiechengbao.dal
 {
-    public interface ICreditRecordDAL:IDataBaseDAL<CreditRecord>
+    public class TransactionDetailDAL:DataBaseDAL<TransactionDetail>
     {
-        IEnumerable<CreditRecord> SelectByMemberId(Guid memberId);
     }
 }

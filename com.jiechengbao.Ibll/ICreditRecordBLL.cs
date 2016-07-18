@@ -10,5 +10,6 @@ namespace com.jiechengbao.Ibll
     public interface ICreditRecordBLL
     {
         bool Add(CreditRecord cr);
+        IEnumerable<CreditRecord> GetCreditRecordByMemberId(Guid memberId);
     }
 }

@@ -28,7 +28,13 @@ namespace com.jiechengbao.entity
         /// <summary>
         /// 当前积分系数
         /// </summary>
-        [Required]
         public double CurrentCreditCoefficient { get; set; }
+
+        /// <summary>
+        /// 备注 也是标题
+        /// </summary>
+        [Required]
+        [MaxLength(30)]
+        public string Notes { get; set; }
     }
 }

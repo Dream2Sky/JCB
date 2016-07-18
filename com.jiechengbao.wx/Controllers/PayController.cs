@@ -194,7 +194,8 @@ namespace com.jiechengbao.wx.Controllers
 
                     _transactionBLL.Add(trans);
 
-                    if (AddConsumeCredit(member, order.TotalPrice))
+
+                    if (AddConsumeCredit(member, order.TotalPrice,true))
                     {
                         // 异步判断是否有足够的积分进行升级
                         UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -279,7 +280,7 @@ namespace com.jiechengbao.wx.Controllers
             Order order = _orderBLL.GetOrderByOrderNo(orderNo);
 
             // 判断当前用户的当前积分 是否够 支付 
-            
+
             // 余额取消了 改为用积分购买
 
             #region 判断余额是否充足
@@ -289,7 +290,7 @@ namespace com.jiechengbao.wx.Controllers
                 var res = new
                 {
                     isSuccess = false,
-                    msg = "余额不足"
+                    msg = "当前积分不足支付该商品,请及时充值,或使用其他支付方式"
                 };
                 return Json(res, JsonRequestBehavior.AllowGet);
             }
@@ -345,8 +346,8 @@ namespace com.jiechengbao.wx.Controllers
                     return Json(res, JsonRequestBehavior.AllowGet);
                 }
 
-                // 添加消费积分记录 并修改会员积分
-                if (AddConsumeCredit(member, order.TotalPrice))
+                //添加消费积分记录 并修改会员积分
+                if (AddConsumeCredit(member, order.TotalPrice,false))
                 {
                     // 当修改消费积分成功时 异步判断是否够积分升级vip
                     UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -357,10 +358,11 @@ namespace com.jiechengbao.wx.Controllers
                     IAsyncResult msResult = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
                 }
 
-                
 
-                // 修改账户余额  修改账户当前余额
-                member.Credit = member.Credit - order.TotalPrice;
+                //// 修改账户余额  修改账户当前余额
+                //member.Credit = member.Credit - order.TotalPrice;
+
+
                 if (!_memberBLL.Update(member))
                 {
                     // 修改余额失败
@@ -511,7 +513,17 @@ namespace com.jiechengbao.wx.Controllers
                     {
                         LogHelper.Log.Write("充值成功");
                         // 添加充值积分记录
-                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString())/100))
+
+                        #region 赠送的积分计算
+
+                        // 充值赠送的积分  
+                        // 目前数值待定  怎么获取待定
+                        double freeCredit = 0;
+                        double rechargeCredit = double.Parse(data.GetValue("total_fee").ToString()) / 100 + freeCredit;
+
+                        #endregion
+
+                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString()) / 100))
                         {
                             // 异步判断是否够积分升级vip
                             UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -712,6 +724,7 @@ namespace com.jiechengbao.wx.Controllers
             cr.CreatedTime = DateTime.Now;
             cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Recharge"].ToString());
             cr.DeletedTime = DateTime.MinValue.AddHours(8);
+            cr.Notes = "充值送积分,获得" + cr.Money * cr.CurrentCreditCoefficient + "积分";
 
             if (_creditRecordBLL.Add(cr))
             {
@@ -732,30 +745,59 @@ namespace com.jiechengbao.wx.Controllers
         /// <param name="money"></param>
         /// <returns></returns>
         [NonAction]
-        private bool AddConsumeCredit(Member member, double money)
+        private bool AddConsumeCredit(Member member, double money, bool IsComeIn)
         {
             CreditRecord cr = new CreditRecord();
             cr.Id = Guid.NewGuid();
             cr.CreatedTime = DateTime.Now;
-            cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Consumption"].ToString());
             cr.DeletedTime = DateTime.MinValue.AddHours(8);
             cr.IsDeleted = false;
             cr.MemberId = member.Id;
+
+            // 这里 money 不是钱 是积分 
             cr.Money = money;
-            cr.OperationType = "Consumption";
 
-            if (_creditRecordBLL.Add(cr))
+            // 判断是收益还是消费
+            if (!IsComeIn)
             {
-                member.Credit += cr.Money * cr.CurrentCreditCoefficient;
-                member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient;
-                _memberBLL.Update(member);
+                // 如果是消费
+                cr.OperationType = "Consumption";
+                cr.Notes = "积分消费，使用了" + cr.Money + "积分";
 
-                return true;
+                if (_creditRecordBLL.Add(cr))
+                {
+                    member.Credit -= cr.Money;
+                    _memberBLL.Update(member);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                // 如果是微信支付的赠送积分
+                cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Free"].ToString());
+                cr.OperationType = "Free";
+                cr.Notes = "微信付款赠送积分:获得" + cr.Money * cr.CurrentCreditCoefficient + "积分";
+
+                if (_creditRecordBLL.Add(cr))
+                {
+                    member.Credit += cr.Money * cr.CurrentCreditCoefficient;
+                    member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient;
+
+                    _memberBLL.Update(member);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+
         }
 
         /// <summary>

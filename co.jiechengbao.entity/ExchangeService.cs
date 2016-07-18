@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+老板说 不要积分商城
+
+所以 积分兑换的商品就没有用了 
+
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

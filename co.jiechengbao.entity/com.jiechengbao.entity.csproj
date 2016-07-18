@@ -89,6 +89,18 @@
     <Compile Include="Migrations\201607160615124_DropColumn_Order_AddressId.Designer.cs">
       <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607170836564_AddTable_TransationDetail.cs" />
+    <Compile Include="Migrations\201607170836564_AddTable_TransationDetail.Designer.cs">
+      <DependentUpon>201607170836564_AddTable_TransationDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs" />
+    <Compile Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.Designer.cs">
+      <DependentUpon>201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.cs" />
+    <Compile Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.Designer.cs">
+      <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
@@ -102,6 +114,7 @@
     <Compile Include="ServiceConsumeRecord.cs" />
     <Compile Include="ServiceQR.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,6 +132,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607160615124_DropColumn_Order_AddressId.resx">
       <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170836564_AddTable_TransationDetail.resx">
+      <DependentUpon>201607170836564_AddTable_TransationDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.resx">
+      <DependentUpon>201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.resx">
+      <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

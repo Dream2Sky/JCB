@@ -1,4 +1,10 @@
-﻿using ch.lib.common.QR;
+﻿/*
+ 老板说 不要积分商城
+
+ 所以此类不用
+
+ */
+using ch.lib.common.QR;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using System;
@@ -193,7 +199,6 @@ namespace com.jiechengbao.wx.Controllers
             catch (Exception)
             {
             }
-
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="IServiceConsumeRecordBLL.cs" />
     <Compile Include="IServiceQRBLL.cs" />
     <Compile Include="ITransactionBLL.cs" />
+    <Compile Include="ITransactionDetailBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

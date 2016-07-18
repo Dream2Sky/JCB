@@ -21,5 +21,10 @@ namespace com.jiechengbao.bll
         {
             return _creditRecordDAL.Insert(cr);
         }
+
+        public IEnumerable<CreditRecord> GetCreditRecordByMemberId(Guid memberId)
+        {
+            return _creditRecordDAL.SelectByMemberId(memberId);
+        }
     }
 }

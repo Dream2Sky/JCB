@@ -61,5 +61,7 @@ namespace com.jiechengbao.entity
         /// 记录订单状态  0 已发货 1 未发货 2 确认收货
         /// </summary>
         public DbSet<OrderStatus> OrderStatusSet { get; set; }
+
+        public DbSet<TransactionDetail> TransactionDetails { get; set; }
     }
 }

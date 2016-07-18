@@ -25,11 +25,14 @@ namespace com.jiechengbao.wx.Controllers
         private IExchangeServiceBLL _exchangeServiceBLL;
         private ITransactionBLL _transactionBLL;
         private IOrderBLL _orderBLL;
+        private ICreditRecordBLL _creditRecordBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
             IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL,
             IExchangeServiceRecordBLL exchangeServiceRecordBLL, 
-            IExchangeServiceBLL exchangeServiceBLL, ITransactionBLL transactionBLL, IOrderBLL orderBLL)
+            IExchangeServiceBLL exchangeServiceBLL, 
+            ITransactionBLL transactionBLL, IOrderBLL orderBLL,
+            ICreditRecordBLL creditRecordBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
@@ -42,7 +45,13 @@ namespace com.jiechengbao.wx.Controllers
             _exchangeServiceRecordBLL = exchangeServiceRecordBLL;
             _transactionBLL = transactionBLL;
             _orderBLL = orderBLL;
+            _creditRecordBLL = creditRecordBLL;
         }
+
+        /// <summary>
+        ///  会员首页
+        /// </summary>
+        /// <returns></returns>
         [IsLogin]
         public ActionResult Index()
         {
@@ -76,11 +85,19 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
         
+        /// <summary>
+        /// 紧急救援
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Help()
         {
             return View();
         }
         
+        /// <summary>
+        /// 违章查询   不用的
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Check()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -91,12 +108,21 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 个人信息
+        /// </summary>
+        /// <returns></returns>
         [IsLogin]
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
             return View(member);
         }
+
+        /// <summary>
+        /// 电话绑定
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Phone()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -104,6 +130,10 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
         
+        /// <summary>
+        /// 我的服务
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MyServices()
         {
             List<MyService> msList = new List<MyService>();
@@ -153,6 +183,8 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
 
+        #region 积分商城里面的东西已经不用了
+
         /// <summary>
         ///  我的积分 已购买的兑换商品列表
         /// </summary>
@@ -187,6 +219,8 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
 
+        #endregion
+
         [HttpPost]
         public JsonResult Phone(string phone)
         {
@@ -208,6 +242,10 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
         
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Recharge()
         {
             return View();
@@ -310,6 +348,27 @@ namespace com.jiechengbao.wx.Controllers
             }
             ViewData["TransactionModelList"] = modelList;
             
+            return View();
+        }
+
+        /// <summary>
+        /// 我的积分  积分的来源和去向记录  只显示最近一个月的记录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MyCreditRecord(double currentCredit)
+        {
+            if (currentCredit <= 0)
+            {
+                ViewBag.CurrentCredit = 0;
+            }
+            ViewBag.CurrentCredit = currentCredit;
+
+            // 上来先获取当前用户对象
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            List<CreditRecord> crList = _creditRecordBLL.GetCreditRecordByMemberId(member.Id).ToList();
+
+            ViewData["creditRecordList"] = crList;
             return View();
         }
     }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace com.jiechengbao.Idal
 {
-    public interface ICreditRecordDAL:IDataBaseDAL<CreditRecord>
+    public interface ITransactionDetailDAL:IDataBaseDAL<TransactionDetail>
     {
-        IEnumerable<CreditRecord> SelectByMemberId(Guid memberId);
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="ServiceDAL.cs" />
     <Compile Include="ServiceQRDAL.cs" />
     <Compile Include="TransactionDAL.cs" />
+    <Compile Include="TransactionDetailDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ 没有积分商城 
+ 
+ 就没有了积分兑换的兑换的记录
+
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

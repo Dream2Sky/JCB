@@ -65,6 +65,7 @@
     <Compile Include="ServiceConsumeRecordBLL.cs" />
     <Compile Include="ServiceQRBLL.cs" />
     <Compile Include="TransactionBLL.cs" />
+    <Compile Include="TransactionDetailBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">

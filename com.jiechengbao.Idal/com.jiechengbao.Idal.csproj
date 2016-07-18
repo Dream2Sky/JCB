@@ -66,6 +66,7 @@
     <Compile Include="IServiceDAL.cs" />
     <Compile Include="IServiceQRDAL.cs" />
     <Compile Include="ITransactionDAL.cs" />
+    <Compile Include="ITransactionDetailDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
