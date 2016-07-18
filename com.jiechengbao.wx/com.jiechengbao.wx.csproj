@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\icon-phone.css" />
     <Content Include="Content\css\iconfont.css" />
     <Content Include="Content\css\pay.css" />
     <Content Include="Content\css\mui.min.css" />
@@ -263,6 +264,7 @@
     <Content Include="Content\fonts\mui.ttf" />
     <Content Include="cert\apiclient_cert.p12" />
     <Content Include="Content\fonts\iconfont.ttf" />
+    <Content Include="Content\fonts\icon-phone.ttf" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.wx.pubxml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Cart\List.cshtml" />

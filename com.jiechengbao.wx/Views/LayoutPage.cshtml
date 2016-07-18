@@ -120,7 +120,7 @@
     <nav class="mui-bar mui-bar-tab">
         <a class="mui-tab-item mui-active" id="atogoods" href="/Home/Index">
             <span class="mui-icon iconfont icon-dianpu"></span>
-            <span class="mui-tab-label">商城</span>
+            <span class="mui-tab-label">商品</span>
         </a>
         <a class="mui-tab-item" id="atocart" href="/Cart/List">
             <span class="mui-icon iconfont icon-gouwuche icon-cart"></span>
@@ -216,7 +216,9 @@
         </div>
     </div>
     <script>
-        mui('.mui-scroll-wrapper').scroll();
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0010
+        });
 
         // 判断是否有商品在购物车上
         function IsanythingOnShoppingCar() {

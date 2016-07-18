@@ -15,7 +15,7 @@
 </style>
 <ul class="mui-table-view">
     <li class="mui-table-view-cell mui-radio mui-left">
-        <input name="money" type="radio" value="5000">￥5000<i class="mui-pull-right update">送5000积分</i>
+        <input name="money" type="radio" value="5000">￥5000<i class="mui-pull-right update">5000积分+500积分</i>
     </li>
     <li class="mui-table-view-cell mui-radio mui-left">
         <input name="money" type="radio" value="10000">￥10000<i class="mui-pull-right update">送10000积分</i>
@@ -46,4 +46,7 @@
             window.location.href = "/Pay/RechargePay?money=" + money + "&ip=" + returnCitySN["cip"];
         }
     }
+    $(document).ready(function () {
+        $("#atoinfo").addClass("mui-active");
+    })
 </script>

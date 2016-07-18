@@ -76,7 +76,7 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab">
-        <a class="mui-tab-item mui-active" href="/UserInfo/Index" id="atouserinfo">
+        <a class="mui-tab-item" href="/UserInfo/Index" id="atouserinfo">
             <span class="mui-icon iconfont icon-shouyeshouye"></span>
             <span class="mui-tab-label">首页</span>
         </a>
@@ -94,7 +94,9 @@
         </a>
     </nav>
     <script>
-        mui('.mui-scroll-wrapper').scroll();
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0010
+        });
 
         mui(".mui-bar").on("tap", "a", function () {
             window.location.href = this.href;
