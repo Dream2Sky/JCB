@@ -33,10 +33,28 @@
             <p>服务次数:@Model.ServiceCount</p>
 
         }
-        <p><a href="javascript:;" class="btn btn-default" role="button" onclick="AddtoCart('@Model.Code')">加入购物车</a></p>
+        <p><a href="javascript:;" class="btn btn-default" role="button" onclick="IsRegister('@Model.Code')">加入购物车</a></p>
     </div>
 </div>
 <script>
+    function IsRegister(code)
+    {
+        $.ajax({
+            url: "/Register/Register",
+            type: "POST",
+            success: function (data) {
+                if (data == "True") {
+                    AddtoCart(code);
+                }
+                else {
+                    window.location.href = "/Register/Register";
+                }
+            },
+            error: function() {
+                mui.alert('获取注册信息失败, 加入购物车失败');
+            }
+        })
+    }
     function AddtoCart(code) {
         $.ajax({
             url: "/Cart/Add",
@@ -51,6 +69,9 @@
                     $(".icon-cart").append("<span class=\"mui-badge navbar-badge\"></span>");
                     //$("#btn_AddToCar").attr("disabled",true);
                     //$("#btn_AddToCar").addClass("Unclickabled");
+                }
+                else if(data == "NoRegister"){
+                    window.loaction.href = "/Register/Register";
                 }
                 else{
                     alert("加入购物车失败");

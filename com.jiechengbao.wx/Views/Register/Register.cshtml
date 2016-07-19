@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "手机注册";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+
+<style>
+    .mui-button-row {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    #p-msg {
+        float: left;
+        margin-top: 5px;
+        margin-left: 15px;
+        color: #5CB85C;
+    }
+
+    .p-success {
+        color: #5CB85C;
+    }
+
+    .p-error {
+        color: #c20000;
+    }
+
+    .btn-register {
+        height: 40px;
+        width: 100%;
+    }
+
+    .form-info {
+        margin-top: 20px;
+    }
+</style>
+<form class="mui-input-group form-info">
+    <div class="mui-input-row">
+        <label>真实姓名</label>
+        <input id='realName' type="text" class="mui-input-clear mui-input" placeholder="请输入真实姓名">
+    </div>
+    <div class="mui-input-row">
+        <label>手机号</label>
+        <input id='phone' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号">
+    </div>
+    <div class="mui-input-row">
+        <label>验证码</label>
+        <input id='code' type="text" class="mui-input-clear mui-input" placeholder="请输入验证码">
+    </div>
+    <div class="mui-button-row">
+        <p id="p-msg"></p>
+        <button type="button" class="mui-btn mui-btn-primary" onclick="GetCode();">发送验证码</button>
+    </div>
+</form>
+<div class="mui-content-padded">
+    <button id='reg' class="mui-btn mui-btn-primary btn-register">提交</button>
+</div>
+<div class="mui-content-padded">
+    <p>发现您没有绑定的您的真实姓名和电话号。只有绑定了才能在此平台上进行任何交易，还不快快绑定。。。</p>
+</div>
+
+<script>
+    function GetCode() {
+        var phone = $('#phone').val();
+        $.ajax({
+            url: '/Register/GetCode',
+            type: 'POST',
+            data: {
+                phone: phone
+            },
+            success: function (data) {
+                if (data == "True") {
+                    $('#p-msg').html("您的验证码已发送,请注意查看");
+                    $('#p-msg').attr("class", "p-success");
+                }
+                else {
+                    $('#p-msg').html("验证码发送失败,请重新发送");
+                    $('#p-msg').attr("class", "p-error");
+                }
+            },
+            error: function () {
+                mui.alert("系统错误，发送验证码失败");
+            }
+        })
+    }
+
+    function Register() {
+        $.ajax({
+            url: "/Register/Register",
+            type: "POST",
+            data: {
+                realName: $('#realName').val(),
+                phone: $('#phone').val(),
+                code: $('#code').val()
+            },
+            success: function (data) {
+                if (data == "True") {
+                    window.location.href = document.referrer;
+                }
+                else if (data == "CodeError") {
+                    mui.alert("输入的验证码错误,请重新输入");
+                }
+                else if (data == "NameError") {
+                    mui.alert("姓名错误,请重新输入");
+                }
+                else {
+                    mui.alert("注册失败");
+                }
+            },
+            error: function () {
+                mui.alert("系统错误, 注册失败");
+            }
+        })
+    }
+
+</script>

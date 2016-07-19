@@ -190,6 +190,7 @@
     <Content Include="Content\images\cart.png" />
     <Content Include="Content\images\home.png" />
     <Content Include="Content\images\order.png" />
+    <Content Include="Content\images\qr.png" />
     <Content Include="Content\images\setting.png" />
     <Content Include="Content\images\store.png" />
     <Content Include="Content\images\user.png" />
@@ -226,12 +227,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OauthController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Global\IsLoginAttribute.cs" />
+    <Compile Include="Global\IsRegisterAttribute.cs" />
+    <Compile Include="Global\PhoneCode.cs" />
     <Compile Include="Models\Access_Token_JsonModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\CarModel.cs" />
@@ -248,6 +252,7 @@
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderResultModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\ServiceDetailModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\TransactionModel.cs" />
@@ -302,6 +307,8 @@
     <Content Include="Views\Pay\MyExchangeServiceQR.cshtml" />
     <Content Include="Views\UserInfo\TransactionRecordList.cshtml" />
     <Content Include="Views\UserInfo\MyCreditRecord.cshtml" />
+    <Content Include="Views\Register\Register.cshtml" />
+    <Content Include="Views\UserInfo\MyQRCode.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -34,7 +34,7 @@ namespace com.jiechengbao.wx.Controllers
 
         [IsLogin]
         public ActionResult Index()
-        {
+        {    
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
             return View();
         }

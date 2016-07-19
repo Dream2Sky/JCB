@@ -118,6 +118,16 @@ namespace com.jiechengbao.wx.Controllers
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
             return View(member);
         }
+        
+        /// <summary>
+        /// 我的二维码  其实是公共账号的二维码  并没什么作用
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MyQRCode()
+        {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            return View(member);
+        }
 
         /// <summary>
         /// 电话绑定
@@ -304,6 +314,11 @@ namespace com.jiechengbao.wx.Controllers
             //}
         }
         
+        /// <summary>
+        /// 访问前 先判断是否已注册
+        /// </summary>
+        /// <returns></returns>
+        [IsRegister]
         public ActionResult RechargeOptionsList()
         {
             return View();
