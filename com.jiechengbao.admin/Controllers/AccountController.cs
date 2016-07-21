@@ -33,7 +33,7 @@ namespace com.jiechengbao.admin.Controllers
             }
             else
             {
-                return RedirectToAction("Login", new { msg = false });
+                return RedirectToAction("Login", new { msg = "账号或密码错误" });
             }
         }
 

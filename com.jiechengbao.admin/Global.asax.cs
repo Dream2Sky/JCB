@@ -72,6 +72,12 @@ namespace com.jiechengbao.admin
             builder.RegisterType<ExchangeServiceQRDAL>().As<IExchangeServiceQRDAL>();
             builder.RegisterType<OrderStatusBLL>().As<IOrderStatusBLL>();
             builder.RegisterType<OrderStatusDAL>().As<IOrderStatusDAL>();
+            builder.RegisterType<AppointmentServiceBLL>().As<IAppointmentServiceBLL>();
+            builder.RegisterType<AppointmentServiceDAL>().As<IAppointmentServiceDAL>();
+            builder.RegisterType<AppointmentTimeBLL>().As<IAppointmentTimeBLL>();
+            builder.RegisterType<AppointmentTimeDAL>().As<IAppointmentTimeDAL>();
+            builder.RegisterType<MyAppointmentBLL>().As<IMyAppointmentBLL>();
+            builder.RegisterType<MyAppointmentDAL>().As<IMyAppointmentDAL>();
         }
     }
 }

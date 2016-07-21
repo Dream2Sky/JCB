@@ -1,0 +1,105 @@
+﻿
+
+@using com.jiechengbao.entity
+<link href="~/Content/css/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/Content/js/jquery.timepicker.js"></script>
+
+<style>
+    .container-add-followitem {
+        padding-left: 0px;
+    }
+</style>
+<label>
+    预约时间项
+</label>
+<div class="container container-btn">
+    <div class="row row-Time">
+        @if (ViewData["AppointmentTimeList"] == null)
+        {
+
+        }
+        else
+        {
+            foreach (var item in ViewData["AppointmentTimeList"] as IEnumerable<AppointmentTime>)
+            {
+                <div class="col-lg-2" id="@item.Id">
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@item.TimePeriod" disabled>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="DeleteTime('@item.Id')">删除</button>
+                        </span>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<hr />
+<label>添加预约时间项</label>
+<div class="container container-add-followitem row">
+    <form id="follow-form" class="col-lg-2">
+        <div class="form-group">
+            <label>开始时间</label>
+            <input type="text" name="stime" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label>结束时间</label>
+            <input type="text" name="etime" class="form-control" required data-bv-notempty-message="不能为空" /><span id="error-message"></span>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="AddTime();">添加</button>
+    </form>
+</div>
+
+<script>
+    $("input[name='stime']").timepicker({
+        timeFormat:"HH:mm"
+    });
+    $("input[name='etime']").timepicker({
+        timeFormat: "HH:mm"
+    });
+    function AddTime() {
+        $.ajax({
+            url: "/Appointment/AddTime",
+            type: "POST",
+            data: {
+                TimePeriod: $("input[name='stime']").val() + "~" + $("input[name='etime']").val()
+            },
+            success: function (data) {
+                if (data == "False") {
+                    alert("添加预约时间错误");
+                }
+                else if (data == "Exception") {
+                    alert("您添加的时间段有异常， 请重新添加");
+                } else {
+                    $('.row-Time').append("<div class=\"col-lg-2\" id='" + data.Id + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.TimePeriod + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteTime('" + data.Id + "')\">删除</button></span></div></div>");
+                }
+            },
+            error: function () {
+                alert("系统错误，添加无服务项失败");
+            }
+        })
+    }
+
+    function DeleteTime(Id) {
+        $.ajax({
+            url: "/Appointment/DeleteTime",
+            type: "POST",
+            data: {
+                Id: Id
+            },
+            success: function (data) {
+                if (data == "True") {
+                    $('#' + Id).remove();
+                }
+                else {
+                    alert("删除时间段失败");
+                }
+            },
+            error: function () {
+                alert("系统错误，删除时间段失败");
+            }
+        })
+    }
+
+</script>

@@ -1,0 +1,96 @@
+﻿
+@using com.jiechengbao.entity
+
+<style>
+    .container-add-followitem {
+        padding-left: 0px;
+    }
+</style>
+<label>
+    预约服务项
+</label>
+<div class="container container-btn">
+    <div class="row row-serviceName">
+        @if (ViewData["AppointmentServiceList"] == null)
+        {
+
+        }
+        else
+        {
+            foreach (var item in ViewData["AppointmentServiceList"] as IEnumerable<AppointmentService>)
+            {
+                <div class="col-lg-2" id="@item.Code">
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@item.Name" disabled>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="DeleteService('@item.Code')">删除</button>
+                        </span>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<hr />
+<label>添加预约服务项</label>
+<div class="container container-add-followitem row">
+    <form id="follow-form" class="col-lg-2">
+        <div class="form-group">
+            <input type="text" name="serviceItem" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="AddService();">添加</button>
+    </form>
+</div>
+
+<script>
+
+    function AddService() {
+        $.ajax({
+            url: "/Appointment/AddService",
+            type: "POST",
+            data: {
+                serviceName: $("input[name='serviceItem']").val()
+            },
+            success: function (data) {
+                if (data == "False") {
+                    alert("添加服务项错误");
+                }
+                else if (data == "ExistName") {
+                    alert("相同的服务名，添加服务失败");
+                } else {
+
+                    console.log(data.Name);
+                    console.log(data.Code);
+
+                    $('.row-serviceName').append("<div class=\"col-lg-2\" id='" + data.Code + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.Name + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" onclick=\"Delete('" + data.Code + "')\">删除</button></span></div></div>");
+                }
+            },
+            error: function () {
+                alert("系统错误，添加无服务项失败");
+            }
+        })
+    }
+
+    function DeleteService(Code) {
+        $.ajax({
+            url: "/Appointment/DeleteService",
+            type: "POST",
+            data: {
+                Code: Code
+            },
+            success: function (data) {
+                if (data == "True") {
+                    $('#' + Code).remove();
+                }
+                else {
+                    alert("删除服务失败");
+                }
+            },
+            error: function () {
+                alert("系统错误，删除服务失败");
+            }
+        })
+    }
+
+</script>

@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="IAddressBLL.cs" />
     <Compile Include="IAdminBLL.cs" />
+    <Compile Include="IAppointmentServiceBLL.cs" />
+    <Compile Include="IAppointmentTimeBLL.cs" />
     <Compile Include="ICarBLL.cs" />
     <Compile Include="ICartBLL.cs" />
     <Compile Include="ICategoryBLL.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="IGoodsCategoryBLL.cs" />
     <Compile Include="IGoodsImagesBLL.cs" />
     <Compile Include="IMemberBLL.cs" />
+    <Compile Include="IMyAppointmentBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="IOrderDetailBLL.cs" />
     <Compile Include="IOrderStatusBLL.cs" />

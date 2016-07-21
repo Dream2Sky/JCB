@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="AddressDAL.cs" />
     <Compile Include="AdminDAL.cs" />
+    <Compile Include="AppointmentServiceDAL.cs" />
+    <Compile Include="AppointmentTimeDAL.cs" />
     <Compile Include="CarDAL.cs" />
     <Compile Include="CartDAL.cs" />
     <Compile Include="CategoryDAL.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="GoodsDAL.cs" />
     <Compile Include="GoodsImagesDAL.cs" />
     <Compile Include="MemberDAL.cs" />
+    <Compile Include="MyAppointmentDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="OrderStatusDAL.cs" />

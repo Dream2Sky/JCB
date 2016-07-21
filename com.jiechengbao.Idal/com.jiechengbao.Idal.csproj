@@ -43,6 +43,8 @@
     <Compile Include="CarNotEntity.cs" />
     <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
+    <Compile Include="IAppointmentServiceDAL.cs" />
+    <Compile Include="IAppointmentTimeDAL.cs" />
     <Compile Include="ICarDAL.cs" />
     <Compile Include="ICartDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="IGoodsDAL.cs" />
     <Compile Include="IGoodsImagesDAL.cs" />
     <Compile Include="IMemberDAL.cs" />
+    <Compile Include="IMyAppointmentDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IOrderDetailDAL.cs" />
     <Compile Include="IOrderStatusDAL.cs" />

@@ -169,12 +169,15 @@
     <Content Include="Content\css\bootstrap-table-expandable.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrapValidator.min.css" />
+    <Content Include="Content\css\jquery.timepicker.css" />
     <Content Include="Content\images\default.png" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\js\bootstrap-table-expandable.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrapValidator.min.js" />
     <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\jquery.slide.js" />
+    <Content Include="Content\js\jquery.timepicker.js" />
     <Content Include="Content\js\json2.js" />
     <Content Include="Content\js\json_parse.js" />
     <Content Include="Global.asax" />
@@ -186,6 +189,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CreditMollController.cs" />
@@ -233,6 +237,9 @@
     <Content Include="Views\CreditMoll\List.cshtml" />
     <Content Include="Views\CreditMoll\Add.cshtml" />
     <Content Include="Views\CreditMoll\Update.cshtml" />
+    <Content Include="Views\Appointment\Setting.cshtml" />
+    <Content Include="Views\Appointment\AppointmentServiceList.cshtml" />
+    <Content Include="Views\Appointment\AppointmentTimeList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Admin.cs" />
+    <Compile Include="AppointmentService.cs" />
+    <Compile Include="AppointmentTime.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Category.cs" />
@@ -101,7 +103,16 @@
     <Compile Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.Designer.cs">
       <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs" />
+    <Compile Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.Designer.cs">
+      <DependentUpon>201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs" />
+    <Compile Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.Designer.cs">
+      <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MyAppointment.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -141,6 +152,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.resx">
       <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.resx">
+      <DependentUpon>201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.resx">
+      <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

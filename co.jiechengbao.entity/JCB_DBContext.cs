@@ -63,5 +63,9 @@ namespace com.jiechengbao.entity
         public DbSet<OrderStatus> OrderStatusSet { get; set; }
 
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
+
+        public DbSet<AppointmentService> AppointmentServices { get; set; }
+        public DbSet<AppointmentTime> AppointmentTimes { get; set; }
+        public DbSet<MyAppointment> MyAppointments { get; set; }
     }
 }
