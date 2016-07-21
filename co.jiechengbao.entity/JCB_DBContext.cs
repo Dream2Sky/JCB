@@ -67,5 +67,7 @@ namespace com.jiechengbao.entity
         public DbSet<AppointmentService> AppointmentServices { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
         public DbSet<MyAppointment> MyAppointments { get; set; }
+        public DbSet<MyAppointmentItem> MyAppointmentItems { get; set; }
+
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="GoodsImagesDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="MyAppointmentDAL.cs" />
+    <Compile Include="MyAppointmentItemDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="OrderStatusDAL.cs" />

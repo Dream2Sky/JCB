@@ -19,16 +19,28 @@ namespace com.jiechengbao.entity
         public Guid MemberId { get; set; }
 
         /// <summary>
-        /// 预约了什么服务
-        /// </summary>
-        [Required]
-        public Guid AppointmentServiceId { get; set; }
-
-        /// <summary>
         /// 预约的时间段
         /// </summary>
         [Required]
-        [MaxLength(10)]
-        public string TimePeriod { get; set; }
+        [MaxLength(50)]
+        public string AppointmentTime { get; set; }
+
+        /// <summary>
+        /// 该预约订单的价钱
+        /// </summary>
+        [Required]
+        public double Price { get; set; }
+
+        /// <summary>
+        /// 该预约订单是否付款
+        /// </summary>
+        [Required]
+        public bool IsPay { get; set; }
+
+        /// <summary>
+        /// 备注  我们的员工 再修改预约单时 所选填的备注
+        /// </summary>
+        public string Notes { get; set; }
+
     }
 }

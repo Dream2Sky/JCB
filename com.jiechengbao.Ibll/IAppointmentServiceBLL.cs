@@ -15,6 +15,7 @@ namespace com.jiechengbao.Ibll
         bool Add(AppointmentService appointmentService);
 
         AppointmentService GetByCode(string code);
+        AppointmentService GetById(Guid id);
 
         bool Update(AppointmentService appointmentService);
         IEnumerable<AppointmentService> GetAllAppointmentServiceButNotDeleted();

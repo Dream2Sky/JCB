@@ -111,8 +111,29 @@
     <Compile Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.Designer.cs">
       <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs" />
+    <Compile Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.Designer.cs">
+      <DependentUpon>201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.cs" />
+    <Compile Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.Designer.cs">
+      <DependentUpon>201607210557152_AddColumn_MyAppointment_Price_IsPay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs" />
+    <Compile Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.Designer.cs">
+      <DependentUpon>201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607210626135_AddTable_MyAppointmentItems.cs" />
+    <Compile Include="Migrations\201607210626135_AddTable_MyAppointmentItems.Designer.cs">
+      <DependentUpon>201607210626135_AddTable_MyAppointmentItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.cs" />
+    <Compile Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.Designer.cs">
+      <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyAppointment.cs" />
+    <Compile Include="MyAppointmentItem.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
@@ -158,6 +179,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.resx">
       <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.resx">
+      <DependentUpon>201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.resx">
+      <DependentUpon>201607210557152_AddColumn_MyAppointment_Price_IsPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.resx">
+      <DependentUpon>201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210626135_AddTable_MyAppointmentItems.resx">
+      <DependentUpon>201607210626135_AddTable_MyAppointmentItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.resx">
+      <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

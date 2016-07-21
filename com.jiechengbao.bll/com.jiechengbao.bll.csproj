@@ -55,6 +55,7 @@
     <Compile Include="GoodsImagesBLL.cs" />
     <Compile Include="AppointmentTimeBLL.cs" />
     <Compile Include="MyAppointmentBLL.cs" />
+    <Compile Include="MyAppointmentItemBLL.cs" />
     <Compile Include="OrderStatusBLL.cs" />
     <Compile Include="MemberBLL.cs" />
     <Compile Include="OrderBLL.cs" />

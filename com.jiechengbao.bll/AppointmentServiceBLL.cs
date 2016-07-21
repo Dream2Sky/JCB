@@ -37,6 +37,11 @@ namespace com.jiechengbao.bll
             return _appointmentServiceDAL.SelectByCode(code);
         }
 
+        public AppointmentService GetById(Guid id)
+        {
+            return _appointmentServiceDAL.SelectById(id);
+        }
+
         public bool IsExistByName(string name)
         {
             return _appointmentServiceDAL.IsExistByName(name);

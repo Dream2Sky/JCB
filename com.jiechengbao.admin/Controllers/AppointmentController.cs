@@ -1,4 +1,5 @@
-﻿using com.jiechengbao.common;
+﻿using com.jiechengbao.admin.Models;
+using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using System;
@@ -14,12 +15,18 @@ namespace com.jiechengbao.admin.Controllers
         private IAppointmentServiceBLL _appointmentServiceBLL;
         private IAppointmentTimeBLL _appointmentTimeBLL;
         private IMyAppointmentBLL _myAppointmentBLL;
+        private IMyAppointmentItemBLL _myAppointmentItemBLL;
+        private IMemberBLL _memberBLL;
         public AppointmentController(IAppointmentServiceBLL appointmentServiceBLL,
-            IAppointmentTimeBLL appointmentTimeBLL, IMyAppointmentBLL myAppointmentBLL)
+            IAppointmentTimeBLL appointmentTimeBLL, 
+            IMyAppointmentBLL myAppointmentBLL,IMyAppointmentItemBLL myAppointmentItemBLL,
+            IMemberBLL memberBLL)
         {
             _appointmentServiceBLL = appointmentServiceBLL;
             _appointmentTimeBLL = appointmentTimeBLL;
             _myAppointmentBLL = myAppointmentBLL;
+            _myAppointmentItemBLL = myAppointmentItemBLL;
+            _memberBLL = memberBLL;
         }
 
         public ActionResult Setting()
@@ -175,7 +182,7 @@ namespace com.jiechengbao.admin.Controllers
                 DateTime startTime = DateTime.Parse(time[0]);
                 DateTime endTime = DateTime.Parse(time[1]);
 
-                if ((stime > startTime && stime < endTime) || (endTime>startTime && etime < endTime))
+                if ((stime > startTime && stime < endTime) || (endTime > startTime && etime < endTime))
                 {
                     return Json("Exception", JsonRequestBehavior.AllowGet);
                 }
@@ -230,9 +237,158 @@ namespace com.jiechengbao.admin.Controllers
             {
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
-            
+
         }
 
         #endregion
+
+        /// <summary>
+        /// 获取所有已付款的预约单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HasPayAppointment()
+        {
+            // 先获取我的预约服务列表
+            List<MyAppointment> appointmentList = new List<MyAppointment>();
+            appointmentList = _myAppointmentBLL.GetAllHasPayAppointment().ToList();
+
+            // 构造 MyAppointmentModel List 
+            List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
+
+            modelList = GetMyAppointmentModelList(appointmentList);
+
+            ViewData["HasPayAppointmentList"] = modelList;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult HasPayAppointment(string name)
+        {
+            List<MyAppointment> appointmentList = new List<MyAppointment>();
+
+            List<Member> memberList = _memberBLL.GetMembersByNickNameAndPhone(name).ToList();
+
+            foreach (var item in memberList)
+            {
+                appointmentList.AddRange(_myAppointmentBLL.GetHasPayAppointmentByMemberId(item.Id));
+            }
+
+            List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
+
+            modelList = GetMyAppointmentModelList(appointmentList);
+
+            ViewData["HasPayAppointmentList"] = modelList;
+            return View();
+        }
+
+        /// <summary>
+        /// 获取所有待付款的预约单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NotPayAppointment()
+        {
+            //先获取我的未付款的预约服务列表
+            List<MyAppointment> appointmentList = new List<MyAppointment>();
+            appointmentList = _myAppointmentBLL.GetAllNoPayAppointment().ToList();
+
+            // 构造 MyAppointmentModel List
+            List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
+            modelList = GetMyAppointmentModelList(appointmentList);
+
+            ViewData["NOPayAppointmentList"] = modelList;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NotPayAppointment(string name)
+        {
+            List<MyAppointment> appointmentList = new List<MyAppointment>();
+
+            List<Member> memberList = _memberBLL.GetMembersByNickNameAndPhone(name).ToList();
+
+            foreach (var item in memberList)
+            {
+                appointmentList.AddRange(_myAppointmentBLL.GetNoPayAppointmentByMemberId(item.Id));
+            }
+
+            List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
+
+            modelList = GetMyAppointmentModelList(appointmentList);
+
+            ViewData["HasPayAppointmentList"] = modelList;
+            return View();
+        }
+
+        [NonAction]
+        private List<MyAppointmentModel> GetMyAppointmentModelList(List<MyAppointment> myAppointmentList)
+        {
+            // 这个是要传递到view的 modelList 
+            List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
+
+            // 遍历我的预约服务列表
+            foreach (var item in myAppointmentList)
+            {
+                // 根据每个预约单的Id 找到 对应的服务项
+                List<MyAppointmentItem> appointmentItemList = new List<MyAppointmentItem>();
+                appointmentItemList = _myAppointmentItemBLL.GetByMyAppointmentId(item.Id).ToList();
+
+                List<string> itemList = new List<string>();
+
+                foreach (var aItem in appointmentItemList)
+                {
+                    // 找到每个服务项 并添加到 itemList中
+                    AppointmentService appointmentService = _appointmentServiceBLL.GetById(aItem.AppointmentServiceId);
+                    itemList.Add(appointmentService.Name);
+                }
+
+                // 构造 myAppointmentModel 
+                MyAppointmentModel apmodel = new MyAppointmentModel();
+                apmodel.MyAppointmentId = item.Id;
+
+                Member member = new Member();
+                member = _memberBLL.GetMemberById(item.MemberId);
+
+                apmodel.NickName = member.NickeName;
+                apmodel.HeadImage = member.HeadImage;
+
+                apmodel.AppointmentTime = item.AppointmentTime;
+                apmodel.IsPay = item.IsPay;
+                apmodel.AppointmentNameList = itemList;
+
+                apmodel.Price = item.Price;
+                apmodel.Notes = item.Notes;
+
+                // 添加到前面定义的 modelList中
+                modelList.Add(apmodel);
+            }
+
+            return modelList;
+        }
+
+        [HttpPost]
+        public ActionResult Pay(Guid Id, double Price, string Notes)
+        {
+            MyAppointment myAppointment = new MyAppointment();
+            myAppointment = _myAppointmentBLL.GetById(Id);
+
+            myAppointment.IsPay = true;
+            myAppointment.Price = Price;
+            myAppointment.Notes = Notes;
+
+            if (_myAppointmentBLL.Update(myAppointment))
+            {
+                var obj = new
+                {
+                    Price = Price,
+                    Notes = Notes
+                };
+
+                return Json(obj, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("False", JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="IGoodsImagesBLL.cs" />
     <Compile Include="IMemberBLL.cs" />
     <Compile Include="IMyAppointmentBLL.cs" />
+    <Compile Include="IMyAppointmentItemBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="IOrderDetailBLL.cs" />
     <Compile Include="IOrderStatusBLL.cs" />

@@ -205,6 +205,7 @@
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\ExchangeServiceModel.cs" />
     <Compile Include="Models\GoodsModel.cs" />
+    <Compile Include="Models\MyAppointmentModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\VIPModel.cs" />
@@ -240,6 +241,8 @@
     <Content Include="Views\Appointment\Setting.cshtml" />
     <Content Include="Views\Appointment\AppointmentServiceList.cshtml" />
     <Content Include="Views\Appointment\AppointmentTimeList.cshtml" />
+    <Content Include="Views\Appointment\HasPayAppointment.cshtml" />
+    <Content Include="Views\Appointment\NotPayAppointment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
