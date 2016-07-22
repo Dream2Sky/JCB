@@ -17,6 +17,11 @@ namespace com.jiechengbao.bll
             _myAppointmentItemDAL = myAppointmentItemDAL;
         }
 
+        public bool Add(MyAppointmentItem appointmentItem)
+        {
+            return _myAppointmentItemDAL.Insert(appointmentItem);
+        }
+
         public IEnumerable<MyAppointmentItem> GetByMyAppointmentId(Guid myappointmentId)
         {
             return _myAppointmentItemDAL.SelectByMyAppointmentId(myappointmentId);

@@ -10,5 +10,6 @@ namespace com.jiechengbao.Ibll
     public interface IMyAppointmentItemBLL
     {
         IEnumerable<MyAppointmentItem> GetByMyAppointmentId(Guid myappointmentId);
+        bool Add(MyAppointmentItem appointmentItem);
     }
 }

@@ -359,6 +359,11 @@ namespace com.jiechengbao.admin.Controllers
 
                 apmodel.Price = item.Price;
                 apmodel.Notes = item.Notes;
+                apmodel.Supplement = item.Supplement;
+                apmodel.Description = item.Description;
+
+                apmodel.CarInfo = item.CarInfo;
+                apmodel.CarNumber = item.CarNumber;
 
                 // 添加到前面定义的 modelList中
                 modelList.Add(apmodel);

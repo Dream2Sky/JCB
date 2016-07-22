@@ -1,0 +1,526 @@
+﻿
+@{
+    ViewBag.Title = "MyAppointment";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.entity
+
+<link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+<link href="~/Content/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Content/js/jquery-ui.js"></script>
+@* IOS Android 判断 *@
+<script type="text/javascript">
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isAndroid) {
+        // alert("Android");
+        document.write('<meta name="viewport" content="width=device-width" />');
+    } else if (isiOS) {
+        // alert("iOS");
+        document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />');
+    }
+</script>
+
+<style>
+    body {
+        padding: 0px;
+        margin: 0px;
+        background: #eee;
+    }
+
+    .custom a {
+        text-decoration: none;
+    }
+
+    .car-blank {
+        width: 96%;
+        border-bottom: 1px solid #d2d2d2;
+        padding: 10px 2%;
+        background: white;
+        opacity: 0.9;
+    }
+
+        .car-blank i {
+            color: red;
+            font-size: 8px;
+        }
+
+        .car-blank input {
+            border: none;
+        }
+
+    .icon-hand-right {
+        background: #3BC13B;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 4px 6px;
+        float: right;
+        margin-right: 3%;
+        font-size: 12px;
+        margin-top: -2px;
+    }
+
+    select {
+        border: none;
+        appearance: normal;
+        /*-webkit-appearance: none;*/
+        background: inherit;
+    }
+
+        select:nth-child(n+4) {
+        }
+
+    form span {
+        font-size: 14px;
+    }
+
+    input[name="jcbdate"] {
+        color: #888;
+        font-size: 14px;
+        width: 35%;
+        background: inherit;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        position: relative;
+    }
+
+    input[name="replace1"] {
+        color: #888;
+        width: 35%;
+        background: inherit;
+    }
+
+    select[name="jcbtime"] {
+        width: 28%;
+        color: #666;
+    }
+
+    input[name="jcbdesc"] {
+        color: #888;
+        border: none;
+        background: inherit;
+    }
+
+    .padd {
+        margin: 20px 0px;
+    }
+
+    .mybox {
+        padding: 5px 8px;
+        border: 1px solid #d2d2d2;
+        float: left;
+        margin: 5px;
+        background: white;
+        width: auto;
+        text-align: center;
+        font-size: 12px;
+        font-family: "微软雅黑";
+    }
+
+    .box-onclick {
+        border: 1px solid orange;
+        background: url("images/right.png") no-repeat right bottom;
+    }
+
+    .chec {
+        background: inherit;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .last-input {
+        width: 84%;
+        margin: 10px 0 10px 4%;
+        background: white;
+        border: 1px solid red;
+        border-radius: 3px;
+        padding: 8px;
+        height: 80px;
+    }
+
+    #da1 {
+        position: absolute;
+        z-index: -1;
+        left: 35%;
+    }
+
+    .sub {
+        width: 100%;
+        padding: 16px 0px;
+        margin: 0px;
+        font-size: 16px;
+        color: white;
+        background: #E85555;
+        font-family: "黑体";
+        text-align: center;
+        border: none;
+    }
+
+    .custom {
+        overflow: hidden;
+        background: white;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .img {
+        margin: 10px;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+    }
+
+        .img img {
+            width: 100%;
+            height: auto;
+        }
+
+    .icon-phone-sign {
+        font-size: 60px;
+        float: right;
+        color: #0DDC0D;
+        margin: 12px 6% 12px 0px;
+    }
+
+    .cont {
+        overflow: hidden;
+        float: left;
+    }
+
+        .cont p {
+            margin: 0px;
+            font-size: 14px;
+        }
+
+        .cont h4 {
+            margin: 15px 0px;
+        }
+
+    #modal-con {
+        display: none;
+    }
+
+    .fix-div {
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        z-index: 2;
+        display: none;
+    }
+
+    .modal-content {
+        background: white;
+        position: relative;
+        z-index: 20;
+        width: 90%;
+        margin: 5%;
+        border-radius: 5px;
+    }
+
+        .modal-content > p {
+            text-align: center;
+            padding: 10px;
+        }
+
+    .car-cat {
+        border-bottom: 1px solid #d2d2d2;
+        padding: 10px;
+        overflow: hidden;
+    }
+
+        .car-cat:hover {
+            background: -moz-linear-gradient(top,#F59E9E,white,#F59E9E);
+            background: -webkit-linear-gradient(top,#F59E9E,white,#F59E9E);
+            background: linear-gradient(top,#F59E9E,white,#F59E9E);
+        }
+
+        .car-cat .car-img {
+            width: 24%;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10% 10% 15% 15%;
+            float: left;
+        }
+
+            .car-cat .car-img img {
+                width: 100%;
+                height: 100%;
+            }
+
+        .car-cat .car-info {
+            float: left;
+            width: 60%;
+        }
+
+    .car-info p {
+        font-size: 14px;
+        margin: 2px 10px 8px;
+    }
+
+    .icon-ok {
+        color: #E84C4C;
+        font-size: 40px;
+        -moz-transform: scale(1.5,1.2);
+        -webkit-transform: scale(1.5,1.2);
+        -o-transform: scale(1.5,1.2);
+        transform: scale(1.5,1.2);
+        display: none;
+    }
+</style>
+
+<form action="" method="">
+    <div class="car-blank">
+        <i class="icon-asterisk"></i>
+        <span>车型：</span>
+        <input id="jcbtype" type="" name="jcbtype" placeholder="车辆型号" />
+        <div class="icon-hand-right">已有车型</div>
+
+    </div>
+    <div class="car-blank">
+        <i class="icon-asterisk"></i>
+        <span>车牌号：</span>
+        <select name="jcbprov" id="jcbprov">
+            <option value="京">京</option>
+            <option value="津">津</option>
+            <option value="冀">冀</option>
+            <option value="晋">晋</option>
+            <option value="蒙">蒙</option>
+            <option value="辽">辽</option>
+            <option value="吉">吉</option>
+            <option value="黑">黑</option>
+            <option value="沪">沪</option>
+            <option value="苏">苏</option>
+            <option value="浙">浙</option>
+            <option value="皖">皖</option>
+            <option value="闽">闽</option>
+            <option value="赣">赣</option>
+            <option value="鲁">鲁</option>
+            <option value="豫">豫</option>
+            <option value="鄂">鄂</option>
+            <option value="湘">湘</option>
+            <option value="粤" selected="selected">粤</option>
+            <option value="桂">桂</option>
+            <option value="琼">琼</option>
+            <option value="渝">渝</option>
+            <option value="川">川</option>
+            <option value="贵">贵</option>
+            <option value="云">云</option>
+            <option value="藏">藏</option>
+            <option value="陕">陕</option>
+            <option value="甘">甘</option>
+            <option value="青">青</option>
+            <option value="宁">宁</option>
+            <option value="新">新</option>
+        </select>
+        <select name="jcbcity" id="jcbcity">
+            <option value="A" selected="selected">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+            <option value="I">I</option>
+            <option value="J">J</option>
+            <option value="K">K</option>
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+            <option value="P">P</option>
+            <option value="Q">Q</option>
+            <option value="R">R</option>
+            <option value="S">S</option>
+            <option value="T">T</option>
+            <option value="U">U</option>
+            <option value="V">V</option>
+            <option value="W">W</option>
+            <option value="X">X</option>
+            <option value="Y">Y</option>
+            <option value="Z">Z</option>
+        </select>
+        <input id="jcbnumber" type="text" name="jcbnumber" placeholder="请输入车牌号" />
+    </div>
+    <div class="car-blank">
+        <i class="icon-asterisk"></i>
+        <span>预约时间：</span>
+        <input name="jcbdate" id="da2" placeholder="预约日期" readonly="readonly" />
+        <!-- <input type="text" name="replace1" id="da1" placeholder="预约日期" /> -->
+        <select name="jcbtime">
+            @foreach (var item in ViewData["appointmentTimeList"] as List<AppointmentTime>)
+            {
+                <option>@item.TimePeriod</option>
+            }
+        </select>
+    </div>
+    <div class="car-blank padd">
+        <i class="icon-asterisk"></i>
+        <span>问题描述：</span>
+        <input type="text" name="jcbdesc" id="jcbdesc" disabled="disabled" placeholder="可以输入具体的问题描述。。。" />
+    </div>
+    <div class="chec">
+        @foreach (var item in ViewData["appointmentList"] as List<AppointmentService>)
+        {
+            <div class="mybox" id="@item.Id">@item.Name</div>
+        }
+    </div>
+    <textarea class="last-input" name="jcbremark" placeholder="其他事项或补充说明可在此输入"></textarea>
+
+    <!-- 客服 -->
+    <div class="custom">
+        <div class="img">
+            <img src="~/Content/images/custom.png" />
+        </div>
+        <div class="cont">
+            <h4>联系客服</h4>
+            <p>客服电话：33337777</p>
+        </div>
+        <a href="tel://0000">
+            <span class="icon-phone-sign">
+
+            </span>
+        </a>
+    </div>
+    <!-- 客服结束 -->
+    <input class="sub" value="提交预约" readonly="readonly" />
+</form>
+
+@* 模态框 *@
+<div class="fix-div">
+    <div class="modal-content">
+        <p>我的爱车</p>
+        @foreach (var car in ViewData["carList"] as List<Car>)
+        {
+            <div class="car-cat" id="@car.Id">
+                <div class="car-info">
+                    <p>@car.Numberplate</p>
+                    <p>@car.CarDetailInfo</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$(".mybox").click(function(){
+			$(this).toggleClass("box-onclick");
+		});
+		$("#da2").datepicker();
+		$(".icon-hand-right").click(function(){
+			$(".fix-div").show();
+		});
+		$(".fix-div").click(function(){
+			$(".fix-div").hide();
+		});
+		$(".car-cat").click(function(){
+
+			var trends = $(this).attr("id");
+			var rel1= '#' + trends + ' .car-info' + ' p:first';
+			var rel2= '#' + trends + ' .car-info' + ' p:last';
+			var a = $(rel1).html();
+			var b = $(rel2).html();
+			$("#jcbtype").val(b);
+
+			var province = a.slice(0,1);
+			var city = a.slice(1,2);
+			var number = a.slice(2,7);
+			var province1 = "#jcbprov option[value='" + province + "']";
+			var city1 = "#jcbcity option[value='" + city + "']";
+			$(province1).prop("selected",true);
+			$(city1).prop("selected",true);
+			$("#jcbnumber").val(number);
+		});
+
+	});
+
+	var appointmentArray = new Array();
+	$('.mybox').on('click', function () {
+	    var appointment = $(this).attr("Id");
+	    var status = true;
+	    for (var i = 0; i < appointmentArray.length; i++) {
+	        if (appointmentArray[i] == appointment) {
+	            appointmentArray.splice(i, 1);
+	            status = false;
+	        }
+	    }
+
+	    if (status) {
+	        appointmentArray.push(appointment);
+	    }
+	});
+
+	function Save() {
+        // 车型信息
+	    var jcbtype = $("input[name='jcbtype']").val();
+
+        // 车牌号
+	    var jcbnumber = $("input[name='jcbnumber']").val();
+
+        // 预约日期
+	    var jcbdate = $("input[name='jcbdate']").val();
+
+        // 预约时间
+	    var jcbtime = $("input[name='jcbtime']").val();
+
+        // 问题描述
+	    var jcbdesc = $("input[name='jcbdesc']").val();
+
+	    var jcbremark = $("input[name='jcbremark']").val();
+
+	    if (jcbtype == "" || jcbtype == undefined) {
+	        alert("请填写车型号");
+	    }else
+	    if (jcbnumber == "" || jcbnumber == undefined) {
+	        alert("请填写车牌号");
+	    } else
+	    if (jcbdate == "" || jcbdate == undefined) {
+	        alert("请填写预约日期");
+	    } else
+	    if (jcbtime == "" || jcbtime == undefined) {
+	        alert("请填写预约时间段");
+	    } else
+	    if (jcbdesc == "" || jcbdesc == undefined) {
+	        alert("请填写问题描述");
+	    } else
+	    if (appointmentArray.length == 0) {
+	        alert("请选择预约服务");
+	    } else
+	    {
+	        var json = "{'carInfo':'" + jcbtype + "','carNo':'" + jcbnumber + "','appointmentTime':'" + jcbdate + " " + jcbtime + "','jcbdesc':'" + jcbdesc + "','jcbremark':'" + jcbremark + "','appointmentItems':[";
+
+	        for (var i = 0; i < appointmentArray.length; i++) {
+	            json += "'" + appointmentArray[i] + "',";
+	        }
+	        json = json.slice(0, -1);
+	        json += "]}";
+
+	        $.ajax({
+	            url: "/Appointment/Add",
+	            type: "POST",
+	            data: json,
+	            success: function(data) {
+	                if (data == "True") {
+	                    mui.alert("预约服务成功");
+	                }
+	                else {
+	                    mui.alert("预约服务失败");
+	                }
+	            },
+	            error: function () {
+	                mui.alert("系统错误， 预约服务失败");
+	            }
+
+
+	        });
+	    }
+	}
+</script>

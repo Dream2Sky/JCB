@@ -1,6 +1,6 @@
 
 @font-face {font-family: "iconfont";
-  src: url('../fonts/iconfont.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  src: url('../font/iconfont.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
 .iconfont {

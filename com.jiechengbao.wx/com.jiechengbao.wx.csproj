@@ -176,21 +176,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\fontawesome.css" />
     <Content Include="Content\css\icon-phone.css" />
     <Content Include="Content\css\iconfont.css" />
+    <Content Include="Content\css\jquery-ui.min.css" />
     <Content Include="Content\css\pay.css" />
     <Content Include="Content\css\mui.min.css" />
     <Content Include="Content\css\mui.picker.css" />
     <Content Include="Content\css\mui.picker.min.css" />
     <Content Include="Content\css\mui.poppicker.css" />
     <Content Include="Content\css\weui.min.css" />
+    <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\11.jpg" />
+    <Content Include="Content\images\ca.png" />
     <Content Include="Content\images\call.png" />
     <Content Include="Content\images\car.png" />
     <Content Include="Content\images\cart.png" />
+    <Content Include="Content\images\custom.png" />
     <Content Include="Content\images\home.png" />
+    <Content Include="Content\images\hook.png" />
     <Content Include="Content\images\order.png" />
     <Content Include="Content\images\qr.png" />
+    <Content Include="Content\images\right.png" />
     <Content Include="Content\images\setting.png" />
     <Content Include="Content\images\store.png" />
     <Content Include="Content\images\user.png" />
@@ -202,6 +209,7 @@
     <Content Include="Content\js\city.data-3.js" />
     <Content Include="Content\js\city.data.js" />
     <Content Include="Content\js\cookie.js" />
+    <Content Include="Content\js\jquery-ui.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\json2.js" />
     <Content Include="Content\js\json_parse.js" />
@@ -221,6 +229,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreditMollController.cs" />
@@ -249,6 +258,8 @@
     <Compile Include="Models\HttpService.cs" />
     <Compile Include="Models\JsApiPay.cs" />
     <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\MyAppointmentListModel.cs" />
+    <Compile Include="Models\MyAppointmentModel.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderResultModel.cs" />
@@ -266,10 +277,14 @@
     <Content Include="ApplicationInsights.config" />
     <Content Include="Views\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Content\fonts\mui.ttf" />
+    <Content Include="Content\font\mui.ttf" />
     <Content Include="cert\apiclient_cert.p12" />
-    <Content Include="Content\fonts\iconfont.ttf" />
-    <Content Include="Content\fonts\icon-phone.ttf" />
+    <Content Include="Content\font\iconfont.ttf" />
+    <Content Include="Content\font\icon-phone.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.wx.pubxml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Cart\List.cshtml" />
@@ -309,6 +324,9 @@
     <Content Include="Views\UserInfo\MyCreditRecord.cshtml" />
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\UserInfo\MyQRCode.cshtml" />
+    <Content Include="Views\UserInfo\MyAppointment.cshtml" />
+    <Content Include="Views\Appointment\MyAppointment.cshtml" />
+    <Content Include="Views\Appointment\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

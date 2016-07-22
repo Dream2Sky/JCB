@@ -131,6 +131,14 @@
     <Compile Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.Designer.cs">
       <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.cs" />
+    <Compile Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.Designer.cs">
+      <DependentUpon>201607220402239_AddColumn_MyAppointment_Description_Supplement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs" />
+    <Compile Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.Designer.cs">
+      <DependentUpon>201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyAppointment.cs" />
     <Compile Include="MyAppointmentItem.cs" />
@@ -194,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.resx">
       <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.resx">
+      <DependentUpon>201607220402239_AddColumn_MyAppointment_Description_Supplement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.resx">
+      <DependentUpon>201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

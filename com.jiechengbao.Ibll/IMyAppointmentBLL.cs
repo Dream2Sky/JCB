@@ -15,5 +15,6 @@ namespace com.jiechengbao.Ibll
         bool Update(MyAppointment myAppointment);
         IEnumerable<MyAppointment> GetHasPayAppointmentByMemberId(Guid memberId);
         IEnumerable<MyAppointment> GetNoPayAppointmentByMemberId(Guid memberId);
+        bool Add(MyAppointment myappointment);
     }
 }

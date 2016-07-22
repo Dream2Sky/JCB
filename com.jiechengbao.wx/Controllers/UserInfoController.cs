@@ -26,13 +26,16 @@ namespace com.jiechengbao.wx.Controllers
         private ITransactionBLL _transactionBLL;
         private IOrderBLL _orderBLL;
         private ICreditRecordBLL _creditRecordBLL;
+        private IAppointmentServiceBLL _appointmentServiceBLL;
+        private IAppointmentTimeBLL _appointmentTimeBLL;
         public UserInfoController(IMemberBLL memberBLL, IGoodsBLL goodsBLL,
             IGoodsImagesBLL goodsImagesBLL, IReCommendBLL recommendBLL, 
             IRechargeBLL rechargeBLL,ICarBLL carBLL, IServiceBLL serviceBLL,
             IExchangeServiceRecordBLL exchangeServiceRecordBLL, 
             IExchangeServiceBLL exchangeServiceBLL, 
             ITransactionBLL transactionBLL, IOrderBLL orderBLL,
-            ICreditRecordBLL creditRecordBLL)
+            ICreditRecordBLL creditRecordBLL,IAppointmentServiceBLL appointmentServiceBLL,
+            IAppointmentTimeBLL appointmentTimeBLL)
         {
             _memberBLL = memberBLL;
             _goodsBLL = goodsBLL;
@@ -46,6 +49,8 @@ namespace com.jiechengbao.wx.Controllers
             _transactionBLL = transactionBLL;
             _orderBLL = orderBLL;
             _creditRecordBLL = creditRecordBLL;
+            _appointmentServiceBLL = appointmentServiceBLL;
+            _appointmentTimeBLL = appointmentTimeBLL;
         }
 
         /// <summary>
@@ -386,5 +391,34 @@ namespace com.jiechengbao.wx.Controllers
             ViewData["creditRecordList"] = crList;
             return View();
         }
+
+
+        #region 我的预约
+
+        /// <summary>
+        /// 预约页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MyAppointment()
+        {
+            // 上来先获取当前用户信息
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            // 获取车辆信息
+            List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
+
+            // 获取预约服务列表
+            List<AppointmentService> appointmentList = _appointmentServiceBLL.GetAllAppointmentServiceButNotDeleted().ToList();
+
+            List<AppointmentTime> appointmentTimeList = _appointmentTimeBLL.GetLastAppointmentTimeList().ToList();
+
+            ViewData["carList"] = carList;
+            ViewData["appointmentList"] = appointmentList;
+            ViewData["appointmentTimeList"] = appointmentTimeList;
+
+            return View();
+        }
+
+        #endregion
     }
 }

@@ -20,9 +20,13 @@
         <thead>
             <tr>
                 <th>会员</th>
+                <th>车牌号</th>
+                <th>车型信息</th>
                 <th>预约服务列表</th>
                 <th>预约时间</th>
                 <th>支付金额</th>
+                <th>问题描述</th>
+                <th>问题补充</th>
                 <th>备注</th>
                 <th></th>
             </tr>
@@ -32,6 +36,8 @@
             {
                 <tr>
                     <td><img src="@item.HeadImage" />@item.NickName</td>
+                    <td>@item.CarNumber</td>
+                    <td>@item.CarInfo</td>
                     <td>
                         @foreach (var appName in item.AppointmentNameList)
                         {
@@ -44,6 +50,10 @@
                             <input type="text" name="Price" class="form-control" placeholder="价钱" value="">
                         </div>
                     </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>@item.Supplement</td>
                     <td id="note_@item.MyAppointmentId">
                         <div class="input-group">
                             <input type="text" name="Notes" class="form-control" placeholder="备注。。。" value="">

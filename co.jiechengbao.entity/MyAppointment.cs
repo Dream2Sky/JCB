@@ -38,9 +38,32 @@ namespace com.jiechengbao.entity
         public bool IsPay { get; set; }
 
         /// <summary>
+        /// 问题描述
+        /// </summary>
+        [Required]
+        [MaxLength(255)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 补充说明
+        /// </summary>
+        [MaxLength(255)]
+        public string Supplement { get; set; }
+
+        /// <summary>
         /// 备注  我们的员工 再修改预约单时 所选填的备注
         /// </summary>
         public string Notes { get; set; }
+
+        /// <summary>
+        /// 车牌号
+        /// </summary>
+        public string CarNumber { get; set; }
+
+        /// <summary>
+        /// 车型
+        /// </summary>
+        public string CarInfo { get; set; }
 
     }
 }
