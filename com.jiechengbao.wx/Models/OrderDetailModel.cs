@@ -22,6 +22,8 @@ namespace com.jiechengbao.wx.Models
             this.OrderId = order.OrderId;
             this.OrderNo = order.OrderNo;
             this.TotalPrice = order.TotalPrice;
+            this.CurrentCredit = order.CurrentCredit;
+            this.TotalCredit = order.TotalCredit;
         }
 
         public string GoodsName { get; set; }

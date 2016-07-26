@@ -308,7 +308,7 @@ namespace com.jiechengbao.wx.Controllers
             }
             #endregion
 
-            // 修改order对象 payway = ye ye表示余额支付
+            // 修改order对象 
             order.PayWay = 1;
             order.PayTime = DateTime.Now;
             order.Status = 1;
@@ -346,17 +346,31 @@ namespace com.jiechengbao.wx.Controllers
                     return Json(res, JsonRequestBehavior.AllowGet);
                 }
 
-                //添加消费积分记录 并修改会员积分
-                if (AddConsumeCredit(member, order.TotalPrice,false))
+                try
                 {
-                    // 当修改消费积分成功时 异步判断是否够积分升级vip
-                    UpGradeDel del = new UpGradeDel(UpGradeVIP);
-                    IAsyncResult ra = del.BeginInvoke(member.Id, CallBackMethod, null);
+                    if (AddConsumeCredit(member, order.TotalPrice, false))
+                    {
+                        // 当修改消费积分成功时 异步判断是否够积分升级vip
+                        //UpGradeDel del = new UpGradeDel(UpGradeVIP);
+                        //IAsyncResult ra = del.BeginInvoke(member.Id, CallBackMethod, null);
 
-                    // 异步找到服务商品 并添加
-                    AddMyServiceDel msDel = new AddMyServiceDel(AddMyService);
-                    IAsyncResult msResult = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
+                        //UpGradeVIP(member.Id);
+
+                        // 异步找到服务商品 并添加
+                        //AddMyServiceDel msDel = new AddMyServiceDel(AddMyService);
+                        //IAsyncResult msResult = msDel.BeginInvoke(member.Id, order.OrderNo, MyServiceCallBackMethod, null);
+
+                        AddMyService(member.Id, order.OrderNo);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    LogHelper.Log.Write(ex.Message);
+                    LogHelper.Log.Write(ex.StackTrace);
+                    throw;
+                }
+                //添加消费积分记录 并修改会员积分
+                
 
 
                 //// 修改账户余额  修改账户当前余额
@@ -370,7 +384,6 @@ namespace com.jiechengbao.wx.Controllers
                     order.Status = 0;
                     _orderBLL.Update(order);
                     _transactionBLL.Remove(trans);
-
                     var res = new
                     {
                         isSuccess = false,
@@ -389,8 +402,8 @@ namespace com.jiechengbao.wx.Controllers
                 };
                 return Json(res, JsonRequestBehavior.AllowGet);
             }
-            #endregion
 
+            #endregion
             var json = new
             {
                 isSuccess = true,
@@ -493,17 +506,26 @@ namespace com.jiechengbao.wx.Controllers
 
                 Member member = _memberBLL.GetMemberByOpenId(data.GetValue("openid").ToString());
 
+                #region 赠送的积分计算
+
+                // 充值赠送的积分  
+                // 目前数值待定  怎么获取待定
+
+                double rechargeCredit = GetRechargeCreditAndFree(double.Parse(data.GetValue("total_fee").ToString())/100);
+                
+                #endregion
+
                 // 没有余额了 
                 // 充值都充到积分去 
-                member.Credit += double.Parse(data.GetValue("total_fee").ToString());
-                member.TotalCredit += double.Parse(data.GetValue("total_fee").ToString());
+                member.Credit += rechargeCredit;
+                member.TotalCredit += rechargeCredit;
 
                 if (_memberBLL.Update(member))
                 {
                     Recharge recharge = new Recharge();
                     recharge.Id = Guid.NewGuid();
                     recharge.MemberId = member.Id;
-                    recharge.Amount = double.Parse(data.GetValue("total_fee").ToString());
+                    recharge.Amount = rechargeCredit;
                     recharge.CreatedTime = DateTime.Now;
                     recharge.DeletedTime = DateTime.MinValue.AddHours(8);
                     recharge.IsDeleted = false;
@@ -514,16 +536,7 @@ namespace com.jiechengbao.wx.Controllers
                         LogHelper.Log.Write("充值成功");
                         // 添加充值积分记录
 
-                        #region 赠送的积分计算
-
-                        // 充值赠送的积分  
-                        // 目前数值待定  怎么获取待定
-                        double freeCredit = 0;
-                        double rechargeCredit = double.Parse(data.GetValue("total_fee").ToString()) / 100 + freeCredit;
-
-                        #endregion
-
-                        if (AddRechargeCredit(member, double.Parse(data.GetValue("total_fee").ToString()) / 100))
+                        if (AddRechargeCredit(member, rechargeCredit))
                         {
                             // 异步判断是否够积分升级vip
                             UpGradeDel del = new UpGradeDel(UpGradeVIP);
@@ -561,6 +574,28 @@ namespace com.jiechengbao.wx.Controllers
 
             Response.Write(successData.ToXml());
             Response.End();
+        }
+
+        public double GetRechargeCreditAndFree(double total_fee)
+        {
+            switch ((int)total_fee)
+            {
+                case 5000:
+                    return 5000 * 10 % +5000;
+                case 10000:
+                    return 10000 * 12 % +10000;
+                case 15000:
+                    return 15000 * 14 % +15000;
+                case 20000:
+                    return 20000 * 16 % +20000;
+                case 25000:
+                    return 25000 * 18 % +25000;
+                case 30000:
+                    return 30000 * 20 % +30000;
+                default:
+                    break;
+            }
+            return 0;
         }
 
         public ActionResult ConsumeService(Guid serviceId)
@@ -655,7 +690,6 @@ namespace com.jiechengbao.wx.Controllers
             return View(qr);
         }
 
-
         public ActionResult ConsumeExchangeService(Guid esrId)
         {
             if (esrId == null)
@@ -718,23 +752,26 @@ namespace com.jiechengbao.wx.Controllers
             CreditRecord cr = new CreditRecord();
             cr.Id = Guid.NewGuid();
             cr.MemberId = member.Id;
-            cr.IsDeleted = false;
+            cr.IsDeleted = false;           
             cr.Money = money;
             cr.OperationType = "Recharge";
             cr.CreatedTime = DateTime.Now;
             cr.CurrentCreditCoefficient = double.Parse(ConfigurationManager.AppSettings["Recharge"].ToString());
             cr.DeletedTime = DateTime.MinValue.AddHours(8);
-            cr.Notes = "充值送积分,获得" + cr.Money * cr.CurrentCreditCoefficient + "积分";
+            cr.Notes = "充值送积分,获得" + cr.Money + "积分";
 
+            //if (_creditRecordBLL.Add(cr))
+            //{
+            //    member.Credit += cr.Money * cr.CurrentCreditCoefficient; // 当前积分
+            //    member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient; // 累计总积分
+            //    _memberBLL.Update(member);
+
+            //    return true;
+            //}
             if (_creditRecordBLL.Add(cr))
             {
-                member.Credit += cr.Money * cr.CurrentCreditCoefficient; // 当前积分
-                member.TotalCredit += cr.Money * cr.CurrentCreditCoefficient; // 累计总积分
-                _memberBLL.Update(member);
-
                 return true;
             }
-
             return false;
         }
 

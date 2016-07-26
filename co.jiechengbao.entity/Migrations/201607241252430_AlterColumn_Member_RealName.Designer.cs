@@ -7,13 +7,13 @@ namespace com.jiechengbao.entity.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class AddColumn_Member_RealName : IMigrationMetadata
+    public sealed partial class AlterColumn_Member_RealName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddColumn_Member_RealName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AlterColumn_Member_RealName));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607160500420_AddColumn_Member_RealName"; }
+            get { return "201607241252430_AlterColumn_Member_RealName"; }
         }
         
         string IMigrationMetadata.Source

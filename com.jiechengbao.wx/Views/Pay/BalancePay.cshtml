@@ -24,7 +24,7 @@
         <a>订单号:<span class="mui-pull-right order-span">@Model.OrderNo</span></a>
     </li>
     <li class="mui-table-view-cell">
-        <a>支付金额:<span class="mui-pull-right money-span">￥@Model.TotalPrice</span></a>
+        <a>支付积分:<span class="mui-pull-right money-span">@Model.TotalPrice 积分</span></a>
     </li>
 </ul>
 <button id="confirmBtn" type="button" class="mui-btn mui-btn-danger mui-btn-block">立即支付</button>
@@ -41,11 +41,15 @@
                         orderNo: $('.order-span').text()
                     },
                     success: function (data) {
-                        alert(data.msg, "余额支付");
+                        alert(data.msg, "积分支付");
                         window.location.href = "/Order/List?type=1";
                     },
-                    error: function () {
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
                         mui.alert("支付失败", "余额支付");
+
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
                     }
                 });
             }

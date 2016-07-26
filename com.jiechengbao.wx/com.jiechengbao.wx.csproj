@@ -195,6 +195,7 @@
     <Content Include="Content\images\custom.png" />
     <Content Include="Content\images\home.png" />
     <Content Include="Content\images\hook.png" />
+    <Content Include="Content\images\myqr.jpg" />
     <Content Include="Content\images\order.png" />
     <Content Include="Content\images\qr.png" />
     <Content Include="Content\images\right.png" />

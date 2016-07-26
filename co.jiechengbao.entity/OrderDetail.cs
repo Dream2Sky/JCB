@@ -50,5 +50,17 @@ namespace com.jiechengbao.entity
 
         [Required]
         public double TotalPrice { get; set; }
+
+        /// <summary>
+        /// 当前商品积分
+        /// </summary>
+        [Required]
+        public double CurrentCredit { get; set; }
+
+        /// <summary>
+        /// 当前订单总积分
+        /// </summary>
+        [Required]
+        public double TotalCredit { get; set; }
     }
 }

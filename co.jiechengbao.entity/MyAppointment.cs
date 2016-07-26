@@ -38,13 +38,6 @@ namespace com.jiechengbao.entity
         public bool IsPay { get; set; }
 
         /// <summary>
-        /// 问题描述
-        /// </summary>
-        [Required]
-        [MaxLength(255)]
-        public string Description { get; set; }
-
-        /// <summary>
         /// 补充说明
         /// </summary>
         [MaxLength(255)]
@@ -58,11 +51,15 @@ namespace com.jiechengbao.entity
         /// <summary>
         /// 车牌号
         /// </summary>
+        [Required]
+        [MaxLength(15)]
         public string CarNumber { get; set; }
 
         /// <summary>
         /// 车型
         /// </summary>
+        [Required]
+        [MaxLength(30)]
         public string CarInfo { get; set; }
 
     }

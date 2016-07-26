@@ -26,7 +26,7 @@
         <h3>@Model.Name</h3>
         <p>@Model.Description</p>
         <p class="p-gray"><s>原价:￥@Model.OriginalPrice</s></p>
-        <p class="p-red"><strong>￥@Model.Price</strong></p>
+        <p class="p-red"><strong>￥@Model.Price</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>@Model.ExchangeCredit 积分</strong></p>
         <p class="p-red">折扣:@Model.Discount</p>
         @if (Model.ServiceCount>0)
         {
@@ -40,7 +40,7 @@
     function IsRegister(code)
     {
         $.ajax({
-            url: "/Register/Register",
+            url: "/Register/IsRegister",
             type: "POST",
             success: function (data) {
                 if (data == "True") {

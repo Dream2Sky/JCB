@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "MyAppointment";
+    ViewBag.Title = "服务预约";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
 @using com.jiechengbao.entity
@@ -128,7 +128,6 @@
     .chec {
         background: inherit;
         overflow: hidden;
-        margin-top: 10px;
     }
 
     .last-input {
@@ -281,7 +280,6 @@
         <span>车型：</span>
         <input id="jcbtype" type="" name="jcbtype" placeholder="车辆型号" />
         <div class="icon-hand-right">已有车型</div>
-
     </div>
     <div class="car-blank">
         <i class="icon-asterisk"></i>
@@ -363,8 +361,8 @@
     </div>
     <div class="car-blank padd">
         <i class="icon-asterisk"></i>
-        <span>问题描述：</span>
-        <input type="text" name="jcbdesc" id="jcbdesc" disabled="disabled" placeholder="可以输入具体的问题描述。。。" />
+        <span>预约服务项目：</span>
+        <input type="text" name="jcbdesc" id="jcbdesc" disabled="disabled" placeholder="请选择以下服务项目" />
     </div>
     <div class="chec">
         @foreach (var item in ViewData["appointmentList"] as List<AppointmentService>)
@@ -381,16 +379,16 @@
         </div>
         <div class="cont">
             <h4>联系客服</h4>
-            <p>客服电话：33337777</p>
+            <p>客服电话: 0755-66632622</p>
         </div>
-        <a href="tel://0000">
+        <a href="tel://075566632622">
             <span class="icon-phone-sign">
 
             </span>
         </a>
     </div>
     <!-- 客服结束 -->
-    <input class="sub" value="提交预约" readonly="readonly" />
+    <input class="sub" value="提交预约" readonly="readonly" onclick="Save();" />
 </form>
 
 @* 模态框 *@
@@ -410,117 +408,110 @@
 </div>
 
 <script>
-	$(document).ready(function(){
-		$(".mybox").click(function(){
-			$(this).toggleClass("box-onclick");
-		});
-		$("#da2").datepicker();
-		$(".icon-hand-right").click(function(){
-			$(".fix-div").show();
-		});
-		$(".fix-div").click(function(){
-			$(".fix-div").hide();
-		});
-		$(".car-cat").click(function(){
+    $(document).ready(function () {
+        $(".mybox").click(function () {
+            $(this).toggleClass("box-onclick");
+        });
+        $("#da2").datepicker();
+        $(".icon-hand-right").click(function () {
+            $(".fix-div").show();
+        });
+        $(".fix-div").click(function () {
+            $(".fix-div").hide();
+        });
+        $(".car-cat").click(function () {
 
-			var trends = $(this).attr("id");
-			var rel1= '#' + trends + ' .car-info' + ' p:first';
-			var rel2= '#' + trends + ' .car-info' + ' p:last';
-			var a = $(rel1).html();
-			var b = $(rel2).html();
-			$("#jcbtype").val(b);
+            var trends = $(this).attr("id");
+            var rel1 = '#' + trends + ' .car-info' + ' p:first';
+            var rel2 = '#' + trends + ' .car-info' + ' p:last';
+            var a = $(rel1).html();
+            var b = $(rel2).html();
+            $("#jcbtype").val(b);
 
-			var province = a.slice(0,1);
-			var city = a.slice(1,2);
-			var number = a.slice(2,7);
-			var province1 = "#jcbprov option[value='" + province + "']";
-			var city1 = "#jcbcity option[value='" + city + "']";
-			$(province1).prop("selected",true);
-			$(city1).prop("selected",true);
-			$("#jcbnumber").val(number);
-		});
+            var province = a.slice(0, 1);
+            var city = a.slice(1, 2);
+            var number = a.slice(2, 7);
+            var province1 = "#jcbprov option[value='" + province + "']";
+            var city1 = "#jcbcity option[value='" + city + "']";
+            $(province1).prop("selected", true);
+            $(city1).prop("selected", true);
+            $("#jcbnumber").val(number);
+        });
 
-	});
+    });
 
-	var appointmentArray = new Array();
-	$('.mybox').on('click', function () {
-	    var appointment = $(this).attr("Id");
-	    var status = true;
-	    for (var i = 0; i < appointmentArray.length; i++) {
-	        if (appointmentArray[i] == appointment) {
-	            appointmentArray.splice(i, 1);
-	            status = false;
-	        }
-	    }
+    var appointmentArray = new Array();
+    $('.mybox').on('click', function () {
+        var appointment = $(this).attr("Id");
+        var status = true;
+        for (var i = 0; i < appointmentArray.length; i++) {
+            if (appointmentArray[i] == appointment) {
+                appointmentArray.splice(i, 1);
+                status = false;
+            }
+        }
 
-	    if (status) {
-	        appointmentArray.push(appointment);
-	    }
-	});
+        if (status) {
+            appointmentArray.push(appointment);
+        }
+    });
 
-	function Save() {
+    function Save() {
         // 车型信息
-	    var jcbtype = $("input[name='jcbtype']").val();
+        var jcbtype = $("input[name='jcbtype']").val();
 
         // 车牌号
-	    var jcbnumber = $("input[name='jcbnumber']").val();
+        var jcbnumber = $("select[name='jcbprov']").find("option:selected").val() + $("select[name='jcbcity']").find("option:selected").val() + $("input[name='jcbnumber']").val();
 
         // 预约日期
-	    var jcbdate = $("input[name='jcbdate']").val();
+        var jcbdate = $("input[name='jcbdate']").val();
 
         // 预约时间
-	    var jcbtime = $("input[name='jcbtime']").val();
+        var jcbtime = $("select[name='jcbtime']").find("option:selected").val();
 
-        // 问题描述
-	    var jcbdesc = $("input[name='jcbdesc']").val();
+        var jcbremark = $("input[name='jcbremark']").val();
 
-	    var jcbremark = $("input[name='jcbremark']").val();
+        if (jcbtype == "" || jcbtype == undefined) {
+            alert("请填写车型号");
+        } else
+            if (jcbnumber == "" || jcbnumber == undefined) {
+                alert("请填写车牌号");
+            } else
+                if (jcbdate == "" || jcbdate == undefined) {
+                    alert("请填写预约日期");
+                } else
+                    if (jcbtime == "" || jcbtime == undefined) {
+                        alert("请填写预约时间段");
+                    } else
+                        if (appointmentArray.length == 0) {
+                            alert("请选择预约服务");
+                        } else {
+                            var json = "{'carInfo':'" + jcbtype + "','carNo':'" + jcbnumber + "','appointmentTime':'" + jcbdate + " " + jcbtime + "','jcbremark':'" + jcbremark + "','appointmentItems':[";
 
-	    if (jcbtype == "" || jcbtype == undefined) {
-	        alert("请填写车型号");
-	    }else
-	    if (jcbnumber == "" || jcbnumber == undefined) {
-	        alert("请填写车牌号");
-	    } else
-	    if (jcbdate == "" || jcbdate == undefined) {
-	        alert("请填写预约日期");
-	    } else
-	    if (jcbtime == "" || jcbtime == undefined) {
-	        alert("请填写预约时间段");
-	    } else
-	    if (jcbdesc == "" || jcbdesc == undefined) {
-	        alert("请填写问题描述");
-	    } else
-	    if (appointmentArray.length == 0) {
-	        alert("请选择预约服务");
-	    } else
-	    {
-	        var json = "{'carInfo':'" + jcbtype + "','carNo':'" + jcbnumber + "','appointmentTime':'" + jcbdate + " " + jcbtime + "','jcbdesc':'" + jcbdesc + "','jcbremark':'" + jcbremark + "','appointmentItems':[";
+                            for (var i = 0; i < appointmentArray.length; i++) {
+                                json += "'" + appointmentArray[i] + "',";
+                            }
+                            json = json.slice(0, -1);
+                            json += "]}";
 
-	        for (var i = 0; i < appointmentArray.length; i++) {
-	            json += "'" + appointmentArray[i] + "',";
-	        }
-	        json = json.slice(0, -1);
-	        json += "]}";
-
-	        $.ajax({
-	            url: "/Appointment/Add",
-	            type: "POST",
-	            data: {
-	                json:json
-	            },
-	            success: function(data) {
-	                if (data == "True") {
-	                    mui.alert("预约服务成功");
-	                }
-	                else {
-	                    mui.alert("预约服务失败");
-	                }
-	            },
-	            error: function () {
-	                mui.alert("系统错误， 预约服务失败");
-	            }
-	        });
-	    }
-	}
+                            $.ajax({
+                                url: "/Appointment/Add",
+                                type: "POST",
+                                data: {
+                                    json: json
+                                },
+                                success: function (data) {
+                                    if (data == "True") {
+                                        mui.alert("预约服务成功");
+                                    }
+                                    else {
+                                        mui.alert("预约服务失败");
+                                    }
+                                },
+                                error: function () {
+                                    mui.alert("系统错误， 预约服务失败");
+                                }
+                            });
+                        }
+    }
 </script>

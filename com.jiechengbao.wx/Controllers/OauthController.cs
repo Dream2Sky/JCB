@@ -51,6 +51,9 @@ namespace com.jiechengbao.wx.Controllers
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
+                member.RealName = "";
+                member.TotalCredit = 0;
+                member.Phone = "";
 
                 if (!_memberBLL.Add(member))
                 {
@@ -58,8 +61,6 @@ namespace com.jiechengbao.wx.Controllers
                 }
                  
             }
-            LogHelper.Log.Write("user's openid = " + user.openid);
-
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
@@ -88,9 +89,6 @@ namespace com.jiechengbao.wx.Controllers
                 CacheManager.SetCache("code", code);
             }
             UserInfo_JsonModel user = GetWxUserInfo();
-
-            LogHelper.Log.Write("openid:" + user.openid + ", nickname:" + user.nickname + ", sex:" + user.sex + ", headerimage:" + user.headimgurl);
-
             if (!_memberBLL.IsExist(user.openid))
             {
                 Member member = new Member();
@@ -104,7 +102,10 @@ namespace com.jiechengbao.wx.Controllers
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
-
+                member.RealName = "";
+                member.IsDeleted = false;
+                member.TotalCredit = 0;
+                member.Phone = "";
                 if (!_memberBLL.Add(member))
                 {
                     LogHelper.Log.Write("添加新用户失败");
@@ -157,7 +158,10 @@ namespace com.jiechengbao.wx.Controllers
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
-
+                member.RealName = "";
+                member.IsDeleted = false;
+                member.TotalCredit = 0;
+                member.Phone = "";
                 if (!_memberBLL.Add(member))
                 {
                     LogHelper.Log.Write("添加新用户失败");
@@ -207,6 +211,25 @@ namespace com.jiechengbao.wx.Controllers
                 member.CreatedTime = DateTime.Now;
                 member.Credit = 0;
                 member.DeletedTime = DateTime.MinValue.AddHours(8);
+                member.RealName = "";
+                member.IsDeleted = false;
+                member.TotalCredit = 0;
+                member.Phone = "";
+
+                LogHelper.Log.Write(member.Id.ToString());
+                LogHelper.Log.Write(member.IsDeleted.ToString());
+                LogHelper.Log.Write(member.NickeName);
+                LogHelper.Log.Write(member.OpenId);
+                LogHelper.Log.Write(member.Vip.ToString());
+                LogHelper.Log.Write(member.HeadImage);
+                LogHelper.Log.Write(member.CreatedTime.ToString());
+                LogHelper.Log.Write(member.Credit.ToString());
+                LogHelper.Log.Write(member.DeletedTime.ToString());
+                LogHelper.Log.Write(member.RealName);
+                LogHelper.Log.Write(member.IsDeleted.ToString());
+                LogHelper.Log.Write(member.TotalCredit.ToString());
+                LogHelper.Log.Write(member.Phone);
+
 
                 if (!_memberBLL.Add(member))
                 {

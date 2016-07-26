@@ -258,6 +258,8 @@
         mui('.mui-bar').on('tap', 'a', function () {
             document.location.href = this.href;
         });
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault() }, false);
         //function Go(url) {
         //    window.location.href = url;
         //};

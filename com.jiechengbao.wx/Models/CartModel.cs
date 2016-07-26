@@ -20,6 +20,7 @@ namespace com.jiechengbao.wx.Models
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
             this.OriginalPrice = goods.OriginalPrice;
+            this.ExchangeCredit = goods.ExchangeCredit;
         }
         public double Discount { get; set; }
         public int Count { get; set; }

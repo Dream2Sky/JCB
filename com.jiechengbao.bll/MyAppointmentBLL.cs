@@ -46,5 +46,10 @@ namespace com.jiechengbao.bll
         {
              return _myAppointmentDAL.SelectByMemberIdAndPay(memberId, false);
         }
+
+        public bool Add(MyAppointment myappointment)
+        {
+            return _myAppointmentDAL.Insert(myappointment);
+        }
     }
 }

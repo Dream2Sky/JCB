@@ -35,6 +35,6 @@ namespace com.jiechengbao.entity
         /// </summary>
         [Required]
         [MaxLength(30)]
-        public string Notes { get; set; }
+        public string Notes { get; set; } = "积分操作";
     }
 }

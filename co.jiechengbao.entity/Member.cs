@@ -29,6 +29,7 @@ namespace com.jiechengbao.entity
         /// 微信头像
         /// </summary>
         public string HeadImage { get; set; }
+
         /// <summary>
         /// 绑定的电话号码
         /// </summary>
@@ -39,7 +40,6 @@ namespace com.jiechengbao.entity
         /// <summary>
         /// 会员真实姓名
         /// </summary>
-        [Required]
         [MaxLength(20)]
         public string RealName { get; set; }
 

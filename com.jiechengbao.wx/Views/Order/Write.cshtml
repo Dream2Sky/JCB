@@ -78,6 +78,7 @@
                     @item.Name
                     <p class='mui-ellipsis'><small>@item.Description</small></p>
                     <p class='mui-ellipsis money-p'><small>￥@item.Price</small><small>x @item.Count</small></p>
+                    <p class="mui-ellipsis money-p"><small>@item.ExchangeCredit 积分</small>x @item.Count</p>
                 </div>
             </a>
         </li>
@@ -85,7 +86,7 @@
 </ul>
 <ul class="mui-table-view payway-ul">
     <li class="mui-table-view-cell mui-radio mui-right">
-        <input name="payway" type="radio" value="0">微信支付
+        <input name="payway" type="radio" checked value="0">微信支付
     </li>
     <li class="mui-table-view-cell mui-radio mui-right">
         <input name="payway" type="radio" value="1">积分支付
@@ -94,9 +95,11 @@
 <ul class="mui-table-view money-ul">
     <li class="mui-table-view-cell">
         商品金额
-        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">￥@ViewBag.TotalPrice</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined btn-money">￥@ViewBag.TotalPrice</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined btn-credit" style="display:none;">积分: @ViewBag.TotalCredit</button>
     </li>
 </ul>
+
 <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="CreateOrder();">提交订单</button>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>
@@ -109,11 +112,11 @@
             },
             success: function (data) {
                 if (data == "Expired") {
-                    mui.alert("生成订单超时,请重新提交");
+                    alert("生成订单超时,请重新提交");
                     window.location.href = "/Cart/List";
                 }
                 else if (data == "Error") {
-                    mui.alert("订单生成发生错误");
+                    alert("订单生成发生错误");
                     window.location.href = "/Cart/List";
                 }
                 else {
@@ -139,6 +142,20 @@
             }
         });
     }
+
+    $("input[type='radio']").on("change", function() {
+        if ($(this).is(":checked"))
+        {
+            if ($(this).val() == 0) {
+                $(".btn-money").show();
+                $(".btn-credit").hide();
+            }
+            else {
+                $(".btn-credit").show();
+                $(".btn-money").hide();
+            }
+        }
+    })
 
     $(document).ready(function () {
         $("#atoorder").addClass("mui-active");

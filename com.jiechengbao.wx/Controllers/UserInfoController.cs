@@ -391,8 +391,7 @@ namespace com.jiechengbao.wx.Controllers
             ViewData["creditRecordList"] = crList;
             return View();
         }
-
-
+        
         #region 我的预约
 
         /// <summary>

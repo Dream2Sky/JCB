@@ -101,6 +101,7 @@
         mui(".mui-bar").on("tap", "a", function () {
             window.location.href = this.href;
         });
+        document.addEventListener('touchmove', function (e) { e.preventDefault() }, false);
     </script>
 </body>
 </html>

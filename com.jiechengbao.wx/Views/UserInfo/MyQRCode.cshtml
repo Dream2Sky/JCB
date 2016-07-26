@@ -89,6 +89,7 @@
 
 			};
 		});
+		document.addEventListener('touchmove', function (e) { e.preventDefault() }, false);
 </script>
 <body>
     <div class="my-info">
@@ -101,7 +102,7 @@
                 <p>@Model.Phone</p>
             </div>
         </div>
-        <img src="~/Content/images/qr.png" />
+        <img src="~/Content/images/myqr.jpg" />
         <p><small>扫一扫上面的二维码图案，加我微信</small></p>
     </div>
 </body>

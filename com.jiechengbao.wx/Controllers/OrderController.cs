@@ -52,14 +52,25 @@ namespace com.jiechengbao.wx.Controllers
             if (System.Web.HttpContext.Current.Session["CartModelList"] == null
                 // 没有了配送地址  session['Address']就不需要了
                 //|| System.Web.HttpContext.Current.Session["Address"] == null
-                || System.Web.HttpContext.Current.Session["TotalPrice"] == null)
+                || System.Web.HttpContext.Current.Session["TotalPrice"] == null || System.Web.HttpContext.Current.Session["TotalCredit"] == null)
             {
                 // 如果为空 则返回超时提示
                 return Json("Expired", JsonRequestBehavior.AllowGet);
             }
 
             List<CartModel> cartList = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
-            double TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalPrice"].ToString());
+
+            // 根据支付方式 选择支付金额
+            double TotalPrice = 0;
+            if (payway == 0)
+            {
+                TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalPrice"].ToString());
+            }
+            else
+            {
+                TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalCredit"].ToString());
+            }
+            
 
             //需求更改  不要配送地址 所以这里就不用获取Address对象了
 
@@ -96,13 +107,14 @@ namespace com.jiechengbao.wx.Controllers
                     od.CreatedTime = DateTime.Now;
                     od.CurrentDiscount = item.Discount;
                     od.CurrentPrice = item.Price;
+                    od.CurrentCredit = item.ExchangeCredit;
                     od.DeletedTime = DateTime.MinValue.AddHours(8);
                     od.GoodsId = item.Id;
                     od.IsDeleted = false;
                     od.OrderId = order.Id;
                     od.OrderNo = order.OrderNo;
                     od.TotalPrice = od.Count * od.CurrentDiscount * od.CurrentPrice;
-
+                    od.TotalCredit = od.Count * od.CurrentCredit;
                     // 添加订单详情
 
                     // 如果添加失败 则回滚
@@ -208,7 +220,7 @@ namespace com.jiechengbao.wx.Controllers
             ViewBag.Status = order.Status == 0 ? "未完成" : (order.Status == 1 ? "已完成" : "已取消");
             ViewBag.TotalPrice = order.TotalPrice;
             ViewBag.CreateTime = order.CreatedTime;
-            ViewBag.Payway = order.PayWay == 0 ? "微信支付" : "余额支付";
+            ViewBag.Payway = order.PayWay == 0 ? "微信支付" : "积分支付";
 
             // 没了  配送功能没了 所以这个订单配送状态就没了
 
@@ -250,7 +262,6 @@ namespace com.jiechengbao.wx.Controllers
                 odmList.Add(odm);
             }
             ViewData["OrderDetailModelList"] = odmList;
-            ViewBag.TotalPrice = order.TotalPrice;
             return View();
         }
 
@@ -263,14 +274,6 @@ namespace com.jiechengbao.wx.Controllers
         {
             ViewBag.Title = type == 0 ? "未完成订单" : (type == 1 ? "已完成订单" : "全部订单");
 
-            if (System.Web.HttpContext.Current.Session["member"] == null)
-            {
-                LogHelper.Log.Write("Order List: member session is null");
-            }
-            else
-            {
-                LogHelper.Log.Write("session member:" + System.Web.HttpContext.Current.Session["member"].ToString());
-            }
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
             // 临时的订单列表
@@ -367,6 +370,7 @@ namespace com.jiechengbao.wx.Controllers
 
 
                     double TotalPrice = 0;
+                    double TotalCredit = 0;
                     List<CartModel> cartList = new List<CartModel>();
 
                     JArray ja = (JArray)JsonConvert.DeserializeObject(json);
@@ -377,13 +381,14 @@ namespace com.jiechengbao.wx.Controllers
                         cm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(Guid.Parse(ja[i]["Id"].ToString())).ImagePath;
                         cm.Discount = discount;
                         TotalPrice += (cm.Price * cm.Count * cm.Discount);
+                        TotalCredit += (cm.ExchangeCredit * cm.Count);
                         cartList.Add(cm);
                     }
 
                     // 获得 在购物车上选择的商品列表 包括数量
                     ViewData["CartModelList"] = cartList;
                     ViewBag.TotalPrice = TotalPrice;
-
+                    ViewBag.TotalCredit = TotalCredit;
                     // 去掉配送地址
 
                     // ViewBag.Address = address;
@@ -391,7 +396,7 @@ namespace com.jiechengbao.wx.Controllers
                     // 备份临时数据 如果用户在修改配送地址的时候可以用到
                     System.Web.HttpContext.Current.Session["CartModelList"] = cartList;
                     System.Web.HttpContext.Current.Session["TotalPrice"] = TotalPrice;
-
+                    System.Web.HttpContext.Current.Session["TotalCredit"] = TotalCredit;
                     // 没有了 session['address'] 
 
                     // System.Web.HttpContext.Current.Session["Address"] = address;
@@ -441,6 +446,7 @@ namespace com.jiechengbao.wx.Controllers
 
             ViewData["CartModelList"] = System.Web.HttpContext.Current.Session["CartModelList"] as List<CartModel>;
             ViewBag.TotalPrice = System.Web.HttpContext.Current.Session["TotalPrice"];
+            ViewBag.TotalCredit = System.Web.HttpContext.Current.Session["TotalCredit"];
 
             return View();
         }
@@ -520,7 +526,7 @@ namespace com.jiechengbao.wx.Controllers
         // 因为老板说不要配送功能了!!!
 
         #region 没有了配送功能  自然就没有了配送状态了
-        
+
         ///// <summary>
         ///// 修改订单配送状态
         ///// </summary>
@@ -557,7 +563,7 @@ namespace com.jiechengbao.wx.Controllers
         //        return Json("False", JsonRequestBehavior.AllowGet);
         //    }
         //}
-        
+
         #endregion
     }
 

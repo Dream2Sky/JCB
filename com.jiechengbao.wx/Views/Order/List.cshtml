@@ -50,10 +50,16 @@
                         </div>
                     </a>
                 </li>
-
             }
             <li class="mui-table-view-cell">
-                <small><a>金额:￥@item.TotalPrice<span class="mui-pull-right">@(item.Status == 0 ? "未完成" : (item.Status == 1 ? "已完成" : "已取消"))</span></a></small>
+                @if (item.PayWay == 0)
+                {
+                    <small><a>金额:￥@item.TotalPrice<span class="mui-pull-right">@(item.Status == 0 ? "未完成" : (item.Status == 1 ? "已完成" : "已取消"))</span></a></small>
+                }
+                else
+                {
+                    <small><a>积分:@item.TotalPrice 积分<span class="mui-pull-right">@(item.Status == 0 ? "未完成" : (item.Status == 1 ? "已完成" : "已取消"))</span></a></small>
+                }
             </li>
         </ul>
     </div>

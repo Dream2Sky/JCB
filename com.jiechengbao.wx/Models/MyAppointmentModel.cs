@@ -15,10 +15,6 @@ namespace com.jiechengbao.wx.Models
         /// </summary>
         public string appointmentTime { get; set; }
         /// <summary>
-        /// 问题描述
-        /// </summary>
-        public string jcbdesc { get; set; }
-        /// <summary>
         /// 补充说明
         /// </summary>
         public string jcbremark { get; set; }

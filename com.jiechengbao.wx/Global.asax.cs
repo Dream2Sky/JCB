@@ -81,6 +81,14 @@ namespace com.jiechengbao.wx
             builder.RegisterType<ExchangeServiceQRDAL>().As<IExchangeServiceQRDAL>();
             builder.RegisterType<OrderStatusBLL>().As<IOrderStatusBLL>();
             builder.RegisterType<OrderStatusDAL>().As<IOrderStatusDAL>();
+            builder.RegisterType<MyAppointmentBLL>().As<IMyAppointmentBLL>();
+            builder.RegisterType<MyAppointmentDAL>().As<IMyAppointmentDAL>();
+            builder.RegisterType<MyAppointmentItemBLL>().As<IMyAppointmentItemBLL>();
+            builder.RegisterType<MyAppointmentItemDAL>().As<IMyAppointmentItemDAL>();
+            builder.RegisterType<AppointmentServiceBLL>().As<IAppointmentServiceBLL>();
+            builder.RegisterType<AppointmentServiceDAL>().As<IAppointmentServiceDAL>();
+            builder.RegisterType<AppointmentTimeBLL>().As<IAppointmentTimeBLL>();
+            builder.RegisterType<AppointmentTimeDAL>().As<IAppointmentTimeDAL>();
         }
     }
 }

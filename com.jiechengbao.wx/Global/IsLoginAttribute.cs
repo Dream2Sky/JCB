@@ -11,8 +11,6 @@ namespace com.jiechengbao.wx.Global
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            LogHelper.Log.Write("Now starting recording");
-            LogHelper.Log.Write("member session is null?");
             if (System.Web.HttpContext.Current.Session["member"] == null)
             {
                 //LogHelper.Log.Write("member session is null");

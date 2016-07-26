@@ -22,6 +22,7 @@ namespace com.jiechengbao.wx.Models
             this.Description = goods.Description;
             this.ServiceCount = goods.ServiceCount;
             this.OriginalPrice = goods.OriginalPrice;
+            this.ExchangeCredit = goods.ExchangeCredit;
         }
         [DataMember]
         public double Discount { get; set; }

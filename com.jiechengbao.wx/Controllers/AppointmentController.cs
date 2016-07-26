@@ -29,8 +29,6 @@ namespace com.jiechengbao.wx.Controllers
             _carBLL = carBLL;
             _myAppointmentBLL = myAppointmentBLL;
             _myAppointmentItemBLL = myAppointmentItemBLL;
-            System.Web.HttpContext.Current.Session["member"] = "";
-
         }
 
         public ActionResult MyAppointment()
@@ -81,7 +79,6 @@ namespace com.jiechengbao.wx.Controllers
             myAppointment.IsPay = false;
             myAppointment.MemberId = member.Id;
             myAppointment.Notes = "";
-            myAppointment.Description = appointmentModel.jcbdesc;
             myAppointment.Supplement = appointmentModel.jcbremark;
             myAppointment.CarInfo = appointmentModel.carInfo;
             myAppointment.CarNumber = appointmentModel.carNo;
@@ -124,8 +121,14 @@ namespace com.jiechengbao.wx.Controllers
             // 先获取当前会员对象
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
+            if (member == null)
+            {
+                LogHelper.Log.Write("member null");
+            }
+
             // 获取该会员对象 所有的 预约单
-            List<MyAppointment> myAppointmentList = _myAppointmentBLL.GetHasPayAppointmentByMemberId(member.Id).ToList();
+            List<MyAppointment> myAppointmentList = new List<entity.MyAppointment>();
+            myAppointmentList = _myAppointmentBLL.GetHasPayAppointmentByMemberId(member.Id).ToList();
             myAppointmentList.AddRange(_myAppointmentBLL.GetNoPayAppointmentByMemberId(member.Id).ToList());
 
             List<MyAppointmentListModel> appointmentModelList = GetMyAppointmentModelList(myAppointmentList);

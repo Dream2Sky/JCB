@@ -3,4 +3,134 @@
     ViewBag.Title = "我的预约";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
+@using com.jiechengbao.wx.Models
+<script>
+    $(document).ready(function () {
+        $(".list:even").css({
+            "background": "#fff"
+        });
+        $(".list:odd").css({
+            "background": "#eee"
+        });
+    });
+</script>
+<style>
+    body {
+        padding: 0px;
+        margin: 0px;
+        background: #fff;
+    }
 
+    .list {
+        padding: 10px 3%;
+        overflow: hidden;
+    }
+
+    .li-left {
+        width: 64%;
+        float: left;
+    }
+
+    .top {
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+    }
+
+    .li-right {
+        width: 30%;
+        float: left;
+    }
+
+    .top-left {
+        -webkit-box-flex: 6;
+        -moz-box-flex: 6;
+        box-flex: 6;
+        font-family: "微软雅黑";
+    }
+
+    .top-center {
+        -webkit-box-flex: 2;
+        -moz-box-flex: 2;
+        box-flex: 2;
+        font-family: "微软雅黑";
+        color: #F5854F;
+        text-shadow: 1px 1px 1px #E2C11F;
+    }
+
+    .top-right {
+        -webkit-box-flex: 2;
+        -moz-box-flex: 2;
+        box-flex: 2;
+    }
+
+        .top-right p {
+            background: #dd524d;
+            font-family: "Times new roman";
+            float: right;
+            margin: 0px;
+            padding: 3px 5px;
+            color: white !important;
+            border-radius:2px;
+        }
+        .list{
+            border:1px solid #D7D5DA;
+        }
+    .list p {
+        font-family: "微软雅黑";
+        overflow: hidden;
+        font-size: 14px;
+        margin: 0px 0px 6px;
+        color: #333;
+    }
+
+    .list span {
+        font-size: 13px;
+        float: right;
+        color: #888;
+    }
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+        text-align:center;
+    }
+</style>
+
+@foreach (var item in ViewData["MyAppointmentList"] as List<MyAppointmentListModel>)
+{
+    <div class="list">
+        <div class="top">
+            <div class="top-left">
+                车牌号: @item.CarNumber
+            </div>
+            @if (item.IsPay)
+            {
+                <div class="top-center">
+                    已付款
+                </div>
+                <div class="top-right">
+                    <p>
+                        ￥@item.Price
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="top-right">
+                    <p>
+                        未付款
+                    </p>
+                </div>
+            }
+
+        </div>
+        <p>预约的服务: @item.AppointmentServiceItems</p>
+        <span>预约时间: @item.AppointmentTime</span>
+    </div>
+}
+
+@if (ViewData["MyAppointmentList"] == null || (ViewData["MyAppointmentList"] as List<MyAppointmentListModel>).Count <= 0)
+{
+    <div class="title">没有可查看的预约</div>
+}
