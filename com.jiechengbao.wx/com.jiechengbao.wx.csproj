@@ -248,6 +248,7 @@
     <Compile Include="Global\PhoneCode.cs" />
     <Compile Include="Models\Access_Token_JsonModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\CarDetailModel.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\Config.cs" />

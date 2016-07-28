@@ -106,6 +106,18 @@
             margin-top:50px;
         }*/
     </style>
+    <script type="text/javascript">
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            // alert("Android");
+            document.write('<meta name="viewport" content="width=device-width" />');
+        } else if (isiOS) {
+            // alert("iOS");
+            document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />');
+        }
+    </script>
 </head>
 <body>
     <div class="mask" hidden>
@@ -118,6 +130,10 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab">
+        <a class="mui-tab-item" id="atouserinfo" href="/UserInfo/Index">
+            <span class="mui-icon iconfont icon-shouyeshouye"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
         <a class="mui-tab-item" id="atogoods" href="/Home/Index">
             <span class="mui-icon iconfont icon-dianpu"></span>
             <span class="mui-tab-label">商品</span>
@@ -129,10 +145,6 @@
         <a class="mui-tab-item" id="atoorder" href="/Order/OrderList">
             <span class="mui-icon iconfont icon-dingdan icon-order"></span>
             <span class="mui-tab-label">订单</span>
-        </a>
-        <a class="mui-tab-item" id="atosetting" href="/UserInfo/Info">
-            <span class="mui-icon mui-icon-person"></span>
-            <span class="mui-tab-label">会员中心</span>
         </a>
     </nav>
     @*<nav class="navbar navbar-fixed-top">

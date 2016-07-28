@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
-    public class OrderController:Controller
+    public class OrderController : Controller
     {
         private IOrderBLL _orderBLL;
         private IMemberBLL _memberBLL;
@@ -17,9 +17,9 @@ namespace com.jiechengbao.admin.Controllers
         private IOrderStatusBLL _orderStatusBLL;
         private IOrderDetailBLL _orderDetailBLL;
         private IGoodsBLL _goodsBLL;
-        public OrderController(IOrderBLL orderBLL, 
+        public OrderController(IOrderBLL orderBLL,
             IMemberBLL memberBLL, IAddressBLL addressBLL,
-            IOrderStatusBLL orderStatusBLL, 
+            IOrderStatusBLL orderStatusBLL,
             IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL)
         {
             _orderBLL = orderBLL;
@@ -34,7 +34,7 @@ namespace com.jiechengbao.admin.Controllers
         /// 获得已完成的订单
         /// </summary>
         /// <returns></returns>
-        
+
         public ActionResult Completed()
         {
             List<OrderModel> orderModelList = new List<OrderModel>();
@@ -44,12 +44,16 @@ namespace com.jiechengbao.admin.Controllers
             {
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
+                if (member == null)
+                {
+                    continue;
+                }
                 om.MemberName = member.NickeName;
                 foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
                 {
                     om.GoodsNameList += _goodsBLL.GetGoodsById(goods.GoodsId).Name + ",";
                 }
-                
+
                 // 没有了配送系统 
                 // 所以这段代码就没用了
 
@@ -57,13 +61,13 @@ namespace com.jiechengbao.admin.Controllers
                 //om.Phone = address.Phone;
                 //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
                 //om.Consignee = address.Consignee;
-                
+
                 //// 添加配送状态
                 //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
 
                 orderModelList.Add(om);
             }
-            ViewData["CompletedOrderList"] = orderModelList; 
+            ViewData["CompletedOrderList"] = orderModelList;
 
             return View();
         }
@@ -85,6 +89,10 @@ namespace com.jiechengbao.admin.Controllers
             {
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
+                if (member == null)
+                {
+                    continue;
+                }
                 om.MemberName = member.NickeName;
                 foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
                 {
@@ -94,7 +102,7 @@ namespace com.jiechengbao.admin.Controllers
                 //om.Phone = address.Phone;
                 //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
                 //om.Consignee = address.Consignee;
-                
+
                 //// 添加配送地址
                 //om.LogisticalStatus = _orderStatusBLL.GetOrderStatusByOrderId(om.Id).Status;
 
@@ -105,11 +113,11 @@ namespace com.jiechengbao.admin.Controllers
             return View();
         }
 
-        
+
 
         #region 没有了配送系统 就不需要修改订单配送状态  所以此方法不用了
 
-       
+
         /// <summary>
         ///  修改订单的配送状态  后台的
         /// </summary>
@@ -162,6 +170,12 @@ namespace com.jiechengbao.admin.Controllers
             {
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
+
+                if (member == null)
+                {
+                    continue;
+                }
+
                 om.MemberName = member.NickeName;
                 foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
                 {
@@ -191,11 +205,17 @@ namespace com.jiechengbao.admin.Controllers
 
             // 又偷懒了
             orderList.Add(_orderBLL.GetOrderByOrderNo(condition));
-            
+
             foreach (var item in orderList)
             {
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
+
+                if (member == null)
+                {
+                    continue;
+                }
+
                 om.MemberName = member.NickeName;
 
                 foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))

@@ -69,17 +69,6 @@
         }
 
     </li>
-    @*<li class="mui-table-view-cell">
-        <a href="#" class="mui-navigate-right">QQ号<span class="mui-pull-right toleft">未绑定</span></a>
-    </li>
-
-    <li class="mui-table-view-cell">
-        <a href="#" class="mui-navigate-right">邮箱地址<span class="mui-pull-right toleft">未绑定</span></a>
-    </li>*@
-    @* 没有了配送地址  *@
-    @*<li class="mui-table-view-cell">
-        <a href="/Address/List" class="mui-navigate-right">配送地址<span class="mui-pull-right"></span></a>
-    </li>*@
 </ul>
 
 <ul class="mui-table-view">
@@ -96,22 +85,9 @@
         <a href="/Car/CarList" class="mui-navigate-right">我的爱车<span class="mui-pull-right"></span></a>
     </li>
 </ul>
-@*<ul class="mui-table-view">
-    <li class="mui-table-view-cell">
-        <a href="/CreditMoll/List" class="mui-navigate-right">积分商城</a>
-    </li>
-</ul>*@
 <ul class="mui-table-view">
-
-    @* 新的积分系统似乎不用单独的查看充值记录和消费记录 *@
-    @*<li class="mui-table-view-cell">
-        <a href="/UserInfo/RechargeList" class="mui-navigate-right">充值记录</a>
-    </li>
-    <li class="mui-table-view-cell">
-        <a href="/UserInfo/TransactionRecordList" class="mui-navigate-right">消费记录</a>
-    </li>*@
     <li class="recharge-li">
-        <button class="mui-btn recharge-btn btn-danger" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>
+        <button class="mui-btn recharge-btn mui-btn-danger" onclick="Go('/UserInfo/RechargeOptionsList')">充值</button>
     </li>
 </ul>
 

@@ -119,19 +119,18 @@ namespace com.jiechengbao.wx.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Update()
+        public ActionResult Update(CarDetailModel cdm)
         {
-            Guid CarId = Guid.Parse(Request.QueryString["CarId"].ToString());
-            if (CarId == null)
+            if (cdm == null)
             {
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
-            Car car = _carBLL.GetCarById(CarId);
 
-            car.CarDetailInfo = Request.QueryString["CarDetailInfo"].ToString();
-            car.Numberplate = Request.QueryString["Numberplate"].ToString();
-            car.EngineNumber = Request.QueryString["EngineNumber"].ToString();
-            car.ChassisNumber = Request.QueryString["ChassisNumber"].ToString();
+            Car car = _carBLL.GetCarById(cdm.CarId);
+            car.Numberplate = cdm.Numberplate;
+            car.ChassisNumber = cdm.ChassisNumber;
+            car.CarDetailInfo = cdm.CarDetailInfo;
+            car.EngineNumber = cdm.EngineNumber;
 
             if (_carBLL.Update(car))
             {

@@ -5,45 +5,38 @@
 }
 @model com.jiechengbao.entity.Car
 <style>
-    .mui-btn-block {
-        padding: 10px;
-        font-size: 15px;
-        margin-top: 10px;
-        margin-left:20px;
-        margin-right:20px;
-    }
     .title {
         margin: 20px 15px 10px;
         color: #6d6d72;
         font-size: 15px;
     }
 </style>
-<ul class="mui-table-view mui-card">
-    <li class="mui-table-view-cell">
-        车牌号
-        <input type="text" name="Numberplate" value="@Model.Numberplate" />
-        <input type="hidden" name="CarId" value="@Model.Id" />
-    </li>
-    <li class="mui-table-view-cell">
-        车架号
-        <input type="text" name="ChassisNumber" value="@Model.ChassisNumber" />
-    </li>
-    <li class="mui-table-view-cell">
-        发动机号
-        <input type="text" name="EngineNumber" value="@Model.EngineNumber" />
-    </li>
-    <li class="mui-table-view-cell">
-        车型
-        <input type="text" name="CarDetailInfo" value="@Model.CarDetailInfo" />
-    </li>
-    <li>
-        <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Delete();">删除</button>
-        <button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="Save();">修改并保存</button>
-    </li>
 
-</ul>
-
-
+<div class="mui-content-padded" style="margin: 5px;">
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>车牌号</label>
+            <input type="text" class="mui-input-clear" name="Numberplate" placeholder="请输入车牌号" value="@Model.Numberplate">
+            <input type="hidden" name="CarId" value="@Model.Id" />
+        </div>
+        <div class="mui-input-row">
+            <label>车架号</label>
+            <input type="text" class="mui-input-clear" name="ChassisNumber" placeholder="请输入车架号" value="@Model.ChassisNumber">
+        </div>
+        <div class="mui-input-row">
+            <label>发动机号</label>
+            <input type="text" class="mui-input-clear" name="EngineNumber" placeholder="请输入发动机号" value="@Model.EngineNumber">
+        </div>
+        <div class="mui-input-row">
+            <label>车型信息</label>
+            <input type="text" class="mui-input-clear" name="CarDetailInfo" placeholder="请输入车型信息" value="@Model.CarDetailInfo">
+        </div>
+        <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-danger btn-delete" onclick="Delete();">删除</button>&nbsp;&nbsp;
+            <button type="button" class="mui-btn mui-btn-primary btn-save" onclick="Save();">修改并保存</button>
+        </div>
+    </form>
+</div>
 <script>
     function Save() {
         $.ajax({
@@ -56,13 +49,20 @@
                 EngineNumber: $("input[name='EngineNumber']").val(),
                 CarDetailInfo: $("input[name='CarDetailInfo']").val()
             },
-            success: function(data) {
+            success: function (data) {
                 if (data == "True") {
-                    mui.alert("保存修改成功");
+                    alert("保存修改成功");
+                    window.location.href = document.referrer;
                 }
                 else {
                     mui.alert("保存修改失败");
                 }
+            },
+            beforeSend: function () {
+                $(".mask").show();
+            },
+            complete: function () {
+                $(".mask").hide();
             },
             error: function () {
                 mui.alert("系统错误,保存失败");
@@ -71,27 +71,35 @@
     }
 
     function Delete() {
-        var carId = $("input[name='CarId']").val();
+        $(".btn-delete").on('tap', function () {
+            var btnArray = ['否', '是'];
+            mui.confirm('是否确认要删除该车辆信息？', '系统提示', btnArray, function (e) {
+                if (e.index == 1) {
 
-        $.ajax({
-            url: "/Car/Delete",
-            type: "POST",
-            data: {
-                carId:carId
-            },
-            success: function(data) {
-                if (data == "True") {
-                    mui.alert("删除成功");
-                    window.location.href = "/Car/List";
+                    var carId = $("input[name='CarId']").val();
+
+                    $.ajax({
+                        url: "/Car/Delete",
+                        type: "POST",
+                        data: {
+                            carId: carId
+                        },
+                        success: function (data) {
+                            if (data == "True") {
+                                mui.alert("删除成功");
+                                window.location.href = "/Car/List";
+                            }
+                            else {
+                                mui.alert("删除失败");
+                            }
+                        },
+                        error: function () {
+                            mui.alert("ERROR");
+                        }
+                    });
                 }
-                else {
-                    mui.alert("删除失败");
-                }
-            },
-            error: function () {
-                mui.alert("ERROR");
-            }
-        })
+            });
+        });
     }
 
     $(document).ready(function () {

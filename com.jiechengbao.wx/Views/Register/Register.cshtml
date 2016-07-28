@@ -77,7 +77,7 @@
     </div>
     <div class="mui-input-row">
         <label>验证码</label>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="GetCode();"><span class="span-text">发送验证码</span><span class="span-num" style="display:none">60</span><span class="span-sec" style="display:none;">s</span></button>
+        <button type="button" class="mui-btn mui-btn-danger" onclick="GetCode();"><span class="span-text">发送验证码</span><span class="span-num" style="display:none">60</span><span class="span-sec" style="display:none;">s</span></button>
         <div id="button" class="mui-btn mui-btn-primary">&nbsp;</div>
         <input id='code' type="text" class="mui-input-clear mui-input" placeholder="请输入验证码">
     </div>
@@ -86,7 +86,7 @@
     </div>
 </form>
 <div class="mui-content-padded">
-    <button id='reg' class="mui-btn mui-btn-primary btn-register" onclick="Register();">提交</button>
+    <button id='reg' class="mui-btn mui-btn-danger btn-register" onclick="Register();">提交</button>
 </div>
 <div class="mui-content-padded">
     <p>发现您没有绑定的您的真实姓名和电话号。只有绑定了才能在此平台上进行任何交易，还不快快绑定。。。</p>
@@ -122,7 +122,7 @@
                     $(".span-num").hide();
                     $(".span-sec").hide();
                     $("button[type='button']").css({
-                        "background": "#007aff",
+                        "background": "#DD524D",
                         "color": "#fff"
                     });
                     $("#button").hide();
@@ -146,7 +146,7 @@
             $(".span-num").hide();
             $(".span-sec").hide();
             $("button[type='button']").css({
-                "background":"#007aff",
+                "background": "#DD524D",
                 "color":"#fff"
             });
             $("#button").hide();
@@ -181,4 +181,8 @@
             }
         })
     }
+
+    $(document).ready(function () {
+        $(".atouserinfo").addClass("mui-active");
+    })
 </script>
