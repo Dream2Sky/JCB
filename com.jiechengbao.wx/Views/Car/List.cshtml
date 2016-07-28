@@ -263,21 +263,18 @@ else
         if (carNum == undefined || ChassisNumber == undefined || EngineNumber == undefined || CarInfo == undefined) {
             mui.alert("提交数据不完整");
         }
-        else if(isNaN(carNum)||carNum.length!=5 || ChassisNumber.length != 6 || EngineNumber.length != 6)
-        {
+        else if (isNaN(carNum) || carNum.length != 5 || ChassisNumber.length != 6 || EngineNumber.length != 6) {
             mui.alert("错误的车辆信息");
         }
-        else
-        {
+        else {
             var tes = true;
             for (var i = 0; i < items.length; i++) {
-                if (ChassisNumber.indexOf(items[i]) >= 0 || EngineNumber.indexOf(items[i])>=0 || CarInfo.indexOf(items[i])>=0) {
+                if (ChassisNumber.indexOf(items[i]) >= 0 || EngineNumber.indexOf(items[i]) >= 0 || CarInfo.indexOf(items[i]) >= 0) {
                     mui.alert("提交的数据存在不合法的字符，请重新输入");
                     return false;
                 }
             }
-            if(tes)
-            {
+            if (tes) {
                 $.ajax({
                     url: "/Car/Add",
                     type: "POST",
@@ -309,6 +306,7 @@ else
                 });
             }
         }
+    }
 
         $(document).ready(function () {
             $("#atocar").addClass("mui-active");
@@ -333,5 +331,5 @@ else
                     "width": btn_wid
                 });
             }
-        })
+        });
 </script>
