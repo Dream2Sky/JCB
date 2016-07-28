@@ -118,6 +118,7 @@ namespace com.jiechengbao.wx.Controllers
         /// </summary>
         /// <returns></returns>
         [IsLogin]
+        [IsRegister]
         public ActionResult Info()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -144,11 +145,12 @@ namespace com.jiechengbao.wx.Controllers
             ViewBag.Phone = member.Phone;
             return View();
         }
-        
+
         /// <summary>
         /// 我的服务
         /// </summary>
         /// <returns></returns>
+        [IsRegister]
         public ActionResult MyServices()
         {
             List<MyService> msList = new List<MyService>();
@@ -256,11 +258,12 @@ namespace com.jiechengbao.wx.Controllers
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         /// <summary>
         /// 会员充值
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Recharge()
         {
             return View();
@@ -375,6 +378,7 @@ namespace com.jiechengbao.wx.Controllers
         /// 我的积分  积分的来源和去向记录  只显示最近一个月的记录
         /// </summary>
         /// <returns></returns>
+        [IsRegister]
         public ActionResult MyCreditRecord(double currentCredit)
         {
             if (currentCredit <= 0)

@@ -31,6 +31,7 @@ namespace com.jiechengbao.wx.Controllers
             _carBLL = carBLL;
         }
 
+        [IsRegister]
         public ActionResult List()
         {
             // 先获取当前 用户
@@ -38,6 +39,16 @@ namespace com.jiechengbao.wx.Controllers
             List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
 
             ViewData["CarList"] = carList;
+            return View();
+        }
+
+        public ActionResult CarList()
+        {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            List<Car> carList = _carBLL.GetCarListByMemberId(member.Id).ToList();
+
+            ViewData["CarList"] = carList;
+
             return View();
         }
 

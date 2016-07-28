@@ -80,24 +80,16 @@ namespace com.jiechengbao.wx.Controllers
         [HttpPost]
         public ActionResult IsRegister()
         {
-            if (System.Web.HttpContext.Current.Session["IsRegister"] == null)
-            {
-                Member mem = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            Member mem = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
-                if (string.IsNullOrEmpty(mem.RealName) && string.IsNullOrEmpty(mem.Phone))
-                {
-                    System.Web.HttpContext.Current.Session["IsRegister"] = "false";
-                    return Json("False", JsonRequestBehavior.AllowGet);
-                }
+            if (string.IsNullOrEmpty(mem.Phone))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
             }
             else
             {
-                if (System.Web.HttpContext.Current.Session["IsRegister"].ToString() == "false")
-                {
-                    return Json("False", JsonRequestBehavior.AllowGet);
-                }
+                return Json("True", JsonRequestBehavior.AllowGet);
             }
-            return Json("True", JsonRequestBehavior.AllowGet);
         }
     }
 }

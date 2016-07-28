@@ -20,6 +20,7 @@ namespace com.jiechengbao.admin.Controllers
         private IGoodsCategoryBLL _goodsCategoryBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
         private IReCommendBLL _recommendBLL;
+        
         public GoodsController(IGoodsBLL goodsBLL, ICategoryBLL categoryBLL,
             IGoodsCategoryBLL goodsCategoryBLL, IGoodsImagesBLL goodsImagesBLL,
             IReCommendBLL recommendBLL)

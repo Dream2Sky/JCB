@@ -65,7 +65,7 @@ namespace com.jiechengbao.wx.Controllers
 
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
             {
-                return RedirectToAction("Index", "UserInfo");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -249,6 +249,72 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        public ActionResult GetAppointmentCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetAppointmentCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+                System.Web.HttpContext.Current.Response.Redirect(url);
+
+                return RedirectToAction("GetRechargeCode");
+            }
+            else
+            {
+                CacheManager.SetCache("code", code);
+            }
+            UserInfo_JsonModel user = GetWxUserInfo();
+
+            if (!_memberBLL.IsExist(user.openid))
+            {
+                Member member = new Member();
+                member.Id = Guid.NewGuid();
+                member.IsDeleted = false;
+                member.NickeName = user.nickname;
+                member.OpenId = user.openid;
+                member.Vip = 0;
+                member.HeadImage = user.headimgurl;
+                //member.Assets = 0;
+                member.CreatedTime = DateTime.Now;
+                member.Credit = 0;
+                member.DeletedTime = DateTime.MinValue.AddHours(8);
+                member.RealName = "";
+                member.IsDeleted = false;
+                member.TotalCredit = 0;
+                member.Phone = "";
+
+                LogHelper.Log.Write(member.Id.ToString());
+                LogHelper.Log.Write(member.IsDeleted.ToString());
+                LogHelper.Log.Write(member.NickeName);
+                LogHelper.Log.Write(member.OpenId);
+                LogHelper.Log.Write(member.Vip.ToString());
+                LogHelper.Log.Write(member.HeadImage);
+                LogHelper.Log.Write(member.CreatedTime.ToString());
+                LogHelper.Log.Write(member.Credit.ToString());
+                LogHelper.Log.Write(member.DeletedTime.ToString());
+                LogHelper.Log.Write(member.RealName);
+                LogHelper.Log.Write(member.IsDeleted.ToString());
+                LogHelper.Log.Write(member.TotalCredit.ToString());
+                LogHelper.Log.Write(member.Phone);
+
+
+                if (!_memberBLL.Add(member))
+                {
+                    LogHelper.Log.Write("添加新用户失败");
+                }
+
+            }
+            System.Web.HttpContext.Current.Session["member"] = user.openid;
+
+            if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
+            {
+                return RedirectToAction("MyAppointment", "Appointment");
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
 
         private UserInfo_JsonModel GetWxUserInfo()
         {
@@ -278,7 +344,6 @@ namespace com.jiechengbao.wx.Controllers
 
             return user;
         }
-
 
         /// <summary>
         /// 通过access_token获取用户信息

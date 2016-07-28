@@ -19,10 +19,6 @@ namespace com.jiechengbao.admin.Models
         public double Price { get; set; }
         public string Notes { get; set; }
         /// <summary>
-        /// 问题描述
-        /// </summary>
-        public string Description { get; set; }
-        /// <summary>
         /// 补充说明
         /// </summary>
         public string Supplement { get; set; }

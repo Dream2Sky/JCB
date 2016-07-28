@@ -15,14 +15,19 @@ namespace com.jiechengbao.admin.Controllers
         private IMemberBLL _memberBLL;
         private IAddressBLL _addressBLL;
         private IOrderStatusBLL _orderStatusBLL;
+        private IOrderDetailBLL _orderDetailBLL;
+        private IGoodsBLL _goodsBLL;
         public OrderController(IOrderBLL orderBLL, 
             IMemberBLL memberBLL, IAddressBLL addressBLL,
-            IOrderStatusBLL orderStatusBLL)
+            IOrderStatusBLL orderStatusBLL, 
+            IOrderDetailBLL orderDetailBLL, IGoodsBLL goodsBLL)
         {
             _orderBLL = orderBLL;
             _memberBLL = memberBLL;
             _addressBLL = addressBLL;
             _orderStatusBLL = orderStatusBLL;
+            _orderDetailBLL = orderDetailBLL;
+            _goodsBLL = goodsBLL;
         }
 
         /// <summary>
@@ -40,7 +45,11 @@ namespace com.jiechengbao.admin.Controllers
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
-
+                foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
+                {
+                    om.GoodsNameList += _goodsBLL.GetGoodsById(goods.GoodsId).Name + ",";
+                }
+                
                 // 没有了配送系统 
                 // 所以这段代码就没用了
 
@@ -77,7 +86,10 @@ namespace com.jiechengbao.admin.Controllers
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
-
+                foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
+                {
+                    om.GoodsNameList += _goodsBLL.GetGoodsById(goods.GoodsId).Name + ",";
+                }
                 //Address address = _addressBLL.GetAddressById(om.AddressId);
                 //om.Phone = address.Phone;
                 //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;
@@ -92,6 +104,8 @@ namespace com.jiechengbao.admin.Controllers
 
             return View();
         }
+
+        
 
         #region 没有了配送系统 就不需要修改订单配送状态  所以此方法不用了
 
@@ -149,6 +163,10 @@ namespace com.jiechengbao.admin.Controllers
                 OrderModel om = new OrderModel(item);
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
+                foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
+                {
+                    om.GoodsNameList += _goodsBLL.GetGoodsById(goods.GoodsId).Name + ",";
+                }
 
                 //Address address = _addressBLL.GetAddressById(om.AddressId);
                 //om.Phone = address.Phone;
@@ -180,6 +198,10 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = _memberBLL.GetMemberById(item.MemberId);
                 om.MemberName = member.NickeName;
 
+                foreach (var goods in _orderDetailBLL.GetOrderDetailByOrderNo(om.OrderNo))
+                {
+                    om.GoodsNameList += _goodsBLL.GetGoodsById(goods.GoodsId).Name + ",";
+                }
                 //Address address = _addressBLL.GetAddressById(om.AddressId);
                 //om.Phone = address.Phone;
                 //om.Address = address.Province + "," + address.City + "," + address.County + "," + address.Detail;

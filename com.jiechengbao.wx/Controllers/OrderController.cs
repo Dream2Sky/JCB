@@ -70,7 +70,7 @@ namespace com.jiechengbao.wx.Controllers
             {
                 TotalPrice = double.Parse(System.Web.HttpContext.Current.Session["TotalCredit"].ToString());
             }
-            
+
 
             //需求更改  不要配送地址 所以这里就不用获取Address对象了
 
@@ -265,26 +265,30 @@ namespace com.jiechengbao.wx.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 订单列表
-        /// </summary>
-        /// <returns></returns>
-        [IsLogin]
-        public ActionResult List(int type)
+        [HttpPost]
+        public PartialViewResult List(int type)
         {
-            ViewBag.Title = type == 0 ? "未完成订单" : (type == 1 ? "已完成订单" : "全部订单");
-
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
-
+            LogHelper.Log.Write("memberId is " + member.Id);
             // 临时的订单列表
             List<Order> orderList = new List<Order>();
 
             // 要提交的 OrderModel 列表
             List<OrderModel> omList = new List<OrderModel>();
-
-            if (type != 2)
+            
+            if (type == 2)
             {
-                orderList = _orderBLL.GetOrdersByStatus(member.Id, type).ToList();
+                orderList = _orderBLL.GetAllOrders(member.Id).ToList();
+                omList = CreateOrderModelList(orderList);
+            }
+            else if (type == 1)
+            {
+                orderList = _orderBLL.GetOrdersByStatus(member.Id, 1).ToList();
+                omList = CreateOrderModelList(orderList);
+            }
+            else if (type == 0)
+            {
+                orderList = _orderBLL.GetOrdersByStatus(member.Id, 0).ToList();
                 omList = CreateOrderModelList(orderList);
             }
             else
@@ -294,6 +298,14 @@ namespace com.jiechengbao.wx.Controllers
             }
 
             ViewData["OrderList"] = omList;
+            return PartialView();
+        }
+
+        [IsLogin]
+        [IsRegister]
+        public ActionResult OrderList()
+        {
+            List(2);
             return View();
         }
 

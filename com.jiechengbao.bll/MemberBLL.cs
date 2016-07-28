@@ -92,7 +92,7 @@ namespace com.jiechengbao.bll
         /// <returns></returns>
         public IEnumerable<Member> GetNewMembersAtYesterDay()
         {
-            return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-1).Date);
+            return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddDays(-7).Date);
         }
 
         /// <summary>

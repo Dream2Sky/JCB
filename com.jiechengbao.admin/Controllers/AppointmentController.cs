@@ -18,8 +18,8 @@ namespace com.jiechengbao.admin.Controllers
         private IMyAppointmentItemBLL _myAppointmentItemBLL;
         private IMemberBLL _memberBLL;
         public AppointmentController(IAppointmentServiceBLL appointmentServiceBLL,
-            IAppointmentTimeBLL appointmentTimeBLL, 
-            IMyAppointmentBLL myAppointmentBLL,IMyAppointmentItemBLL myAppointmentItemBLL,
+            IAppointmentTimeBLL appointmentTimeBLL,
+            IMyAppointmentBLL myAppointmentBLL, IMyAppointmentItemBLL myAppointmentItemBLL,
             IMemberBLL memberBLL)
         {
             _appointmentServiceBLL = appointmentServiceBLL;
@@ -252,6 +252,11 @@ namespace com.jiechengbao.admin.Controllers
             List<MyAppointment> appointmentList = new List<MyAppointment>();
             appointmentList = _myAppointmentBLL.GetAllHasPayAppointment().ToList();
 
+            if (appointmentList == null || appointmentList.Count <= 0)
+            {
+                return View();
+            }
+
             // 构造 MyAppointmentModel List 
             List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
 
@@ -274,6 +279,11 @@ namespace com.jiechengbao.admin.Controllers
                 appointmentList.AddRange(_myAppointmentBLL.GetHasPayAppointmentByMemberId(item.Id));
             }
 
+            if (appointmentList == null || appointmentList.Count <= 0)
+            {
+                return View();
+            }
+
             List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
 
             modelList = GetMyAppointmentModelList(appointmentList);
@@ -291,6 +301,11 @@ namespace com.jiechengbao.admin.Controllers
             //先获取我的未付款的预约服务列表
             List<MyAppointment> appointmentList = new List<MyAppointment>();
             appointmentList = _myAppointmentBLL.GetAllNoPayAppointment().ToList();
+
+            if (appointmentList == null || appointmentList.Count <= 0)
+            {
+                return View();
+            }
 
             // 构造 MyAppointmentModel List
             List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
@@ -311,6 +326,11 @@ namespace com.jiechengbao.admin.Controllers
             foreach (var item in memberList)
             {
                 appointmentList.AddRange(_myAppointmentBLL.GetNoPayAppointmentByMemberId(item.Id));
+            }
+
+            if (appointmentList == null || appointmentList.Count <= 0)
+            {
+                return View();
             }
 
             List<MyAppointmentModel> modelList = new List<MyAppointmentModel>();
@@ -360,7 +380,6 @@ namespace com.jiechengbao.admin.Controllers
                 apmodel.Price = item.Price;
                 apmodel.Notes = item.Notes;
                 apmodel.Supplement = item.Supplement;
-                apmodel.Description = item.Description;
 
                 apmodel.CarInfo = item.CarInfo;
                 apmodel.CarNumber = item.CarNumber;

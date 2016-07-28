@@ -18,26 +18,11 @@ namespace com.jiechengbao.wx.Global
             IMemberDAL dal = new MemberDAL();
             IMemberBLL _memberBLL = new MemberBLL(dal);
 
-            if (System.Web.HttpContext.Current.Session["IsRegister"] == null)
-            {
-                Member mem = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            Member mem = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
-                if (string.IsNullOrEmpty(mem.RealName) && string.IsNullOrEmpty(mem.Phone))
-                {
-                    System.Web.HttpContext.Current.Session["IsRegister"] = "false";
-                    filterContext.Result = new RedirectResult("/Register/Register");
-                }
-                else
-                {
-                    System.Web.HttpContext.Current.Session["IsRegister"] = "true";
-                }
-            }
-            else
-            {
-                if (System.Web.HttpContext.Current.Session["IsRegister"].ToString() == "false")
-                {
-                    filterContext.Result = new RedirectResult("/Register/Register");
-                }
+            if (string.IsNullOrEmpty(mem.Phone))
+            { 
+                filterContext.Result = new RedirectResult("/Register/Register");
             }
         }
     }

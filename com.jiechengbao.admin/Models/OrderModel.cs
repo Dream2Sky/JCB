@@ -24,8 +24,10 @@ namespace com.jiechengbao.admin.Models
             //this.AddressId = order.AddressId;
             this.PayTime = order.PayTime;
             this.PayWay = order.PayWay;
+            this.TotalPrice = order.TotalPrice;
         }
         public string MemberName { get; set; }
+        public string GoodsNameList { get; set; }
 
         // 配送系统没了  配送信息就没用了
 

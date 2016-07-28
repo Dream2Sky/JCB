@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "手机注册";
+    ViewBag.Title = "会员注册";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
-
 <style>
     .mui-button-row {
         text-align: right;
@@ -33,6 +32,39 @@
     .form-info {
         margin-top: 20px;
     }
+
+    input#code {
+        width: 36%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    button[type="button"] {
+        width: 28% !important;
+        margin: 2px 0px;
+        border: none !important;
+    }
+
+    #button {
+        width: 30%;
+        float: right;
+        display: none;
+        background: inherit;
+        position: absolute;
+        right: 0px;
+        z-index: 2;
+        border: none;
+    }
+
+    #tip {
+        padding-top: 10px;
+        text-align: center;
+        display: none;
+    }
+
+        #tip p {
+            color: #54CA54;
+        }
 </style>
 <form class="mui-input-group form-info">
     <div class="mui-input-row">
@@ -45,11 +77,12 @@
     </div>
     <div class="mui-input-row">
         <label>验证码</label>
+        <button type="button" class="mui-btn mui-btn-primary" onclick="GetCode();"><span class="span-text">发送验证码</span><span class="span-num" style="display:none">60</span><span class="span-sec" style="display:none;">s</span></button>
+        <div id="button" class="mui-btn mui-btn-primary">&nbsp;</div>
         <input id='code' type="text" class="mui-input-clear mui-input" placeholder="请输入验证码">
     </div>
-    <div class="mui-button-row">
-        <p id="p-msg"></p>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="GetCode();">发送验证码</button>
+    <div id="tip" class="mui-input-row">
+        <p>您的验证码已发送，请稍候···</p>
     </div>
 </form>
 <div class="mui-content-padded">
@@ -60,7 +93,21 @@
 </div>
 
 <script>
+    var tim = 60;
     function GetCode() {
+        // alert("22");
+        $("button[type='button']").css({
+            "background":"#ddd",
+            "color":"green"
+        });
+
+        $(".span-text").text("剩余");
+        $(".span-num").show();
+        $(".span-sec").show();
+        $(".span-num").text(tim);
+        setTimeout(dec,1000);
+        $("#button").show();
+        $("#tip").slideDown();
         var phone = $('#phone').val();
         $.ajax({
             url: '/Register/GetCode',
@@ -69,13 +116,17 @@
                 phone: phone
             },
             success: function (data) {
-                if (data == "True") {
-                    $('#p-msg').html("您的验证码已发送,请注意查看");
-                    $('#p-msg').attr("class", "p-success");
-                }
-                else {
-                    $('#p-msg').html("验证码发送失败,请重新发送");
-                    $('#p-msg').attr("class", "p-error");
+                if (data != "True") {
+                    mui.alert("验证码发送失败,请重试");
+                    $(".span-text").html("重新发送");
+                    $(".span-num").hide();
+                    $(".span-sec").hide();
+                    $("button[type='button']").css({
+                        "background": "#007aff",
+                        "color": "#fff"
+                    });
+                    $("#button").hide();
+                    $("#tip").slideUp();
                 }
             },
             error: function () {
@@ -84,6 +135,24 @@
         })
     }
 
+    function dec(){
+        var now = $(".span-num").html();
+        if(now>0){
+            setTimeout(dec,1000);
+            now--;
+            $(".span-num").html(now);
+        }else{
+            $(".span-text").html("重新发送");
+            $(".span-num").hide();
+            $(".span-sec").hide();
+            $("button[type='button']").css({
+                "background":"#007aff",
+                "color":"#fff"
+            });
+            $("#button").hide();
+            $("#tip").slideUp();
+        }
+    }
     function Register() {
         $.ajax({
             url: "/Register/Register",
@@ -95,7 +164,7 @@
             },
             success: function (data) {
                 if (data == "True") {
-                    window.location.href = document.referrer;
+                    window.location.href = "/UserInfo/Info";
                 }
                 else if (data == "CodeError") {
                     mui.alert("输入的验证码错误,请重新输入");
@@ -112,5 +181,4 @@
             }
         })
     }
-
 </script>

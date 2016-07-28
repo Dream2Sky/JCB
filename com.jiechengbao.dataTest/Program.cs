@@ -54,13 +54,27 @@ namespace com.jiechengbao.dataTest
             //string url = "http://www.baidu.com";
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            MemberDAL dal = new MemberDAL();
-            Member member = dal.SelectByWxOpenId("okzkZv6LHCo-vIyZHynDoXjeUbKs");
-            Console.WriteLine(member.NickeName);
+            //MemberDAL dal = new MemberDAL();
+            //Member member = dal.SelectByWxOpenId("okzkZv6LHCo-vIyZHynDoXjeUbKs");
+            //Console.WriteLine(member.NickeName);
+
+            GetMyAppointments();
 
             Console.WriteLine("Finished");
 
             Console.Read();
         }
+
+        static void GetMyAppointments()
+        {
+            Guid mId = Guid.Parse("5cb8fb1c-f63a-4206-a161-2fe5123104c2");
+            MyAppointmentDAL dal = new MyAppointmentDAL();
+
+            foreach (var item in dal.SelectByMemberIdAndPay(mId,false))
+            {
+                Console.WriteLine(item.CarNumber);
+            }
+        }
+
     }
 }

@@ -80,6 +80,8 @@ namespace com.jiechengbao.admin
             builder.RegisterType<MyAppointmentDAL>().As<IMyAppointmentDAL>();
             builder.RegisterType<MyAppointmentItemBLL>().As<IMyAppointmentItemBLL>();
             builder.RegisterType<MyAppointmentItemDAL>().As<IMyAppointmentItemDAL>();
+            builder.RegisterType<OrderDetailBLL>().As<IOrderDetailBLL>();
+            builder.RegisterType<OrderDetailDAL>().As<IOrderDetailDAL>();
         }
     }
 }

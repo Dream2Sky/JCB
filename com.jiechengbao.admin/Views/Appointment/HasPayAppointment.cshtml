@@ -3,7 +3,12 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.admin.Models
-
+<style>
+    .title{
+        text-align:center;
+        color:#808080;
+    }
+</style>
 <div class="navbar navbar-options">
     <div class="container">
         <form class="navbar-form navbar-left" method="post" action="/Appointment/HasPayAppointment" role="search">
@@ -14,42 +19,50 @@
         </form>
     </div>
 </div>
-<div class="container">
-    <label>已完成支付的预约单</label>
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>会员</th>
-                <th>车牌号</th>
-                <th>车型信息</th>
-                <th>预约服务列表</th>
-                <th>预约时间</th>
-                <th>支付金额</th>
-                <th>问题描述</th>
-                <th>问题补充</th>
-                <th>备注</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewData["HasPayAppointmentList"] as IEnumerable<MyAppointmentModel>)
-            {
-                <tr>
-                    <td><img src="@item.HeadImage" />@item.NickName</td>
-                    <td>@item.CarNumber</td>
-                    <td>@item.CarInfo</td>
-                    <td>
-                        @foreach (var appName in item.AppointmentNameList)
-                        {
-                            Html.Raw(appName + ",");
-                        }
-                    </td>
-                    <td>@item.AppointmentTime</td>
-                    <td>@item.Price</td>
-                    <td>@item.Description</td>
-                    <td>@item.Supplement</td>
-                    <td>@item.Notes</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+
+@{
+    if (ViewData["HasPayAppointmentList"] != null)
+    {
+        <div class="container">
+            <label>已完成支付的预约单</label>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>会员</th>
+                        <th>车牌号</th>
+                        <th>车型信息</th>
+                        <th>预约服务列表</th>
+                        <th>预约时间</th>
+                        <th>支付金额</th>
+                        <th>问题补充</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewData["HasPayAppointmentList"] as IEnumerable<MyAppointmentModel>)
+                    {
+                        <tr>
+                            <td><img src="@item.HeadImage" />@item.NickName</td>
+                            <td>@item.CarNumber</td>
+                            <td>@item.CarInfo</td>
+                            <td>
+                                @foreach (var appName in item.AppointmentNameList)
+                                {
+                                    @(appName+",")
+                                }
+                            </td>
+                            <td>@item.AppointmentTime</td>
+                            <td>@item.Price</td>
+                            <td>@item.Supplement</td>
+                            <td>@item.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="title">暂无已付款预约单</div>
+    }
+}

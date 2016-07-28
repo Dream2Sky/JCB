@@ -28,6 +28,12 @@
     button:hover,button:after,button:focus,button:before,button:active,button:visited{
         background-color:#fff;
     }
+    .content-table a{
+        color:#000;
+    }
+    .money-div{
+        color:red;
+    }
 </style>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
@@ -90,7 +96,10 @@
                                 @item.Name
                                 <p class='mui-ellipsis'><small>@item.Description</small></p>
                                 <div class='mui-ellipsis money-div'>
-                                    <span class="mui-left"><small>￥@item.Price</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>@item.ExchangeCredit 积分</small></span>
+                                    <span class="mui-left">
+                                    <small>￥@item.Price</small>
+                                    @*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>@item.ExchangeCredit 积分</small>*@
+                                    </span>
                                 </div>
                             </div>
                         </a>
@@ -115,4 +124,5 @@
     $(document).ready(function () {
         $("#atouserinfo").addClass("mui-active");
     })
+
 </script>

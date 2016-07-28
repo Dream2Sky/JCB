@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "爱车列表";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+
+@using com.jiechengbao.entity
+<style>
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+    }
+
+    .btn-block {
+        margin-top: 40px;
+        padding: 10px;
+    }
+
+    h4 {
+        padding-bottom: 3px;
+    }
+
+    .mui-table-cell a {
+        color: #000;
+    }
+</style>
+
+@if (ViewData["CarList"] != null && (ViewData["CarList"] as IEnumerable<Car>).Count() > 0)
+{
+    <ul class="mui-table-view">
+        @foreach (var item in ViewData["CarList"] as IEnumerable<Car>)
+        {
+            <li class="mui-table-view-cell">
+                <a href="/Car/Detail?numberplate=@item.Numberplate">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-10">
+                            <h4 class="mui-ellipsis">@item.Numberplate</h4>
+                            <p>车型信息: @item.CarDetailInfo</p>
+                            <p class="mui-h6 mui-ellipsis">车架号: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: @item.EngineNumber</p>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            <button class="btn btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑</button>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="title">您还没有绑定您的爱车，点击下方按钮去绑定吧。。。</div>
+    <div>
+        <button class="btn btn-block btn-danger AddCar">绑定爱车</button>
+    </div>
+}
+<script>
+    $(".AddCar").on("click", function () {
+        window.location.href = "/Car/List";
+    });
+
+    function Edit(Numberplate) {
+        window.location.href = "/Car/Detail?numberplate" + Numberplate;
+    }
+    
+    $(document).ready(function () {
+        $("#atocar").addClass("mui-active");
+    })
+</script>

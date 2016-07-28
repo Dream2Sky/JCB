@@ -4,7 +4,12 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
-
+<style>
+    img{
+        max-height:48px;
+        max-width:48px;
+    }
+</style>
 <div class="navbar navbar-options">
     <div class="container">
         <form class="navbar-form navbar-left" method="post" action="/Member/List" role="search">
@@ -22,11 +27,11 @@
         <thead>
             <tr>
                 <th>用户昵称</th>
+                <th>真实姓名</th>
                 <th>用户手机</th>
                 <th>注册时间</th>
                 <th>VIP等级</th>
                 @*<th>当前余额</th>*@
-                <th></th>
                 <th>当前积分</th>
             </tr>
         </thead>
@@ -35,6 +40,7 @@
             {
                 <tr>
                     <td><img src="@item.HeadImage" />@item.NickeName</td>
+                    <td>@item.RealName</td>
                     <td>@item.Phone</td>
                     <td>@item.CreatedTime</td>
                     <td>@item.Vip</td>
@@ -47,6 +53,7 @@
                 Member member = ViewBag.Member as Member;
                 <tr>
                     <td><img src="@member.HeadImage" />@member.NickeName</td>
+                    <td>@member.RealName</td>
                     <td>@member.Phone</td>
                     <td>@member.CreatedTime</td>
 

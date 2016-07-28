@@ -23,7 +23,10 @@
             <tr>
                 <th>订单号</th>
                 <th>用户名</th>
+                <th>购买商品/服务</th>
                 <th>状态</th>
+                <th>订单总价</th>
+                <th>支付方式</th>
                 <th>订单提交时间</th>
                 <th></th>
             </tr>
@@ -34,7 +37,25 @@
                 <tr>
                     <td>@item.OrderNo</td>
                     <td>@item.MemberName</td>
-                    <td>@item.Status</td>
+                    <td>@item.GoodsNameList</td>
+                    @if (item.Status == 1)
+                    {
+                        <td>已完成</td>
+                    }
+                    else
+                    {
+                        <td>未完成</td>
+                    }
+                    @if (item.Status == 0)
+                    {
+                        <td>￥ @item.TotalPrice</td>
+                        <td>微信支付</td>
+                    }
+                    else
+                    {
+                        <td>@item.TotalPrice 积分</td>
+                        <td>积分支付</td>
+                    }
                     <td>@item.CreatedTime</td>
                 </tr>
             }

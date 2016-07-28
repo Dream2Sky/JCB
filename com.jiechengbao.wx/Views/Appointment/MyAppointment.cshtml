@@ -23,7 +23,7 @@
 </script>
 
 <style>
-    body {
+   body {
         padding: 0px;
         margin: 0px;
         background: #eee;
@@ -34,7 +34,7 @@
     }
 
     .car-blank {
-        width: 96%;
+        width: 100%;
         border-bottom: 1px solid #d2d2d2;
         padding: 10px 2%;
         background: white;
@@ -48,6 +48,12 @@
 
         .car-blank input {
             border: none;
+            margin-bottom: 2px;
+            padding: 0px;
+            height: 18px;
+            width: 35%;
+            font-size: 14px;
+            width:150px;
         }
 
     .icon-hand-right {
@@ -61,12 +67,18 @@
         font-size: 12px;
         margin-top: -2px;
     }
-
+    input{
+        margin: 0px!important;
+    }
     select {
         border: none;
         appearance: normal;
-        /*-webkit-appearance: none;*/
+        -moz-appearance: normal;
+        -webkit-appearance: normal;
         background: inherit;
+        width: auto;
+        margin: 0px;
+        padding: 0px;
     }
 
         select:nth-child(n+4) {
@@ -102,6 +114,7 @@
         color: #888;
         border: none;
         background: inherit;
+        width: 68%;
     }
 
     .padd {
@@ -122,12 +135,13 @@
 
     .box-onclick {
         border: 1px solid orange;
-        background: url("images/right.png") no-repeat right bottom;
+        background: url("/Content/images/right.png") no-repeat right bottom;
     }
 
     .chec {
         background: inherit;
         overflow: hidden;
+        margin-top: 10px;
     }
 
     .last-input {
@@ -278,7 +292,7 @@
     <div class="car-blank">
         <i class="icon-asterisk"></i>
         <span>车型：</span>
-        <input id="jcbtype" type="" name="jcbtype" placeholder="车辆型号" />
+        <input id="jcbtype" type="text" name="jcbtype" placeholder="车辆型号" />
         <div class="icon-hand-right">已有车型</div>
     </div>
     <div class="car-blank">
@@ -471,16 +485,16 @@
 
         var jcbremark = $("input[name='jcbremark']").val();
 
-        if (jcbtype == "" || jcbtype == undefined) {
+        if (jcbtype == "" || jcbtype == "undefined") {
             alert("请填写车型号");
         } else
-            if (jcbnumber == "" || jcbnumber == undefined) {
+            if (jcbnumber == "" || jcbnumber == "undefined") {
                 alert("请填写车牌号");
             } else
-                if (jcbdate == "" || jcbdate == undefined) {
+                if (jcbdate == "" || jcbdate == "undefined") {
                     alert("请填写预约日期");
                 } else
-                    if (jcbtime == "" || jcbtime == undefined) {
+                    if (jcbtime == "" || jcbtime == "undefined") {
                         alert("请填写预约时间段");
                     } else
                         if (appointmentArray.length == 0) {

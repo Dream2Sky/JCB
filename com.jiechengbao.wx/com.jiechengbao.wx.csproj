@@ -290,7 +290,6 @@
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Cart\List.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
-    <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\LayoutPage2.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\Help.cshtml" />
@@ -328,6 +327,9 @@
     <Content Include="Views\UserInfo\MyAppointment.cshtml" />
     <Content Include="Views\Appointment\MyAppointment.cshtml" />
     <Content Include="Views\Appointment\List.cshtml" />
+    <Content Include="Views\Car\CarList.cshtml" />
+    <Content Include="Views\Order\OrderList.cshtml" />
+    <Content Include="Views\Order\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

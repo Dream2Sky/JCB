@@ -9,6 +9,7 @@
         margin: 20px 15px 10px;
         color: #6d6d72;
         font-size: 15px;
+        text-align:center;
     }
 </style>
 <div class="navbar navbar-options">
@@ -22,37 +23,40 @@
     </div>
 </div>
 
-<div class="container">
-    <label>用户的爱车列表</label>
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>用户昵称</th>
-                <th>用户手机</th>
-                <th>车牌号</th>
-                <th>车架号</th>
-                <th>发动机号</th>
-                <th>其他信息</th>
-                <th>绑定时间</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewData["CarList"] as List<CarModel>)
-            {
+@if (ViewData["CarList"] != null && (ViewData["CarList"] as IEnumerable<CarModel>).Count()>0)
+{
+    <div class="container">
+        <label>用户的爱车列表</label>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
                 <tr>
-                    <td><img src="@item.MemberImagePath" />@item.MemberName</td>
-                    <td>@item.Phone</td>
-                    <td>@item.Numberplate</td>
-                    <td>@item.ChassisNumber</td>
-                    <td>@item.EngineNumber</td>
-                    <td>@item.CarDetailInfo</td>
-                    <td>@item.CreatedTime</td>
+                    <th>用户昵称</th>
+                    <th>用户手机</th>
+                    <th>车牌号</th>
+                    <th>车架号</th>
+                    <th>发动机号</th>
+                    <th>车型信息</th>
+                    <th>绑定时间</th>
                 </tr>
-            }
-        </tbody>
-        @if ((ViewData["CarList"] as List<CarModel>) == null || (ViewData["CarList"] as List<CarModel>).Count == 0)
-        {
-            <div class="title"><p>尚无用户绑定车辆信息/p></div>
-        }
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["CarList"] as List<CarModel>)
+                {
+                    <tr>
+                        <td><img src="@item.MemberImagePath" />@item.MemberName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Numberplate</td>
+                        <td>@item.ChassisNumber</td>
+                        <td>@item.EngineNumber</td>
+                        <td>@item.CarDetailInfo</td>
+                        <td>@item.CreatedTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="title">尚无用户绑定车辆信息</div>
+}

@@ -1,5 +1,6 @@
 ﻿using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace com.jiechengbao.wx.Controllers
             _myAppointmentItemBLL = myAppointmentItemBLL;
         }
 
+        [IsRegister]
         public ActionResult MyAppointment()
         {
             // 上来先获取当前用户信息
@@ -116,6 +118,7 @@ namespace com.jiechengbao.wx.Controllers
         /// 我的预约单列表
         /// </summary>
         /// <returns></returns>
+        [IsRegister]
         public ActionResult List()
         {
             // 先获取当前会员对象
