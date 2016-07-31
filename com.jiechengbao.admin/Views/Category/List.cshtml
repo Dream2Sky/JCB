@@ -4,8 +4,9 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
+<link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
-    .container-btn {
+    /*.container-btn {
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -27,41 +28,73 @@
                 margin-bottom: 5px;
             }
 
-                .container-add-followitem form .form-group input,.container-add-followitem form .form-group select {
+                .container-add-followitem form .form-group input, .container-add-followitem form .form-group select {
                     width: 200px;
                 }
+    .div-title {
+        top:20px;
+    }
+    .container-fluid div{
+        top:20px;
+    }*/
+    .div-title {
+        margin-top: 20px;
+    }
+
+    form input, form select {
+        max-width: 200px;
+    }
 </style>
-<label>商品分类</label>
-<div class="container-fluid container-btn">
-    <div class="row">
-        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-        {
-            <button class="btn btn-default col-xs-2">@item.Name</button>
-        }
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">管理后台</a></li>
+            <li class="active">商品分类列表</li>
+        </ol>
+        <div class="container-fluid">
+            <div class="col-md-12 div-title">
+                <ol class="breadcrumb">
+                    <li>商品分类</li>
+                </ol>
+            </div>
+            <div class="container-btn">
+                @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                {
+                    <button class="btn btn-default col-xs-2">@item.Name</button>
+                }
+            </div>
+        </div>
+        <hr />
+        <div class="container-fluid">
+            <div class="col-md-12 div-title">
+                <ol class="breadcrumb">
+                    <li>添加商品分类</li>
+                </ol>
+            </div>
+            @if (!string.IsNullOrEmpty(ViewBag.msg))
+            {
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">×</a>
+                    @ViewBag.msg
+                </div>
+            }
+            <div class="container-fluid container-add-followitem">
+                <form method="post" action="/Category/Add" id="category-form">
+                    <div class="form-group">
+                        <input type="text" name="categoryName" class="form-control" placeholder="分类名称" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+                        <select name="isService" class="form-control">
+                            <option value="1">服务类型</option>
+                            <option value="0" selected>非服务类型</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">添加</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
-<hr />
-<label>添加商品分类</label>
-@if (!string.IsNullOrEmpty(ViewBag.msg))
-{
-    <div class="alert alert-error">
-        <a class="close" data-dismiss="alert">×</a>
-        @ViewBag.msg
-    </div>
-}
-<div class="container container-add-followitem">
-    <form method="post" action="/Category/Add" id="category-form">
-        <div class="form-group">
-            <input type="text" name="categoryName" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
-            <select name="isService" class="form-control">
-                <option value="1">服务类型</option>
-                <option value="0" selected>非服务类型</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">添加</button>
-    </form>
-</div>
 <script>
     $(document).ready(function () {
         $('#category-form').bootstrapValidator({
@@ -72,4 +105,10 @@
             }
         });
     });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#li-categoryList").addClass("a-active");
+        $("#li-categoryList").parent().parent().removeClass("collapse");
+    })
 </script>

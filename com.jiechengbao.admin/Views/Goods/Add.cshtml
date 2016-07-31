@@ -3,119 +3,141 @@
     ViewBag.Title = "Add";
     Layout = "~/Views/LayoutPage.cshtml";
 }
+<link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
     .td-category input-group input {
         margin-bottom: 10px;
     }
 
     #img-upload {
-        width: 128px;
-        height: 128px;
+        max-width: 128px;
+        max-height: 128px;
     }
 
     img {
         max-height: 50px;
         min-width: 50px;
     }
-
+    .input-group-addon{
+        background-color:#337ab7;
+        color:#fff;
+    }
 </style>
 @using com.jiechengbao.admin.Models
 @using com.jiechengbao.entity
 
-<div class="container">
-    <label>商品列表</label>
-    @if (!string.IsNullOrEmpty(ViewBag.Msg))
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">管理后台</a></li>
+            <li class="active">添加商品</li>
+        </ol>
+
+        <div class="container-fluid">
+            <div class="col-md-12 div-title">
+                <ol class="breadcrumb">
+                    <li>添加商品</li>
+                </ol>
+            </div>
+            @if (!string.IsNullOrEmpty(ViewBag.Msg))
             {
-        <div class="alert alert-error">
-            <a class="close" data-dismiss="alert">×</a>
-            @ViewBag.msg
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">×</a>
+                    @ViewBag.msg
+                </div>
+            }
+            <form @*action="/Goods/Add" method="post"*@>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">商品名</span>
+                                <input type="text" class="form-control" placeholder="商品名" name="Name" aria-describedby="basic-addon1">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">商品单价</span>
+                                <input type="text" class="form-control" placeholder="商品单价" name="Price" aria-describedby="basic-addon1">
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">商品原价</span>
+                                <input type="text" class="form-control" placeholder="商品原价" name="OriginalPrice" aria-describedby="basic-addon1">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">兑换积分</span>
+                                <input type="text" class="form-control" placeholder="兑换积分" name="ExchangeCredit" aria-describedby="basic-addon1">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">商品描述</span>
+                                <textarea class="form-control" name="Description" placeholder="商品描述" rows="3"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">
+                            <img src="~/Uploads/default.png" id="img-upload" />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">商品图片</span>
+                                <input type="hidden" id="PicturePath" name="PicturePath" value="" />
+                                <input type="file" class="form-control" placeholder="商品图片" id="picture" aria-describedby="basic-addon1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" type="button" onclick="Upload();">上传</button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; background:#337ab7; color:#fff;">
+                            为您的商品添加分类
+                        </td>
+                    </tr>
+                    <tr class="tr-category">
+                        <td class="td-category"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <select class="form-control">
+                                    @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                                    {
+                                        <option value="@item.CategoryNO">@item.Name</option>
+                                    }
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button" onclick="AddCategory();">添加</button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">服务次数</span>
+                                <input type="text" class="form-control" placeholder="服务次数" name="ServiceCount" aria-describedby="basic-addon1">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right;">
+                            <button class="btn btn-primary" type="submit">录入</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
-    }
-    <form @*action="/Goods/Add" method="post"*@>
-        <table class="table">
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">商品名</span>
-                        <input type="text" class="form-control" placeholder="商品名" name="Name" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">商品单价</span>
-                        <input type="text" class="form-control" placeholder="商品单价" name="Price" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">商品原价</span>
-                        <input type="text" class="form-control" placeholder="商品原价" name="OriginalPrice" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">兑换积分</span>
-                        <input type="text" class="form-control" placeholder="兑换积分" name="ExchangeCredit" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">商品描述</span>
-                        <textarea class="form-control" name="Description" placeholder="商品描述" rows="3"></textarea>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="~/Uploads/default.png" id="img-upload" />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">商品图片</span>
-                        <input type="hidden" id="PicturePath" name="PicturePath" value="" />
-                        <input type="file" class="form-control" placeholder="商品图片" id="picture" aria-describedby="basic-addon1">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="Upload();">上传</button>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><label>选择以下商品分类, 为你的商品添加分类</label></td>
-            </tr>
-            <tr class="tr-category">
-                <td class="td-category"></td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <select class="form-control">
-                            @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-                            {
-                                <option value="@item.CategoryNO">@item.Name</option>
-                            }
-                        </select>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="AddCategory();">添加</button>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">服务次数</span>
-                        <input type="text" class="form-control" placeholder="服务次数" name="ServiceCount" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="btn btn-primary" type="submit">录入</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+    </div>
 </div>
 
 <script>
@@ -163,7 +185,7 @@
 
     $(document).ready(function () {
         $('form').on('submit', function () {
-            
+
             if ($('.td-category').html() == undefined || $('.td-category').html() == "") {
                 alert("请选择商品分类");
             }
@@ -186,5 +208,11 @@
                 });
             }
         })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#li-goodsAdd").addClass("a-active");
+        $("#li-goodsAdd").parent().parent().removeClass("collapse");
     })
 </script>

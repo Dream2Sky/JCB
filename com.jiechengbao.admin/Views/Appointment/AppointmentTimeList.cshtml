@@ -8,36 +8,53 @@
     .container-add-followitem {
         padding-left: 0px;
     }
+
+    .div-time {
+        padding-left: 0px;
+    }
+
+    #follow-form {
+        padding-left: 0px;
+    }
+
+    .div-title {
+        margin-top: 20px;
+    }
 </style>
-<label>
-    预约时间项
-</label>
-<div class="container container-btn">
-    <div class="row row-Time">
+
+<div class="container-fluid">
+    <div class="col-md-12 div-title">
+        <ol class="breadcrumb">
+            <li>预约时间段</li>
+        </ol>
+    </div>
+    <div class="container-fluid">
         @if (ViewData["AppointmentTimeList"] == null)
         {
-
+            <div class="title">暂无预约时间段</div>
         }
         else
         {
             foreach (var item in ViewData["AppointmentTimeList"] as IEnumerable<AppointmentTime>)
             {
-                <div class="col-lg-2" id="@item.Id">
+                <div class="div-time col-lg-2" id="@item.Id">
                     <div class="input-group">
                         <input type="text" class="form-control" value="@item.TimePeriod" disabled>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="DeleteTime('@item.Id')">删除</button>
+                            <button class="btn btn-danger" type="button" onclick="DeleteTime('@item.Id')">删除</button>
                         </span>
                     </div>
                 </div>
             }
         }
-
     </div>
 </div>
-<hr />
-<label>添加预约时间项</label>
-<div class="container container-add-followitem row">
+<div class="container-fluid">
+    <div class="col-md-12 div-title">
+        <ol class="breadcrumb">
+            <li>添加预约时间项</li>
+        </ol>
+    </div>
     <form id="follow-form" class="col-lg-2">
         <div class="form-group">
             <label>开始时间</label>
@@ -50,10 +67,14 @@
         <button type="button" class="btn btn-primary" onclick="AddTime();">添加</button>
     </form>
 </div>
+@*<label>添加预约时间项</label>
+    <div class="container container-add-followitem row">
+
+    </div>*@
 
 <script>
     $("input[name='stime']").timepicker({
-        timeFormat:"HH:mm"
+        timeFormat: "HH:mm"
     });
     $("input[name='etime']").timepicker({
         timeFormat: "HH:mm"
@@ -72,7 +93,7 @@
                 else if (data == "Exception") {
                     alert("您添加的时间段有异常， 请重新添加");
                 } else {
-                    $('.row-Time').append("<div class=\"col-lg-2\" id='" + data.Id + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.TimePeriod + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteTime('" + data.Id + "')\">删除</button></span></div></div>");
+                    $('.row-Time').append("<div class=\"col-lg-2\" id='" + data.Id + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.TimePeriod + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-danger\" type=\"button\" onclick=\"DeleteTime('" + data.Id + "')\">删除</button></span></div></div>");
                 }
             },
             error: function () {

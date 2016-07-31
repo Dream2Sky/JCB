@@ -4,39 +4,55 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
-
+<link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
     .input-group {
         margin-bottom: 10px;
     }
+    .div-title{
+        margin-top:20px;
+    }
 </style>
-<label>编辑商品分类</label>
-<div class="container-fluid container-btn">
-    <div class="row">
-        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-        {
-            <div class="input-group col-xs-3">
-                <input type="text" class="form-control" name="categoryName" id="@item.CategoryNO" value="@item.Name">
-                <select class="form-control" name="isService" id="select_@item.CategoryNO">
-                    @if (item.IsService)
-                    {
-                        <option value="1" selected>服务类型</option>
-                        <option value="0">非服务类型</option>
-                    }
-                    else
-                    {
-                        <option value="1" >服务类型</option>
-                        <option value="0" selected>非服务类型</option>
-                    }
-                </select>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" onclick="Save('@item.CategoryNO');" type="button">保存</button>
-                </span>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" onclick="Delete('@item.CategoryNO');" type="button">删除</button>
-                </span>
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">管理后台</a></li>
+            <li class="active">编辑商品分类</li>
+        </ol>
+
+        <div class="container-fluid">
+            <div class="col-md-12 div-title">
+                <ol class="breadcrumb">
+                    <li>商品分类</li>
+                </ol>
             </div>
-        }
+            @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+            {
+                <div class="input-group col-xs-3">
+                    <input type="text" class="form-control" name="categoryName" id="@item.CategoryNO" value="@item.Name">
+                    <select class="form-control" name="isService" id="select_@item.CategoryNO">
+                        @if (item.IsService)
+                        {
+                            <option value="1" selected>服务类型</option>
+                            <option value="0">非服务类型</option>
+                        }
+                        else
+                        {
+                            <option value="1">服务类型</option>
+                            <option value="0" selected>非服务类型</option>
+                        }
+                    </select>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" onclick="Save('@item.CategoryNO');" type="button">保存</button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" onclick="Delete('@item.CategoryNO');" type="button">删除</button>
+                    </span>
+                </div>
+            }
+
+        </div>
     </div>
 </div>
 
@@ -97,4 +113,10 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#li-categoryEdit").addClass("a-active");
+        $("#li-categoryEdit").parent().parent().removeClass("collapse");
+    })
 </script>

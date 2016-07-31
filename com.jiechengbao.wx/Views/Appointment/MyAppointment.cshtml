@@ -293,7 +293,16 @@
         <i class="icon-asterisk"></i>
         <span>车型：</span>
         <input id="jcbtype" type="text" name="jcbtype" placeholder="车辆型号" />
-        <div class="icon-hand-right">已有车型</div>
+
+        @if (ViewData["CarList"] == null || (ViewData["CarList"] as IEnumerable<Car>).Count() <= 0)
+        {
+            <div class="icon-hand-right" onclick="javascript: window.location.href = '/Car/List';">已有车型</div>
+        }
+        else
+        {
+            <div class="icon-hand-right" id="div-model">已有车型</div>
+        }
+        
     </div>
     <div class="car-blank">
         <i class="icon-asterisk"></i>
@@ -427,7 +436,7 @@
             $(this).toggleClass("box-onclick");
         });
         $("#da2").datepicker();
-        $(".icon-hand-right").click(function () {
+        $("#div-model").click(function () {
             $(".fix-div").show();
         });
         $(".fix-div").click(function () {

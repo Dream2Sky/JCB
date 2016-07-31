@@ -5,43 +5,69 @@
     .container-add-followitem {
         padding-left: 0px;
     }
+    .btn-service{
+        padding-left:0px;
+    }
+    #follow-form {
+        padding-left:0px;
+    }
+    .div-title{
+        margin-top:20px;
+    }
 </style>
-<label>
-    预约服务项
-</label>
-<div class="container container-btn">
-    <div class="row row-serviceName">
+<div class="container-fluid">
+    <div class="col-md-12 div-title">
+        <ol class="breadcrumb">
+            <li>预约服务项</li>
+        </ol>
+    </div>
+    <div class="container-fluid">
         @if (ViewData["AppointmentServiceList"] == null)
         {
-
+            <div class="title">暂无预约服务项</div>
         }
         else
         {
             foreach (var item in ViewData["AppointmentServiceList"] as IEnumerable<AppointmentService>)
             {
-                <div class="col-lg-2" id="@item.Code">
+                <div class="btn-service col-lg-2" id="@item.Code">
                     <div class="input-group">
                         <input type="text" class="form-control" value="@item.Name" disabled>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="DeleteService('@item.Code')">删除</button>
+                            <button class="btn btn-danger" type="button" onclick="DeleteService('@item.Code')">删除</button>
                         </span>
                     </div>
                 </div>
             }
         }
-
     </div>
 </div>
-<hr />
-<label>添加预约服务项</label>
-<div class="container container-add-followitem row">
-    <form id="follow-form" class="col-lg-2">
-        <div class="form-group">
-            <input type="text" name="serviceItem" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+<div class="container-fluid">
+    <div class="col-md-12 div-title">
+        <ol class="breadcrumb">
+            <li>添加预约服务项</li>
+        </ol>
+        <div class="container-fluid">
+            <form id="follow-form" class="col-lg-2">
+                <div class="form-group">
+                    <input type="text" name="serviceItem" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="AddService();">添加</button>
+            </form>
         </div>
-        <button type="button" class="btn btn-primary" onclick="AddService();">添加</button>
-    </form>
+    </div>
 </div>
+
+
+@*<label>添加预约服务项</label>
+    <div class="container container-add-followitem row">
+        <form id="follow-form" class="col-lg-2">
+            <div class="form-group">
+                <input type="text" name="serviceItem" class="form-control" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="AddService();">添加</button>
+        </form>
+    </div>*@
 
 <script>
 
@@ -63,7 +89,7 @@
                     console.log(data.Name);
                     console.log(data.Code);
 
-                    $('.row-serviceName').append("<div class=\"col-lg-2\" id='" + data.Code + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.Name + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" onclick=\"Delete('" + data.Code + "')\">删除</button></span></div></div>");
+                    $('.row-serviceName').append("<div class=\"col-lg-2\" id='" + data.Code + "'><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value='" + data.Name + "' disabled><span class=\"input-group-btn\"><button class=\"btn btn-danger\" type=\"button\" onclick=\"Delete('" + data.Code + "')\">删除</button></span></div></div>");
                 }
             },
             error: function () {

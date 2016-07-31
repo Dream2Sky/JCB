@@ -4,11 +4,11 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.admin.Models
-
+<link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
     img {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
 
     input[type='checkbox'] {
@@ -18,72 +18,81 @@
     }
 </style>
 
-<div class="navbar navbar-options">
-    <div class="container">
-        <form class="navbar-form navbar-left" method="post" action="/Goods/List" role="search">
-            <div class="form-group">
-                <input type="text" name="condition" class="form-control" placeholder="搜索">
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">管理后台</a></li>
+            <li class="active">已完成订单</li>
+        </ol>
+        <div class="navbar navbar-options">
+            <div class="container-fluid">
+                <form class="navbar-form navbar-left" method="post" action="/Goods/List" role="search">
+                    <div class="form-group">
+                        <input type="text" name="condition" class="form-control" placeholder="搜索">
+                    </div>
+                    <button type="submit" class="btn btn-danger">搜索</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-default">搜索</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <label>商品列表</label>
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>商品名称</th>
-                <th>商品图片</th>
-                <th>当前单价</th>
-                <th>原价</th>
-                <th>兑换积分</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewData["GoodsList"] as IEnumerable<GoodsModel>)
+        </div>
+        <div class="container-fluid">
+            <div class="col-md-12 div-title">
+                <ol class="breadcrumb">
+                    <li>商品列表</li>
+                </ol>
+            </div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>商品图片</th>
+                        <th>当前单价</th>
+                        <th>原价</th>
+                        <th>兑换积分</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewData["GoodsList"] as IEnumerable<GoodsModel>)
             {
-                <tr>
-                    <td>@item.Name</td>
-                    <td><img src="/Uploads/@item.PicturePath" /></td>
-                    <td>@item.Price</td>
-                    <td>@item.OriginalPrice</td>
-                    <td>@item.ExchangeCredit</td>
-                    <td>
-                        <a href="javascript:;" data-toggle="modal" data-target=".@item.Code">删除</a> | 
-                        <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> | 
-                        @if (item.IsRecommend)
-                        {
-                            <input type="checkbox" name="IsRecommend" checked value="@item.Code" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="IsRecommend" value="@item.Code" />
-                        }
-                        是否为推荐商品
-                    </td>
-                </tr>
-                <div class="modal fade @item.Code" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="@item.Code">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                是否确定要删除此商品？
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                <button type="button" class="btn btn-primary" onclick="Delete('@item.Code')">确定删除</button>
+                        <tr>
+                            <td>@item.Name</td>
+                            <td><img src="/Uploads/@item.PicturePath" /></td>
+                            <td>@item.Price</td>
+                            <td>@item.OriginalPrice</td>
+                            <td>@item.ExchangeCredit</td>
+                            <td>
+                                <a href="javascript:;" data-toggle="modal" data-target=".@item.Code">删除</a> |
+                                <a href="/Goods/Update?GoodsCode=@item.Code">编辑</a> |
+                                @if (item.IsRecommend)
+                                {
+                                    <input type="checkbox" name="IsRecommend" checked value="@item.Code" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="IsRecommend" value="@item.Code" />
+                                }
+                                是否为推荐商品
+                            </td>
+                        </tr>
+                        <div class="modal fade @item.Code" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="@item.Code">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        是否确定要删除此商品？
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" onclick="Delete('@item.Code')">确定删除</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            }
-        </tbody>
-    </table>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-
 <script>
     $(function () {
         $("input[type='checkbox']").change(function () {
@@ -91,9 +100,9 @@
                 url: "/Goods/SetReCommend",
                 type: "POST",
                 data: {
-                    goodsCode:$(this).val()
+                    goodsCode: $(this).val()
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data == "True") {
                         alert("设置成功");
                     }
@@ -103,7 +112,7 @@
                     else if (data == "ErrorParam") {
                         alert("提交的参数有误");
                     }
-                    else if(data == "False"){
+                    else if (data == "False") {
                         alert("设置失败");
                     }
                 },
@@ -137,4 +146,10 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#li-goodsList").addClass("a-active");
+        $("#li-goodsList").parent().parent().removeClass("collapse");
+    })
 </script>

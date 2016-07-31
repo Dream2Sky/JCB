@@ -11,13 +11,17 @@
     <title>Login</title>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrapValidator.min.css" rel="stylesheet" />
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+
     <style>
         html body {
             font-family: 'Microsoft YaHei';
+            background:#d2c9cb;
         }
 
             html body a {
                 color: #000;
+
             }
 
         .div-panel {
@@ -47,39 +51,55 @@
             border-color: #EED3D7;
             color: #B94A48;
         }
+
+        #login-form {
+            max-width: 350px;
+            padding: 15px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-    <div class="container-fluid header">
-        <div class="page-header">
-            <h2><strong>捷诚宝</strong> <small>管理后台</small></h2>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">捷诚宝管理后台</a>
+            </div>
         </div>
     </div>
-    <div class="container-fluid div-panel">
-        @if (ViewBag.msg != null)
-            {
-            <div class="alert alert-error">
-                <a class="close" data-dismiss="alert">×</a>
-                <strong>登陆失败! </strong>@ViewBag.msg
-            </div>
-        }
-        <form action="/Account/Login" method="post" id="login-form">
-            <div class="form-group">
-                <label for="input_account">用户名</label>
-                <input type="text" class="form-control" id="input_account" name="account" placeholder="用户名" required data-bv-notempty-message="用户名不能为空">
-            </div>
-            <div class="form-group">
-                <label for="input_password">密码</label>
-                <input type="password" class="form-control" id="input_password" name="password" placeholder="密码" required data-bv-notempty-message="密码不能为空">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">登陆</button>
-            </div>
-        </form>
-    </div>
-    <div class="container-fluid footer">
+
+    <div class="container body-content">
+        <div style="min-height:650px;">
+            <form action="/Account/Login" method="post" id="login-form">
+                @if (ViewBag.msg != null)
+                {
+                    <div class="alert alert-error">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <strong>登陆失败! </strong>@ViewBag.msg
+                    </div>
+                }
+                <div class="form-group">
+                    <label for="input_account">用户名</label>
+                    <input type="text" class="form-control" id="input_account" name="account" placeholder="用户名" required data-bv-notempty-message="用户名不能为空">
+                </div>
+                <div class="form-group">
+                    <label for="input_password">密码</label>
+                    <input type="password" class="form-control" id="input_password" name="password" placeholder="密码" required data-bv-notempty-message="密码不能为空">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">登陆</button>
+                </div>
+            </form>
+        </div>
         <hr />
-        <p><a href="#">捷诚宝</a></p>
+        <footer class="footer text-muted">
+            <p>&copy; @DateTime.Now.Year 捷诚宝 版权所有</p>
+        </footer>
     </div>
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>

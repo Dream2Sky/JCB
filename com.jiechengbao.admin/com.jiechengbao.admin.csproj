@@ -166,9 +166,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\base.css" />
     <Content Include="Content\css\bootstrap-table-expandable.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrapValidator.min.css" />
+    <Content Include="Content\css\content.css" />
     <Content Include="Content\css\jquery.timepicker.css" />
     <Content Include="Content\images\default.png" />
     <Content Include="Content\images\waiting.gif" />

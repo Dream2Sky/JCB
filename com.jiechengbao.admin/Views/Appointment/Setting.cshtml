@@ -4,11 +4,21 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
-
-<div class="container">
-    @Html.Partial("AppointmentServiceList")
+<link href="~/Content/css/content.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">管理后台</a></li>
+            <li class="active">预约服务设置</li>
+        </ol>
+        @Html.Partial("AppointmentServiceList")
+        <hr />
+        @Html.Partial("AppointmentTimeList")
+    </div>
 </div>
-<hr />
-<div class="container">
-    @Html.Partial("AppointmentTimeList")
-</div>
+<script>
+    $(document).ready(function () {
+        $("#li-appSetting").addClass("a-active");
+        $("#li-appSetting").parent().parent().removeClass("collapse");
+    })
+</script>
