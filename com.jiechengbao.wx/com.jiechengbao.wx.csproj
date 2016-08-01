@@ -188,6 +188,8 @@
     <Content Include="Content\css\weui.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\11.jpg" />
+    <Content Include="Content\images\arrow1.png" />
+    <Content Include="Content\images\arrow2.png" />
     <Content Include="Content\images\ca.png" />
     <Content Include="Content\images\call.png" />
     <Content Include="Content\images\car.png" />

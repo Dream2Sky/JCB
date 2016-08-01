@@ -135,6 +135,65 @@ namespace com.jiechengbao.wx.Controllers
             return View(member);
         }
 
+        public ActionResult MyLocation()
+        {
+            //string appid = "wxf57a5eab31b46755";
+            //string timestamp = Convert.ToInt64((DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds).ToString();
+            //string nonceStr = "ikrmvjcuelopsxjf";
+            //string signature = string.Empty;
+            //string url = HttpContext.Request.Url.AbsoluteUri;
+
+
+            //if (CacheManager.GetCache("JSAPI_Ticket") == null || (CacheManager.GetCache("JSAPI_Ticket") as com.ybtx.mobile.Global.JsAPI_Ticket).time.AddSeconds(7200) <= DateTime.Now)
+            //{
+            //    if (CacheManager.GetCache("Token") == null || (CacheManager.GetCache("Token") as Global_Token).time.AddSeconds(7200) <= DateTime.Now)
+            //    {
+            //        BaseToken bt = new WxHelper.WxHelper().GetBaseToken();
+            //        Global_Token gt = new Global_Token();
+            //        gt.token = bt;
+            //        gt.time = DateTime.Now;
+
+            //        CacheManager.SetCache("Token", gt);
+
+            //        WxHelper.WxHelper wx = new WxHelper.WxHelper();
+            //        Global.JsAPI_Ticket ticket = new Global.JsAPI_Ticket();
+
+            //        WxHelper.JsAPI_Ticket tk = wx.GetJsAPITicket(bt.access_token);
+
+            //        ticket.ticket = tk;
+            //        ticket.time = DateTime.Now;
+
+            //        CacheManager.SetCache("JSAPI_Ticket", ticket);
+            //        signature = CalSignature.Cal(timestamp, nonceStr, ticket.ticket.ticket, url);
+            //    }
+            //    else
+            //    {
+            //        Global.JsAPI_Ticket ticket = new Global.JsAPI_Ticket();
+            //        WxHelper.JsAPI_Ticket tk = new WxHelper.WxHelper().GetJsAPITicket((CacheManager.GetCache("Token") as Global_Token).token.access_token);
+
+            //        ticket.ticket = tk;
+            //        ticket.time = DateTime.Now;
+
+            //        CacheManager.SetCache("JSAPI_Ticket", ticket);
+            //        signature = CalSignature.Cal(timestamp, nonceStr, ticket.ticket.ticket, url);
+            //    }
+            //}
+            //else
+            //{
+            //    signature = CalSignature.Cal(timestamp, nonceStr, (CacheManager.GetCache("JSAPI_Ticket") as Global.JsAPI_Ticket).ticket.ticket, url);
+            //}
+
+            //ShareInfo info = new ShareInfo();
+            //info.appid = appid;
+            //info.nonceStr = nonceStr;
+            //info.timestamp = timestamp;
+            //info.signature = signature;
+
+            //System.Web.HttpContext.Current.Session["ShareInfo"] = info;
+        
+            return View();
+        }
+        
         /// <summary>
         /// 电话绑定
         /// </summary>
