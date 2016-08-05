@@ -58,7 +58,9 @@ namespace com.jiechengbao.dataTest
             //Member member = dal.SelectByWxOpenId("okzkZv6LHCo-vIyZHynDoXjeUbKs");
             //Console.WriteLine(member.NickeName);
 
-            GetMyAppointments();
+            ///GetMyAppointments();
+
+            Console.WriteLine(EncryptManager.MD5("admin123"));
 
             Console.WriteLine("Finished");
 

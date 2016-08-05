@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.entity", "co.jiechengbao.entity\com.jiechengbao.entity.csproj", "{E42735CA-2E36-4F6E-8169-4AC228BE9359}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.wx.api", "..\捷诚宝\com.jiechengbao.wx.api\com.jiechengbao.wx.api.csproj", "{DC5F3936-E534-4894-8322-3321629D4E6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ch.lib.common.QR", "..\MyLibrary\ch.lib.common.QR\ch.lib.common.QR.csproj", "{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.customerService", "com.jiechengbao.customerService\com.jiechengbao.customerService.csproj", "{EEB48F54-0DAE-49DC-8001-BD380993FF06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

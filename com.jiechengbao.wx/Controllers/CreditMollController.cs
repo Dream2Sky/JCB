@@ -33,7 +33,7 @@ namespace com.jiechengbao.wx.Controllers
         private IMemberBLL _memberBLL;
         private IExchangeServiceRecordBLL _exchangeServiceRecordBLL;
         private IExchangeServiceQRBLL _exchangeServiceQRBLL;
-        public CreditMollController(IExchangeServiceBLL exchangeServiceBLL, 
+        public CreditMollController(IExchangeServiceBLL exchangeServiceBLL,
             IMemberBLL memberBLL, IExchangeServiceRecordBLL exchangeServiceRecordBLL,
             IExchangeServiceQRBLL exchangeServiceQRBLL)
         {

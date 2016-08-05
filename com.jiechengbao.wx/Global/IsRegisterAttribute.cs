@@ -16,7 +16,7 @@ namespace com.jiechengbao.wx.Global
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             IMemberDAL dal = new MemberDAL();
-            IMemberBLL _memberBLL = new MemberBLL(dal);
+            MemberBLL _memberBLL = new MemberBLL(dal);
 
             Member mem = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 

@@ -1,0 +1,15 @@
+商城购物
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+
+
+一键救援
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetHelpCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+
+会员充值
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetRechargeCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+
+会员中心
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetUserInfoCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+
+在线预约
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetAppointmentCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
