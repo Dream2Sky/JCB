@@ -66,6 +66,10 @@
             color: #54CA54;
         }
 </style>
+@if (ViewBag.refUrl != null)
+{
+    <input type="hidden" name="RefUrl" value="@ViewBag.refUrl" />
+}
 <form class="mui-input-group form-info">
     <div class="mui-input-row">
         <label>真实姓名</label>
@@ -154,6 +158,12 @@
         }
     }
     function Register() {
+
+        var url = "/UserInfo/Index";
+        if ($("input[name='RefUrl']") != undefined) {
+            url = $("input[name='RefUrl']").val();
+        }
+
         $.ajax({
             url: "/Register/Register",
             type: "POST",
@@ -164,7 +174,7 @@
             },
             success: function (data) {
                 if (data == "True") {
-                    window.location.href = "/UserInfo/Index";
+                    window.location.href = url;
                 }
                 else if (data == "CodeError") {
                     mui.alert("输入的验证码错误,请重新输入");

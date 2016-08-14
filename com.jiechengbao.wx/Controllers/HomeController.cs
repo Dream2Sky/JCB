@@ -36,7 +36,61 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Index()
         {    
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
+            GoodsList("");
             return View();
+        }
+
+        [HttpPost]
+        public PartialViewResult GoodsList(string category)
+        {
+            List<GoodsModel> gmList = new List<GoodsModel>();
+            try
+            {
+                Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+                double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
+
+                if (string.IsNullOrEmpty(category))
+                {
+                    foreach (var item in _goodsBLL.GetGoodsByCountOrderByCreatedTime(1))
+                    {
+                        GoodsModel gm = new GoodsModel(item);
+                        GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(item.Id);
+                        if (gi == null)
+                        {
+                            continue;
+                        }
+                        gm.PicturePath = gi.ImagePath;
+                        gm.Discount = discount;
+                        gmList.Add(gm);
+                    }
+                }
+                else
+                {
+                    Category currentCategory = _categoryBLL.GetCategoryByCategoryNo(category);
+                    List<GoodsCategory> goodsCategoryList = _goodsCategoryBLL.GetGoodsCategoryListByCategoryId(currentCategory.Id).ToList();
+                    foreach (var item in goodsCategoryList)
+                    {
+                        Goods goods = _goodsBLL.GetGoodsById(item.GoodsId);
+                        GoodsModel gm = new GoodsModel(goods);
+                        GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
+
+                        if (gi == null)
+                        {
+                            continue;
+                        }
+                        gm.PicturePath = gi.ImagePath;
+                        gm.Discount = discount;
+                        gmList.Add(gm);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+            }
+            ViewData["GoodsModelList"] = gmList;
+            return PartialView();
         }
 
         [HttpPost]
@@ -58,6 +112,14 @@ namespace com.jiechengbao.wx.Controllers
                 foreach (var item in _goodsBLL.GetAllNoDeteledGoods())
                 {
                     GoodsModel gm = new GoodsModel(item);
+
+                    GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(gm.Id);
+
+                    if (gi == null)
+                    {
+                        continue;
+                    }
+
                     gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(gm.Id).ImagePath;
                     gm.Discount = discount;
                     goodsList.Add(gm);
@@ -66,9 +128,9 @@ namespace com.jiechengbao.wx.Controllers
             else
             {
                 // 如果传进来的categoryCode 不为空
-                
+
                 // 则要根据这个categoryCode 找到对应的Category对象
-                
+
                 // 然后通过找到的category对象 得到  GoodsCategoryList
 
                 Category category = _categoryBLL.GetCategoryByCategoryNo(categoryCode);
@@ -77,7 +139,16 @@ namespace com.jiechengbao.wx.Controllers
                 // 最后再构造 GoodModelList
                 foreach (var item in goodsCategoryList)
                 {
+                    Goods good = _goodsBLL.GetGoodsById(item.GoodsId);
+
                     GoodsModel gm = new GoodsModel(_goodsBLL.GetGoodsById(item.GoodsId));
+
+                    GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(item.GoodsId);
+                    if (gi == null)
+                    {
+                        continue;
+                    }
+
                     gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.GoodsId).ImagePath;
                     gm.Discount = discount;
                     goodsList.Add(gm);
@@ -91,7 +162,6 @@ namespace com.jiechengbao.wx.Controllers
             string jsonResult = string.Empty;
             try
             {
-                // 序列化
                 jsonResult = ObjToJson<List<GoodsModel>>(goodsList);
             }
             catch (Exception ex)
@@ -100,7 +170,6 @@ namespace com.jiechengbao.wx.Controllers
                 LogHelper.Log.Write(ex.StackTrace);
                 throw;
             }
-
             return Content(jsonResult);
         }
 
@@ -123,7 +192,6 @@ namespace com.jiechengbao.wx.Controllers
                 return null;
             }
         }
-
 
         public ActionResult Detail(string code)
         {

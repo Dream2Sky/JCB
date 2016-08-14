@@ -1,0 +1,88 @@
+body{
+	width:100%;
+	margin:0px auto;
+	padding:0px;
+}
+.home_top{
+	width:100%;
+	background:#F0FFFF;
+	padding: 15px 0px;
+}
+.home_top p{
+	color:black;
+	font-size: 25px;
+	font-family: "微软黑体";
+	padding: 0px 40px;
+}
+.home_middle{
+	width:100%;
+	border:1px solid red;
+	/*height:1000px;*/
+	/*background:#fff;*/
+	overflow: hidden;
+}
+.mid_left{
+	width:15%;
+	border:1px solid black;
+	float:left;
+}
+.row{
+	width:50%;
+	/*border:1px solid gray;*/
+	float:left;
+}
+.table{
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+	width:85%;
+	margin-top: 10px;
+}
+.table th {
+	background:#F5F5F5;
+	/*border-width: 1px;*/
+	padding: 8px;
+	/*border-color: #999999;*/
+	text-align: center;
+	font-size: 20px;
+	border:1px solid #d2d2d2;
+}
+.table td {
+	background:#fff;
+	border-width: 1px;
+	padding: 8px;
+	border:1px solid #d2d2d2;
+	/*border-color: #999999;*/
+	text-align: center;
+	font-size: 15px;
+}
+.table td a{
+	color:black;
+	padding: 0px 20px;
+}
+.table td:hover{
+    background:#F0FFFF;
+}
+.btn-primary{
+	/*color:#23527c!important;*/
+	color:black!important;
+}
+.mui-btn-danger{
+	color:black!important;
+}
+.type_name{
+	width:100px;
+	height:30px;
+}
+.modal-dialog{
+width: 400px!important;
+margin: 180px 450px !important;
+}
+.btn-lg{
+	width:215px!important;
+	height:50px!important;
+	color:black;
+}

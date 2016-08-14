@@ -1,47 +1,51 @@
-﻿    .breadcrumb {
+﻿.breadcrumb {
+    margin-bottom: 5px;
+}
+
+.container-fluid {
+    padding-left: 0px;
+}
+
+    .container-fluid .navbar-form {
+        padding-left: 0px;
+    }
+
+.navbar {
+    margin-bottom: 10px;
+}
+
+.div-title {
+    padding-left: 0px;
+}
+
+    .div-title .breadcrumb {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        background: transparent;
+        border-bottom: 3px solid #337ab7;
+        border-radius: 0px;
         margin-bottom: 5px;
     }
 
-    .container-fluid {
-        padding-left: 0px;
-    }
-
-        .container-fluid .navbar-form {
-            padding-left: 0px;
+        .div-title .breadcrumb li {
+            padding-left: 10px;
+            line-height: 38px;
+            color: #fff;
+            height: 0px;
+            border-bottom: 38px solid #337ab7;
+            border-right: 38px solid transparent;
+            width: 160px;
         }
 
-    .navbar {
-        margin-bottom: 10px;
-    }
-
-    .div-title {
-        padding-left: 0px;
-    }
-
-        .div-title .breadcrumb {
-            padding-top: 0px;
-            padding-bottom: 0px;
-            padding-left: 0px;
-            background: transparent;
-            border-bottom: 3px solid #337ab7;
-            border-radius: 0px;
-            margin-bottom: 5px;
-        }
-
-            .div-title .breadcrumb li {
-                padding-left: 10px;
-                line-height: 38px;
-                color: #fff;
-                height: 0px;
-                border-bottom: 38px solid #337ab7;
-                border-right: 38px solid transparent;
-                width: 160px;
-            }
+table {
+    border-radius: 5px;
+}
 
     table th, table tr td {
         text-align: center;
     }
 
     table, table th, table tr td {
-        border: 1px solid #337ab7 !important;
+        border: 1px solid #cbc7c7 !important;
     }

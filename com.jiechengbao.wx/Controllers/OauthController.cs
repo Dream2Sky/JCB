@@ -25,9 +25,7 @@ namespace com.jiechengbao.wx.Controllers
             if (string.IsNullOrEmpty(code))
             {
                 string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-
                 System.Web.HttpContext.Current.Response.Redirect(url);
-
                 return RedirectToAction("GetCode");
             }
             else
@@ -59,7 +57,6 @@ namespace com.jiechengbao.wx.Controllers
                 {
                     LogHelper.Log.Write("添加新用户失败");
                 }
-                 
             }
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
@@ -309,6 +306,58 @@ namespace com.jiechengbao.wx.Controllers
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
             {
                 return RedirectToAction("MyAppointment", "Appointment");
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
+
+        public ActionResult GetCouponCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCouponCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+                System.Web.HttpContext.Current.Response.Redirect(url);
+
+                return RedirectToAction("GetCouponCode");
+            }
+            else
+            {
+                CacheManager.SetCache("code", code);
+            }
+            UserInfo_JsonModel user = GetWxUserInfo();
+
+            if (!_memberBLL.IsExist(user.openid))
+            {
+                Member member = new Member();
+                member.Id = Guid.NewGuid();
+                member.IsDeleted = false;
+                member.NickeName = user.nickname;
+                member.OpenId = user.openid;
+                member.Vip = 0;
+                member.HeadImage = user.headimgurl;
+                //member.Assets = 0;
+                member.CreatedTime = DateTime.Now;
+                member.Credit = 0;
+                member.DeletedTime = DateTime.MinValue.AddHours(8);
+                member.RealName = "";
+                member.IsDeleted = false;
+                member.TotalCredit = 0;
+                member.Phone = "";
+
+                if (!_memberBLL.Add(member))
+                {
+                    LogHelper.Log.Write("添加新用户失败");
+                }
+
+            }
+            System.Web.HttpContext.Current.Session["member"] = user.openid;
+
+            if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
+            {
+                return RedirectToAction("ReceiveCoupon", "Pay");
             }
             else
             {

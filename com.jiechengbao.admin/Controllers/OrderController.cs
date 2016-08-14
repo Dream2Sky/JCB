@@ -3,6 +3,7 @@ using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,9 +38,14 @@ namespace com.jiechengbao.admin.Controllers
 
         public ActionResult Completed()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             List<OrderModel> orderModelList = new List<OrderModel>();
             IEnumerable<Order> orderList = _orderBLL.GetCompletedOrders();
+            sw.Stop();
+            LogHelper.Log.Write("Order/Completed: GetCompletedOrders " + sw.ElapsedMilliseconds + " ms");
 
+            sw.Restart();
             foreach (var item in orderList)
             {
                 OrderModel om = new OrderModel(item);
@@ -67,6 +73,10 @@ namespace com.jiechengbao.admin.Controllers
 
                 orderModelList.Add(om);
             }
+
+            sw.Stop();
+            LogHelper.Log.Write("Order/Completed: " + sw.ElapsedMilliseconds + " ms");
+
             ViewData["CompletedOrderList"] = orderModelList;
 
             return View();

@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="/">管理后台</a></li>
+            <li><a href="/Home/Index">管理后台</a></li>
             <li class="active">预约服务设置</li>
         </ol>
         @Html.Partial("AppointmentServiceList")
@@ -18,7 +18,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#li-appSetting").addClass("a-active");
+        //$("#li-appSetting").addClass("a-active");
         $("#li-appSetting").parent().parent().removeClass("collapse");
     })
 </script>

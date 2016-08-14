@@ -41,6 +41,7 @@ namespace com.jiechengbao.wx.Controllers
             //先获得 goods 和 member 对象
             Goods goods = new Goods();
             Member member = new Member();
+            bool res = false;
             try
             {
                 goods = _goodsBLL.GetGoodsByCode(goodsCode);
@@ -67,8 +68,7 @@ namespace com.jiechengbao.wx.Controllers
                 cart.IsDeleted = false;
                 
                 _cartBLL.Add(cart);
-
-                return Json("True", JsonRequestBehavior.AllowGet);
+                res = true;
             }
             else
             {
@@ -78,8 +78,19 @@ namespace com.jiechengbao.wx.Controllers
                 cart.Count += 1;
 
                 _cartBLL.Update(cart);
-                return Json("True", JsonRequestBehavior.AllowGet);
+                res = true;
             }
+
+            //统计购物车上的物品数量
+            int count = 0;
+            List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
+            foreach (var item in cartList)
+            {
+                count += item.Count;
+            }
+            var obj = new { code = res, count = count };
+
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         [IsLogin]
         public ActionResult List()
@@ -116,14 +127,17 @@ namespace com.jiechengbao.wx.Controllers
         /// <returns></returns>
         public ActionResult Check()
         {
-            if (_cartBLL.IsAnythingsInCart(_memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string).Id))
+            bool res = true;
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as string);
+            //统计购物车上的物品数量
+            int count = 0;
+            List<Cart> cartList = _cartBLL.GetCartByMemberId(member.Id).ToList();
+            foreach (var item in cartList)
             {
-                return Json("True", JsonRequestBehavior.AllowGet);
+                count += item.Count;
             }
-            else
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+            var obj = new { code = res, count = count };
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Delete(string Code)

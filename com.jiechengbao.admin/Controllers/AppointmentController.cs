@@ -370,6 +370,11 @@ namespace com.jiechengbao.admin.Controllers
                 Member member = new Member();
                 member = _memberBLL.GetMemberById(item.MemberId);
 
+                if (member == null)
+                {
+                    continue;
+                }
+
                 apmodel.NickName = member.NickeName;
                 apmodel.HeadImage = member.HeadImage;
 

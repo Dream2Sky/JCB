@@ -75,97 +75,9 @@
     <Compile Include="GoodsImage.cs" />
     <Compile Include="JCB_DBContext.cs" />
     <Compile Include="Member.cs" />
-    <Compile Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.cs" />
-    <Compile Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.Designer.cs">
-      <DependentUpon>201607160450432_AddColumn_Goods_ExchangeCredit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607160458000_DropColumn_Member_Asset.cs" />
-    <Compile Include="Migrations\201607160458000_DropColumn_Member_Asset.Designer.cs">
-      <DependentUpon>201607160458000_DropColumn_Member_Asset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607160615124_DropColumn_Order_AddressId.cs" />
-    <Compile Include="Migrations\201607160615124_DropColumn_Order_AddressId.Designer.cs">
-      <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607170836564_AddTable_TransationDetail.cs" />
-    <Compile Include="Migrations\201607170836564_AddTable_TransationDetail.Designer.cs">
-      <DependentUpon>201607170836564_AddTable_TransationDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs" />
-    <Compile Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.Designer.cs">
-      <DependentUpon>201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.cs" />
-    <Compile Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.Designer.cs">
-      <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs" />
-    <Compile Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.Designer.cs">
-      <DependentUpon>201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs" />
-    <Compile Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.Designer.cs">
-      <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs" />
-    <Compile Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.Designer.cs">
-      <DependentUpon>201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.cs" />
-    <Compile Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.Designer.cs">
-      <DependentUpon>201607210557152_AddColumn_MyAppointment_Price_IsPay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs" />
-    <Compile Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.Designer.cs">
-      <DependentUpon>201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210626135_AddTable_MyAppointmentItems.cs" />
-    <Compile Include="Migrations\201607210626135_AddTable_MyAppointmentItems.Designer.cs">
-      <DependentUpon>201607210626135_AddTable_MyAppointmentItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.cs" />
-    <Compile Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.Designer.cs">
-      <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.cs" />
-    <Compile Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.Designer.cs">
-      <DependentUpon>201607220402239_AddColumn_MyAppointment_Description_Supplement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs" />
-    <Compile Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.Designer.cs">
-      <DependentUpon>201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607241246155_AddColumn_Member_RealName.cs" />
-    <Compile Include="Migrations\201607241246155_AddColumn_Member_RealName.Designer.cs">
-      <DependentUpon>201607241246155_AddColumn_Member_RealName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607241252430_AlterColumn_Member_RealName.cs" />
-    <Compile Include="Migrations\201607241252430_AlterColumn_Member_RealName.Designer.cs">
-      <DependentUpon>201607241252430_AlterColumn_Member_RealName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607241354540_AddColumn_Goods_ExchangeCredit1.cs" />
-    <Compile Include="Migrations\201607241354540_AddColumn_Goods_ExchangeCredit1.Designer.cs">
-      <DependentUpon>201607241354540_AddColumn_Goods_ExchangeCredit1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607241357469_AlterColumn_Goods_ExchangeCredit.cs" />
-    <Compile Include="Migrations\201607241357469_AlterColumn_Goods_ExchangeCredit.Designer.cs">
-      <DependentUpon>201607241357469_AlterColumn_Goods_ExchangeCredit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607250218547_AddColumn_CreditRecord_Notes1.cs" />
-    <Compile Include="Migrations\201607250218547_AddColumn_CreditRecord_Notes1.Designer.cs">
-      <DependentUpon>201607250218547_AddColumn_CreditRecord_Notes1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607250229017_AlterColumn_CreditRecords_Notes.cs" />
-    <Compile Include="Migrations\201607250229017_AlterColumn_CreditRecords_Notes.Designer.cs">
-      <DependentUpon>201607250229017_AlterColumn_CreditRecords_Notes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607250251467_AlterTable_MyAppointment.cs" />
-    <Compile Include="Migrations\201607250251467_AlterTable_MyAppointment.Designer.cs">
-      <DependentUpon>201607250251467_AlterTable_MyAppointment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607250600402_AddColumn_OrderDetail_CurrentCredit_TotalCredit.cs" />
-    <Compile Include="Migrations\201607250600402_AddColumn_OrderDetail_CurrentCredit_TotalCredit.Designer.cs">
-      <DependentUpon>201607250600402_AddColumn_OrderDetail_CurrentCredit_TotalCredit.cs</DependentUpon>
+    <Compile Include="Migrations\201608100806427_InitDataBase.cs" />
+    <Compile Include="Migrations\201608100806427_InitDataBase.Designer.cs">
+      <DependentUpon>201608100806427_InitDataBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyAppointment.cs" />
@@ -189,74 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607160450432_AddColumn_Goods_ExchangeCredit.resx">
-      <DependentUpon>201607160450432_AddColumn_Goods_ExchangeCredit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607160458000_DropColumn_Member_Asset.resx">
-      <DependentUpon>201607160458000_DropColumn_Member_Asset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607160615124_DropColumn_Order_AddressId.resx">
-      <DependentUpon>201607160615124_DropColumn_Order_AddressId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607170836564_AddTable_TransationDetail.resx">
-      <DependentUpon>201607170836564_AddTable_TransationDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.resx">
-      <DependentUpon>201607180156476_AlterColumn_CreditRecord_CurrentCreditCoefficient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607180158564_AddColumn_CreditRecord_Notes.resx">
-      <DependentUpon>201607180158564_AddColumn_CreditRecord_Notes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.resx">
-      <DependentUpon>201607200146086_AddTable_AppointmentService_AppointmentTime_MyAppointment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210428190_AlterColumn_AppointmentTime_TimePeriod.resx">
-      <DependentUpon>201607210428190_AlterColumn_AppointmentTime_TimePeriod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210553392_AlterColumn_MyAppointment_AppointmentTime.resx">
-      <DependentUpon>201607210553392_AlterColumn_MyAppointment_AppointmentTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210557152_AddColumn_MyAppointment_Price_IsPay.resx">
-      <DependentUpon>201607210557152_AddColumn_MyAppointment_Price_IsPay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210623062_DropColumn_MyAppointment_AppointmentServiceId.resx">
-      <DependentUpon>201607210623062_DropColumn_MyAppointment_AppointmentServiceId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210626135_AddTable_MyAppointmentItems.resx">
-      <DependentUpon>201607210626135_AddTable_MyAppointmentItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607210727277_AddColumn_MyAppointment_Notes.resx">
-      <DependentUpon>201607210727277_AddColumn_MyAppointment_Notes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607220402239_AddColumn_MyAppointment_Description_Supplement.resx">
-      <DependentUpon>201607220402239_AddColumn_MyAppointment_Description_Supplement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.resx">
-      <DependentUpon>201607220650540_AddColumn_MyAppointment_CarNumber_CarInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607241246155_AddColumn_Member_RealName.resx">
-      <DependentUpon>201607241246155_AddColumn_Member_RealName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607241252430_AlterColumn_Member_RealName.resx">
-      <DependentUpon>201607241252430_AlterColumn_Member_RealName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607241354540_AddColumn_Goods_ExchangeCredit1.resx">
-      <DependentUpon>201607241354540_AddColumn_Goods_ExchangeCredit1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607241357469_AlterColumn_Goods_ExchangeCredit.resx">
-      <DependentUpon>201607241357469_AlterColumn_Goods_ExchangeCredit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607250218547_AddColumn_CreditRecord_Notes1.resx">
-      <DependentUpon>201607250218547_AddColumn_CreditRecord_Notes1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607250229017_AlterColumn_CreditRecords_Notes.resx">
-      <DependentUpon>201607250229017_AlterColumn_CreditRecords_Notes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607250251467_AlterTable_MyAppointment.resx">
-      <DependentUpon>201607250251467_AlterTable_MyAppointment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607250600402_AddColumn_OrderDetail_CurrentCredit_TotalCredit.resx">
-      <DependentUpon>201607250600402_AddColumn_OrderDetail_CurrentCredit_TotalCredit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608100806427_InitDataBase.resx">
+      <DependentUpon>201608100806427_InitDataBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

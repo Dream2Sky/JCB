@@ -30,26 +30,40 @@ namespace com.jiechengbao.customerService.Controllers
         {
             List<CustomerModel> cmList = new List<Models.CustomerModel>();
 
-            foreach (var item in _memberBLL.GetAllNoDeletedMembers())
+            try
             {
-                CustomerModel cm = new Models.CustomerModel();
-                cm.HeadImage = item.HeadImage;
-                cm.NickName = item.NickeName;
-                cm.OpenId = item.OpenId;
+                foreach (var item in _memberBLL.GetAllNoDeletedMembers().ToList())
+                {
+                    CustomerModel cm = new CustomerModel();
+                    cm.HeadImage = item.HeadImage;
+                    cm.NickName = item.NickeName;
+                    cm.OpenId = item.OpenId;
 
-                cmList.Add(cm);
+                    cmList.Add(cm);
+                }
             }
-
-            DataContractJsonSerializer json = new DataContractJsonSerializer(cmList.GetType());
-
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
             string result = string.Empty;
-
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                json.WriteObject(stream, cmList);
-                result = Encoding.UTF8.GetString(stream.ToArray());
+                DataContractJsonSerializer json = new DataContractJsonSerializer(cmList.GetType());
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    json.WriteObject(stream, cmList);
+                    result = Encoding.UTF8.GetString(stream.ToArray());
+                }
             }
-
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.Message);
+                throw;
+            }
             return Json(result);
         }
     }

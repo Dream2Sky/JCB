@@ -19,8 +19,12 @@ namespace com.jiechengbao.wx.Controllers
             _memberBLL = memberBLL;
         }
 
-        public ActionResult Register()
+        public ActionResult Register(string refUrl)
         {
+            if (!string.IsNullOrEmpty(refUrl))
+            {
+                ViewBag.refUrl = refUrl;
+            }
             return View();
         }
 

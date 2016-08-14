@@ -12,5 +12,9 @@ namespace com.jiechengbao.Idal
         Goods SelectByCode(string code);
         Goods SelectByName(string name);
         IEnumerable<Goods> SelectByCondition(string condition);
+        IEnumerable<Goods> SelectByAllNoDeletedGoods();
+        IEnumerable<Goods> SelectGoodsOrderByCreatedTime();
+        IEnumerable<Goods> SelectGoodsOrderByCreatedTime(int count);
+        
     }
 }

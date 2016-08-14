@@ -178,8 +178,11 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\fontawesome.css" />
     <Content Include="Content\css\icon-phone.css" />
+    <Content Include="Content\css\iconfont-cartplus.css" />
     <Content Include="Content\css\iconfont.css" />
+    <Content Include="Content\css\home.index.css" />
     <Content Include="Content\css\jquery-ui.min.css" />
+    <Content Include="Content\css\jquery.mobile-1.4.5.css" />
     <Content Include="Content\css\pay.css" />
     <Content Include="Content\css\mui.min.css" />
     <Content Include="Content\css\mui.picker.css" />
@@ -188,6 +191,7 @@
     <Content Include="Content\css\weui.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\11.jpg" />
+    <Content Include="Content\images\1233.jpg" />
     <Content Include="Content\images\arrow1.png" />
     <Content Include="Content\images\arrow2.png" />
     <Content Include="Content\images\ca.png" />
@@ -212,8 +216,10 @@
     <Content Include="Content\js\city.data-3.js" />
     <Content Include="Content\js\city.data.js" />
     <Content Include="Content\js\cookie.js" />
+    <Content Include="Content\js\home.index.js" />
     <Content Include="Content\js\jquery-ui.js" />
     <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\jquery.mobile-1.4.5.min.js" />
     <Content Include="Content\js\json2.js" />
     <Content Include="Content\js\json_parse.js" />
     <Content Include="Content\js\json_parse_state.js" />
@@ -289,6 +295,7 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Content\font\iconfont-cartplus.ttf" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.wx.pubxml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Cart\List.cshtml" />
@@ -333,6 +340,8 @@
     <Content Include="Views\Car\CarList.cshtml" />
     <Content Include="Views\Order\OrderList.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\Pay\ReceiveCoupon.cshtml" />
+    <Content Include="Views\Home\GoodsList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

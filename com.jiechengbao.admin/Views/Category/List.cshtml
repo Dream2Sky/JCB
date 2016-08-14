@@ -5,59 +5,57 @@
 }
 @using com.jiechengbao.entity
 <link href="~/Content/css/content.css" rel="stylesheet" />
+@*<link href="~/Content/css/category.css" rel="stylesheet" />*@
+<script src="~/Content/js/jquery.confirm.min.js"></script>
 <style>
-    /*.container-btn {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-        .container-btn button {
-            margin-right: 10px;
-        }
-
-    .container-add-followitem {
-        padding-left: 0px;
-    }
-
-        .container-add-followitem form {
-            padding-left: 0px;
-        }
-
-            .container-add-followitem form .form-group {
-                margin-top: 10px;
-                margin-bottom: 5px;
-            }
-
-                .container-add-followitem form .form-group input, .container-add-followitem form .form-group select {
-                    width: 200px;
-                }
-    .div-title {
-        top:20px;
-    }
-    .container-fluid div{
-        top:20px;
-    }*/
     .div-title {
         margin-top: 20px;
     }
 
-    form input, form select {
-        max-width: 200px;
+    .btn-success {
+        margin-top: 10px;
+    }
+
+    table {
+        margin-top: 20px;
+    }
+
+    .modal-dialog {
+        width: 400px;
+    }
+
+    table {
+        max-width: 600px !important;
     }
 </style>
 
 <div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="/">管理后台</a></li>
+            <li><a href="/Home/Index">管理后台</a></li>
             <li class="active">商品分类列表</li>
         </ol>
-        <div class="container-fluid">
+        <!--
+        @*<div class="container-fluid">
             <div class="col-md-12 div-title">
                 <ol class="breadcrumb">
                     <li>商品分类</li>
                 </ol>
             </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>分类名</th>
+                        <th>是否为服务</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+
             <div class="container-btn">
                 @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
                 {
@@ -91,24 +89,46 @@
                     <button type="submit" class="btn btn-primary">添加</button>
                 </form>
             </div>
+        </div>*@-->
+
+        <div class="container-fluid">
+            <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添商品分类</button>
+            @Html.Partial("CategoryList")
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>分类名称</label>
+                                <input type="hidden" name="Code" value="" />
+                                <input type="text" class="form-control" name="CategoryName" required data-bv-notempty-message="分类名不能为空" placeholder="请填写商品分类名称">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="IsService">是否为服务
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger btn-Save">保存</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
 
-<script>
     $(document).ready(function () {
-        $('#category-form').bootstrapValidator({
-            fields: {
-                categoryName: {
-                    container: '#error-message'
-                }
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $("#li-categoryList").addClass("a-active");
-        $("#li-categoryList").parent().parent().removeClass("collapse");
+        $("#li-Categorylist").addClass("a-active");
     })
 </script>

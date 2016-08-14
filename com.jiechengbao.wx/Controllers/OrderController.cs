@@ -29,10 +29,11 @@ namespace com.jiechengbao.wx.Controllers
         private ICartBLL _cartBLL;
         private IRulesBLL _rulesBLL;
         private IOrderStatusBLL _orderStausBLL;
+        private IServiceBLL _serviceBLL;
         public OrderController(IOrderDetailBLL orderDetailBLL, IOrderBLL orderBLL,
             IMemberBLL memberBLL, IGoodsBLL goodsBLL, IAddressBLL addressBLL,
             IGoodsImagesBLL goodsImagesBLL, ICartBLL cartBLL, IRulesBLL rulesBLL,
-            IOrderStatusBLL orderStatusBLL)
+            IOrderStatusBLL orderStatusBLL, IServiceBLL serviceBLL)
         {
             _orderDetailBLL = orderDetailBLL;
             _orderBLL = orderBLL;
@@ -43,6 +44,7 @@ namespace com.jiechengbao.wx.Controllers
             _cartBLL = cartBLL;
             _rulesBLL = rulesBLL;
             _orderStausBLL = orderStatusBLL;
+            _serviceBLL = serviceBLL;
         }
 
         [HttpPost]
@@ -533,6 +535,8 @@ namespace com.jiechengbao.wx.Controllers
             {
             }
         }
+
+        
 
         // 去除配送状态的修改
         // 因为老板说不要配送功能了!!!

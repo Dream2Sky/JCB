@@ -5,22 +5,28 @@
 }
 <link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
-    .td-category input-group input {
-        margin-bottom: 10px;
-    }
-
-    #img-upload {
-        max-width: 128px;
-        max-height: 128px;
+        #img-upload {
+        max-width: 128px !important;
+        max-height: 128px !important;
     }
 
     .input-group-addon {
         background-color: #337ab7;
         color: #fff;
     }
+    .form-group{
+        padding:5px;
+    }
+    .form-group input,.form-group textarea{
+        border-radius:3px !important;
+    }
+    .form-group input[type='text'], .form-group input[type='file']{
+        max-width:250px;
+    }
     textarea{
-        min-width:350px;
-        min-height:180px;
+        max-width:450px;
+        min-height:150px;
+        resize:none;
     }
 </style>
 
@@ -31,7 +37,7 @@
 <div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="/">管理后台</a></li>
+            <li><a href="/Home/Index">管理后台</a></li>
             <li class="active">更新商品</li>
         </ol>
 
@@ -49,7 +55,80 @@
                     @ViewBag.msg
                 </div>
             }
-            <form>
+
+            <form class="bv-form">
+                <div class="form-group">
+                    <label>商品名</label>
+                    <input type="hidden" name="Code" value="@Model.Code" />
+                    <input type="text" name="Name" placeholder="商品名" class="form-control" value="@Model.Name" required data-bv-notempty-message="商品名不能为空" />
+                </div>
+                <div class="form-group">
+                    <label>商品单价</label>
+                    <input type="text" name="Price" placeholder="商品单价" class="form-control" value="@Model.Price" required pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" data-bv-notempty-message="商品单价不能为空" />
+                </div>
+                <div class="form-group">
+                    <label>商品原价</label>
+                    <input type="text" name="OriginalPrice" placeholder="商品原价" class="form-control" value="@Model.OriginalPrice" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="商品原价不能为空" />
+                </div>
+                <div class="form-group">
+                    <label>兑换积分</label>
+                    <input type="text" name="ExchangeCredit" placeholder="兑换积分" class="form-control" value="@Model.ExchangeCredit" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="兑换积分不能为空" />
+                </div>
+                <div class="form-group">
+                    <label>商品描述</label>
+                    <textarea class="form-control" name="Description" placeholder="商品描述" required data-bv-notempty-message="商品描述不能为空">@Model.Description</textarea>
+                </div>
+                <div class="form-group">
+                    <label>商品图片</label>
+                    <br />
+                    <img id="img-upload" src="~/Uploads/@Model.PicturePath" />
+                    <input type="hidden" id="PicturePath" name="PicturePath" value="@Model.PicturePath" required data-bv-notempty-message="请上传商品图片" />
+                    <input type="file" class="form-control" placeholder="商品图片" id="picture">
+                </div>
+                <div class="form-group">
+                    <label>商品分类</label>
+                    <br />
+                    @{
+                        if (ViewData["CurrentCategoryList"] as List<Category> == null)
+                        {
+                            foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                            {
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="@item.CategoryNO">@item.Name
+                                </label>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                            {
+                                if ((ViewData["CurrentCategoryList"] as List<Category>).Find(n => n.Id == item.Id) != null)
+                                {
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" checked value="@item.CategoryNO">@item.Name
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="@item.CategoryNO">@item.Name
+                                    </label>
+                                }
+                            }
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <label>服务次数</label>
+                    <input type="text" name="ServiceCount" class="form-control" value="@Model.ServiceCount" pattern="^\d+$" data-bv-regexp-message="必须是大于等于零的整数" required data-bv-notempty-message="服务次数不能为空" />
+                </div>
+                <div class="form-group">
+                    <input type="button" name="btn-AddGoods" class="btn btn-danger" value="保存修改" />
+                </div>
+            </form>
+
+
+            @*<form>
                 <table class="table">
                     <tr>
                         <td>
@@ -71,7 +150,6 @@
                                 <input type="text" class="form-control" placeholder="商品原价" name="OriginalPrice" aria-describedby="basic-addon1" value="@Model.OriginalPrice">
                             </div>
                         </td>
-                        @* 添加商品积分兑换项 *@
                         <td>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">兑换积分</span>
@@ -146,36 +224,17 @@
                         </td>
                     </tr>
                 </table>
-            </form>
+            </form>*@
         </div>
-
-
-
     </div>
 </div>
 
 <script>
     var categoryList = new Array();
-    $(".div-category").each(function () {
-        categoryList.push($(this).attr("Id"));
+
+    $("input[type='file']").on('change', function () {
+        Upload();
     })
-
-    function AddCategory() {
-        if ($.inArray($("select").val(), categoryList) == -1) {
-            var value = $("select").val();
-
-            var text = $("select").find("option:selected").text();
-            categoryList.push($("select").val());
-
-            $(".td-category").append("<div style='margin-bottom:10px;' class=\"input-group\" id='" + value + "'><input type=\"hidden\" name=\"CategoryList\" value='" + value + "'/><input type=\"text\" class=\"form-control\" value='" + text + "'><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick=\"Delete('" + value + "');\" type=\"button\">删除</button></span></div>");
-        }
-    }
-
-    function Delete(categoryCode) {
-        console.log(categoryCode);
-        $("#" + categoryCode).remove();
-        categoryList.pop(categoryCode);
-    }
 
     function Upload() {
         var form = new FormData();
@@ -203,34 +262,73 @@
         });
     }
 
-    $('form').on('submit', function () {
-        if ($('.td-category').html() == undefined || $('.td-category').html() == "") {
-            alert("商品类型不能为空 请至少选择一种分类 再提交");
-        }
-        else {
+    $("input[type='button']").on('click', function () {
+        UpdateGoods();
+    })
+
+    function UpdateGoods() {
+        var Code = $("input[name='Code']");
+        var Name = $("input[name='Name']");
+        var Price = $("input[name='Price']");
+        var OriginalPrice = $("input[name='OriginalPrice']");
+        var ExchangeCredit = $("input[name='ExchangeCredit']");
+        var Description = $("textarea");
+        var PicturePath = $("input[name='PicturePath']");
+        var ServiceCount = $("input[name='ServiceCount']");
+
+        $("form").bootstrapValidator('validate');
+
+        if ($('form').data('bootstrapValidator').isValid()) {
+            if ($("input[type='checkbox']:checked").length <= 0) {
+                alert("请选择商品分类");
+                return;
+            }
+            else {
+                $("input[type='checkbox']:checked").each(function () {
+                    categoryList.push($(this).val());
+                });
+            }
             $.ajax({
-                url: "/Goods/Update",
-                type: "POST",
-                data: $(this).serialize(),
-                beforeSend: function () {
-                    $('.mask').show();
+                url: '/Goods/Update',
+                type: 'POST',
+                data: {
+                    Code:Code.val(),
+                    Name: Name.val(),
+                    Price: Price.val(),
+                    OriginalPrice: OriginalPrice.val(),
+                    ExchangeCredit: ExchangeCredit.val(),
+                    Description: Description.val(),
+                    PicturePath: PicturePath.val(),
+                    ServiceCount: ServiceCount.val(),
+                    CategoryList: categoryList
                 },
-                success: function () {
-                    alert("修改成功");
-                },
-                completed: function () {
-                    $('.mask').hide();
+                success: function (data) {
+                    if (data == true) {
+                        alert("修改成功");
+                        window.location.href = "/Goods/List";
+                    }
+                    else if (data == "NullData") {
+                        alert("参数提交错误，请重试");
+                    }
+                    else if(data == "NullObject"){
+                        // return "False"
+                        alert("空对象, 更新数据失败");
+                    }
+                    else if(data == false) {
+                        alert("修改失败");
+                    }
                 },
                 error: function () {
-                    alert("修改失败");
+                    alert("系统错误，修改失败");
                 }
-            })
+            });
         }
-    })
-</script>
-<script>
+        else {
+            console.log("something wrong");
+        }
+
+    }
     $(document).ready(function () {
-        $("#li-goodsList").addClass("a-active");
         $("#li-goodsList").parent().parent().removeClass("collapse");
     })
 </script>

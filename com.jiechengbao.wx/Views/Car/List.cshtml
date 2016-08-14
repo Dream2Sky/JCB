@@ -1,12 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "我的爱车";
+    ViewBag.Title = "ÎÒµÄ°®³µ";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
 @using com.jiechengbao.entity
-<style>
+
+<style type="text/css">
     body {
-        background-color: #fff;
+        background-color: #fff !important;
     }
 
     .input-group {
@@ -28,6 +29,7 @@
         margin-bottom: 0px;
         margin-top: 0px;
         text-align: center;
+        background-color: #fff !important;
     }
 
     .input-group-addon, .btn-check {
@@ -58,9 +60,14 @@
     }
 
     select {
-        padding: 8px 5px;
+        padding: 8px 0px;
         margin: 0px;
         width: auto;
+        float: left;
+        -webkit-appearance: menulist;
+        appearance: menulist;
+        position: relative;
+        top: 2px;
     }
 
     input {
@@ -71,7 +78,7 @@
         position: relative;
         left: -5px;
         border: none !important;
-        background: inherit;
+        background: #fff !important;
     }
 
     .car-num {
@@ -83,7 +90,6 @@
         padding: 5px 0px;
         margin: 0px;
         text-align: left;
-        background: #fff;
     }
 
     .btn {
@@ -93,7 +99,7 @@
     }
 
     strong {
-        /*font-family: "微软雅黑";*/
+        /*font-family: "Î¢ÈíÑÅºÚ";*/
         font-size: 16px;
         margin: 10px 0px;
         letter-spacing: 2px;
@@ -113,52 +119,48 @@
         font-size: 16px;
         padding: 12px 0px;
     }
-
-    .btn-edit {
-        border-radius: 3px;
-        padding: 5px !important;
-    }
 </style>
 <div class="page-header">
+
     <h5>
-        <strong>爱车信息绑定</strong>
+        <strong>°®³µÐÅÏ¢°ó¶¨</strong>
     </h5>
     <div class="input-group">
         <span class="input-group-btn">
-            <button class="btn btn-default btn-yellow" type="button">车牌</button>
+            <button class="btn btn-default btn-yellow" type="button">³µÅÆ</button>
         </span>
         <select name="jcbprov" id="jcbprov">
-            <option value="京">京</option>
-            <option value="津">津</option>
-            <option value="冀">冀</option>
-            <option value="晋">晋</option>
-            <option value="蒙">蒙</option>
-            <option value="辽">辽</option>
-            <option value="吉">吉</option>
-            <option value="黑">黑</option>
-            <option value="沪">沪</option>
-            <option value="苏">苏</option>
-            <option value="浙">浙</option>
-            <option value="皖">皖</option>
-            <option value="闽">闽</option>
-            <option value="赣">赣</option>
-            <option value="鲁">鲁</option>
-            <option value="豫">豫</option>
-            <option value="鄂">鄂</option>
-            <option value="湘">湘</option>
-            <option value="粤" selected="selected">粤</option>
-            <option value="桂">桂</option>
-            <option value="琼">琼</option>
-            <option value="渝">渝</option>
-            <option value="川">川</option>
-            <option value="贵">贵</option>
-            <option value="云">云</option>
-            <option value="藏">藏</option>
-            <option value="陕">陕</option>
-            <option value="甘">甘</option>
-            <option value="青">青</option>
-            <option value="宁">宁</option>
-            <option value="新">新</option>
+            <option value="¾©">¾©</option>
+            <option value="½ò">½ò</option>
+            <option value="¼½">¼½</option>
+            <option value="½ú">½ú</option>
+            <option value="ÃÉ">ÃÉ</option>
+            <option value="ÁÉ">ÁÉ</option>
+            <option value="¼ª">¼ª</option>
+            <option value="ºÚ">ºÚ</option>
+            <option value="»¦">»¦</option>
+            <option value="ËÕ">ËÕ</option>
+            <option value="Õã">Õã</option>
+            <option value="Íî">Íî</option>
+            <option value="Ãö">Ãö</option>
+            <option value="¸Ó">¸Ó</option>
+            <option value="Â³">Â³</option>
+            <option value="Ô¥">Ô¥</option>
+            <option value="¶õ">¶õ</option>
+            <option value="Ïæ">Ïæ</option>
+            <option value="ÔÁ" selected="selected">ÔÁ</option>
+            <option value="¹ð">¹ð</option>
+            <option value="Çí">Çí</option>
+            <option value="Óå">Óå</option>
+            <option value="´¨">´¨</option>
+            <option value="¹ó">¹ó</option>
+            <option value="ÔÆ">ÔÆ</option>
+            <option value="²Ø">²Ø</option>
+            <option value="ÉÂ">ÉÂ</option>
+            <option value="¸Ê">¸Ê</option>
+            <option value="Çà">Çà</option>
+            <option value="Äþ">Äþ</option>
+            <option value="ÐÂ">ÐÂ</option>
         </select>
         <select name="jcbcity" id="jcbcity">
             <option value="A" selected="selected">A</option>
@@ -188,41 +190,41 @@
             <option value="Y">Y</option>
             <option value="Z">Z</option>
         </select>
-        <input type="text" class="form-control car-num" name="Numberplate" placeholder="请输入车牌号">
+        <input type="text" class="car-num" placeholder="ÇëÊäÈë³µÅÆºÅ">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
-            <button class="btn btn-default btn-yellow" type="button">车架号</button>
+            <button class="btn btn-default btn-yellow" type="button">³µ¼ÜºÅ</button>
         </span>
-        <input type="text" class="form-control" name="ChassisNumber" placeholder="*请输入车辆识别号后6位">
+        <input type="text" placeholder="*ÇëÍêÕûÊäÈë³µÁ¾Ê¶±ðºÅ">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
-            <button id="btn" class="btn btn-default btn-yellow" type="button">发动机号</button>
+            <button id="btn" class="btn btn-default btn-yellow" type="button">·¢¶¯»úºÅ</button>
         </span>
-        <input type="text" class="form-control" name="EngineNumber" placeholder="*请输入发动机号后6位">
+        <input type="text" placeholder="*ÇëÍêÕûÊäÈë·¢¶¯»úºÅ">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
-            <button class="btn btn-default btn-yellow" type="button">车型信息</button>
+            <button class="btn btn-default btn-yellow" type="button">³µÁ¾ÐÅÏ¢</button>
         </span>
-        <input type="text" class="form-control" name="CarDetailInfo" placeholder="*例如: 宝马X5">
+        <input type="text" placeholder="*ÇëÊäÈëÄúµÄ°®³µµÄÐÅÏ¢">
     </div>
 
-    <div class="input-group">
-        <button id="sub" type="button" onclick="AddCar();">立即绑定</button>
+    <div>
+        <button id="sub" type="button">Á¢¼´°ó¶¨</button>
     </div>
+
 </div>
-
 <h5>
-    <strong>爱车列表</strong>
+    <strong>°®³µÁÐ±í</strong>
 </h5>
 @if (ViewData["CarList"] == null || (ViewData["CarList"] as List<Car>).Count <= 0)
 {
-    <div class="title">暂无已绑定的爱车...</div>
+    <div class="title">ÔÝÎÞÒÑ°ó¶¨µÄ°®³µ...</div>
 }
 else
 {
@@ -234,11 +236,11 @@ else
                     <div class="mui-table">
                         <div class="mui-table-cell mui-col-xs-10">
                             <h4 class="mui-ellipsis">@item.Numberplate</h4>
-                            <p>车型信息: @item.CarDetailInfo</p>
-                            <p class="mui-h6 mui-ellipsis">车架号: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: @item.EngineNumber</p>
+                            <p>³µÐÍÐÅÏ¢: @item.CarDetailInfo</p>
+                            <p class="mui-h6 mui-ellipsis">³µ¼ÜºÅ: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; ·¢¶¯»úºÅ: @item.EngineNumber</p>
                         </div>
                         <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-                            <button class="btn mui-btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑</button>
+                            <button class="mui-btn mui-btn-danger btn-edit" onclick="Edit(@item.Numberplate);">±à¼­</button>
                         </div>
                     </div>
                 </a>
@@ -261,22 +263,22 @@ else
         items.push(":", ";", "'", "|", "\\", "<", ">", "?", "/", "<<", ">>", "||", "//");
 
         if (carNum == undefined || ChassisNumber == undefined || EngineNumber == undefined || CarInfo == undefined) {
-            mui.alert("提交数据不完整");
+            mui.alert("Ìá½»Êý¾Ý²»ÍêÕû");
         }
         else if (carNum.length != 5) {
-            mui.alert("车牌号要等于5位");
+            mui.alert("³µÅÆºÅÒªµÈÓÚ5Î»");
         }
         else if (ChassisNumber.length != 6) {
-            mui.alert("车架号要等于6位");
+            mui.alert("³µ¼ÜºÅÒªµÈÓÚ6Î»");
         }
         else if (EngineNumber.length != 6) {
-            mui.alert("发动机号要等于6位");
+            mui.alert("·¢¶¯»úºÅÒªµÈÓÚ6Î»");
         }
         else {
             var tes = true;
             for (var i = 0; i < items.length; i++) {
                 if (ChassisNumber.indexOf(items[i]) >= 0 || EngineNumber.indexOf(items[i]) >= 0 || CarInfo.indexOf(items[i]) >= 0 || carNum.indexOf(items[i]) >= 0) {
-                    mui.alert("提交的数据存在不合法的字符，请重新输入");
+                    mui.alert("Ìá½»µÄÊý¾Ý´æÔÚ²»ºÏ·¨µÄ×Ö·û£¬ÇëÖØÐÂÊäÈë");
                     return false;
                 }
             }
@@ -292,12 +294,12 @@ else
                     },
                     success: function (data) {
                         if (data == "True") {
-                            mui.alert("绑定成功");
+                            mui.alert("°ó¶¨³É¹¦");
                             $(".title").remove();
-                            $(".car-ul").append("<li class=\"mui-table-view-cell\"><a href=\"/Car/Detail?numberplate='" + prov + city + carNum + "'\"><div class=\"mui-table\"><div class=\"mui-table-cell mui-col-xs-10\"><h4 class=\"mui-ellipsis\">" + prov + city + carNum + "</h4><p>车型信息: " + CarInfo + "</p><p class=\"mui-h6 mui-ellipsis\">车架号: " + ChassisNumber + " &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: " + EngineNumber + "</p></div><div class=\"mui-table-cell mui-col-xs-2 mui-text-right\"><button class=\"mui-btn mui-btn-danger btn-edit\" onclick=\"Edit('" + prov + city + carNum + "');\">编辑</button></div></div></a></li>");
+                            $(".car-ul").append("<li class=\"mui-table-view-cell\"><a href=\"/Car/Detail?numberplate='" + prov + city + carNum + "'\"><div class=\"mui-table\"><div class=\"mui-table-cell mui-col-xs-10\"><h4 class=\"mui-ellipsis\">" + prov + city + carNum + "</h4><p>³µÐÍÐÅÏ¢: " + CarInfo + "</p><p class=\"mui-h6 mui-ellipsis\">³µ¼ÜºÅ: " + ChassisNumber + " &nbsp;&nbsp;&nbsp;&nbsp; ·¢¶¯»úºÅ: " + EngineNumber + "</p></div><div class=\"mui-table-cell mui-col-xs-2 mui-text-right\"><button class=\"mui-btn mui-btn-danger btn-edit\" onclick=\"Edit('" + prov + city + carNum + "');\">±à¼­</button></div></div></a></li>");
                         }
                         else {
-                            mui.alert("绑定失败");
+                            mui.alert("°ó¶¨Ê§°Ü");
                         }
                     },
                     beforeSend: function () {

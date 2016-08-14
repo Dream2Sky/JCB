@@ -4,141 +4,84 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
+<link href="~/Content/css/iconfont-cartplus.css" rel="stylesheet" />
 <style>
-    a {
-        color: #000;
+    .goods-list{
+        height:100%;
     }
-
-    .sidebar {
-        margin-top: 10px;
-        padding-left: 10px;
-        padding-right: 5px;
+    .title{
+        text-align:center;
+        position:relative;
+        margin-top:50px;
     }
-
-    .panel-menu {
-        margin-top: 10px;
-        padding-left: 0px;
-        padding-right: 5px;
-    }
-
-    ul {
-        border-color: #E3E3E3;
-        border-style: solid;
-        border-width: 1px;
-    }
-
-        ul li {
-            border-bottom-style: solid;
-            border-color: #EEEEEE;
-            border-width: 1px;
-            text-align: center;
-            padding-top: 5px;
-            padding-left: 0px;
-            padding-right: 0px;
-            background-color: #fff;
-            height: 40px;
-            line-height: 30px;
-        }
-
-    .active {
-        background-color: #F39801;
-        border-color: #F39801;
-        border-width: 2px;
-        color: #fff;
-    }
-
-    .panel {
-        margin-bottom: 1px;
-    }
-
-    .panel-body {
-        padding-right: 3px;
-        padding-bottom: 0px;
-    }
-
-    .media-body {
-        color: #C9C9C9;
-        font-size:14px;
-    }
-
-        .media-body h4 {
-            color: #000;
-        }
-
-        .media-body p strong {
-            color: red;
-        }
-        .sidebar{
-            font-size:12px;
-        }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-3 sidebar navbar-fixed-top">
-            <ul class="nav menu">
-                <li class="active" id="allItems" onclick="OnActive('allItems');">全部</li>
-                @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-                {
-                    <li id="@item.CategoryNO" onclick="OnActive('@item.CategoryNO');">@item.Name</li>
-                }
-            </ul>
-        </div>
-        <div class="col-xs-3"></div>
-        <div class="col-xs-9 panel-menu">
-            <div class="container">
-                <div class="row panel-products">
-
-                </div>
-            </div>
+    <div class="goods-show">
+        <div class="goods-list">
+            @Html.Partial("GoodList")
         </div>
     </div>
-</div>
+    <div class="blank">
+        &nbsp;
+    </div>
 <script>
-    var currentActiveItemId = $('.active').attr('id'); // 获取当前激活的菜单Id
-
-    function OnActive(Id) {
-        $('#' + Id).addClass('active');
-        $('#' + currentActiveItemId).removeClass('active');
-        currentActiveItemId = Id;
-        if (Id == 'allItems') {
-            OnLoadGoods();
-        }
-        else {
-            OnLoadGoods(Id);
-        }
-    }
-
-    function OnLoadGoods(CategoryId) {
-        $('.panel-products').empty();
-        $.ajax({
-            url: '/Home/GetGoodsList',
-            data: {
-                categoryCode: CategoryId
-            },
-            type: 'POST',
-            success: function (data) {
-                var json = eval('(' + data + ')');
-                if (json.length !== 0) {
-                    var html = "";
-                    for (var i = 0; i < json.length; i++) {
-                        if (json[i].ServiceCount > 0) {
-                            html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><h4 class=\"media-heading\">" + json[i].Name + "</h4></a>" + json[i].Description.substring(0, 25) + "<p>&#65509; <strong>" + json[i].Price + "</strong></p><p><small> 服务次数:</small><strong>" + json[i].ServiceCount + "</strong></p></div></div></div></div>";
-                        }
-                        else {
-                            html += "<div class=\"panel panel-default\"><div class=\"panel-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><img style=\"width:56px;height:56px;\" class=\"media-object\" src=\"/Uploads/" + json[i].PicturePath + "\" alt=\"\"></a></div><div class=\"media-body\"><a href=\"/Home/Detail?code=" + json[i].Code + "\"><h4 class=\"media-heading\">" + json[i].Name + "</h4></a>" + json[i].Description.substring(0, 25) + "<p>&#65509; <strong>" + json[i].Price + "</strong></p></div></div></div></div>";
-                        }
-                    }
-                    $('.panel-products').html(html);
-                }
-                else {
-                    $('.panel-products').html('<p style=\"text-align:center;\">暂无数据</p>');
-                }
-            }
-        });
-    }
 
     $(document).ready(function () {
         $("#atogoods").addClass("mui-active");
-        OnLoadGoods();
-    })
+
+        var cache = window.localStorage;
+        var category = cache.getItem("category");
+
+        $("#" + category + " .goods-menu-item").addClass("goods-menu-item-active");
+
+        $.ajax({
+            url: "/Home/GoodsList",
+            type: "POST",
+            data: {
+                category: category
+            },
+            success: function (data) {
+                $(".goods-list").html(data);
+            },
+            error: function () {
+                $(".goods-list").html("<p class='title'>暂无数据</p>");
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            }
+        });
+    });
+
+    $(".CategoryItem").on('tap', function () {
+        var cache = window.localStorage;
+        var Id = $(this).attr("id");
+        cache.setItem("category", Id);
+
+        $.ajax({
+            url: "/Home/GoodsList",
+            type: "POST",
+            data: {
+                category: Id
+            },
+            success: function (data) {
+                $(".goods-list").html(data);
+            },
+            error: function () {
+                $(".goods-list").html("<p class='title'>暂无数据</p>");
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            }
+        });
+    });
+
+    $(".goods-menu-item").on("click", function () {
+        $(".goods-menu-item").removeClass("goods-menu-item-active");
+        $(this).addClass("goods-menu-item-active");
+    });
 </script>

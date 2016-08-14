@@ -41,7 +41,7 @@ namespace com.jiechengbao.bll
         /// <returns></returns>
         public IEnumerable<Goods> GetAllNoDeteledGoods()
         {
-            return _goodsDAL.SelectAll().Where(n => n.IsDeleted == false);
+            return _goodsDAL.SelectByAllNoDeletedGoods();
         }
 
         /// <summary>
@@ -57,6 +57,11 @@ namespace com.jiechengbao.bll
         public IEnumerable<Goods> GetGoodsByCondition(string condition)
         {
             return _goodsDAL.SelectByCondition(condition);
+        }
+
+        public IEnumerable<Goods> GetGoodsByCountOrderByCreatedTime(int count)
+        {
+            return _goodsDAL.SelectGoodsOrderByCreatedTime(count);
         }
 
         /// <summary>

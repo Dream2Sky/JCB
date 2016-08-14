@@ -10,11 +10,15 @@
         text-align: center;
         color: #808080;
     }
+    img{
+        max-height:32px;
+        max-width:32px;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="/">管理后台</a></li>
+            <li><a href="/Home/Index">管理后台</a></li>
             <li class="active">未完成预约列表</li>
         </ol>
 
@@ -127,7 +131,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        $("#li-appUncompleted").addClass("a-active");
+        //$("#li-appUncompleted").addClass("a-active");
         $("#li-appUncompleted").parent().parent().removeClass("collapse");
     })
 </script>

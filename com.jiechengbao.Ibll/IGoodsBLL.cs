@@ -16,5 +16,6 @@ namespace com.jiechengbao.Ibll
         bool Update(Goods goods);
         Goods GetGoodsById(Guid Id);
         IEnumerable<Goods> GetGoodsByCondition(string condition);
+        IEnumerable<Goods> GetGoodsByCountOrderByCreatedTime(int count);
     }
 }

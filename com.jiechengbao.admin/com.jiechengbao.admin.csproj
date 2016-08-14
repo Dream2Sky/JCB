@@ -171,12 +171,14 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrapValidator.min.css" />
     <Content Include="Content\css\content.css" />
+    <Content Include="Content\css\category.css" />
     <Content Include="Content\css\jquery.timepicker.css" />
     <Content Include="Content\images\default.png" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\js\bootstrap-table-expandable.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrapValidator.min.js" />
+    <Content Include="Content\js\jquery.confirm.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.slide.js" />
     <Content Include="Content\js\jquery.timepicker.js" />
@@ -234,7 +236,6 @@
     <Content Include="Views\Car\List.cshtml" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.admin.pubxml" />
     <Content Include="Views\Service\List.cshtml" />
-    <Content Include="Views\Service\PassswordSetting.cshtml" />
     <Content Include="Views\Service\PasswordSetting.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\CreditMoll\List.cshtml" />
@@ -245,6 +246,7 @@
     <Content Include="Views\Appointment\AppointmentTimeList.cshtml" />
     <Content Include="Views\Appointment\HasPayAppointment.cshtml" />
     <Content Include="Views\Appointment\NotPayAppointment.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

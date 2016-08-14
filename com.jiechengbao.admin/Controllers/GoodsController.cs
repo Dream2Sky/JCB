@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using com.jiechengbao.common;
 using System.Threading;
+using MySql.Data.MySqlClient;
 
 namespace com.jiechengbao.admin.Controllers
 {
@@ -20,7 +21,7 @@ namespace com.jiechengbao.admin.Controllers
         private IGoodsCategoryBLL _goodsCategoryBLL;
         private IGoodsImagesBLL _goodsImagesBLL;
         private IReCommendBLL _recommendBLL;
-        
+
         public GoodsController(IGoodsBLL goodsBLL, ICategoryBLL categoryBLL,
             IGoodsCategoryBLL goodsCategoryBLL, IGoodsImagesBLL goodsImagesBLL,
             IReCommendBLL recommendBLL)
@@ -38,7 +39,13 @@ namespace com.jiechengbao.admin.Controllers
             foreach (var item in _goodsBLL.GetAllNoDeteledGoods())
             {
                 GoodsModel gm = new GoodsModel(item);
-                gm.PicturePath = _goodsImagesBLL.GetPictureByGoodsId(item.Id).ImagePath;
+
+                GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(item.Id);
+                if (gi == null)
+                {
+                    continue;
+                }
+                gm.PicturePath = gi.ImagePath;
                 gm.IsRecommend = _recommendBLL.IsRecommend(gm.Id);
                 modelList.Add(gm);
             }
@@ -67,8 +74,6 @@ namespace com.jiechengbao.admin.Controllers
             ViewData["GoodsList"] = modelList;
             return View();
         }
-
-
         public ActionResult Add(string msg)
         {
             ViewBag.Msg = msg;
@@ -83,7 +88,7 @@ namespace com.jiechengbao.admin.Controllers
             if (model == null)
             {
                 // 是空 则直接返回
-                return RedirectToAction("Add", new { msg = "提交的数据为空，请重新提交" });
+                return Json("EmptyModel", JsonRequestBehavior.AllowGet);
             }
 
             // 构造 Goods 对象
@@ -111,55 +116,40 @@ namespace com.jiechengbao.admin.Controllers
             // 该字段不影响原来商品添加的逻辑
             goods.OriginalPrice = model.OriginalPrice;
 
+            // 添加成功后 构造 goodsimage 对象
+            // 并添加到数据库
+            GoodsImage gi = new GoodsImage();
+            gi.Id = Guid.NewGuid();
+            gi.ImagePath = model.PicturePath;
+            gi.CreatedTime = DateTime.Now.Date;
+            gi.GoodsId = goods.Id;
+            gi.IsDeleted = false;
+            gi.DeletedTime = DateTime.MinValue.AddHours(8);
+
+            List<GoodsCategory> gcList = new List<GoodsCategory>();
+
+            foreach (var item in model.CategoryList)
+            {
+                // 构造 GoodsCategory 对象
+                GoodsCategory gc = new GoodsCategory();
+                gc.Id = Guid.NewGuid();
+                gc.CreatedTime = DateTime.Now.Date;
+                gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
+                gc.IsDeleted = false;
+                gc.GoodsId = goods.Id;
+                gc.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                gcList.Add(gc);
+            }
+
+            // 使用事务添加新的商品
+            if (AddGoodsWithTransaction(goods, gi, gcList))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            return Json("False", JsonRequestBehavior.AllowGet);
+
             #endregion
-
-            // 添加新的Goods 对象
-
-            if (_goodsBLL.Add(goods))
-            {
-                #region 此处应该用事务来做 但是现在简易版就随意一点 将来这里必须用事务
-
-                #endregion
-
-                // 添加成功后 构造 goodsimage 对象
-                // 并添加到数据库
-                GoodsImage gi = new GoodsImage();
-                gi.Id = Guid.NewGuid();
-                gi.ImagePath = model.PicturePath;
-                gi.CreatedTime = DateTime.Now.Date;
-                gi.GoodsId = goods.Id;
-                gi.IsDeleted = false;
-                gi.DeletedTime = DateTime.MinValue.AddHours(8);
-
-                _goodsImagesBLL.Add(gi);
-                // 添加成功 则 遍历传递过来的分类列表
-                // 并添加到数据库
-                foreach (var item in model.CategoryList)
-                {
-                    if (item == null)
-                    {
-                        LogHelper.Log.Write("获取商品分类列表失败");
-                    }
-                    // 构造 GoodsCategory 对象
-                    GoodsCategory gc = new GoodsCategory();
-                    gc.Id = Guid.NewGuid();
-                    gc.CreatedTime = DateTime.Now.Date;
-                    gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
-                    gc.IsDeleted = false;
-                    gc.GoodsId = goods.Id;
-                    gc.DeletedTime = DateTime.MinValue.AddHours(8);
-
-                    _goodsCategoryBLL.Add(gc);
-                }
-
-                //Thread.Sleep(2000);
-
-                return RedirectToAction("Add", new { msg = "添加成功" });
-            }
-            else
-            {
-                return RedirectToAction("Add", new { msg = "添加失败" });
-            }
         }
 
         [HttpPost]
@@ -209,7 +199,7 @@ namespace com.jiechengbao.admin.Controllers
             ViewData["CurrentCategoryList"] = categoryList;
 
             // 所有的分类
-            ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
+            ViewData["CategoryList"] = _categoryBLL.GetAllCategory().ToList();
 
             GoodsImage gi = new GoodsImage();
             gi = _goodsImagesBLL.GetPictureByGoodsId(gm.Id);
@@ -224,11 +214,19 @@ namespace com.jiechengbao.admin.Controllers
         {
             if (model == null)
             {
-                return RedirectToAction("List", new { msg = "更新失败" });
+                return Json("NullData",JsonRequestBehavior.AllowGet);
             }
+
             // 更新 Goods 本身
             #region 更新goods本身        
             Goods goods = _goodsBLL.GetGoodsByCode(model.Code);
+
+            if (goods == null)
+            {
+                return Json("NullObject", JsonRequestBehavior.AllowGet);
+            }
+
+            goods.Name = model.Name;
             goods.Price = model.Price;
             goods.Description = model.Description;
             goods.ServiceCount = model.ServiceCount;
@@ -239,50 +237,49 @@ namespace com.jiechengbao.admin.Controllers
             // 商品添加新的字段 OriginalPrice 更新时 也要更新
             goods.OriginalPrice = model.OriginalPrice;
 
-            if (!_goodsBLL.Update(goods))
-            {
-                return RedirectToAction("List", new { msg = "更新商品失败" });
-            }
-            #endregion
-
-            // 更新 商品图片
-            #region 更新商品图片
-
             GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
-            if (gi.ImagePath != model.PicturePath)
+
+            if (gi == null)
             {
-                gi.ImagePath = model.PicturePath;
-            }
-            if (!_goodsImagesBLL.Update(gi))
-            {
-                return RedirectToAction("List", new { msg = "更新商品图片失败" });
+                return Json("NullObject", JsonRequestBehavior.AllowGet);
             }
 
-            #endregion
+            List<GoodsCategory> gcList = new List<GoodsCategory>();
 
-            // 更新商品分类的时候 先删除原先的分类
-
-            // 再根据新的 model.CategoryList 重新添加上分类
-
-            #region 更新 商品分类列表 
-            if (_goodsCategoryBLL.RemoveGoodsCategoryByGoodsId(goods.Id))
+            foreach (var item in model.CategoryList)
             {
-                foreach (var item in model.CategoryList)
+                GoodsCategory gc = new GoodsCategory();
+                gc.Id = Guid.NewGuid();
+                gc.CreatedTime = DateTime.Now.Date;
+                gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
+                gc.IsDeleted = false;
+                gc.GoodsId = goods.Id;
+
+                gcList.Add(gc);
+            }
+
+            bool res = false;
+            using (JCB_DBContext db = new JCB_DBContext())
+            {
+                using (var trans = db.Database.BeginTransaction())
                 {
-                    // 构造 GoodsCategory 对象
-                    GoodsCategory gc = new GoodsCategory();
-                    gc.Id = Guid.NewGuid();
-                    gc.CreatedTime = DateTime.Now.Date;
-                    gc.CategoryId = _categoryBLL.GetCategoryByCategoryNo(item).Id;
-                    gc.IsDeleted = false;
-                    gc.GoodsId = goods.Id;
+                    if (gi.ImagePath != model.PicturePath)
+                    {
+                        gi.ImagePath = model.PicturePath;
 
-                    _goodsCategoryBLL.Add(gc);
+                        res = UpdateGoodsWithTransaction(db, trans, goods, gi, gcList);
+                    }
+                    else
+                    {
+                        res = UpdateGoodsWithTransaction(db, trans, goods, gcList);
+                    }
                 }
             }
-            #endregion
 
-            return RedirectToAction("List", new { msg = "更新成功" });
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+
+            #endregion
         }
 
         /// <summary>
@@ -409,6 +406,107 @@ namespace com.jiechengbao.admin.Controllers
 
             }
 
+        }
+
+        [NonAction]
+        private bool AddGoodsWithTransaction(Goods goods, GoodsImage gi, List<GoodsCategory> gcList)
+        {
+            bool res = false;
+            using (JCB_DBContext db = new JCB_DBContext())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.Set<Goods>().Add(goods);
+                        db.GoodsImages.Add(gi);
+                        foreach (var item in gcList)
+                        {
+                            db.Set<GoodsCategory>().Add(item);
+                        }
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+                        res = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+                        trans.Rollback();
+                    }
+                }
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// 
+        /// 使用事务更新商品
+        /// </summary>
+        /// <param name="goods"></param>
+        /// <param name="gi"></param>
+        /// <param name="imagePath"></param>
+        /// <param name="gcList"></param>
+        /// <returns></returns>
+        [NonAction]
+        private bool UpdateGoodsWithTransaction(JCB_DBContext db, System.Data.Entity.DbContextTransaction trans, Goods goods, GoodsImage gi, List<GoodsCategory> gcList)
+        {
+            bool res = false;
+            try
+            {
+                // 更新商品图片数据库状态
+                db.Set<GoodsImage>().Attach(gi);
+                db.Entry(gi).State = System.Data.Entity.EntityState.Modified;
+
+                res = UpdateGoodsWithTransaction(db, trans, goods, gcList);
+                
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+
+                trans.Rollback();
+                
+            }
+            return res;
+        }
+
+        private bool UpdateGoodsWithTransaction(JCB_DBContext db, System.Data.Entity.DbContextTransaction trans, Goods goods, List<GoodsCategory> gcList)
+        {
+            bool res = false;
+            try
+            {
+                db.Set<Goods>().Attach(goods);
+                db.Entry(goods).State = System.Data.Entity.EntityState.Modified;
+
+                if (!_goodsCategoryBLL.RemoveGoodsCategoryByGoodsId(goods.Id))
+                {
+                    throw new Exception("删除 goods.Id = " + goods.Id + " 的goodsCategory列表失败");
+                }
+
+                foreach (var item in gcList)
+                {
+                    db.Set<GoodsCategory>().Attach(item);
+                    db.Set<GoodsCategory>().Add(item);
+                }
+
+                db.SaveChanges();
+
+                trans.Commit();
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+
+                trans.Rollback();
+            }
+            return res;
         }
     }
 }

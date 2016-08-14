@@ -741,6 +741,61 @@ namespace com.jiechengbao.wx.Controllers
         }
 
         /// <summary>
+        /// 领取优惠券页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ReceiveCoupon()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 领取方法
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [IsRegister("/Pay/ReceiveCoupon")]
+        public ActionResult Receive(string code)
+        {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as String);
+
+            if (member == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            Goods good = new Goods();
+            good = _goodsBLL.GetGoodsByCode(code);
+
+            if (good == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+
+            MyService myService = new MyService();
+            myService.Id = Guid.NewGuid();
+            myService.GoodsName = good.Name;
+            myService.GoodsId = good.Id;
+            myService.CreatedTime = DateTime.Now;
+            myService.CurrentCount = good.ServiceCount;
+            myService.DeletedTime = DateTime.MinValue.AddHours(8);
+            myService.IsDeleted = false;
+            myService.MemberId = member.Id;
+            myService.TotalCount = good.ServiceCount;
+
+            if (!_serviceBLL.Add(myService))
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                CreateServiceQR(member.Id, myService.Id);
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
         /// 添加充值积分记录
         /// </summary>
         /// <param name="member"></param>
@@ -929,7 +984,6 @@ namespace com.jiechengbao.wx.Controllers
             catch (Exception)
             {
             }
-
         }
 
         /// <summary>

@@ -60,7 +60,17 @@ namespace com.jiechengbao.dataTest
 
             ///GetMyAppointments();
 
-            Console.WriteLine(EncryptManager.MD5("admin123"));
+            //Console.WriteLine(EncryptManager.MD5("admin123"));
+
+            //GoodsDAL dal = new GoodsDAL();
+            //foreach (var item in dal.SelectByAllNoDeletedGoods())
+            //{
+            //    Console.WriteLine(item.Code);
+            //}
+            
+
+
+
 
             Console.WriteLine("Finished");
 

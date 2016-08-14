@@ -182,6 +182,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
+      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
+      <Name>LogHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
       <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>
       <Name>com.jiechengbao.entity</Name>
