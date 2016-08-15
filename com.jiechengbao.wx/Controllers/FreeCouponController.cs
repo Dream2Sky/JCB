@@ -24,6 +24,14 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult CouponList()
         {
+            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+
+            IEnumerable<MyFreeCoupon> mfcList = _myFreeCouponBLL.GetMyFreeCouponList(member.Id);
+            if (mfcList != null && mfcList.Count() >0)
+            {
+                return RedirectToAction("Info", "UserInfo");
+            }
+
             ViewData["CouponList"] = _freeCouponBLL.GetAllNotDeletedCoupon();
             return View();
         }

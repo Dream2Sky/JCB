@@ -11,7 +11,7 @@ namespace com.jiechengbao.Ibll
     {
         bool Add(MyFreeCoupon myFreeCoupon);
         bool Update(MyFreeCoupon myFreeCoupon);
-        IEnumerable<MyFreeCoupon> GetMyFreeCouponList(Guid myFreeCouponId);
+        IEnumerable<MyFreeCoupon> GetMyFreeCouponList(Guid memberId);
         MyFreeCoupon GetMyFreeCouponById(Guid myFreeCouponId);
     }
 }
