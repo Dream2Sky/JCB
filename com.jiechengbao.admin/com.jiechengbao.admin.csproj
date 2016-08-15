@@ -262,6 +262,10 @@
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\个人类库\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
+      <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>
+      <Name>POPO.Picture.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
       <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
       <Name>com.jiechengbao.common</Name>

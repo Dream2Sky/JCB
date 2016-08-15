@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\couponCSS.css" />
     <Content Include="Content\css\fontawesome.css" />
     <Content Include="Content\css\icon-phone.css" />
     <Content Include="Content\css\iconfont-cartplus.css" />
@@ -242,6 +243,7 @@
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreditMollController.cs" />
+    <Compile Include="Controllers\FreeCouponController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OauthController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\MyAppointmentListModel.cs" />
     <Compile Include="Models\MyAppointmentModel.cs" />
+    <Compile Include="Models\MyFreeCouponModel.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderResultModel.cs" />
@@ -342,6 +345,10 @@
     <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\Pay\ReceiveCoupon.cshtml" />
     <Content Include="Views\Home\GoodsList.cshtml" />
+    <Content Include="Views\FreeCoupon\CouponList.cshtml" />
+    <Content Include="Views\FreeCoupon\MyFreeCouponList.cshtml" />
+    <Content Include="Views\FreeCoupon\MyFreeCouponQR.cshtml" />
+    <Content Include="Views\Pay\PayForFreeCoupon.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -352,6 +359,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ExchangeQR\" />
+    <Folder Include="MyFreeCouponQRs\" />
     <Folder Include="QR\" />
   </ItemGroup>
   <ItemGroup>

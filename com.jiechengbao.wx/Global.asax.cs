@@ -89,6 +89,10 @@ namespace com.jiechengbao.wx
             builder.RegisterType<AppointmentServiceDAL>().As<IAppointmentServiceDAL>();
             builder.RegisterType<AppointmentTimeBLL>().As<IAppointmentTimeBLL>();
             builder.RegisterType<AppointmentTimeDAL>().As<IAppointmentTimeDAL>();
+            builder.RegisterType<FreeCouponBLL>().As<IFreeCouponBLL>();
+            builder.RegisterType<FreeCouponDAL>().As<IFreeCouponDAL>();
+            builder.RegisterType<MyFreeCouponBLL>().As<IMyFreeCouponBLL>();
+            builder.RegisterType<MyFreeCouponDAL>().As<IMyFreeCouponDAL>();
         }
     }
 }

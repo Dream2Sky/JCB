@@ -53,12 +53,14 @@
     <Compile Include="IExchangeServiceDAL.cs" />
     <Compile Include="IExchangeServiceQRDAL.cs" />
     <Compile Include="IExchangeServiceRecordDAL.cs" />
+    <Compile Include="IFreeCouponDAL.cs" />
     <Compile Include="IGoodsCategoryDAL.cs" />
     <Compile Include="IGoodsDAL.cs" />
     <Compile Include="IGoodsImagesDAL.cs" />
     <Compile Include="IMemberDAL.cs" />
     <Compile Include="IMyAppointmentDAL.cs" />
     <Compile Include="IMyAppointmentItemDAL.cs" />
+    <Compile Include="IMyFreeCouponDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IOrderDetailDAL.cs" />
     <Compile Include="IOrderStatusDAL.cs" />

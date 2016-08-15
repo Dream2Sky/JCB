@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using com.jiechengbao.common;
 using System.Threading;
 using MySql.Data.MySqlClient;
+using POPO.Picture.Helper;
+using System.IO;
 
 namespace com.jiechengbao.admin.Controllers
 {
@@ -127,8 +129,11 @@ namespace com.jiechengbao.admin.Controllers
             gi.DeletedTime = DateTime.MinValue.AddHours(8);
 
             List<GoodsCategory> gcList = new List<GoodsCategory>();
+            
+            //去掉传进来的分类数组中的相同元素
+            string[] CL = model.CategoryList.Distinct().ToArray();
 
-            foreach (var item in model.CategoryList)
+            foreach (var item in CL)
             {
                 // 构造 GoodsCategory 对象
                 GoodsCategory gc = new GoodsCategory();
@@ -157,9 +162,15 @@ namespace com.jiechengbao.admin.Controllers
         {
             try
             {
-                string fileName = EncryptManager.SHA1(file.FileName + TimeManager.GetCurrentTimestamp()) + ".jpg";
-                string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(fileName));
+                string fileName = Guid.NewGuid().ToString().Replace("-", "")+".jpg";
+                string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(file.FileName));
                 file.SaveAs(path);
+                
+                string targetPath = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                PictureHelper.getThumImage(path, 18, 3, targetPath);
+
+                FileInfo fi = new FileInfo(path);
+                fi.Delete();
 
                 return Json(fileName, JsonRequestBehavior.AllowGet);
             }

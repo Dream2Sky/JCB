@@ -66,56 +66,30 @@ $(function () {
         $("body").unbind("touchmove");
     }
 
-    $(".cart-iconcartplus").tap(function () {
-        var img_x = $(this).offset().left;
-        var img_y = $(this).offset().top;
-        var circle = $(this).clone().css('opacity', '0.8');
-        $("body").append(circle);
-        circle.removeClass("cart-iconcartplus");
-        circle.css({
-            "position": "absolute",
-            "width": "20px",
-            "height": "20px",
-            "border-radius": "10px",
-            "color": "red",
-            "background": "red",
-            "font-family": "宋体",
-            "top": img_y + "px",
-            "left": img_x + "px"
-        });
-        circle.animate({
-            left: $(".small").offset().left*1.1,
-            top: $(".small").offset().top,
-            width: 10,
-            height: 10
-        }, 500, function () {
-            circle.remove();
-        });
-
-
-        // var img = $(this).parent().parent().parent().find('img');
-        // //获取文档对象
-        // var flyimg = img.clone().css("opacity",0.6);
-        // //克隆出一个新的对象
-        // $("body").append(flyimg);
-        // //把新的对象布置在body内，并在下面为新的文旦对象设置样式
-        // flyimg.css({
-        //   "z-index":"5",
-        //   "display":"block",
-        //   "position":"absolute",
-        //   'top': img.offset().top +'px',
-        //   'left': img.offset().left +'px',
-        //   'width': img.width() +'px',
-        //   'height': img.height() +'px'
-        // });
-        // //定义动画
-        // flyimg.animate({
-        //     left: $(".small").offset().left,
-        //     top: $(".small").offset().top,
-        //     width:20,
-        //     height: 15
-        // },2000,function(){
-        //   flyimg.remove();
-        // });
-    });
+    //$(".cart-iconcartplus").tap(function () {
+    //    var img_x = $(this).offset().left;
+    //    var img_y = $(this).offset().top;
+    //    var circle = $(this).clone().css('opacity', '0.8');
+    //    $("body").append(circle);
+    //    circle.removeClass("cart-iconcartplus");
+    //    circle.css({
+    //        "position": "absolute",
+    //        "width": "20px",
+    //        "height": "20px",
+    //        "border-radius": "10px",
+    //        "color": "red",
+    //        "background": "red",
+    //        "font-family": "宋体",
+    //        "top": img_y + "px",
+    //        "left": img_x + "px"
+    //    });
+    //    circle.animate({
+    //        left: $(".small").offset().left*1.1,
+    //        top: $(".small").offset().top,
+    //        width: 10,
+    //        height: 10
+    //    }, 500, function () {
+    //        circle.remove();
+    //    });
+    //});
 });

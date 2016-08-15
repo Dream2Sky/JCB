@@ -69,5 +69,17 @@ namespace com.jiechengbao.entity
         public DbSet<MyAppointment> MyAppointments { get; set; }
         public DbSet<MyAppointmentItem> MyAppointmentItems { get; set; }
 
+
+        // 赠送的优惠券模块
+        /// <summary>
+        /// 优惠券 表
+        /// </summary>
+        public DbSet<FreeCoupon> FreeCoupons { get; set; }
+
+        /// <summary>
+        /// 我的优惠券 表
+        /// </summary>
+        public DbSet<MyFreeCoupon> MyFreeCoupons { get; set; }
+
     }
 }

@@ -82,6 +82,10 @@ namespace com.jiechengbao.admin
             builder.RegisterType<MyAppointmentItemDAL>().As<IMyAppointmentItemDAL>();
             builder.RegisterType<OrderDetailBLL>().As<IOrderDetailBLL>();
             builder.RegisterType<OrderDetailDAL>().As<IOrderDetailDAL>();
+            builder.RegisterType<FreeCouponBLL>().As<IFreeCouponBLL>();
+            builder.RegisterType<FreeCouponDAL>().As<IFreeCouponDAL>();
+            builder.RegisterType<MyFreeCouponBLL>().As<IMyFreeCouponBLL>();
+            builder.RegisterType<MyFreeCouponDAL>().As<IMyFreeCouponDAL>();
         }
     }
 }

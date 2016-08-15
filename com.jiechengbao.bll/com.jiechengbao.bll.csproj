@@ -50,12 +50,14 @@
     <Compile Include="ExchangeServiceBLL.cs" />
     <Compile Include="ExchangeServiceQRBLL.cs" />
     <Compile Include="ExchangeServiceRecordBLL.cs" />
+    <Compile Include="FreeCouponBLL.cs" />
     <Compile Include="GoodsBLL.cs" />
     <Compile Include="GoodsCategoryBLL.cs" />
     <Compile Include="GoodsImagesBLL.cs" />
     <Compile Include="AppointmentTimeBLL.cs" />
     <Compile Include="MyAppointmentBLL.cs" />
     <Compile Include="MyAppointmentItemBLL.cs" />
+    <Compile Include="MyFreeCouponBLL.cs" />
     <Compile Include="OrderStatusBLL.cs" />
     <Compile Include="MemberBLL.cs" />
     <Compile Include="OrderBLL.cs" />
@@ -75,6 +77,10 @@
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyLibrary\ch.lib.common.QR\ch.lib.common.QR.csproj">
+      <Project>{7ebbeca6-a1fb-4ae8-8bb9-9161fcd53377}</Project>
+      <Name>ch.lib.common.QR</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
       <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>

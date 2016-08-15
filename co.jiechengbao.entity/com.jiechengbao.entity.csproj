@@ -70,6 +70,7 @@
     <Compile Include="ExchangeService.cs" />
     <Compile Include="ExchangeServiceQR.cs" />
     <Compile Include="ExchangeServiceRecord.cs" />
+    <Compile Include="FreeCoupon.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsCategory.cs" />
     <Compile Include="GoodsImage.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyAppointment.cs" />
     <Compile Include="MyAppointmentItem.cs" />
+    <Compile Include="MyFreeCoupon.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />

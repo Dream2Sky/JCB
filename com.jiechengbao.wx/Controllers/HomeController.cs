@@ -36,7 +36,7 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Index()
         {    
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
-            GoodsList("");
+            //GoodsList("");
             return View();
         }
 
@@ -53,6 +53,11 @@ namespace com.jiechengbao.wx.Controllers
                 {
                     foreach (var item in _goodsBLL.GetGoodsByCountOrderByCreatedTime(1))
                     {
+                        if (item.IsDeleted == true)
+                        {
+                            continue;
+                        }
+
                         GoodsModel gm = new GoodsModel(item);
                         GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(item.Id);
                         if (gi == null)
@@ -71,6 +76,11 @@ namespace com.jiechengbao.wx.Controllers
                     foreach (var item in goodsCategoryList)
                     {
                         Goods goods = _goodsBLL.GetGoodsById(item.GoodsId);
+                        // 判断商品是否是被删除的
+                        if (goods.IsDeleted == true)
+                        {
+                            continue;
+                        }
                         GoodsModel gm = new GoodsModel(goods);
                         GoodsImage gi = _goodsImagesBLL.GetPictureByGoodsId(goods.Id);
 

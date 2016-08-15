@@ -21,9 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.dataTest", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.wx", "com.jiechengbao.wx\com.jiechengbao.wx.csproj", "{89EC439A-03E5-4A1B-B65E-C090B2B1AB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.wx.api", "..\捷诚宝\com.jiechengbao.wx.api\com.jiechengbao.wx.api.csproj", "{DC5F3936-E534-4894-8322-3321629D4E6A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.customerService", "com.jiechengbao.customerService\com.jiechengbao.customerService.csproj", "{EEB48F54-0DAE-49DC-8001-BD380993FF06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.Picture.Helper", "..\个人类库\POPO.Picture.Helper\POPO.Picture.Helper.csproj", "{04EDC94C-6C84-43F4-A461-ABD84DA4843E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.common", "..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj", "{8B193E36-A4F4-4504-87F2-32EB5C5C9352}"
 EndProject
@@ -71,14 +71,14 @@ Global
 		{89EC439A-03E5-4A1B-B65E-C090B2B1AB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89EC439A-03E5-4A1B-B65E-C090B2B1AB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89EC439A-03E5-4A1B-B65E-C090B2B1AB76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC5F3936-E534-4894-8322-3321629D4E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC5F3936-E534-4894-8322-3321629D4E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC5F3936-E534-4894-8322-3321629D4E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC5F3936-E534-4894-8322-3321629D4E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB48F54-0DAE-49DC-8001-BD380993FF06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B193E36-A4F4-4504-87F2-32EB5C5C9352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B193E36-A4F4-4504-87F2-32EB5C5C9352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B193E36-A4F4-4504-87F2-32EB5C5C9352}.Release|Any CPU.ActiveCfg = Release|Any CPU

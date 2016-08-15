@@ -146,6 +146,7 @@
     })
 
     function AddGoods() {
+
         var Name = $("input[name='Name']");
         var Price = $("input[name='Price']");
         var OriginalPrice = $("input[name='OriginalPrice']");
@@ -153,6 +154,8 @@
         var Description = $("textarea");
         var PicturePath = $("input[name='PicturePath']");
         var ServiceCount = $("input[name='ServiceCount']");
+
+        categoryList.slice(0, categoryList.length);
 
         $("form").bootstrapValidator('validate');
 
@@ -200,7 +203,6 @@
         else {
             console.log("something wrong");
         }
-
     }
 </script>
 <script>

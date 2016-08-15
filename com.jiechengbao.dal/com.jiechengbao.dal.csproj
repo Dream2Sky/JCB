@@ -69,12 +69,14 @@
     <Compile Include="ExchangeServiceDAL.cs" />
     <Compile Include="ExchangeServiceQRDAL.cs" />
     <Compile Include="ExchangeServiceRecordDAL.cs" />
+    <Compile Include="FreeCouponDAL.cs" />
     <Compile Include="GoodsCategoryDAL.cs" />
     <Compile Include="GoodsDAL.cs" />
     <Compile Include="GoodsImagesDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="MyAppointmentDAL.cs" />
     <Compile Include="MyAppointmentItemDAL.cs" />
+    <Compile Include="MyFreeCouponDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="OrderStatusDAL.cs" />

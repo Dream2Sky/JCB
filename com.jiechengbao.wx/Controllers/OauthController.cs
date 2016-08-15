@@ -351,13 +351,12 @@ namespace com.jiechengbao.wx.Controllers
                 {
                     LogHelper.Log.Write("添加新用户失败");
                 }
-
             }
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
             {
-                return RedirectToAction("ReceiveCoupon", "Pay");
+                return RedirectToAction("CouponList", "FreeCoupon");
             }
             else
             {

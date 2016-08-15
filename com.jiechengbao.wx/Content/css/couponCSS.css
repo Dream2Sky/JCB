@@ -1,0 +1,79 @@
+html body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #555;
+    font-family: "微软雅黑";
+    font-size: 14px;
+}
+
+.list-group {
+    position: relative;
+    top: 50px;
+}
+
+    .list-group a {
+        background-color: #DC3B3B;
+        color: yellow;
+    }
+
+        .list-group a:focus, .list-group a:hover {
+            background-color: #c00;
+            color: yellow;
+        }
+
+.p-description {
+    text-align: left;
+}
+
+.p-price {
+    text-align: right;
+}
+
+.p-button {
+    text-align: right;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+input[type='button'] {
+    background-color: yellow;
+    color: #000;
+}
+
+.title {
+    text-align: center;
+}
+
+.icon-refresh {
+    font-size: 30px;
+    color: #fff;
+    width: 80px;
+    margin: 0px auto;
+}
+
+.fresh {
+    position: absolute;
+    top: 250px;
+    animation: fresh 1s linear infinite;
+    z-index: 200;
+    display: none;
+    width: 100%;
+    text-align: center;
+}
+
+@keyframes fresh {
+    0% {
+        -webkit-transform: rotateZ(0deg);
+        -moz-transform: rotateZ(0deg);
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+    }
+}

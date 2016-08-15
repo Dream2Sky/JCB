@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+@using com.jiechengbao.entity
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>优惠券领取</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/couponCSS.css" rel="stylesheet" />
+    <link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="list-group">
+            @if (ViewData["CouponList"] == null || (ViewData["CouponList"] as IEnumerable<FreeCoupon>).Count() <= 0)
+            {
+                <p class="title">暂无活动...</p>
+            }
+            else
+            {
+                foreach (var item in ViewData["CouponList"] as IEnumerable<FreeCoupon>)
+                {
+
+                    <a href="javascript:;" class="list-group-item">
+                        <h4 class="list-group-item-heading">@item.CouponName</h4>
+                        <p class="list-group-item-text p-description">@item.Description</p>
+                        <p class="list-group-item-text p-price">价值 ￥@item.Price</p>
+                        <p class="p-button">
+                            <input type="button" class="btn btn-pick" onclick="pickup('@item.CouponCode')">点击领取
+                        </p>
+                    </a>
+                }
+            }
+
+            <div class="fresh">
+                <span class="icon-refresh"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function pickup(code) {
+            $.ajax({
+                url: "/FreeCoupon/PickUp",
+                type: "POST",
+                data: {
+                    Code: code
+                },
+                success: function (data) {
+                    if (data.code == false) {
+                        alert(data.msg);
+                    }
+                    else if (data.code == true) {
+                        window.location.href = data.url;
+                    }
+                },
+                error: function () {
+                    alert("系统错误, 领取失败");
+                },
+                beforeSend: function () {
+                    $(".btn").unbind("click");
+                    $(".fresh").show();
+                },
+                complete: function () {
+                    $(".btn").bind("click");
+                    $(".fresh").show();
+                }
+            });
+
+        }
+    </script>
+</body>
+</html>

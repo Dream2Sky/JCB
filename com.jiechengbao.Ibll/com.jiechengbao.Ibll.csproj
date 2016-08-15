@@ -51,12 +51,14 @@
     <Compile Include="IExchangeServiceBLL.cs" />
     <Compile Include="IExchangeServiceQRBLL.cs" />
     <Compile Include="IExchangeServiceRecordBLL.cs" />
+    <Compile Include="IFreeCouponBLL.cs" />
     <Compile Include="IGoodsBLL.cs" />
     <Compile Include="IGoodsCategoryBLL.cs" />
     <Compile Include="IGoodsImagesBLL.cs" />
     <Compile Include="IMemberBLL.cs" />
     <Compile Include="IMyAppointmentBLL.cs" />
     <Compile Include="IMyAppointmentItemBLL.cs" />
+    <Compile Include="IMyFreeCouponBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="IOrderDetailBLL.cs" />
     <Compile Include="IOrderStatusBLL.cs" />

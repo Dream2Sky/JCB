@@ -32,7 +32,7 @@
     $(".goods-item img").css({
         "height": wid * 0.7
     });
-    $(".cart-iconcartplus").tap(function () {
+    $(".cart-iconcartplus").on("tap",function () {
         //create a boll
         var img_x = $(this).offset().left;
         var img_y = $(this).offset().top;
@@ -62,7 +62,6 @@
         });
 
         // toggle the ajax()
-
         var code = $(this).attr("id");
         $.ajax({
             url: "/Cart/Add",
@@ -81,7 +80,6 @@
             error: function () {
                 alert("系统错误， 添加购物车失败");
             }
-
         });
     });
     $("img").on("tap", function () {

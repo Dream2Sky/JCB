@@ -23,6 +23,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (!string.IsNullOrEmpty(refUrl))
             {
+                LogHelper.Log.Write(refUrl);
                 ViewBag.refUrl = refUrl;
             }
             return View();

@@ -55,6 +55,8 @@ namespace com.jiechengbao.wx.Controllers
         private IExchangeServiceRecordBLL _exchangeServiceRecordBLL;
         private IExchangeServiceBLL _exchangeServiceBLL;
         private IExchangeServiceQRBLL _exchangeServiceQRBLL;
+        private IMyFreeCouponBLL _myFreeCouponBLL;
+        private IFreeCouponBLL _freeCouponBLL;
         public PayController(IMemberBLL memberBLL, IOrderBLL orderBLL,
             ITransactionBLL transactionBLL, IRechargeBLL rechargeBLL,
             ICreditRecordBLL creditRecordBLL, IRulesBLL rulesBLL,
@@ -64,7 +66,8 @@ namespace com.jiechengbao.wx.Controllers
             IServiceConsumePasswordBLL serviceConsumePasswordBLL,
             IExchangeServiceRecordBLL exchangeServiceRecordBLL,
             IExchangeServiceBLL exchangeServiceBLL,
-            IExchangeServiceQRBLL exchangeServiceQRBLL)
+            IExchangeServiceQRBLL exchangeServiceQRBLL,
+            IMyFreeCouponBLL myFreeCouponBLL, IFreeCouponBLL freeCouponBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
@@ -81,6 +84,8 @@ namespace com.jiechengbao.wx.Controllers
             _exchangeServiceRecordBLL = exchangeServiceRecordBLL;
             _exchangeServiceBLL = exchangeServiceBLL;
             _exchangeServiceQRBLL = exchangeServiceQRBLL;
+            _myFreeCouponBLL = myFreeCouponBLL;
+            _freeCouponBLL = freeCouponBLL;
         }
 
         /// <summary>
@@ -711,7 +716,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (esrId == null)
             {
-                return Json("True", JsonRequestBehavior.AllowGet);
+                return Json("False", JsonRequestBehavior.AllowGet);
             }
             if (string.IsNullOrEmpty(password))
             {
@@ -740,60 +745,123 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
-        /// <summary>
-        /// 领取优惠券页面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ReceiveCoupon()
+        public ActionResult PayForFreeCoupon(Guid myFreeCouponId)
         {
-            return View();
+            try
+            {
+                MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
+                Member member = _memberBLL.GetMemberById(mfc.MemberId);
+                FreeCoupon fc = _freeCouponBLL.GetFreeCouponById(mfc.FreeCouponId);
+
+                ViewBag.FreeCouponName = fc.CouponName;
+                ViewBag.MemberName = member.NickeName;
+                ViewBag.MyFreeCouponId = myFreeCouponId;
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+
+
+                ViewBag.FreeCouponName = string.Empty;
+                ViewBag.MemberName = string.Empty ;
+                return View();
+            }
         }
 
-        /// <summary>
-        /// 领取方法
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
         [HttpPost]
-        [IsRegister("/Pay/ReceiveCoupon")]
-        public ActionResult Receive(string code)
+        [IsRegister("/Pay/PayForFreeCoupon")]
+        public ActionResult PayForFreeCoupon(Guid myFreeCouponId, string password)
         {
-            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as String);
-
-            if (member == null)
+            if (myFreeCouponId == null)
             {
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
 
-            Goods good = new Goods();
-            good = _goodsBLL.GetGoodsByCode(code);
-
-            if (good == null)
+            if (string.IsNullOrEmpty(password))
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("NullPassword", JsonRequestBehavior.AllowGet);
             }
 
-            MyService myService = new MyService();
-            myService.Id = Guid.NewGuid();
-            myService.GoodsName = good.Name;
-            myService.GoodsId = good.Id;
-            myService.CreatedTime = DateTime.Now;
-            myService.CurrentCount = good.ServiceCount;
-            myService.DeletedTime = DateTime.MinValue.AddHours(8);
-            myService.IsDeleted = false;
-            myService.MemberId = member.Id;
-            myService.TotalCount = good.ServiceCount;
+            ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
 
-            if (!_serviceBLL.Add(myService))
+            if (scp.Password == password)
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
+                mfc.IsDeleted = false;
+
+                if (_myFreeCouponBLL.Update(mfc))
+                {
+                    return Json("True", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
-                CreateServiceQR(member.Id, myService.Id);
-                return Json("True", JsonRequestBehavior.AllowGet);
+                return Json("PasswordError", JsonRequestBehavior.AllowGet);
             }
         }
+
+        ///// <summary>
+        ///// 领取优惠券页面
+        ///// </summary>
+        ///// <returns></returns>
+        //public ActionResult ReceiveCoupon()
+        //{
+        //    return View();
+        //}
+
+        ///// <summary>
+        ///// 领取方法
+        ///// </summary>
+        ///// <param name="code"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[IsRegister("/Pay/ReceiveCoupon")]
+        //public ActionResult Receive(string code)
+        //{
+        //    Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"] as String);
+
+        //    if (member == null)
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
+
+        //    Goods good = new Goods();
+        //    good = _goodsBLL.GetGoodsByCode(code);
+
+        //    if (good == null)
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
+
+        //    MyService myService = new MyService();
+        //    myService.Id = Guid.NewGuid();
+        //    myService.GoodsName = good.Name;
+        //    myService.GoodsId = good.Id;
+        //    myService.CreatedTime = DateTime.Now;
+        //    myService.CurrentCount = good.ServiceCount;
+        //    myService.DeletedTime = DateTime.MinValue.AddHours(8);
+        //    myService.IsDeleted = false;
+        //    myService.MemberId = member.Id;
+        //    myService.TotalCount = good.ServiceCount;
+
+        //    if (!_serviceBLL.Add(myService))
+        //    {
+        //        return Json("False", JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        CreateServiceQR(member.Id, myService.Id);
+        //        return Json("True", JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         /// <summary>
         /// 添加充值积分记录

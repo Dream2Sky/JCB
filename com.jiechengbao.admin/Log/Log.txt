@@ -954,3 +954,35 @@ Order/Completed: GetCompletedOrders 1 ms
 2016/8/13 21:39:29 : 
 Order/Completed: 8 ms
 ========================================================================
+2016/8/14 17:49:42 : 
+Home/Index: GetAllNoDeletedMembersCount 10ms
+========================================================================
+2016/8/14 17:49:42 : 
+Home/Index: GetNewMembersAtYesterDay 2ms
+========================================================================
+2016/8/14 17:49:42 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/14 17:49:42 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/14 17:50:01 : 
+文件“D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Uploads\零元洗车优惠券.png”正由另一进程使用，因此该进程无法访问此文件。
+========================================================================
+2016/8/14 17:50:01 : 
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileInfo.Delete()
+   在 com.jiechengbao.admin.Controllers.GoodsController.Upload(HttpPostedFileBase file) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\GoodsController.cs:行号 170
+========================================================================
+2016/8/14 17:55:45 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/14 17:55:45 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/14 17:55:45 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/14 17:55:45 : 
+Home/Index: Foreach orderList 1ms
+========================================================================

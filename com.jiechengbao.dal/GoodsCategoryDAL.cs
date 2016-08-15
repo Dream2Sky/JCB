@@ -36,7 +36,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<GoodsCategory>().Where(n => n.CategoryId == categoryId);
+                return db.Set<GoodsCategory>().Where(n => n.CategoryId == categoryId && n.IsDeleted == false);
             }
             catch (Exception ex)
             {
