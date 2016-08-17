@@ -43,6 +43,7 @@
     <Compile Include="CarNotEntity.cs" />
     <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
+    <Compile Include="IAdvertisementDAL.cs" />
     <Compile Include="IAppointmentServiceDAL.cs" />
     <Compile Include="IAppointmentTimeDAL.cs" />
     <Compile Include="ICarDAL.cs" />

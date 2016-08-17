@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AddressDAL.cs" />
     <Compile Include="AdminDAL.cs" />
+    <Compile Include="AdvertisementDAL.cs" />
     <Compile Include="AppointmentServiceDAL.cs" />
     <Compile Include="AppointmentTimeDAL.cs" />
     <Compile Include="CarDAL.cs" />

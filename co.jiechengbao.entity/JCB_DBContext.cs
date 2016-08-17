@@ -81,5 +81,10 @@ namespace com.jiechengbao.entity
         /// </summary>
         public DbSet<MyFreeCoupon> MyFreeCoupons { get; set; }
 
+        /// <summary>
+        /// 广告 只看不买的广告
+        /// </summary>
+        public DbSet<Advertisement> Advertisements { get; set; }
+
     }
 }

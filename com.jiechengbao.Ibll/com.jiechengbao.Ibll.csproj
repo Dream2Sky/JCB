@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IAddressBLL.cs" />
     <Compile Include="IAdminBLL.cs" />
+    <Compile Include="IAdvertisementBLL.cs" />
     <Compile Include="IAppointmentServiceBLL.cs" />
     <Compile Include="IAppointmentTimeBLL.cs" />
     <Compile Include="ICarBLL.cs" />
