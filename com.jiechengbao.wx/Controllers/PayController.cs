@@ -21,10 +21,12 @@ using WxPayAPI;
 using System.Configuration;
 using ch.lib.common.QR;
 using com.jiechengbao.wx.Global;
+using POPO.ActionFilter.Helper;
 
 namespace com.jiechengbao.wx.Controllers
 {
-
+    [WhitespaceFilter]
+    [ETag]
     public class PayController : Controller
     {
         /// <summary>

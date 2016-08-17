@@ -17,6 +17,11 @@ namespace com.jiechengbao.bll
             _freeCouponDAL = freeCouponDAL;
         }
 
+        public bool Add(FreeCoupon fc)
+        {
+            return _freeCouponDAL.Insert(fc);
+        }
+
         public IEnumerable<FreeCoupon> GetAllNotDeletedCoupon()
         {
             return _freeCouponDAL.SelectAllNotDeletedCoupon();
@@ -30,6 +35,16 @@ namespace com.jiechengbao.bll
         public FreeCoupon GetFreeCouponById(Guid freeCouponId)
         {
             return _freeCouponDAL.SelectById(freeCouponId);
+        }
+
+        public bool IsExist(FreeCoupon fc)
+        {
+            return _freeCouponDAL.IsExist(fc.CouponName);
+        }
+
+        public bool Update(FreeCoupon fc)
+        {
+            return _freeCouponDAL.Update(fc);
         }
     }
 }

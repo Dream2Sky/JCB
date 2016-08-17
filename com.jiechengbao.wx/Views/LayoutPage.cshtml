@@ -122,10 +122,9 @@
             // alert("iOS");
             document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />');
         }
-
-        $(document).ready(function () {
+        $(document).ready(function() {
             var url = window.location.href;
-            if (url == "http://jcb.ybtx88.com/Home" || url == "http://jcb.ybtx88.com/Home/Index") {
+            if (url=="http://jcb.ybtx88.com/Home"|| url=="http://jcb.ybtx88.com/Home/Index") {
                 $(".menu-con").show();
                 $(".good-menu").show();
             }
@@ -177,6 +176,66 @@
             <span class="mui-tab-label">订单</span>
         </a>
     </nav>
+    @*<nav class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="..." style="padding:0px;height:50px;">
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_home" class="btn btn-default" onclick="javascript:window.location='/Home/Index'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/home.png">
+                                <p><small>商品</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_shopping" class="btn btn-default" onclick="javascript:window.location='/Cart/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/cart.png">
+                                <p id="img_shoppingCar"><small>购物车</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_car" class="btn btn-default" onclick="javascript:window.location='/Order/List?type=2'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img id="img_shoppingCar" style="width:20px;height:20px;" src="~/Content/images/order.png">
+                                <p><small>订单</small></p>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="btn_user" class="btn btn-default" onclick="javascript:window.location='/Address/List'" style="height:50px;border-radius:0px;background:#fff;border:none;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#D0d0d0;">
+                                <img style="width:20px;height:20px;" src="~/Content/images/setting.png">
+                                <p><small>设置</small></p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>*@
+    @*<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Home/Index">Link <span class="sr-only">商品</span></a></li>
+                    <li class="active"><a href="/Cart/List">Link <span class="sr-only">购物车</span></a></li>
+                    <li class="active"><a href="#popover">Link <span class="sr-only">顶单</span></a></li>
+                    <li class="active"><a href="#popover-address">Link <span class="sr-only">设置</span></a></li>
+                </ul>
+            </div>
+        </nav>*@
+    @*<nav class="mui-bar mui-bar-tab">
+            <a class="mui-tab-item mui-active" href="/UserInfo/Index" id="atouserinfo">
+                <span class="mui-icon iconfont icon-shouyeshouye"></span>
+                <span class="mui-tab-label">首页</span>
+            </a>
+            <a class="mui-tab-item" href="/Home/Index" id="atohome">
+                <span class="mui-icon iconfont icon-dianpu"></span>
+                <span class="mui-tab-label">商城</span>
+            </a>
+            <a class="mui-tab-item" href="/Car/List" id="atocar">
+                <span class="mui-icon iconfont icon-car"></span>
+                <span class="mui-tab-label">爱车</span>
+            </a>
+            <a class="mui-tab-item" href="/UserInfo/Info" id="atoinfo">
+                <span class="mui-icon mui-icon-person" id="atoperson"></span>
+                <span class="mui-tab-label">个人</span>
+            </a>
+        </nav>*@
     <div id="popover" class="mui-popover">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
@@ -209,7 +268,7 @@
                 type: "POST",
                 data: {},
                 success: function (data) {
-                    if (data.code == true && data.count > 0) {
+					if (data.code == true && data.count > 0) {
                         $(".icon-cart").append("<span class=\"mui-badge navbar-badge\">" + data.count + "</span>");
                     }
                 }
@@ -242,6 +301,40 @@
         });
 
         document.addEventListener('touchmove', function (e) { e.preventDefault() }, false);
+        //function Go(url) {
+        //    window.location.href = url;
+        //};
+        //var atogoods = document.getElementById("atogoods");
+        //var atocart = document.getElementById("atocart");
+        //var atoorder = document.getElementById("atoorder");
+
+        //atogoods.addEventListener('tap', function () {
+        //    Go(atogoods.getAttribute("href"));
+        //});
+        //atoorder.addEventListener('tap', function () {
+        //    Go(atoorder.getAttribute("href"));
+        //});
+        //atocart.addEventListener('tap', function () {
+        //    Go(atocart.getAttribute("href"));
+        //})
+
+        //var atohome = document.getElementById("atohome");
+        //var atocar = document.getElementById("atocar");
+        //var atouserinfo = document.getElementById("atouserinfo");
+        //var atoinfo = document.getElementById("atoinfo");
+
+        //atohome.addEventListener('tap', function () {
+        //    Go(atohome.getAttribute("href"));
+        //});
+        //atocar.addEventListener('tap', function () {
+        //    Go(atocar.getAttribute("href"));
+        //});
+        //atouserinfo.addEventListener('tap', function () {
+        //    Go(atouserinfo.getAttribute("href"));
+        //});
+        //atoinfo.addEventListener('tap', function () {
+        //    Go(atoinfo.getAttribute("href"));
+        //});
     </script>
 </body>
 </html>

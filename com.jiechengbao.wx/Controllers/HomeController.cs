@@ -2,6 +2,7 @@
 using com.jiechengbao.Ibll;
 using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,8 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+    [WhitespaceFilter]
+    [ETag]
     public class HomeController : Controller
     {
         private ICategoryBLL _categoryBLL;
@@ -36,7 +38,6 @@ namespace com.jiechengbao.wx.Controllers
         public ActionResult Index()
         {    
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
-            //GoodsList("");
             return View();
         }
 

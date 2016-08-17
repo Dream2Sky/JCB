@@ -371,6 +371,10 @@
       <Project>{7ebbeca6-a1fb-4ae8-8bb9-9161fcd53377}</Project>
       <Name>ch.lib.common.QR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\个人类库\POPO.ActionFilter.Helper\POPO.ActionFilter.Helper.csproj">
+      <Project>{a7e6a98b-3717-4d59-92c5-4db2e8f8812d}</Project>
+      <Name>POPO.ActionFilter.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\捷诚宝\com.jiechengbao.common\com.jiechengbao.common.csproj">
       <Project>{8b193e36-a4f4-4504-87f2-32eb5c5c9352}</Project>
       <Name>com.jiechengbao.common</Name>

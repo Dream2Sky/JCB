@@ -3,7 +3,7 @@ namespace com.jiechengbao.entity.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitDataBase : DbMigration
+    public partial class InitDatabase : DbMigration
     {
         public override void Up()
         {
@@ -172,6 +172,21 @@ namespace com.jiechengbao.entity.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.FreeCoupons",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        CouponCode = c.String(nullable: false, maxLength: 35, unicode: false, storeType: "nvarchar"),
+                        CouponName = c.String(nullable: false, maxLength: 50, unicode: false, storeType: "nvarchar"),
+                        Price = c.Double(nullable: false),
+                        Description = c.String(maxLength: 255, unicode: false, storeType: "nvarchar"),
+                        CreatedTime = c.DateTime(nullable: false, precision: 0),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeletedTime = c.DateTime(nullable: false, precision: 0),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.GoodsCategories",
                 c => new
                     {
@@ -260,6 +275,20 @@ namespace com.jiechengbao.entity.Migrations
                         Notes = c.String(unicode: false),
                         CarNumber = c.String(nullable: false, maxLength: 15, unicode: false, storeType: "nvarchar"),
                         CarInfo = c.String(nullable: false, maxLength: 30, unicode: false, storeType: "nvarchar"),
+                        CreatedTime = c.DateTime(nullable: false, precision: 0),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeletedTime = c.DateTime(nullable: false, precision: 0),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.MyFreeCoupons",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        FreeCouponId = c.Guid(nullable: false),
+                        MemberId = c.Guid(nullable: false),
+                        FreeCouponQRs = c.String(maxLength: 255, unicode: false, storeType: "nvarchar"),
                         CreatedTime = c.DateTime(nullable: false, precision: 0),
                         IsDeleted = c.Boolean(nullable: false),
                         DeletedTime = c.DateTime(nullable: false, precision: 0),
@@ -456,12 +485,14 @@ namespace com.jiechengbao.entity.Migrations
             DropTable("dbo.OrderStatus");
             DropTable("dbo.Orders");
             DropTable("dbo.OrderDetails");
+            DropTable("dbo.MyFreeCoupons");
             DropTable("dbo.MyAppointments");
             DropTable("dbo.MyAppointmentItems");
             DropTable("dbo.Members");
             DropTable("dbo.Goods");
             DropTable("dbo.GoodsImages");
             DropTable("dbo.GoodsCategories");
+            DropTable("dbo.FreeCoupons");
             DropTable("dbo.ExchangeServices");
             DropTable("dbo.ExchangeServiceQRs");
             DropTable("dbo.ExchangeServiceRecords");

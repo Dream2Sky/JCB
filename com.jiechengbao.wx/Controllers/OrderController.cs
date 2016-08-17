@@ -5,6 +5,7 @@ using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,8 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-
+    [WhitespaceFilter]
+    [ETag]
     public class OrderController : Controller
     {
 

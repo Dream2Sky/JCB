@@ -3,6 +3,7 @@ using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+    [WhitespaceFilter]
+    [ETag]
     public class UserInfoController : Controller
     {
         private IMemberBLL _memberBLL;

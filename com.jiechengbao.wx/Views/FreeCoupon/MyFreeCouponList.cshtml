@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "MyFreeCouponList";
+    ViewBag.Title = "我的优惠券";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
 @using com.jiechengbao.wx.Models
 
-@if (ViewData["MyFreeCouponModelList"] == null || (ViewData["MyFreeCouponModelList"] as List<MyAppointmentListModel>).Count <= 0)
+@if (ViewData["MyFreeCouponModelList"] == null || (ViewData["MyFreeCouponModelList"] as List<MyFreeCouponModel>).Count <= 0)
 {
     <p class="title">您还没有领取任何优惠券</p>
 }
@@ -16,12 +16,12 @@ else
         {
             <li class="mui-table-view-cell" id="@item.myFreeCouponId">
                 <div class="mui-table">
-                    <div class="mui-table-cell mui-col-xs-10">
+                    <div class="mui-table-cell mui-col-xs-9">
                         <h4 class="mui-ellipsis">@item.FreeCouponName</h4>
                         <h5>@item.Price</h5>
                         <p class="mui-h6 mui-ellipsis">@item.Descritption</p>
                     </div>
-                    <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                    <div class="mui-table-cell mui-col-xs-3 mui-text-right">
                         <span class="mui-h5">@item.CreatedTime</span>
                     </div>
                 </div>

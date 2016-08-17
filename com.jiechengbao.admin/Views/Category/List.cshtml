@@ -124,6 +124,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="deleteModelLable">删除商品分类</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            您确定要删除该商品分类
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <script>

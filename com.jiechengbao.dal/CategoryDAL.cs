@@ -10,6 +10,20 @@ namespace com.jiechengbao.dal
 {
     public class CategoryDAL : DataBaseDAL<Category>, ICategoryDAL
     {
+        public IEnumerable<Category> SelectAllNotDeletedCategories()
+        {
+            try
+            {
+                return db.Set<Category>().Where(n => n.IsDeleted == false);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
+
         public Category SelectByCategoryName(string name)
         {
             try

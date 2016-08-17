@@ -15,7 +15,13 @@
     <link href="~/Content/css/fontawesome.css" rel="stylesheet" />
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
-
+	<style>
+        .title{
+            text-align:center;
+		    position:relative;
+            top:150px;
+        }
+	</style>
 </head>
 <body>
     <div class="container">
@@ -34,13 +40,12 @@
                         <p class="list-group-item-text p-description">@item.Description</p>
                         <p class="list-group-item-text p-price">价值 ￥@item.Price</p>
                         <p class="p-button">
-                            <input type="button" class="btn btn-pick" onclick="pickup('@item.CouponCode')">点击领取
+                            <input type="button" class="btn btn-pick" onclick="pickup('@item.CouponCode')" value="点击领取">
                         </p>
                     </a>
                 }
             }
-
-            <div class="fresh">
+            <div class="fresh" hidden>
                 <span class="icon-refresh"></span>
             </div>
         </div>
@@ -48,6 +53,7 @@
 
     <script>
         function pickup(code) {
+			// alert(code);
             $.ajax({
                 url: "/FreeCoupon/PickUp",
                 type: "POST",
@@ -59,7 +65,8 @@
                         alert(data.msg);
                     }
                     else if (data.code == true) {
-                        window.location.href = data.url;
+                         alert(data.msg);
+                        window.location.href = "/FreeCoupon/MyFreeCouponList";
                     }
                 },
                 error: function () {
@@ -71,7 +78,7 @@
                 },
                 complete: function () {
                     $(".btn").bind("click");
-                    $(".fresh").show();
+                    $(".fresh").hide();
                 }
             });
 

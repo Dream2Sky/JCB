@@ -11,7 +11,9 @@ namespace com.jiechengbao.Ibll
     {
         IEnumerable<FreeCoupon> GetAllNotDeletedCoupon();
         FreeCoupon GetFreeCouponByCode(string code);
-
         FreeCoupon GetFreeCouponById(Guid freeCouponId);
+        bool Add(FreeCoupon fc);
+        bool IsExist(FreeCoupon fc);
+        bool Update(FreeCoupon fc);
     }
 }

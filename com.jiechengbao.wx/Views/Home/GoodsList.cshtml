@@ -1,12 +1,12 @@
 ﻿
 
 @using com.jiechengbao.wx.Models
-
 @if (ViewData["GoodsModelList"]==null || (ViewData["GoodsModelList"] as List<GoodsModel>).Count <= 0)
 {
     <p class="title">暂无数据</p>
 }
-@foreach (var item in ViewData["GoodsModelList"] as List<GoodsModel>)
+else{
+foreach (var item in ViewData["GoodsModelList"] as List<GoodsModel>)
 {
     <div class="goods-item">
         <img src="/Uploads/@item.PicturePath" id="@item.Code" />
@@ -26,21 +26,25 @@
             </div>
         </div>
     </div>
-}
+}}
 <script>
     var wid = $(".goods-item").width();
     $(".goods-item img").css({
         "height": wid * 0.7
     });
-    $(".cart-iconcartplus").on("tap",function () {
-        //create a boll
+	
+    $("img").on("tap", function () {
+        var code = $(this).attr("id");
+        window.location.href = "/Home/Detail?code=" + code;
+    });
+	
+	$(".cart-iconcartplus").on("tap",function () {
         var img_x = $(this).offset().left;
         var img_y = $(this).offset().top;
         var circle = $(this).clone().css('opacity', '0.8');
+		circle.css('z-index','100000');
         $("body").append(circle);
         circle.removeClass("cart-iconcartplus");
-
-        // create a animate
         circle.css({
             "position": "absolute",
             "width": "20px",
@@ -53,7 +57,7 @@
             "left": img_x + "px"
         });
         circle.animate({
-            left: $(".small").offset().left * 1.1,
+            left: $(".small").offset().left*1.1,
             top: $(".small").offset().top,
             width: 10,
             height: 10
@@ -61,7 +65,6 @@
             circle.remove();
         });
 
-        // toggle the ajax()
         var code = $(this).attr("id");
         $.ajax({
             url: "/Cart/Add",
@@ -81,9 +84,5 @@
                 alert("系统错误， 添加购物车失败");
             }
         });
-    });
-    $("img").on("tap", function () {
-        var code = $(this).attr("id");
-        window.location.href = "/Home/Detail?code=" + code;
     });
 </script>

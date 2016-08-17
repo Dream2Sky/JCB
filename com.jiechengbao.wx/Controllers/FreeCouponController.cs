@@ -1,6 +1,7 @@
 ﻿using ch.lib.common.QR;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using com.jiechengbao.wx.Global;
 using com.jiechengbao.wx.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace com.jiechengbao.wx.Controllers
             _myFreeCouponBLL = myFreeCouponBLL;
         }
 
+        [IsRegister("/FreeCoupon/CouponList")]
         public ActionResult CouponList()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -68,6 +70,11 @@ namespace com.jiechengbao.wx.Controllers
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
 
+            if (string.IsNullOrEmpty(member.Phone))
+            {
+                return RedirectToAction("Register", "Register");
+            }
+
             FreeCoupon fc = _freeCouponBLL.GetFreeCouponByCode(Code);
 
             if (fc == null)
@@ -101,6 +108,7 @@ namespace com.jiechengbao.wx.Controllers
                     try
                     {
                         db.Set<MyFreeCoupon>().Add(mfc);
+                        db.SaveChanges();
                         string qrpath = CreateMyFreeCouponQR(mfc.Id.ToString());
 
                         mfc.FreeCouponQRs = qrpath;
@@ -123,7 +131,6 @@ namespace com.jiechengbao.wx.Controllers
 
                         LogHelper.Log.Write(ex.Message);
                         LogHelper.Log.Write(ex.StackTrace);
-                        throw;
                     }
                 }
             }

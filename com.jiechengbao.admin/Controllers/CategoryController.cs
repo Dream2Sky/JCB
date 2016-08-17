@@ -12,15 +12,17 @@ namespace com.jiechengbao.admin.Controllers
     public class CategoryController : Controller
     {
         private ICategoryBLL _categoryBLL;
-        public CategoryController(ICategoryBLL categoryBLL)
+        private IGoodsCategoryBLL _goodsCategoryBLL;
+        public CategoryController(ICategoryBLL categoryBLL, IGoodsCategoryBLL goodsCategoryBLL)
         {
             _categoryBLL = categoryBLL;
+            _goodsCategoryBLL = goodsCategoryBLL;
         }
-
+            
         public ActionResult List(string msg)
         {
             ViewBag.Msg = msg;
-            ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
+            CategoryList();
             return View();
         }
         public PartialViewResult CategoryList()
@@ -103,18 +105,40 @@ namespace com.jiechengbao.admin.Controllers
         public ActionResult Delete(string categoryNO)
         {
             Category category = _categoryBLL.GetCategoryByCategoryNo(categoryNO);
-            if (category == null)
+            List<GoodsCategory> gcList = _goodsCategoryBLL.GetGoodsCategoryListByCategoryId(category.Id).ToList();
+
+            bool res = false;
+
+            using (JCB_DBContext db = new JCB_DBContext ())
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        category.IsDeleted = true;
+                        db.Entry(category).State = System.Data.Entity.EntityState.Modified;
+
+                        foreach (var item in gcList)
+                        {
+                            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                        }
+
+                        db.SaveChanges();
+                        trans.Commit();
+
+                        res = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                    }
+                }
             }
-            else if (_categoryBLL.Delete(category))
-            {
-                return Json("True", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
     }
 }

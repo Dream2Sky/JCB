@@ -11,5 +11,6 @@ namespace com.jiechengbao.Idal
     {
         Category SelectByCategoryName(string name);
         Category SelectByCategoryNo(string categoryNo);
+        IEnumerable<Category> SelectAllNotDeletedCategories();
     }
 }

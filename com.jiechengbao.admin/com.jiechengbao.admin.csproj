@@ -197,6 +197,7 @@
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CreditMollController.cs" />
+    <Compile Include="Controllers\FreeCouponController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -247,6 +248,8 @@
     <Content Include="Views\Appointment\HasPayAppointment.cshtml" />
     <Content Include="Views\Appointment\NotPayAppointment.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\FreeCoupon\List.cshtml" />
+    <Content Include="Views\FreeCoupon\FreeCouponList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

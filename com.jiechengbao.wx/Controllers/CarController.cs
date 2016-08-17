@@ -16,10 +16,12 @@ using Winista.Text.HtmlParser.Util;
 using Winista.Text.HtmlParser.Tags;
 using Winista.Text.HtmlParser.Filters;
 using com.jiechengbao.wx.Global;
+using POPO.ActionFilter.Helper;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    
+    [WhitespaceFilter]   
+    [ETag]
     public class CarController:Controller
     {
         private IMemberBLL _memberBLL;

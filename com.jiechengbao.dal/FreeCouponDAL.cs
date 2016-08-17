@@ -41,5 +41,24 @@ namespace com.jiechengbao.dal
                 throw;
             }
         }
+
+        public bool IsExist(string name)
+        {
+            try
+            {
+                bool res = false;
+                if (db.Set<FreeCoupon>().SingleOrDefault(n => n.CouponName == name && n.IsDeleted == false) != null)
+                {
+                    res = true;
+                }
+                return res;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }

@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.common", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ch.lib.common.QR", "..\MyLibrary\ch.lib.common.QR\ch.lib.common.QR.csproj", "{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.ActionFilter.Helper", "..\个人类库\POPO.ActionFilter.Helper\POPO.ActionFilter.Helper.csproj", "{A7E6A98B-3717-4D59-92C5-4DB2E8F8812D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EBBECA6-A1FB-4AE8-8BB9-9161FCD53377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E6A98B-3717-4D59-92C5-4DB2E8F8812D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E6A98B-3717-4D59-92C5-4DB2E8F8812D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E6A98B-3717-4D59-92C5-4DB2E8F8812D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E6A98B-3717-4D59-92C5-4DB2E8F8812D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

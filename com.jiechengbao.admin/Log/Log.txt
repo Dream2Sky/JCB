@@ -986,3 +986,204 @@ Home/Index: GetYesterDayOrders 2ms
 2016/8/14 17:55:45 : 
 Home/Index: Foreach orderList 1ms
 ========================================================================
+2016/8/15 13:10:39 : 
+The model backing the 'JCB_DBContext' context has changed since the database was created. Consider using Code First Migrations to update the database (http://go.microsoft.com/fwlink/?LinkId=238269).
+========================================================================
+2016/8/15 13:10:39 : 
+   在 System.Data.Entity.CreateDatabaseIfNotExists`1.<>c__DisplayClass1.<InitializeDatabase>b__0()
+   在 System.Data.Entity.Internal.MigrationsChecker.IsMigrationsConfigured(InternalContext internalContext, Func`1 databaseExists)
+   在 System.Data.Entity.CreateDatabaseIfNotExists`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClasse`1.<CreateInitializationAction>b__d()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.SingleOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 com.jiechengbao.dal.AdminDAL.SelectByName(String name) 位置 D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.dal\AdminDAL.cs:行号 22
+========================================================================
+2016/8/15 13:21:59 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/15 13:21:59 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 13:21:59 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 13:21:59 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 14:32:33 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/15 14:32:33 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 14:32:33 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 14:32:33 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 16:45:23 : 
+Home/Index: GetAllNoDeletedMembersCount 12ms
+========================================================================
+2016/8/15 16:45:23 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 16:45:23 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 16:45:23 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 16:52:56 : 
+Home/Index: GetAllNoDeletedMembersCount 14ms
+========================================================================
+2016/8/15 16:52:56 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 16:52:56 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 16:52:56 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 16:57:39 : 
+Home/Index: GetAllNoDeletedMembersCount 15ms
+========================================================================
+2016/8/15 16:57:39 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 16:57:39 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 16:57:39 : 
+Home/Index: Foreach orderList 2ms
+========================================================================
+2016/8/15 17:00:13 : 
+Home/Index: GetAllNoDeletedMembersCount 10ms
+========================================================================
+2016/8/15 17:00:13 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 17:00:13 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:00:13 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 17:01:50 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/15 17:01:50 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 17:01:50 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:01:50 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 17:07:57 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/15 17:07:57 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 17:07:57 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:07:57 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 17:13:50 : 
+Home/Index: GetAllNoDeletedMembersCount 17ms
+========================================================================
+2016/8/15 17:13:50 : 
+Home/Index: GetNewMembersAtYesterDay 6ms
+========================================================================
+2016/8/15 17:13:50 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:13:50 : 
+Home/Index: Foreach orderList 3ms
+========================================================================
+2016/8/15 17:16:51 : 
+Home/Index: GetAllNoDeletedMembersCount 9ms
+========================================================================
+2016/8/15 17:16:51 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 17:16:51 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:16:51 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 17:19:55 : 
+Home/Index: GetAllNoDeletedMembersCount 10ms
+========================================================================
+2016/8/15 17:19:55 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 17:19:55 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/15 17:19:55 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/15 18:33:32 : 
+Home/Index: GetAllNoDeletedMembersCount 10ms
+========================================================================
+2016/8/15 18:33:32 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/15 18:33:32 : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+2016/8/15 18:33:32 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/16 8:06:45 : 
+Home/Index: GetAllNoDeletedMembersCount 8ms
+========================================================================
+2016/8/16 8:06:45 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/16 8:06:45 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/16 8:06:45 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/16 9:11:57 : 
+Home/Index: GetAllNoDeletedMembersCount 11ms
+========================================================================
+2016/8/16 9:11:57 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/16 9:11:57 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/16 9:11:57 : 
+Home/Index: Foreach orderList 1ms
+========================================================================
+2016/8/16 10:15:53 : 
+Home/Index: GetAllNoDeletedMembersCount 9ms
+========================================================================
+2016/8/16 10:15:53 : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+2016/8/16 10:15:53 : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+2016/8/16 10:15:53 : 
+Home/Index: Foreach orderList 1ms
+========================================================================

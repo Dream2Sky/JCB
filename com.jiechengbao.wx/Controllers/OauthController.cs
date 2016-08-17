@@ -5,6 +5,7 @@ using com.jiechengbao.wx.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,11 @@ namespace com.jiechengbao.wx.Controllers
             _memberBLL = memberBLL;
         }
 
+        /// <summary>
+        /// 商城入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetCode(string code)
         {
             LogHelper.Log.Write("传递的code:" + code);
@@ -70,15 +76,22 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 一键救援入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetHelpCode(string code)
         {
-            LogHelper.Log.Write("传递的code:" + code);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             if (string.IsNullOrEmpty(code))
             {
                 string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetHelpCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
-
+                sw.Stop();
+                LogHelper.Log.Write("已经存在code 直接跳转所花费的时间为: " + sw.ElapsedMilliseconds);
                 return RedirectToAction("GetHelpCode");
             }
             else
@@ -109,10 +122,11 @@ namespace com.jiechengbao.wx.Controllers
                 }
 
             }
-            LogHelper.Log.Write("user's openid = " + user.openid);
 
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
+            sw.Stop();
+            LogHelper.Log.Write("重新获取code 再跳转所花费的时间为: " + sw.ElapsedMilliseconds);
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
             {
                 return RedirectToAction("Help", "UserInfo");
@@ -123,6 +137,11 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 会员充值入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetRechargeCode(string code)
         {
             LogHelper.Log.Write("传递的code:" + code);
@@ -179,6 +198,11 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 个人中心入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetUserInfoCode(string code)
         {
             if (string.IsNullOrEmpty(code))
@@ -246,6 +270,11 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 在线预约入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetAppointmentCode(string code)
         {
             if (string.IsNullOrEmpty(code))
@@ -313,11 +342,18 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 优惠券领取入口
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public ActionResult GetCouponCode(string code)
         {
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCouponCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = @"https://open.weixin.qq.com/connect/oauth2/authorize?
+appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCouponCode&
+response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
 

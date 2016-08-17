@@ -7,13 +7,13 @@ namespace com.jiechengbao.entity.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class InitDataBase : IMigrationMetadata
+    public sealed partial class InitDatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDataBase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608100806427_InitDataBase"; }
+            get { return "201608150515125_InitDatabase"; }
         }
         
         string IMigrationMetadata.Source

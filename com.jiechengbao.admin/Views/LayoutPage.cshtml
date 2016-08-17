@@ -78,9 +78,9 @@
     </style>
 </head>
 <body>
-    @*<div class="mask" hidden>
+    <div class="mask" hidden>
             <div class="div-image"><img src="~/Content/images/waiting.gif" /></div>
-        </div>*@
+        </div>
 
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -123,8 +123,7 @@
                 <a href="/Car/List" id="li-car">客户的爱车</a>
             </li>
             <li class="nav-li-home active">
-                <a href="/FreeCoupon/List">服务赠送列表</a>
-
+                <a href="/FreeCoupon/List" id="li-freeCoupon">注册优惠券赠送</a>
             </li>
             <li class="nav-li-home active">
                 <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#service-ul-collapsed" aria-haspopup="true" aria-expanded="false">服务管理</a>
@@ -163,9 +162,7 @@
 
     <script>
         $(".nav-li-home").on('click', function () {
-            console.log("hehe");
             $(".nav-li-home").find("ul").removeClass("in");
-            
         })
     </script>
 </body>

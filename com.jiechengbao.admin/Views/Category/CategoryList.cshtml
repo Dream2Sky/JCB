@@ -19,7 +19,7 @@
                     <td>
                         <div class="mui-button-row">
                             <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#myModal" onclick="Edit('@item.CategoryNO','@item.Name',true)">编辑</button>
-                            <button type="button" class="btn btn-danger btn-delete" onclick="Delete('@item.CategoryNO')">删除</button>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#deleteModel" onclick="Delete('@item.CategoryNO')">删除</button>
                         </div>
                     </td>
                 }
@@ -29,7 +29,7 @@
                     <td>
                         <div class="mui-button-row">
                             <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#myModal" onclick="Edit('@item.CategoryNO','@item.Name',false)">编辑</button>
-                            <button type="button" class="btn btn-danger btn-delete" onclick="Delete('@item.CategoryNO')">删除</button>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#deleteModel" onclick="Delete('@item.CategoryNO')">删除</button>
                         </div>
                     </td>
                 }
@@ -107,34 +107,29 @@
     }
 
     function Delete(code) {
-        $(".btn-delete").confirm({
-            title: "删除商品分类",
-            text: "是否确定删除该分类?",
-            confirm: function (button) {
-                button.fadeOut(2000).fadeIn(20000);
-                $.ajax({
-                    url: "/Category/Delete",
-                    type: "POST",
-                    data: {
-                        categoryNO: code
-                    },
-                    success: function (data) {
-                        if (data == "False") {
-                            alert("删除失败");
-                        }
-                        else {
-                            alert("删除成功");
-                            $("#" + code).remove();
-                        }
-                    },
-                    error: function () {
-                        alert("系统错误， 删除失败");
-                    }
-                });
-            },
-            confirmButton: "确认删除",
-            cancelButton: "取消"
+        $(".btn-confirm").attr("onclick", "ConfirmDelete('" + code + "')");
+    }
 
+    function ConfirmDelete(code) {
+        $.ajax({
+            url: "/Category/Delete",
+            type: "POST",
+            data: {
+                categoryNO: code
+            },
+            success: function (data) {
+                if (data == false) {
+                    alert("删除失败");
+                }
+                else {
+                    alert("删除成功");
+                    $("#" + code).remove();
+                    $("#deleteModel").modal('toggle');
+                }
+            },
+            error: function () {
+                alert("系统错误， 删除失败");
+            }
         });
     }
 

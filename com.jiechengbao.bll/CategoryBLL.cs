@@ -38,7 +38,6 @@ namespace com.jiechengbao.bll
             // category 的删除还涉及到 GoodsCategory的删除
 
             // 稍后再写这部分的逻辑
-
             return _categoryDAL.Delete(category);
         }
 
@@ -48,7 +47,7 @@ namespace com.jiechengbao.bll
         /// <returns></returns>
         public IEnumerable<Category> GetAllCategory()
         {
-            return _categoryDAL.SelectAll();
+            return _categoryDAL.SelectAllNotDeletedCategories();
         }
 
         /// <summary>
