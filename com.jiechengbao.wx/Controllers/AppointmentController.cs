@@ -47,7 +47,7 @@ namespace com.jiechengbao.wx.Controllers
             // 获取预约服务列表
             List<AppointmentService> appointmentList = _appointmentServiceBLL.GetAllAppointmentServiceButNotDeleted().ToList();
 
-            List<AppointmentTime> appointmentTimeList = _appointmentTimeBLL.GetLastAppointmentTimeList().ToList();
+            List<AppointmentTime> appointmentTimeList = _appointmentTimeBLL.GetLastAppointmentTimeList().OrderBy(n=>n.TimePeriod).ToList();
 
             ViewData["carList"] = carList;
             ViewData["appointmentList"] = appointmentList;

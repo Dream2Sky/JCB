@@ -77,9 +77,9 @@
     <Compile Include="GoodsImage.cs" />
     <Compile Include="JCB_DBContext.cs" />
     <Compile Include="Member.cs" />
-    <Compile Include="Migrations\201608150515125_InitDatabase.cs" />
-    <Compile Include="Migrations\201608150515125_InitDatabase.Designer.cs">
-      <DependentUpon>201608150515125_InitDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\201608190132547_InitDatabase.cs" />
+    <Compile Include="Migrations\201608190132547_InitDatabase.Designer.cs">
+      <DependentUpon>201608190132547_InitDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyAppointment.cs" />
@@ -104,8 +104,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608150515125_InitDatabase.resx">
-      <DependentUpon>201608150515125_InitDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608190132547_InitDatabase.resx">
+      <DependentUpon>201608190132547_InitDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

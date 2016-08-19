@@ -18,6 +18,8 @@ namespace com.jiechengbao.wx
     {
         protected void Application_Start()
         {
+            
+
             var builder = new ContainerBuilder();
             SetupResolveRules(builder);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
@@ -93,6 +95,8 @@ namespace com.jiechengbao.wx
             builder.RegisterType<FreeCouponDAL>().As<IFreeCouponDAL>();
             builder.RegisterType<MyFreeCouponBLL>().As<IMyFreeCouponBLL>();
             builder.RegisterType<MyFreeCouponDAL>().As<IMyFreeCouponDAL>();
+            builder.RegisterType<AdvertisementBLL>().As<IAdvertisementBLL>();
+            builder.RegisterType<AdvertisementDAL>().As<IAdvertisementDAL>();
         }
     }
 }

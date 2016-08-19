@@ -13,7 +13,7 @@ namespace com.jiechengbao.entity.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608150515125_InitDatabase"; }
+            get { return "201608190132547_InitDatabase"; }
         }
         
         string IMigrationMetadata.Source

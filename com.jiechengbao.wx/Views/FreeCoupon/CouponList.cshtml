@@ -68,6 +68,9 @@
                          alert(data.msg);
                         window.location.href = "/FreeCoupon/MyFreeCouponList";
                     }
+                    else if (data.code == "Reg") {
+                        window.location.href = "/Register/Register?refUrl=/FreeCoupon/CouponList";
+                    }
                 },
                 error: function () {
                     alert("系统错误, 领取失败");

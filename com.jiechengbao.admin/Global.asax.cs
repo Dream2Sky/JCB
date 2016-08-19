@@ -86,6 +86,8 @@ namespace com.jiechengbao.admin
             builder.RegisterType<FreeCouponDAL>().As<IFreeCouponDAL>();
             builder.RegisterType<MyFreeCouponBLL>().As<IMyFreeCouponBLL>();
             builder.RegisterType<MyFreeCouponDAL>().As<IMyFreeCouponDAL>();
+            builder.RegisterType<AdvertisementBLL>().As<IAdvertisementBLL>();
+            builder.RegisterType<AdvertisementDAL>().As<IAdvertisementDAL>();
         }
     }
 }

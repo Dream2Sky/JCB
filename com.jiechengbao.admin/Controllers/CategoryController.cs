@@ -17,8 +17,7 @@ namespace com.jiechengbao.admin.Controllers
         {
             _categoryBLL = categoryBLL;
             _goodsCategoryBLL = goodsCategoryBLL;
-        }
-            
+        }    
         public ActionResult List(string msg)
         {
             ViewBag.Msg = msg;
@@ -66,13 +65,11 @@ namespace com.jiechengbao.admin.Controllers
             }
 
         }
-
         public ActionResult Editor()
         {
             ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
             return View();
         }
-
         [HttpPost]
         public ActionResult Update(string categoryNO, string categoryName, bool isService)
         {
@@ -100,7 +97,6 @@ namespace com.jiechengbao.admin.Controllers
                 }
             }
         }
-
         [HttpPost]
         public ActionResult Delete(string categoryNO)
         {

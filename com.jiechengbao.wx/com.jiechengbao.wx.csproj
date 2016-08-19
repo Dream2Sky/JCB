@@ -239,6 +239,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Global\PhoneCode.cs" />
     <Compile Include="Models\Access_Token_JsonModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AdModel.cs" />
     <Compile Include="Models\CarDetailModel.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\CartModel.cs" />
@@ -349,6 +351,8 @@
     <Content Include="Views\FreeCoupon\MyFreeCouponList.cshtml" />
     <Content Include="Views\FreeCoupon\MyFreeCouponQR.cshtml" />
     <Content Include="Views\Pay\PayForFreeCoupon.cshtml" />
+    <Content Include="Views\Advertisement\AdList.cshtml" />
+    <Content Include="Views\Advertisement\AdDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

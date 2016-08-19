@@ -14,6 +14,9 @@ namespace com.jiechengbao.entity
         public string AdCode { get; set; }
 
         [Required]
+        public Guid CategoryId { get; set; }
+
+        [Required]
         [MaxLength(30)]
         public string AdName { get; set; }
 
@@ -25,5 +28,10 @@ namespace com.jiechengbao.entity
         [MaxLength(255)]
         public string AdImagePath { get; set; }
 
+        /// <summary>
+        /// 是否为推荐广告
+        /// </summary>
+        [Required]
+        public bool IsRecommend { get; set; }
     }
 }

@@ -141,6 +141,11 @@
             <span>菜单</span>
         </div>
         <div class="goods-menu" hidden>
+            <a href="javascript:;"  class="CategoryItem" id="All">
+                <div class="goods-menu-item">
+                    所有商品
+                </div>
+            </a>
             @if (ViewData["CategoryList"] != null)
             {
                 foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)

@@ -50,9 +50,9 @@ namespace com.jiechengbao.wx.Controllers
                 Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
                 double discount = _rulesBLL.GetDiscountByVIP(member.Vip);
 
-                if (string.IsNullOrEmpty(category))
+                if (string.IsNullOrEmpty(category) || category == "All")
                 {
-                    foreach (var item in _goodsBLL.GetGoodsByCountOrderByCreatedTime(1))
+                    foreach (var item in _goodsBLL.GetGoodsByCountOrderByCreatedTime(10))
                     {
                         if (item.IsDeleted == true)
                         {
@@ -117,7 +117,7 @@ namespace com.jiechengbao.wx.Controllers
 
             // 如果为空 则搜索出所有没有标记为删除的Goods对象
 
-            if (categoryCode == null)
+            if (categoryCode == null || categoryCode == "All")
             {
                 // 得到所有Goods对象之后  遍历  构造出 GoodsModel list
                 foreach (var item in _goodsBLL.GetAllNoDeteledGoods())

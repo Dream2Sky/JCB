@@ -40,6 +40,23 @@ namespace com.jiechengbao.entity.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Advertisements",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        AdCode = c.String(nullable: false, maxLength: 35, unicode: false, storeType: "nvarchar"),
+                        CategoryId = c.Guid(nullable: false),
+                        AdName = c.String(nullable: false, maxLength: 30, unicode: false, storeType: "nvarchar"),
+                        AdDescription = c.String(nullable: false, maxLength: 255, unicode: false, storeType: "nvarchar"),
+                        AdImagePath = c.String(nullable: false, maxLength: 255, unicode: false, storeType: "nvarchar"),
+                        IsRecommend = c.Boolean(nullable: false),
+                        CreatedTime = c.DateTime(nullable: false, precision: 0),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeletedTime = c.DateTime(nullable: false, precision: 0),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AppointmentServices",
                 c => new
                     {
@@ -502,6 +519,7 @@ namespace com.jiechengbao.entity.Migrations
             DropTable("dbo.Cars");
             DropTable("dbo.AppointmentTimes");
             DropTable("dbo.AppointmentServices");
+            DropTable("dbo.Advertisements");
             DropTable("dbo.Admins");
             DropTable("dbo.Addresses");
         }

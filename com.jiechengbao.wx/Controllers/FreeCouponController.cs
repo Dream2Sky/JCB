@@ -23,7 +23,6 @@ namespace com.jiechengbao.wx.Controllers
             _myFreeCouponBLL = myFreeCouponBLL;
         }
 
-        [IsRegister("/FreeCoupon/CouponList")]
         public ActionResult CouponList()
         {
             Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
@@ -72,7 +71,11 @@ namespace com.jiechengbao.wx.Controllers
 
             if (string.IsNullOrEmpty(member.Phone))
             {
-                return RedirectToAction("Register", "Register");
+                var obj = new
+                {
+                    code = "Reg"
+                };
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
 
             FreeCoupon fc = _freeCouponBLL.GetFreeCouponByCode(Code);
