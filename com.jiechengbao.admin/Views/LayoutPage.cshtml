@@ -7,159 +7,280 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrapValidator.min.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrap-table-expandable.css" rel="stylesheet" />
-    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/custom-styles.css" rel="stylesheet" />
+    <link href="~/Content/css/home.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+    @*<link href="~/Content/css/base.css" rel="stylesheet" />*@
+    <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/bootstrapValidator.min.js"></script>
     <script src="~/Content/js/bootstrap-table-expandable.js"></script>
+    <script src="~/Content/js/home.js"></script>
+
     <style>
-        body {
-            width: 100%;
-            background: #CBC7C7;
+        img{
+            max-height:45px;
+            max-width:45px;
         }
-
-        .container-fluid {
-            background: #fff;
-        }
-
-        .siderbar {
-            margin-top: 15px;
-            /*background: #31b9cf;*/
-            background: #fff;
-            padding-top: 10px;
-            /*position: fixed;*/
-            min-height: 650px;
-            border-right: 5px solid #CBC7C7;
-            border-left: 5px solid #CBC7C7;
-            padding-left: 10px;
-            padding-right: 10px;
-            /*width: 15.6666%;*/
-        }
-
-        .nav-li-home a {
-            color: #fff;
-        }
-        .a-active {
-            background: #ffdc88 !important;
-        }
-
-        .body-content {
-            /*left: 15.6666%;*/
-            right: 0px;
-            /*width: 83.3334%;*/
-            margin-right: 0px;
-            background-color: #fff;
-        }
-
-        .nav-li-home ul {
-            margin-top: 2px;
-        }
-
-            .nav-li-home ul li {
-                background-color: #2c8e86;
-                border-radius: 4px;
-            }
-
-        .li-child {
-            margin-right: 0px !important;
-            padding-left: 20px;
-        }
-
-            .li-child a {
-                width: 100%;
-                padding: 0px;
-            }
-
-                .li-child a:hover , .li-child a:focus{
-                    background-color: transparent !important;
-                    color:#ffdc88 !important;
-                }
     </style>
+    @*<style>
+            body {
+                width: 100%;
+                background: #CBC7C7;
+            }
+
+            .container-fluid {
+                background: #fff;
+            }
+
+            .siderbar {
+                margin-top: 15px;
+                /*background: #31b9cf;*/
+                background: #fff;
+                padding-top: 10px;
+                /*position: fixed;*/
+                min-height: 650px;
+                border-right: 5px solid #CBC7C7;
+                border-left: 5px solid #CBC7C7;
+                padding-left: 10px;
+                padding-right: 10px;
+                /*width: 15.6666%;*/
+            }
+
+            .nav-li-home a {
+                color: #fff;
+            }
+
+            .a-active {
+                background: #ffdc88 !important;
+            }
+
+            .body-content {
+                /*left: 15.6666%;*/
+                right: 0px;
+                /*width: 83.3334%;*/
+                margin-right: 0px;
+                background-color: #fff;
+            }
+
+            .nav-li-home ul {
+                margin-top: 2px;
+            }
+
+                .nav-li-home ul li {
+                    background-color: #2c8e86;
+                    border-radius: 4px;
+                }
+
+            .li-child {
+                margin-right: 0px !important;
+                padding-left: 20px;
+            }
+
+                .li-child a {
+                    width: 100%;
+                    padding: 0px;
+                }
+
+                    .li-child a:hover, .li-child a:focus {
+                        background-color: transparent !important;
+                        color: #ffdc88 !important;
+                    }
+        </style>*@
 </head>
 <body>
-    <div class="mask" hidden>
-            <div class="div-image"><img src="~/Content/images/waiting.gif" /></div>
+    <div class="home_top">
+        <p>捷诚宝管理后台</p>
+    </div>
+    <div class="home_middle">
+        <div class="mid_left">
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        <li>
+                            <a class="active-menu" href="/Home/Index"><i class="fa fa-home"></i>首页</a>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="/Member/List"><i class="fa fa-users"></i>会员管理</a>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="#"><i class="fa fa-bar-chart-o"></i> 订单管理<span class="fa arrow" /></a>
+                            <ul class="nav nav-second-level drop">
+                                <li>
+                                    <a class="active-menu" href="/Order/Completed">已完成订单</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Order/UnCompleted">未完成订单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="#"><i class="fa fa-calendar"></i>商品管理<span class="fa arrow" /></a>
+                            <ul class="nav nav-second-level drop">
+                                <li>
+                                    <a class="active-menu" href="/Goods/List">商品列表</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Goods/Add">添加商品</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="/Category/List"><i class="fa fa-table"></i>商品分类</a>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="/Car/List"><i class="fa fa-user"></i>客户的爱车</a>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="/FreeCoupon/List"><i class="fa fa-check-circle"></i>注册优惠卷赠送</a>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="#"><i class="fa fa-sitemap"></i>服务管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level drop">
+                                <li>
+                                    <a class="active-menu" href="/Service/List">服务购买情况</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Service/PasswordSetting">设置服务消费密码</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="#"><i class="fa fa-fw fa-desktop"></i>在线预约<span class="fa arrow" /></a>
+                            <ul class="nav nav-second-level drop">
+                                <li>
+                                    <a class="active-menu" href="/Appointment/Setting">预约设置</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Appointment/HasPayAppointment">已支付预约单</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Appointment/NotPayAppointment">未支付预约单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-li-home active">
+                            <a class="active-menu" href="/Advertisement/List"><i class="fa fa-barcode"></i>广告设置</a>
+                        </li>
+                        <li>
+                            <a class="active-menu List" href="#"><i class="fa fa-cog"></i>系统设置<span class="fa arrow" /></a>
+                            <ul class="nav nav-second-level drop">
+                                <li>
+                                    <a class="active-menu" href="/Member/VIPSetting">VIP 规则设置</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Account/ResetPassword">账户设置</a>
+                                </li>
+                                <li>
+                                    <a class="active-menu" href="/Account/Logout">退出</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
 
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">捷诚宝管理后台</a>
+
+
+        <!--
+
+        @*<div class="mask" hidden>
+                <div class="div-image"><img src="~/Content/images/waiting.gif" /></div>
+            </div>
+
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" class="navbar-brand">捷诚宝管理后台</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="siderbar col-lg-2">
-        <ul class="nav nav-pills nav-stacked">
-            <li class="nav-li-home active">
-                <a href="/Home/Index" id="li-home">首页</a>
-            </li>
-            <li class="nav-li-home active">
-                <a href="/Member/List" id="li-memberlist">会员管理</a>
-            </li>
-            <li class="nav-li-home active">
-                <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#order-ul-collapsed" aria-haspopup="true" aria-expanded="false">订单管理</a>
-                <ul class="collapse nav nav-pills nav-stacked" id="order-ul-collapsed">
-                    <li class="li-child"><a href="/Order/Completed" id="li-completedOrder">已完成订单</a></li>
-                    <li class="li-child"><a href="/Order/UnCompleted" id="li-uncompletedOrder">未完成订单</a></li>
-                </ul>
-            </li>
-            <li class="nav-li-home active">
-                <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#goods-ul-collapsed" aria-expanded="false">商品管理</a>
-                <ul class="collapse nav nav-pills nav-stacked" id="goods-ul-collapsed">
-                    <li class="li-child"><a href="/Goods/List" id="li-goodsList">商品列表</a></li>
-                    <li class="li-child"><a href="/Goods/Add" id="li-goodsAdd">添加商品</a></li>
-                </ul>
-            </li>
-            <li class="nav-li-home active">
-                <a href="/Category/List" id="li-Categorylist">商品分类</a>
-            </li>
-            <li class="nav-li-home active">
-                <a href="/Car/List" id="li-car">客户的爱车</a>
-            </li>
-            <li class="nav-li-home active">
-                <a href="/FreeCoupon/List" id="li-freeCoupon">注册优惠券赠送</a>
-            </li>
-            <li class="nav-li-home active">
-                <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#service-ul-collapsed" aria-haspopup="true" aria-expanded="false">服务管理</a>
-                <ul class="collapse nav nav-pills nav-stacked" id="service-ul-collapsed">
-                    <li class="li-child"><a href="/Service/List" id="li-serviceList">服务购买情况</a></li>
-                    <li class="li-child"><a href="/Service/PasswordSetting" id="li-servicepassword">设置服务消费密码</a></li>
-                </ul>
-            </li>
-            <li class="nav-li-home active">
-                <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#appointment-ul-collapsed" aria-haspopup="true" aria-expanded="false">在线预约</a>
-                <ul class="collapse nav nav-pills nav-stacked" id="appointment-ul-collapsed">
-                    <li class="li-child"><a href="/Appointment/Setting" id="li-appSetting">预约设置</a></li>
-                    <li class="li-child"><a href="/Appointment/HasPayAppointment" id="li-appCompleted">已支付预约单</a></li>
-                    <li class="li-child"><a href="/Appointment/NotPayAppointment" id="li-appUncompleted">未支付预约单</a></li>
-                </ul>
-            </li>
-            <li class="nav-li-home active">
-                <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#setting-ul-collapsed" aria-haspopup="true" aria-expanded="false">系统设置</a>
-                <ul class="collapse nav nav-pills nav-stacked" id="setting-ul-collapsed">
-                    <li class="li-child"><a href="/Member/VIPSetting" id="li-vip">VIP规则设置</a></li>
-                    <li class="li-child"><a href="/Account/ResetPassword" id="li-password">账户设置</a></li>
-                    <li class="li-child"><a href="/Account/Logout" id="li-logout">退出</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="body-content col-lg-10">
-        <div style="min-height:650px;">
-            @RenderBody()
+        <div class="siderbar col-lg-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="nav-li-home active">
+                    <a href="/Home/Index" id="li-home">首页</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a href="/Member/List" id="li-memberlist">会员管理</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#order-ul-collapsed" aria-haspopup="true" aria-expanded="false">订单管理</a>
+                    <ul class="collapse nav nav-pills nav-stacked" id="order-ul-collapsed">
+                        <li class="li-child"><a href="/Order/Completed" id="li-completedOrder">已完成订单</a></li>
+                        <li class="li-child"><a href="/Order/UnCompleted" id="li-uncompletedOrder">未完成订单</a></li>
+                    </ul>
+                </li>
+                <li class="nav-li-home active">
+                    <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#goods-ul-collapsed" aria-expanded="false">商品管理</a>
+                    <ul class="collapse nav nav-pills nav-stacked" id="goods-ul-collapsed">
+                        <li class="li-child"><a href="/Goods/List" id="li-goodsList">商品列表</a></li>
+                        <li class="li-child"><a href="/Goods/Add" id="li-goodsAdd">添加商品</a></li>
+                    </ul>
+                </li>
+                <li class="nav-li-home active">
+                    <a href="/Category/List" id="li-Categorylist">商品分类</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a href="/Car/List" id="li-car">客户的爱车</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a href="/FreeCoupon/List" id="li-freeCoupon">注册优惠券赠送</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#service-ul-collapsed" aria-haspopup="true" aria-expanded="false">服务管理</a>
+                    <ul class="collapse nav nav-pills nav-stacked" id="service-ul-collapsed">
+                        <li class="li-child"><a href="/Service/List" id="li-serviceList">服务购买情况</a></li>
+                        <li class="li-child"><a href="/Service/PasswordSetting" id="li-servicepassword">设置服务消费密码</a></li>
+                    </ul>
+                </li>
+                <li class="nav-li-home active">
+                    <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#appointment-ul-collapsed" aria-haspopup="true" aria-expanded="false">在线预约</a>
+                    <ul class="collapse nav nav-pills nav-stacked" id="appointment-ul-collapsed">
+                        <li class="li-child"><a href="/Appointment/Setting" id="li-appSetting">预约设置</a></li>
+                        <li class="li-child"><a href="/Appointment/HasPayAppointment" id="li-appCompleted">已支付预约单</a></li>
+                        <li class="li-child"><a href="/Appointment/NotPayAppointment" id="li-appUncompleted">未支付预约单</a></li>
+                    </ul>
+                </li>
+                <li class="nav-li-home active">
+                    <a href="/Advertisement/List" id="li-advertisement">广告设置</a>
+                </li>
+                <li class="nav-li-home active">
+                    <a class="collapsed dropdown-toggle" data-toggle="collapse" role="button" data-target="#setting-ul-collapsed" aria-haspopup="true" aria-expanded="false">系统设置</a>
+                    <ul class="collapse nav nav-pills nav-stacked" id="setting-ul-collapsed">
+                        <li class="li-child"><a href="/Member/VIPSetting" id="li-vip">VIP规则设置</a></li>
+                        <li class="li-child"><a href="/Account/ResetPassword" id="li-password">账户设置</a></li>
+                        <li class="li-child"><a href="/Account/Logout" id="li-logout">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>*@-->
+        <div class="mid_right">
+            <div class="row">
+                <div class="col-md-12">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="mid_footer">
+                <p>© 2016 捷诚宝 版权所有</p>
+            </div>
+            
+            @*<div style="min-height:650px;">
+                
+            </div>
+            <hr />
+            <footer class="footer text-muted">
+                <p>&copy; @DateTime.Now.Year 捷诚宝 版权所有</p>
+            </footer>*@
         </div>
-        <hr />
-        <footer class="footer text-muted">
-            <p>&copy; @DateTime.Now.Year 捷诚宝 版权所有</p>
-        </footer>
     </div>
-
     <script>
         $(".nav-li-home").on('click', function () {
             $(".nav-li-home").find("ul").removeClass("in");

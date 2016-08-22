@@ -353,6 +353,8 @@
     <Content Include="Views\Pay\PayForFreeCoupon.cshtml" />
     <Content Include="Views\Advertisement\AdList.cshtml" />
     <Content Include="Views\Advertisement\AdDetail.cshtml" />
+    <Content Include="Views\Home\AdList.cshtml" />
+    <Content Include="Views\Home\AdDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

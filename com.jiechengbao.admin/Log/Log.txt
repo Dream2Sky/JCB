@@ -1187,3 +1187,129 @@ Home/Index: GetYesterDayOrders 2ms
 2016/8/16 10:15:53 : 
 Home/Index: Foreach orderList 1ms
 ========================================================================
+8/20/2016 2:44:16 PM : 
+Home/Index: GetAllNoDeletedMembersCount 7ms
+========================================================================
+8/20/2016 2:44:16 PM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/20/2016 2:44:16 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/20/2016 2:44:16 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/20/2016 2:48:31 PM : 
+Home/Index: GetAllNoDeletedMembersCount 87ms
+========================================================================
+8/20/2016 2:48:31 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/20/2016 2:48:31 PM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/20/2016 2:48:31 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/20/2016 2:53:22 PM : 
+Home/Index: GetAllNoDeletedMembersCount 7ms
+========================================================================
+8/20/2016 2:53:22 PM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/20/2016 2:53:22 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/20/2016 2:53:22 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/20/2016 3:11:26 PM : 
+Object reference not set to an instance of an object.
+========================================================================
+8/20/2016 3:11:26 PM : 
+   at com.jiechengbao.admin.Controllers.AdvertisementController.Add(AdModel ad) in D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\AdvertisementController.cs:line 126
+========================================================================
+8/20/2016 3:27:49 PM : 
+Object reference not set to an instance of an object.
+========================================================================
+8/20/2016 3:27:49 PM : 
+   at com.jiechengbao.admin.Controllers.AdvertisementController.Add(AdModel ad) in D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\AdvertisementController.cs:line 126
+========================================================================
+8/20/2016 3:44:22 PM : 
+Home/Index: GetAllNoDeletedMembersCount 6ms
+========================================================================
+8/20/2016 3:44:22 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/20/2016 3:44:22 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/20/2016 3:44:22 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/20/2016 3:46:02 PM : 
+Object reference not set to an instance of an object.
+========================================================================
+8/20/2016 3:46:02 PM : 
+   at com.jiechengbao.admin.Controllers.AdvertisementController.Add(AdModel ad) in D:\documents\visual studio 2015\Projects\捷诚宝新版\com.jiechengbao.admin\Controllers\AdvertisementController.cs:line 126
+========================================================================
+8/20/2016 3:47:01 PM : 
+Home/Index: GetAllNoDeletedMembersCount 6ms
+========================================================================
+8/20/2016 3:47:01 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/20/2016 3:47:01 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/20/2016 3:47:01 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/22/2016 8:19:54 AM : 
+Home/Index: GetAllNoDeletedMembersCount 52ms
+========================================================================
+8/22/2016 8:19:54 AM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/22/2016 8:19:54 AM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/22/2016 8:19:54 AM : 
+Home/Index: Foreach orderList 46ms
+========================================================================
+8/22/2016 8:21:14 AM : 
+Home/Index: GetAllNoDeletedMembersCount 214ms
+========================================================================
+8/22/2016 8:21:14 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/22/2016 8:21:14 AM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/22/2016 8:21:14 AM : 
+Home/Index: Foreach orderList 47ms
+========================================================================
+8/22/2016 8:26:06 AM : 
+Home/Index: GetAllNoDeletedMembersCount 51ms
+========================================================================
+8/22/2016 8:26:06 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/22/2016 8:26:06 AM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/22/2016 8:26:06 AM : 
+Home/Index: Foreach orderList 47ms
+========================================================================
+8/22/2016 8:36:32 AM : 
+Home/Index: GetAllNoDeletedMembersCount 245ms
+========================================================================
+8/22/2016 8:36:32 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/22/2016 8:36:32 AM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/22/2016 8:36:32 AM : 
+Home/Index: Foreach orderList 44ms
+========================================================================

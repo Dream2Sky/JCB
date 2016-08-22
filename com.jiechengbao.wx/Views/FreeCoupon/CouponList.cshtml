@@ -21,6 +21,10 @@
 		    position:relative;
             top:150px;
         }
+        .list-group-item h2{
+            text-align:center;
+            margin: 10px 0px;
+        }
 	</style>
 </head>
 <body>
@@ -36,9 +40,9 @@
                 {
 
                     <a href="javascript:;" class="list-group-item">
-                        <h4 class="list-group-item-heading">@item.CouponName</h4>
-                        <p class="list-group-item-text p-description">@item.Description</p>
-                        <p class="list-group-item-text p-price">价值 ￥@item.Price</p>
+                        <p class="list-group-item-heading">@item.CouponName</p>
+                        <h2 class="list-group-item-text p-description">@item.Description</h2>
+                        @*<p class="list-group-item-text p-price">价值 ￥@item.Price</p>*@
                         <p class="p-button">
                             <input type="button" class="btn btn-pick" onclick="pickup('@item.CouponCode')" value="点击领取">
                         </p>

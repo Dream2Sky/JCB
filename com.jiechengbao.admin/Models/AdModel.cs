@@ -11,7 +11,8 @@ namespace com.jiechengbao.admin.Models
         public string AdName { get; set; }
         public string AdDescription { get; set; }
         public string AdImagePath { get; set; }
-        public bool IsRecommand { get; set; }
+        public bool IsRecommend { get; set; }
         public string Category { get; set; }
+        public string CategoryCode { get; set; }
     }
 }

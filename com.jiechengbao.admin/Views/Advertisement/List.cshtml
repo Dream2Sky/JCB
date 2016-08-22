@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "广告管理";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+<link href="~/Content/css/content.css" rel="stylesheet" />
+<style>
+    .div-title {
+        margin-top: 20px;
+    }
+
+    .btn-success {
+        margin-top: 10px;
+    }
+
+    table {
+        margin-top: 20px;
+    }
+
+    .modal-dialog {
+        width: 400px;
+    }
+
+    table {
+        max-width: 600px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index">管理后台</a></li>
+            <li class="active">广告管理</li>
+        </ol>
+        <div class="container-fluid">
+            <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添广告</button>
+            @Html.Partial("AdList")
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>广告名称</label>
+                                <input type="hidden" name="AdCode" value="" />
+                                <input type="text" class="form-control" name="AdName" required data-bv-notempty-message="广告名称不能为空" placeholder="请填写广告名称">
+                            </div>
+                            <div class="form-group">
+                                <label>广告描述</label>
+                                <textarea class="form-control" name="AdDescription" placeholder="请填写广告描述" required data-bv-notempty-message="广告描述不能为空"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>广告图片</label>
+                                <br />
+                                <img id="img-upload" />
+                                <input type="hidden" id="PicturePath" name="AdImagePath" value="" required data-bv-notempty-message="请上传广告图片" />
+                                <input type="file" class="form-control" placeholder="广告图片" id="picture">
+                            </div>
+                            <div class="form-group">
+                                <label>广告分类</label>
+                                <br />
+                                @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                                {
+                                    <label class="radio-inline">
+                                        <input type="radio" name="AdCategory" value="@item.CategoryNO">@item.Name
+                                    </label>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="IsRecommend" />是否设置为推荐广告
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger btn-Save">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="deleteModelLable">广告删除</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            您确定要删除该广告
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $("#li-Categorylist").addClass("a-active");
+    });
+
+    $("input[type='file']").on('change', function () {
+        Upload();
+    })
+
+    function Upload() {
+        var form = new FormData();
+        form.append("file", document.getElementById("picture").files[0]);
+        console.log("uploading...");
+        $.ajax({
+            url: "/Advertisement/Upload",
+            type: "POST",
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "False") {
+                    alert("上传失败");
+                }
+                else {
+                    alert("上传成功");
+                    $("#PicturePath").val(data);
+                    $("#img-upload").attr("src", "/Uploads/" + data);
+                }
+            },
+            error: function () {
+                alert("失败");
+            }
+        });
+    }
+
+    function Edit(code, name, desc, imagepath, categoryCode, isRecommend) {
+        $("input[name='AdCode']").val(code);
+        $("input[name='AdName']").val(name);
+        $("textarea[name='AdDescription']").val(desc);
+        $("input[name='AdImagePath']").val(imagepath);
+        $("input[type='radio'][value='" + categoryCode + "']").attr("checked", true);
+
+        $("input[name='IsRecommend']").attr("checked", isRecommend);
+
+
+        $(".modal-title").html("编辑广告信息");
+        $(".btn-Save").attr("onclick", "Save()");
+    }
+
+    function Save() {
+        var code = $("input[name='AdCode']").val();
+        var name = $("input[name='AdName']").val();
+        var desc = $("textarea[name='AdDescription']").val();
+        var image = $("input[name='AdImagePath']").val();
+        var category = null;
+        var isRecommend = false;
+
+        // 分类
+        if ($("input[type='radio']:checked").length <= 0) {
+            alert("请选择分类");
+            return;
+        }
+        else {
+            category = $("input[type='radio']:checked").val();
+        }
+
+        // 是否为推荐广告
+        if ($("input[name='IsRecommend']:checked") != undefined) {
+            isRecommend = true;
+        }
+        else {
+            isRecommend = false;
+        }
+
+        $("form").bootstrapValidator('validate');
+
+        if ($('form').data('bootstrapValidator').isValid()) {
+            $.ajax({
+                url: "/Advertisement/Update",
+                type: "POST",
+                data: {
+                    AdCode: code,
+                    AdName: name,
+                    AdDescription: desc,
+                    AdImagePath: image,
+                    CategoryCode: category,
+                    IsRecommend: isRecommend,
+                },
+                success: function (data) {
+
+                    if (data.code) {
+                        alert("修改成功");
+                        var row = $("#" + data.AdCode);
+                        row.children().eq(0).html("<img src=\"~/Uploads/" + data.AdImagePath + "\"/>" + data.AdName + "\"");
+                        row.children().eq(1).html(data.AdDescription);
+                        row.children().eq(2).html(data.Category);
+                        if (data.IsRecommend) {
+                            row.children().eq(3).html("是");
+                        }
+                        else {
+                            row.children().eq(3).html("否");
+                        }
+                        row.children().eq(4).find(".btn-edit").attr("onclick", "Edit('" + data.AdCode + "','" + data.AdName + "','" + data.AdDescription + "','" + data.AdImagePath + "','" + data.CategoryCode + "','" + data.IsRecommend + "')");
+
+                    }
+                    else {
+                        alert(data.msg);
+                    }
+                },
+                error: function () {
+                    alert("系统错误,更新失败");
+                }
+
+            });
+        }
+    }
+
+    function Delete(code) {
+        $(".btn-confirm").attr("onclick", "ConfirmDelete('" + code + "')");
+    }
+
+    function ConfirmDelete(code) {
+        $.ajax({
+            url: "/Advertisement/Delete",
+            type: "POST",
+            data: {
+                AdCode: code
+            },
+            success: function (data) {
+                if (data == false) {
+                    alert("删除失败");
+                }
+                else {
+                    alert("删除成功");
+                    $("#" + code).remove();
+                    $("#deleteModel").modal('toggle');
+                }
+            },
+            error: function () {
+                alert("系统错误， 删除失败");
+            }
+        });
+    }
+
+    function Add() {
+        $(".modal-title").html("添加新广告");
+        $("input[name='AdCode']").val("");
+        $("input[name='AdName']").val("");
+        $("textarea[name='AdDescription']").val("");
+        $("input[name='AdImagePath']").val("");
+        $("input[name='IsRecommend']").attr("checked", false);
+
+        $(".btn-Save").attr("onclick", "AddAd()");
+    }
+
+    function AddAd() {
+        $('form').bootstrapValidator("validate");
+        if ($('form').data('bootstrapValidator').isValid()) {
+
+            if ($("input[name='AdCategory']:checked") == undefined) {
+                alert("请选择广告的所属类型");
+            }
+
+            var AdName = $("input[name='AdName']").val();
+            var AdDescription = $("textarea[name='AdDescription']").val();
+            var AdImagePath = $("input[name='AdImagePath']").val();
+            var AdCategory = $("input[name='AdCategory']:checked").val();
+            var IsRecommend = $("input[name='IsRecommend']").is(":checked");
+            $.ajax({
+                url: "/Advertisement/Add",
+                type: "POST",
+                data: {
+                    AdName: AdName,
+                    AdDescription: AdDescription,
+                    AdImagePath: AdImagePath,
+                    CategoryCode: AdCategory,
+                    IsRecommend: IsRecommend
+                },
+                success: function (data) {
+                    if (data.code) {
+                        alert(data.msg);
+                        window.location.reload();
+                    }
+                    else {
+                        alert(data.msg);
+                    }
+                },
+                error: function () {
+                    alert("系统错误, 添加失败");
+                }
+            });
+        }
+    }
+</script>

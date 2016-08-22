@@ -14,104 +14,167 @@
         background-color: #337ab7;
         color: #fff;
     }
-    .form-group{
-        padding:5px;
+
+    .form-group {
+        padding: 5px;
     }
-    .form-group input,.form-group textarea{
-        border-radius:3px !important;
-    }
-    .form-group input[type='text'], .form-group input[type='file']{
-        max-width:250px;
-    }
-    textarea{
-        max-width:450px;
-        min-height:150px;
-        resize:none;
+
+        .form-group input, .form-group textarea {
+            border-radius: 3px !important;
+        }
+
+            .form-group input[type='text'], .form-group input[type='file'] {
+                max-width: 250px;
+            }
+
+    textarea {
+        max-width: 450px;
+        min-height: 150px;
+        resize: none;
     }
 </style>
 @using com.jiechengbao.admin.Models
 @using com.jiechengbao.entity
 
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">添加商品</li>
-        </ol>
-
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>添加商品</li>
-                </ol>
-            </div>
-            @*@if (!string.IsNullOrEmpty(ViewBag.Msg))
-            {
-                <div class="alert alert-error">
-                    <a class="close" data-dismiss="alert">×</a>
-                    @ViewBag.msg
-                </div>
-            }*@
-
-            <form>
-                <div class="form-group">
-                    <label>商品名</label>
-                    <input type="text" name="Name" placeholder="商品名" class="form-control" value="" required data-bv-notempty-message="商品名不能为空"/>
-                </div>
-
-
-                <div class="form-group">
-                    <label>商品单价</label>
-                    <input type="text" name="Price" placeholder="商品单价" class="form-control" value="" required pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" data-bv-notempty-message="商品单价不能为空"/>
-                </div>
-
-
-                <div class="form-group">
-                    <label>商品原价</label>
-                    <input type="text" name="OriginalPrice" placeholder="商品原价" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="商品原价不能为空" />
-                </div>
-
-                <div class="form-group">
-                    <label>兑换积分</label>
-                    <input type="text" name="ExchangeCredit" placeholder="兑换积分" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="兑换积分不能为空" />
-                </div>
-
-                <div class="form-group">
-                    <label>商品描述</label>
-                    <textarea class="form-control" name="Description" placeholder="商品描述" required data-bv-notempty-message="商品描述不能为空"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>商品图片</label>
-                    <img id="img-upload" />
-                    <input type="hidden" id="PicturePath" name="PicturePath" value="" required data-bv-notempty-message="请上传商品图片" />
-                    <input type="file" class="form-control" placeholder="商品图片" id="picture">
-                </div>
-                <div class="form-group">
-                    <label>商品分类</label>
-                    <br />
-                    @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-                    {
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="@item.CategoryNO">@item.Name
-                        </label>
-                    }
-                </div>
-                <div class="form-group">
-                    <label>服务次数</label>
-                    <input type="text" name="ServiceCount" class="form-control" value="0" pattern="^\d+$" data-bv-regexp-message="必须是大于等于零的整数" required data-bv-notempty-message="服务次数不能为空" />
-                </div>
-                <div class="form-group">
-                    <input type="button" name="btn-AddGoods" class="btn btn-danger" value="录入商品" />
-                </div>
-            </form>
-        </div>
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">添加商品</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        添加商品
     </div>
 </div>
+<div class="container-fluid">
+    @if (!string.IsNullOrEmpty(ViewBag.Msg))
+    {
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>
+            @ViewBag.msg
+        </div>
+    }
+    <form>
+        <div class="form-group">
+            <label>商品名</label>
+            <input type="text" name="Name" placeholder="商品名" class="form-control" value="" required data-bv-notempty-message="商品名不能为空" />
+        </div>
+        <div class="form-group">
+            <label>商品单价</label>
+            <input type="text" name="Price" placeholder="商品单价" class="form-control" value="" required pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" data-bv-notempty-message="商品单价不能为空" />
+        </div>
+        <div class="form-group">
+            <label>商品原价</label>
+            <input type="text" name="OriginalPrice" placeholder="商品原价" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="商品原价不能为空" />
+        </div>
+        <div class="form-group">
+            <label>兑换积分</label>
+            <input type="text" name="ExchangeCredit" placeholder="兑换积分" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="兑换积分不能为空" />
+        </div>
+        <div class="form-group">
+            <label>商品描述</label>
+            <textarea class="form-control" name="Description" placeholder="商品描述" required data-bv-notempty-message="商品描述不能为空"></textarea>
+        </div>
+        <div class="form-group">
+            <label>商品图片</label>
+            <img id="img-upload" />
+            <input type="hidden" id="PicturePath" name="PicturePath" value="" required data-bv-notempty-message="请上传商品图片" />
+            <input type="file" class="form-control" placeholder="商品图片" id="picture">
+        </div>
+        <div class="form-group">
+            <label>商品分类</label>
+            <br />
+            @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+            {
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="@item.CategoryNO">@item.Name
+                </label>
+            }
+        </div>
+        <div class="form-group">
+            <label>服务次数</label>
+            <input type="text" name="ServiceCount" class="form-control" value="0" pattern="^\d+$" data-bv-regexp-message="必须是大于等于零的整数" required data-bv-notempty-message="服务次数不能为空" />
+        </div>
+        <div class="form-group">
+            <input type="button" name="btn-AddGoods" class="btn btn-danger" value="录入商品" />
+        </div>
+    </form>
+</div>
+
+
+@*<div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/Home/Index">管理后台</a></li>
+                <li class="active">添加商品</li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="col-md-12 div-title">
+                    <ol class="breadcrumb">
+                        <li>添加商品</li>
+                    </ol>
+                </div>
+                @*
+
+                <form>
+                    <div class="form-group">
+                        <label>商品名</label>
+                        <input type="text" name="Name" placeholder="商品名" class="form-control" value="" required data-bv-notempty-message="商品名不能为空" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>商品单价</label>
+                        <input type="text" name="Price" placeholder="商品单价" class="form-control" value="" required pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" data-bv-notempty-message="商品单价不能为空" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>商品原价</label>
+                        <input type="text" name="OriginalPrice" placeholder="商品原价" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="商品原价不能为空" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>兑换积分</label>
+                        <input type="text" name="ExchangeCredit" placeholder="兑换积分" class="form-control" value="" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="兑换积分不能为空" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>商品描述</label>
+                        <textarea class="form-control" name="Description" placeholder="商品描述" required data-bv-notempty-message="商品描述不能为空"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>商品图片</label>
+                        <img id="img-upload" />
+                        <input type="hidden" id="PicturePath" name="PicturePath" value="" required data-bv-notempty-message="请上传商品图片" />
+                        <input type="file" class="form-control" placeholder="商品图片" id="picture">
+                    </div>
+                    <div class="form-group">
+                        <label>商品分类</label>
+                        <br />
+                        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                        {
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="@item.CategoryNO">@item.Name
+                            </label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>服务次数</label>
+                        <input type="text" name="ServiceCount" class="form-control" value="0" pattern="^\d+$" data-bv-regexp-message="必须是大于等于零的整数" required data-bv-notempty-message="服务次数不能为空" />
+                    </div>
+                    <div class="form-group">
+                        <input type="button" name="btn-AddGoods" class="btn btn-danger" value="录入商品" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
 
 <script>
     var categoryList = new Array();
 
-    $("input[type='file']").on('change', function() {
+    $("input[type='file']").on('change', function () {
         Upload();
     })
 
@@ -141,7 +204,7 @@
         });
     }
 
-    $("input[type='button']").on('click', function() {
+    $("input[type='button']").on('click', function () {
         AddGoods();
     })
 
@@ -173,21 +236,21 @@
             $.ajax({
                 url: '/Goods/Add',
                 type: 'POST',
-                data:{
-                    Name:Name.val(),
+                data: {
+                    Name: Name.val(),
                     Price: Price.val(),
                     OriginalPrice: OriginalPrice.val(),
                     ExchangeCredit: ExchangeCredit.val(),
                     Description: Description.val(),
                     PicturePath: PicturePath.val(),
-                    ServiceCount:ServiceCount.val(),
+                    ServiceCount: ServiceCount.val(),
                     CategoryList: categoryList
                 },
                 success: function (data) {
                     if (data == "True") {
                         alert("添加成功");
                     }
-                    else if(data == "EmptyModel"){
+                    else if (data == "EmptyModel") {
                         alert("参数提交错误，请重试");
                     }
                     else {

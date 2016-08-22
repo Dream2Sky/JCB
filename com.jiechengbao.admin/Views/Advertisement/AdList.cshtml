@@ -1,0 +1,70 @@
+﻿
+@using com.jiechengbao.admin.Models
+
+<style>
+    img{
+        width:48px;
+        height:48px;
+    }
+    table{
+
+        min-width:800px!important;
+    }
+</style>
+<table class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>广告名称</th>
+            <th>图片</th>
+            <th>广告描述</th>
+            <th>所属分类</th>
+            <th>是否为推荐广告</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewData["AdModelList"] as List<AdModel>)
+        {
+            <tr id="@item.AdCode">
+                <td>
+                    @item.AdName
+                </td>
+                <td>
+                    <img src="~/Uploads/@item.AdImagePath" />
+                </td>
+                <td>
+                    @item.AdDescription
+                </td>
+                <td>
+                    @item.Category
+                </td>
+
+                @if (item.IsRecommend)
+                {
+                    <td>
+                        是
+                    </td>
+                    <td>
+                        <div class="mui-button-row">
+                            <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#myModal" onclick="Edit('@item.AdCode','@item.AdName','@item.AdDescription','@item.AdImagePath','@item.CategoryCode',true)">编辑</button>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#deleteModel" onclick="Delete('@item.AdCode')">删除</button>
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        否
+                    </td>
+                    <td>
+                        <div class="mui-button-row">
+                            <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#myModal" onclick="Edit('@item.AdCode','@item.AdName','@item.AdDescription','@item.AdImagePath','@item.CategoryCode',false)">编辑</button>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#deleteModel" onclick="Delete('@item.AdCode')">删除</button>
+                        </div>
+                    </td>
+                }
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -2,8 +2,10 @@
 using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using POPO.Picture.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,15 +28,65 @@ namespace com.jiechengbao.admin.Controllers
             return View();
         }
 
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            try
+            {
+                string fileName = Guid.NewGuid().ToString().Replace("-", "") + ".jpg";
+                string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(file.FileName));
+                file.SaveAs(path);
+
+                string targetPath = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                PictureHelper.getThumImage(path, 32, 3, targetPath);
+
+                FileInfo fi = new FileInfo(path);
+                fi.Delete();
+
+                return Json(fileName, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
         public PartialViewResult AdList()
         {
-            ViewData["AdModelList"] = _advertisementBLL.GetAllNotDeletedAdvertisements();
+            List<AdModel> adList = new List<AdModel>(); 
+
+            foreach (var item in _advertisementBLL.GetAllNotDeletedAdvertisements())
+            {
+                Category cate = _categoryBLL.GetCategoryById(item.CategoryId);
+
+                if (cate==null)
+                {
+                    continue;
+                }
+
+                AdModel ad = new AdModel();
+
+                ad.AdCode = item.AdCode;
+                ad.AdDescription = item.AdDescription;
+                ad.AdImagePath = item.AdImagePath;
+                ad.AdName = item.AdName;
+                ad.Category = cate.Name;
+                ad.IsRecommend = item.IsRecommend;
+                ad.CategoryCode = cate.CategoryNO;
+
+                adList.Add(ad);
+            }
+
+            ViewData["CategoryList"] = _categoryBLL.GetAllCategory();
+            ViewData["AdModelList"] = adList;
+
             return PartialView();
         }
 
         [HttpPost]
         public ActionResult Add(AdModel ad)
-
         {
             bool res = false;
             string msg = string.Empty;
@@ -66,10 +118,10 @@ namespace com.jiechengbao.admin.Controllers
                         advertisement.CreatedTime = DateTime.Now;
                         advertisement.IsDeleted = false;
                         advertisement.DeletedTime = DateTime.MinValue.AddHours(8);
-                        advertisement.IsRecommend = ad.IsRecommand;
+                        advertisement.IsRecommend = ad.IsRecommend;
 
                         Category category = new Category();
-                        category = _categoryBLL.GetCategoryByCategoryNo(ad.Category);
+                        category = _categoryBLL.GetCategoryByCategoryNo(ad.CategoryCode);
 
                         advertisement.CategoryId = category.Id;
 
@@ -128,13 +180,23 @@ namespace com.jiechengbao.admin.Controllers
                         Advertisement advertisement = new Advertisement();
                         advertisement = _advertisementBLL.GetAdByAdCode(ad.AdCode);
 
+                        if (advertisement == null)
+                        {
+                            LogHelper.Log.Write("advertisement is null");
+                        }
+
                         advertisement.AdDescription = ad.AdDescription;
                         advertisement.AdImagePath = ad.AdImagePath;
                         advertisement.AdName = ad.AdName;
-                        advertisement.IsRecommend = ad.IsRecommand;
+                        advertisement.IsRecommend = ad.IsRecommend;
 
                         Category category = new Category();
-                        category = _categoryBLL.GetCategoryByCategoryNo(ad.AdCode);
+                        category = _categoryBLL.GetCategoryByCategoryNo(ad.CategoryCode);
+
+                        if (category == null)
+                        {
+                            LogHelper.Log.Write("category is null");
+                        }
 
                         advertisement.CategoryId = category.Id;
 

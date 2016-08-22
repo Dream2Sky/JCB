@@ -4,86 +4,106 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
-<link href="~/Content/css/content.css" rel="stylesheet" />
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
 <style>
     img {
         max-height: 32px;
         max-width: 32px;
     }
+     .over {
+        max-height: 580px;
+        overflow: auto;
+    }
 </style>
-
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">会员管理</li>
-        </ol>
-        <div class="navbar navbar-options">
-            <div class="container-fluid">
-                <form class="navbar-form navbar-left" method="post" action="/Member/List" role="search">
-                    <div class="form-group">
-                        <input type="text" name="condition" class="form-control" placeholder="搜索">
-                    </div>
-                    <button type="submit" class="btn btn-danger">搜索</button>
-                </form>
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">会员管理</li>
+</ol>
+<div class="navbar navbar-options">
+    <div class="container-fluid">
+        <form class="navbar-form navbar-left" method="post" action="/Member/List" role="search">
+            <div class="form-group">
+                <input type="text" name="condition" class="form-control" placeholder="搜索">
             </div>
-        </div>
-
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>用户列表</li>
-                </ol>
-            </div>
-            <table class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th>用户昵称</th>
-                        <th>真实姓名</th>
-                        <th>用户手机</th>
-                        <th>注册时间</th>
-                        <th>VIP等级</th>
-                        @*<th>当前余额</th>*@
-                        <th>当前积分</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewData["MemberList"] as IEnumerable<Member>)
-            {
-                        <tr>
-                            <td style="text-align:left;"><img src="@item.HeadImage" />@item.NickeName</td>
-                            <td>@item.RealName</td>
-                            <td>@item.Phone</td>
-                            <td>@item.CreatedTime</td>
-                            <td>@item.Vip</td>
-                            @*<td>@item.Assets</td>*@
-                            <td>@item.Credit</td>
-                        </tr>
-                    }
-                    @if (ViewBag.Member != null)
-            {
-                Member member = ViewBag.Member as Member;
-                        <tr>
-                            <td><img src="@member.HeadImage" />@member.NickeName</td>
-                            <td>@member.RealName</td>
-                            <td>@member.Phone</td>
-                            <td>@member.CreatedTime</td>
-
-                            <td>@member.Vip</td>
-                            @* 新的积分系统没有余额 所以。。 *@
-                            @*<td>@member.Assets</td>*@
-                            <td>@member.Credit</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
+            <button type="submit" class="btn btn-danger">搜索</button>
+        </form>
     </div>
 </div>
-<script>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        用户列表
+    </div>
+    <div class="container-fluid over">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户昵称</th>
+                    <th>真实姓名</th>
+                    <th>用户手机</th>
+                    <th>注册时间</th>
+                    <th>VIP等级</th>
+                    @*<th>当前余额</th>*@
+                    <th>当前积分</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["MemberList"] as IEnumerable<Member>)
+            {
+                    <tr>
+                        <td style="text-align:left;"><img src="@item.HeadImage" />@item.NickeName</td>
+                        <td>@item.RealName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.CreatedTime</td>
+                        <td>@item.Vip</td>
+                        @*<td>@item.Assets</td>*@
+                        <td>@item.Credit</td>
+                    </tr>
+                }
+                @if (ViewBag.Member != null)
+            {
+                Member member = ViewBag.Member as Member;
+                    <tr>
+                        <td><img src="@member.HeadImage" />@member.NickeName</td>
+                        <td>@member.RealName</td>
+                        <td>@member.Phone</td>
+                        <td>@member.CreatedTime</td>
+
+                        <td>@member.Vip</td>
+                        @* 新的积分系统没有余额 所以。。 *@
+                        @*<td>@member.Assets</td>*@
+                        <td>@member.Credit</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--
+<div class="container-fluid">
+    <div class="col-md-12 div-title">
+        <ol class="breadcrumb">
+            <li>用户列表</li>
+        </ol>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>用户昵称</th>
+                <th>真实姓名</th>
+                <th>用户手机</th>
+                <th>注册时间</th>
+                <th>VIP等级</th>
+                <th>当前积分</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>*-->
+@*<script>
     $(document).ready(function () {
         $("#li-memberlist").addClass("a-active");
         ///$("#li-memberlist").parent().parent().removeClass("collapse");
     })
-</script>
+</script>*@

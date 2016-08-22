@@ -5,74 +5,129 @@
 }
 @using com.jiechengbao.entity
 @using com.jiechengbao.admin.Models
-<link href="~/Content/css/content.css" rel="stylesheet" />
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">已完成订单</li>
-        </ol>
-        <div class="navbar navbar-options">
-            <div class="container-fluid">
-                <form class="navbar-form navbar-left" method="post" action="/Order/Completed" role="search">
-                    <div class="form-group">
-                        <input type="text" name="condition" class="form-control" placeholder="搜索">
-                    </div>
-                    <button type="submit" class="btn btn-danger">搜索</button>
-                </form>
-            </div>
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
+<style>
+    .over {
+        max-height: 580px;
+        overflow: auto;
+    }
+</style>
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">已完成订单</li>
+</ol>
+<div class="container-fluid">
+    <form class="navbar-form navbar-left" method="post" action="/Order/Completed" role="search">
+        <div class="from-group">
+            <input type="text" name="condition" placeholder="搜索" class="form-control">
         </div>
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>已完成订单</li>
-                </ol>
-            </div>
-            <table class="table table-hover table-bordered">
-                <thead>
+        <button class="btn btn-danger" type="submit">搜索</button>
+    </form>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        已完成订单
+    </div>
+    <div class="container-fluid over">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>用户名</th>
+                    <th>购买商品或服务</th>
+                    <th>状态</th>
+                    <th>订单总价</th>
+                    <th>支付方式</th>
+                    <th>订单提交时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["CompletedOrderList"] as IEnumerable<OrderModel>)
+                {
                     <tr>
-                        <th>订单号</th>
-                        <th>用户名</th>
-                        <th>购买商品/服务</th>
-                        <th>状态</th>
-                        <th>订单总价</th>
-                        <th>支付方式</th>
-                        <th>订单提交时间</th>
+                        <td>@item.OrderNo</td>
+                        <td>@item.MemberName</td>
+                        <td>@item.GoodsNameList</td>
+                        @if (item.Status == 1)
+                        {
+                            <td>已完成</td>
+                        }
+                        else
+                        {
+                            <td>未完成</td>
+                        }
+                        @if (item.Status == 0)
+                        {
+                            <td>￥ @item.TotalPrice</td>
+                            <td>微信支付</td>
+                        }
+                        else
+                        {
+                            <td>@item.TotalPrice 积分</td>
+                            <td>积分支付</td>
+                        }
+                        <td>@item.CreatedTime</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewData["CompletedOrderList"] as IEnumerable<OrderModel>)
-                    {
-                        <tr>
-                            <td>@item.OrderNo</td>
-                            <td>@item.MemberName</td>
-                            <td>@item.GoodsNameList</td>
-                            @if (item.Status == 1)
-                            {
-                                <td>已完成</td>
-                            }
-                            else
-                            {
-                                <td>未完成</td>
-                            }
-                            @if (item.Status == 0)
-                            {
-                                <td>￥ @item.TotalPrice</td>
-                                <td>微信支付</td>
-                            }
-                            else
-                            {
-                                <td>@item.TotalPrice 积分</td>
-                                <td>积分支付</td>
-                            }
-                            <td>@item.CreatedTime</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+@*<div class="row">
+        <div class="col-md-12">
+
+            <div class="container-fluid">
+                <div class="col-md-12 div-title">
+                    <ol class="breadcrumb">
+                        <li>已完成订单</li>
+                    </ol>
+                </div>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>用户名</th>
+                            <th>购买商品/服务</th>
+                            <th>状态</th>
+                            <th>订单总价</th>
+                            <th>支付方式</th>
+                            <th>订单提交时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewData["CompletedOrderList"] as IEnumerable<OrderModel>)
+                        {
+                            <tr>
+                                <td>@item.OrderNo</td>
+                                <td>@item.MemberName</td>
+                                <td>@item.GoodsNameList</td>
+                                @if (item.Status == 1)
+                                {
+                                    <td>已完成</td>
+                                }
+                                else
+                                {
+                                    <td>未完成</td>
+                                }
+                                @if (item.Status == 0)
+                                {
+                                    <td>￥ @item.TotalPrice</td>
+                                    <td>微信支付</td>
+                                }
+                                else
+                                {
+                                    <td>@item.TotalPrice 积分</td>
+                                    <td>积分支付</td>
+                                }
+                                <td>@item.CreatedTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
 
 
 <script>
@@ -99,8 +154,8 @@
     //})
 </script>
 <script>
-    $(document).ready(function () {
-        //$("#li-completedOrder").addClass("a-active");
-        $("#li-completedOrder").parent().parent().removeClass("collapse");
-    })
+    //$(document).ready(function () {
+    //    //$("#li-completedOrder").addClass("a-active");
+    //    $("#li-completedOrder").parent().parent().removeClass("collapse");
+    //})
 </script>

@@ -6,7 +6,7 @@
 @using com.jiechengbao.entity
 <link href="~/Content/css/content.css" rel="stylesheet" />
 @*<link href="~/Content/css/category.css" rel="stylesheet" />*@
-<script src="~/Content/js/jquery.confirm.min.js"></script>
+@*<script src="~/Content/js/jquery.confirm.min.js"></script>*@
 <style>
     .div-title {
         margin-top: 20px;
@@ -35,61 +35,6 @@
             <li><a href="/Home/Index">管理后台</a></li>
             <li class="active">商品分类列表</li>
         </ol>
-        <!--
-        @*<div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>商品分类</li>
-                </ol>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>分类名</th>
-                        <th>是否为服务</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>
-
-            <div class="container-btn">
-                @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-                {
-                    <button class="btn btn-default col-xs-2">@item.Name</button>
-                }
-            </div>
-        </div>
-        <hr />
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>添加商品分类</li>
-                </ol>
-            </div>
-            @if (!string.IsNullOrEmpty(ViewBag.msg))
-            {
-                <div class="alert alert-error">
-                    <a class="close" data-dismiss="alert">×</a>
-                    @ViewBag.msg
-                </div>
-            }
-            <div class="container-fluid container-add-followitem">
-                <form method="post" action="/Category/Add" id="category-form">
-                    <div class="form-group">
-                        <input type="text" name="categoryName" class="form-control" placeholder="分类名称" required data-bv-notempty-message="不能为空"><span id="error-message"></span>
-                        <select name="isService" class="form-control">
-                            <option value="1">服务类型</option>
-                            <option value="0" selected>非服务类型</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">添加</button>
-                </form>
-            </div>
-        </div>*@-->
 
         <div class="container-fluid">
             <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添商品分类</button>

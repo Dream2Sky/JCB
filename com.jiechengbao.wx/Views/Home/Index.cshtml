@@ -17,6 +17,10 @@
 	    .goods-menu-item-active {
         color:red;
     }
+        .mui-card{
+            width:96%;
+            margin:1%;
+        }
 </style>
 
 <!--
@@ -161,11 +165,11 @@
     })
 </script>*@-->
     <div class="goods-show">
-        <div class="goods-list">
+        <div class="goods-list" id="goods-list">
             @Html.Partial("GoodsList")
         </div>
-        <div class="goods-list">
-            @Html.Partial("/Advertisement/AdList")
+        <div class="goods-list" id="advertisement-list ">
+            @Html.Partial("AdList")
         </div>
     </div>
     <div class="blank">
@@ -188,16 +192,30 @@
                 category: category
             },
             success: function (data) {
-                $(".goods-list").html(data);
+                $("#goods-list").html(data);
             },
             error: function () {
-                $(".goods-list").html("<p class='title'>暂无数据</p>");
+                $("#goods-list").html("<p class='title'>暂无数据</p>");
             },
             beforeSend: function () {
                 $('.mask').show();
             },
             complete: function () {
                 $('.mask').hide();
+            }
+        });
+
+        $.ajax({
+            url: "/Home/AdList",
+            type: "POST",
+            data: {
+                categoryCode: category
+            },
+            success: function (data) {
+                $("#advertisement-list").html(data);
+            },
+            error: function() {
+                alert("error");
             }
         });
     });
@@ -214,16 +232,30 @@
                 category: Id
             },
             success: function (data) {
-                $(".goods-list").html(data);
+                $("#goods-list").html(data);
             },
             error: function () {
-                $(".goods-list").html("<p class='title'>暂无数据</p>");
+                $("#goods-list").html("<p class='title'>暂无数据</p>");
             },
             beforeSend: function () {
                 $('.mask').show();
             },
             complete: function () {
                 $('.mask').hide();
+            }
+        });
+
+        $.ajax({
+            url: "/Home/AdList",
+            type: "POST",
+            data: {
+                categoryCode: Id
+            },
+            success: function (data) {
+                $("#advertisement-list").html(data);
+            },
+            error: function () {
+                alert("error");
             }
         });
     });

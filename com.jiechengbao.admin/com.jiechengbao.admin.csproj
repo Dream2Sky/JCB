@@ -172,12 +172,17 @@
     <Content Include="Content\css\bootstrapValidator.min.css" />
     <Content Include="Content\css\content.css" />
     <Content Include="Content\css\category.css" />
+    <Content Include="Content\css\custom-styles.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\home.css" />
     <Content Include="Content\css\jquery.timepicker.css" />
+    <Content Include="Content\fonts\fontawesome-webfontba72.svg" />
     <Content Include="Content\images\default.png" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\js\bootstrap-table-expandable.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrapValidator.min.js" />
+    <Content Include="Content\js\home.js" />
     <Content Include="Content\js\jquery.confirm.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.slide.js" />
@@ -187,7 +192,6 @@
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Uploads\default.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +241,10 @@
     <Content Include="Views\Goods\Update.cshtml" />
     <Content Include="Views\Member\VIPSetting.cshtml" />
     <Content Include="Views\Car\List.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Content\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Content\fonts\fontawesome-webfontd41d.eot" />
     <None Include="Properties\PublishProfiles\com.jiechengbao.admin.pubxml" />
     <Content Include="Views\Service\List.cshtml" />
     <Content Include="Views\Service\PasswordSetting.cshtml" />
@@ -252,6 +260,8 @@
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\FreeCoupon\List.cshtml" />
     <Content Include="Views\FreeCoupon\FreeCouponList.cshtml" />
+    <Content Include="Views\Advertisement\List.cshtml" />
+    <Content Include="Views\Advertisement\AdList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">

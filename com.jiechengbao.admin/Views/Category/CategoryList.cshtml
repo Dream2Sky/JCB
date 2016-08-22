@@ -144,13 +144,14 @@
         $('form').bootstrapValidator("validate");
         if ($('form').data('bootstrapValidator').isValid()) {
             var categoryName = $("input[name='CategoryName']").val();
-            var isSerivce = ($("input[name='IsService']").attr("checked") == true);
+            var isService = $("input[name='IsService']").is(":checked");
+
             $.ajax({
                 url: "/Category/Add",
                 type: "POST",
                 data: {
                     CategoryName: categoryName,
-                    IsSerivce: isSerivce
+                    IsService: isService
                 },
                 success: function (data) {
 

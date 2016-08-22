@@ -30,7 +30,7 @@ namespace com.jiechengbao.admin.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Add(string CategoryName, bool IsSerivce)
+        public ActionResult Add(string CategoryName, bool IsService)
         {
             // 判断新添加的categoryName 是否为空
             if (string.IsNullOrEmpty(CategoryName))
@@ -44,7 +44,7 @@ namespace com.jiechengbao.admin.Controllers
             category.CreatedTime = DateTime.Now.Date;
             category.IsDeleted = false;
             category.Name = CategoryName;
-            category.IsService = IsSerivce;
+            category.IsService = IsService;
 
             // 判断是否存在新添加的categoryName
             if (_categoryBLL.IsExist(CategoryName))

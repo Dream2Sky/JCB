@@ -23,8 +23,9 @@ namespace com.jiechengbao.wx.Controllers
         private IGoodsCategoryBLL _goodsCategoryBLL;
         private IRulesBLL _rulesBLL;
         private IMemberBLL _memberBLL;
+        private IAdvertisementBLL _advertisementBLL;
         public HomeController(ICategoryBLL categoryBLL,IGoodsBLL goodsBLL, 
-            IGoodsImagesBLL goodsImagesBLL, IGoodsCategoryBLL goodsCategoryBLL, IRulesBLL rulesBLL, IMemberBLL memberBLL)
+            IGoodsImagesBLL goodsImagesBLL, IGoodsCategoryBLL goodsCategoryBLL, IRulesBLL rulesBLL, IMemberBLL memberBLL, IAdvertisementBLL advertisementBLL)
         {
             _categoryBLL = categoryBLL;
             _goodsBLL = goodsBLL;
@@ -32,6 +33,7 @@ namespace com.jiechengbao.wx.Controllers
             _goodsCategoryBLL = goodsCategoryBLL;
             _rulesBLL = rulesBLL;
             _memberBLL = memberBLL;
+            _advertisementBLL = advertisementBLL;
         }
 
         [IsLogin]
@@ -182,6 +184,224 @@ namespace com.jiechengbao.wx.Controllers
                 throw;
             }
             return Content(jsonResult);
+        }
+
+        /// <summary>
+        /// 获取广告列表  根据不同的分类
+        /// </summary>
+        /// <param name="categoryCode"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public PartialViewResult AdList(string categoryCode)
+        {
+            #region 注释           
+            //// 上来先判断传进来的categoryCode 是否为空
+            //if (string.IsNullOrEmpty(categoryCode))
+            //{
+            //    // 如果是 则查出前10个广告
+            //    List<AdModel> AdList = new List<AdModel>();
+
+            //    foreach (var item in _advertisementBLL.GetAllNotDeletedAdvertisements(10))
+            //    {
+            //        if (item.IsDeleted == true)
+            //        {
+            //            continue;
+            //        }
+            //        AdModel ad = new Models.AdModel();
+            //        ad.AdName = item.AdName;
+            //        ad.AdImagePath = item.AdImagePath;
+            //        ad.AdDescription = item.AdDescription;
+
+            //        AdList.Add(ad);
+            //    }
+
+            //    ViewData["AdModelList"] = AdList;
+            //}
+            //else
+            //{
+            //    Category category = _categoryBLL.GetCategoryByCategoryNo(categoryCode);
+            //    if (category == null)
+            //    {
+            //        ViewData["AdModelList"] = null;
+            //    }
+            //    else
+            //    {
+            //        List<AdModel> adList = new List<Models.AdModel>();
+            //        foreach (var item in _advertisementBLL.GetNotDeletedAdvertisementsByCategory(category.Id))
+            //        {
+            //            AdModel ad = new Models.AdModel();
+
+            //            ad.AdName = item.AdName;
+            //            ad.AdImagePath = item.AdImagePath;
+            //            ad.AdDescription = item.AdDescription;
+
+            //            adList.Add(ad);
+            //        }
+
+            //        ViewData["AdModelList"] = adList;
+            //    }
+            //}
+            #endregion
+            List<AdModel> AdModelList = new List<AdModel>();
+            List<AdModel> IsReCommandList = new List<AdModel>();
+            List<AdModel> NotReCommandList = new List<AdModel>();
+
+            // 上来先判断 传进来的 cateogryCode 是否为空
+            if (string.IsNullOrEmpty(categoryCode) || categoryCode == "All")
+            {
+                try
+                {
+                    #region 当 分类为空 时 获取广告列表
+                    // 获取未删除的推荐广告
+                    foreach (var item in _advertisementBLL.GetNotDeletedAndIsRecommandAd(5))
+                    {
+                        AdModel ad = new AdModel();
+                        ad.AdName = item.AdName;
+                        ad.AdCode = item.AdCode;
+                        ad.AdDescription = item.AdDescription;
+                        ad.AdImagePath = item.AdImagePath;
+                        ad.IsRecommand = item.IsRecommend;
+
+                        IsReCommandList.Add(ad);
+                    }
+
+                    // 获取未删除的非推荐广告
+                    foreach (var item in _advertisementBLL.GetNotDeletedAndNotIsRecommandAd(10))
+                    {
+                        AdModel ad = new AdModel();
+                        ad.AdName = item.AdName;
+                        ad.AdCode = item.AdCode;
+                        ad.AdDescription = item.AdDescription;
+                        ad.AdImagePath = item.AdImagePath;
+                        ad.IsRecommand = item.IsRecommend;
+
+                        NotReCommandList.Add(ad);
+                    }
+
+                    // 构造AdModelList
+                    int k = 0;
+                    int nocount = NotReCommandList.Count;
+                    for (int i = 0; i < IsReCommandList.Count; i++)
+                    {
+                        AdModelList.Add(IsReCommandList[i]);
+                        if ((k += i) > nocount)
+                        {
+                            AdModelList.Add(NotReCommandList[k]);
+                            if ((k += 1) > nocount)
+                            {
+                                AdModelList.Add(NotReCommandList[k]);
+                            }
+                        }
+                    }
+
+                    AdModelList.AddRange(NotReCommandList.Skip(k));
+
+                    ViewData["AdModelList"] = AdModelList;
+
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Log.Write(ex.Message);
+                    LogHelper.Log.Write(ex.StackTrace);
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    #region 获取指定分类的广告列表
+                    Category category = _categoryBLL.GetCategoryByCategoryNo(categoryCode);
+
+                    if (category == null)
+                    {
+                        LogHelper.Log.Write("获取分类失败，category === null");
+                    }
+                    // 获取指定分类的未删除的推荐广告
+                    List<Advertisement> temp_adList = new List<Advertisement>();
+                    List<Advertisement> temp_no_adList = new List<Advertisement>();
+
+                    temp_adList = _advertisementBLL.GetNotDeletedAndIsRecommandAdByCategory(category.Id).ToList();
+
+                    temp_no_adList = _advertisementBLL.GetNotDeletedAndNotIsRecommandAdByCategory(category.Id).ToList();
+
+                    foreach (var item in temp_adList)
+                    {
+                        AdModel ad = new AdModel();
+                        ad.AdName = item.AdName;
+                        ad.AdCode = item.AdCode;
+                        ad.AdImagePath = item.AdImagePath;
+                        ad.AdDescription = item.AdDescription;
+                        ad.IsRecommand = item.IsRecommend;
+
+                        IsReCommandList.Add(ad);
+                    }
+
+                    // 获取指定分类的未删除的非推荐广告
+                    foreach (var item in temp_no_adList)
+                    {
+                        AdModel ad = new AdModel();
+                        ad.AdName = item.AdName;
+                        ad.AdCode = item.AdCode;
+                        ad.AdImagePath = item.AdImagePath;
+                        ad.AdDescription = item.AdDescription;
+                        ad.IsRecommand = item.IsRecommend;
+
+                        NotReCommandList.Add(ad);
+                    }
+
+                    // 构造 AdModelList
+                    int k = 0;
+                    int nocount = NotReCommandList.Count;
+                    for (int i = 0; i < IsReCommandList.Count; i++)
+                    {
+                        LogHelper.Log.Write(IsReCommandList[i].AdName);
+                        AdModelList.Add(IsReCommandList[i]);
+                        if ((k += i) > nocount)
+                        {
+                            AdModelList.Add(NotReCommandList[k]);
+                            if ((k += 1) > nocount)
+                            {
+                                AdModelList.Add(NotReCommandList[k]);
+                            }
+                        }
+                    }
+
+                    AdModelList.AddRange(NotReCommandList.Skip(k));
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Log.Write(ex.Message);
+                    LogHelper.Log.Write(ex.StackTrace);
+                }
+            }
+
+            ViewData["AdModelList"] = AdModelList;
+            return PartialView();
+        }
+
+        public ActionResult AdDetail(string adCode)
+        {
+            AdModel ad = new AdModel();
+
+            Advertisement advertisement = _advertisementBLL.GetAdByAdCode(adCode);
+            if (advertisement == null)
+            {
+                ViewBag.Advertisement = advertisement;
+                return View();
+            }
+
+            ad.AdCode = advertisement.AdCode;
+            ad.AdDescription = advertisement.AdDescription;
+            ad.AdImagePath = advertisement.AdImagePath;
+            ad.AdName = advertisement.AdName;
+            ad.IsRecommand = advertisement.IsRecommend;
+
+            ViewBag.Advertisement = ad;
+
+            return View();
         }
 
         [NonAction]

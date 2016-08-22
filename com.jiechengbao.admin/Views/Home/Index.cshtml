@@ -1,38 +1,110 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
 @using com.jiechengbao.admin.Models
-<link href="~/Content/css/content.css" rel="stylesheet" />
-<style>
-    .nav li {
-        margin-right: 10px;
-    }
-    img{
-        max-height:32px;
-        max-width:32px;
-    }
-    .nav-msg{
-        margin-top:35px;
-        padding-top:0px;
-    }
-    .btn-ul {
-        width:100%;
-    }
-        .btn-ul li {
-            width:20%;
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
+@*<style>
+        .nav li {
+            margin-right: 10px;
         }
-        .btn-ul li button{
+        img{
+            max-height:32px;
+            max-width:32px;
+        }
+        .nav-msg{
+            margin-top:35px;
+            padding-top:0px;
+        }
+        .btn-ul {
             width:100%;
         }
-        .container-fluid{
-            padding-left:15px;
-        }
-</style>
+            .btn-ul li {
+                width:20%;
+            }
+            .btn-ul li button{
+                width:100%;
+            }
+            .container-fluid{
+                padding-left:15px;
+            }
+    </style>*@
 
-<div class="row">
+<ol class="breadcrumb">
+    <li><a href="#">管理后台</a></li>
+    <li class="active">首页</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="new_num">
+            当前注册用户数量
+            <h2>@ViewBag.MemberCount</h2>
+        </div>
+        <div class="order_num">
+            新提交订单数量
+            <h2>@ViewBag.OrderCount</h2>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        最近一周新用户
+    </div>
+    <div class="container-fluid over">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户名称</th>
+                    <th>真实姓名</th>
+                    <th>用户手机</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["MemberList"] as IEnumerable<Member>)
+                {
+                <tr>
+                    <td style="text-align:left;"><img src="@item.HeadImage" />@item.NickeName</td>
+                    <td>@item.RealName</td>
+                    <td>@item.Phone</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        最近新订单
+    </div>
+    <div class="container-fluid over">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>用户名</th>
+                    <th>商品列表</th>
+                    <th>状态</th>
+                    <th>订单提交时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["OrderList"] as IEnumerable<OrderModel>)
+                {
+                <tr>
+                    <td>@item.OrderNo</td>
+                    <td>@item.MemberName</td>
+                    <td>@item.Status</td>
+                    <td>@item.CreatedTime</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--
+@*<div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="/Home/Index">管理后台</a></li>
@@ -110,7 +182,7 @@
         </table>
     </div>
 
-</div>
+</div>*@-->
 
 <script>
     $(document).ready(function () {

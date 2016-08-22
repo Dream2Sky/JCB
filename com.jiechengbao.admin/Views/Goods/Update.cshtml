@@ -5,7 +5,7 @@
 }
 <link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
-        #img-upload {
+    #img-upload {
         max-width: 128px !important;
         max-height: 128px !important;
     }
@@ -14,19 +14,23 @@
         background-color: #337ab7;
         color: #fff;
     }
-    .form-group{
-        padding:5px;
+
+    .form-group {
+        padding: 5px;
     }
-    .form-group input,.form-group textarea{
-        border-radius:3px !important;
-    }
-    .form-group input[type='text'], .form-group input[type='file']{
-        max-width:250px;
-    }
-    textarea{
-        max-width:450px;
-        min-height:150px;
-        resize:none;
+
+        .form-group input, .form-group textarea {
+            border-radius: 3px !important;
+        }
+
+            .form-group input[type='text'], .form-group input[type='file'] {
+                max-width: 250px;
+            }
+
+    textarea {
+        max-width: 450px;
+        min-height: 150px;
+        resize: none;
     }
 </style>
 
@@ -34,7 +38,95 @@
 @using com.jiechengbao.entity
 @model com.jiechengbao.admin.Models.GoodsModel
 
-<div class="row">
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">更新商品</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        添加商品
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(ViewBag.Msg))
+{
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">×</a>
+        @ViewBag.msg
+    </div>
+}
+<form>
+    <div class="form-group">
+        <label>商品名</label>
+        <input type="hidden" name="Code" value="@Model.Code" />
+        <input type="text" name="Name" placeholder="商品名" class="form-control" value="@Model.Name" required data-bv-notempty-message="商品名不能为空" />
+    </div>
+    <div class="form-group">
+        <label>商品单价</label>
+        <input type="text" name="Price" placeholder="商品单价" class="form-control" value="@Model.Price" required pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" data-bv-notempty-message="商品单价不能为空" />
+    </div>
+    <div class="form-group">
+        <label>商品原价</label>
+        <input type="text" name="OriginalPrice" placeholder="商品原价" class="form-control" value="@Model.OriginalPrice" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="商品原价不能为空" />
+    </div>
+    <div class="form-group">
+        <label>兑换积分</label>
+        <input type="text" name="ExchangeCredit" placeholder="兑换积分" class="form-control" value="@Model.ExchangeCredit" pattern="^\d+(\.\d+)?$" data-bv-regexp-message="必须是大于零的数字" required data-bv-notempty-message="兑换积分不能为空" />
+    </div>
+    <div class="form-group">
+        <label>商品描述</label>
+        <textarea class="form-control" name="Description" placeholder="商品描述" required data-bv-notempty-message="商品描述不能为空">@Model.Description</textarea>
+    </div>
+    <div class="form-group">
+        <label>商品图片</label>
+        <br />
+        <img id="img-upload" src="~/Uploads/@Model.PicturePath" />
+        <input type="hidden" id="PicturePath" name="PicturePath" value="@Model.PicturePath" required data-bv-notempty-message="请上传商品图片" />
+        <input type="file" class="form-control" placeholder="商品图片" id="picture">
+    </div>
+    <div class="form-group">
+        <label>商品分类</label>
+        <br />
+        @{
+            if (ViewData["CurrentCategoryList"] as List<Category> == null)
+            {
+                foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                {
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="@item.CategoryNO">@item.Name
+                    </label>
+                }
+            }
+            else
+            {
+                foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                {
+                    if ((ViewData["CurrentCategoryList"] as List<Category>).Find(n => n.Id == item.Id) != null)
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" checked value="@item.CategoryNO">@item.Name
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="@item.CategoryNO">@item.Name
+                        </label>
+                    }
+                }
+            }
+        }
+    </div>
+    <div class="form-group">
+        <label>服务次数</label>
+        <input type="text" name="ServiceCount" class="form-control" value="@Model.ServiceCount" pattern="^\d+$" data-bv-regexp-message="必须是大于等于零的整数" required data-bv-notempty-message="服务次数不能为空" />
+    </div>
+    <div class="form-group">
+        <input type="button" name="btn-AddGoods" class="btn btn-danger" value="保存修改" />
+    </div>
+</form>
+
+
+@*<div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="/Home/Index">管理后台</a></li>
@@ -126,108 +218,9 @@
                     <input type="button" name="btn-AddGoods" class="btn btn-danger" value="保存修改" />
                 </div>
             </form>
-
-
-            @*<form>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">商品名</span>
-                                <input type="hidden" name="Code" value="@Model.Code" />
-                                <input type="text" class="form-control" disabled placeholder="商品名" name="Name" aria-describedby="basic-addon1" value="@Model.Name">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">商品单价</span>
-                                <input type="text" class="form-control" placeholder="商品单价" name="Price" aria-describedby="basic-addon1" value="@Model.Price">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">商品原价</span>
-                                <input type="text" class="form-control" placeholder="商品原价" name="OriginalPrice" aria-describedby="basic-addon1" value="@Model.OriginalPrice">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">兑换积分</span>
-                                <input type="text" class="form-control" placeholder="兑换积分" name="ExchangeCredit" aria-describedby="basic-addon1" value="@Model.ExchangeCredit">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">商品描述</span>
-                                <textarea class="form-control" name="Description" placeholder="商品描述" rows="3" cols="2">@Model.Description</textarea>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;">
-                            <img src="~/Uploads/@Model.PicturePath" id="img-upload" />
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">商品图片</span>
-                                <input type="hidden" id="PicturePath" name="PicturePath" value="" />
-                                <input type="file" class="form-control" placeholder="商品图片" id="picture" aria-describedby="basic-addon1">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning" type="button" onclick="Upload();">上传</button>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left; background:#337ab7; color:#fff;">选择以下商品分类, 为你的商品添加分类</td>
-                    </tr>
-                    <tr class="tr-category">
-                        <td class="td-category">
-                            @foreach (var item in ViewData["CurrentCategoryList"] as List<Category>)
-                            {
-                                <div style='margin-bottom:10px;' class="input-group div-category" id='@item.CategoryNO'>
-                                    <input type="hidden" name="CategoryList" value='@item.CategoryNO' />
-                                    <input type="text" class="form-control" value='@item.Name'>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger" onclick="Delete('@item.CategoryNO');" type="button">删除</button>
-                                    </span>
-                                </div>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="input-group">
-                                <select class="form-control">
-                                    @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
-                                    {
-                                        <option value="@item.CategoryNO">@item.Name</option>
-                                    }
-                                </select>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="button" onclick="AddCategory();">添加</button>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">服务次数</span>
-                                <input class="form-control" name="ServiceCount" placeholder="服务次数" rows="1" value="@Model.ServiceCount"></input>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:right;">
-                            <button class="btn btn-primary" type="submit">保存</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>*@
         </div>
     </div>
-</div>
+</div>*@
 
 <script>
     var categoryList = new Array();
@@ -292,7 +285,7 @@
                 url: '/Goods/Update',
                 type: 'POST',
                 data: {
-                    Code:Code.val(),
+                    Code: Code.val(),
                     Name: Name.val(),
                     Price: Price.val(),
                     OriginalPrice: OriginalPrice.val(),
@@ -310,11 +303,11 @@
                     else if (data == "NullData") {
                         alert("参数提交错误，请重试");
                     }
-                    else if(data == "NullObject"){
+                    else if (data == "NullObject") {
                         // return "False"
                         alert("空对象, 更新数据失败");
                     }
-                    else if(data == false) {
+                    else if (data == false) {
                         alert("修改失败");
                     }
                 },
