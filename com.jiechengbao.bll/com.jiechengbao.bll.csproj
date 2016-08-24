@@ -75,10 +75,6 @@
     <Compile Include="TransactionDetailBLL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
-      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
-      <Name>LogHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
       <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>
       <Name>com.jiechengbao.entity</Name>
@@ -98,6 +94,10 @@
     <ProjectReference Include="..\com.jiechengbao.Idal\com.jiechengbao.Idal.csproj">
       <Project>{233DE5F9-A487-4634-BCA4-CF24A5C8EDEC}</Project>
       <Name>com.jiechengbao.Idal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogHelper\LogHelper\LogHelper.csproj">
+      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
+      <Name>LogHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

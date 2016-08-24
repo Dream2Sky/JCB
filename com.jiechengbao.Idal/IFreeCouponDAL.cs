@@ -12,5 +12,6 @@ namespace com.jiechengbao.Idal
         IEnumerable<FreeCoupon> SelectAllNotDeletedCoupon();
         FreeCoupon SelectByCode(string code);
         bool IsExist(string name);
+
     }
 }

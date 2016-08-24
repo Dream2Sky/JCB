@@ -42,10 +42,10 @@
                     },
                     success: function (data) {
                         alert(data.msg, "积分支付");
-                        window.location.href = "/Order/List?type=1";
+                        window.location.href = "/Order/OrderList";
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        mui.alert("支付失败", "余额支付");
+                        mui.alert("支付失败", "积分支付");
 
                         alert(XMLHttpRequest.status);
                         alert(XMLHttpRequest.readyState);

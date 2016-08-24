@@ -225,9 +225,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -274,13 +271,9 @@
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogHelper\LogHelper\LogHelper.csproj">
-      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
-      <Name>LogHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\个人类库\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
-      <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>
-      <Name>POPO.Picture.Helper</Name>
+    <ProjectReference Include="..\ch.lib.common.QR\ch.lib.common.QR.csproj">
+      <Project>{7ebbeca6-a1fb-4ae8-8bb9-9161fcd53377}</Project>
+      <Name>ch.lib.common.QR</Name>
     </ProjectReference>
     <ProjectReference Include="..\co.jiechengbao.entity\com.jiechengbao.entity.csproj">
       <Project>{e42735ca-2e36-4f6e-8169-4ac228be9359}</Project>
@@ -305,6 +298,14 @@
     <ProjectReference Include="..\com.jiechengbao.Idal\com.jiechengbao.Idal.csproj">
       <Project>{233de5f9-a487-4634-bca4-cf24a5c8edec}</Project>
       <Name>com.jiechengbao.Idal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogHelper\LogHelper\LogHelper.csproj">
+      <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
+      <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
+      <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>
+      <Name>POPO.Picture.Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

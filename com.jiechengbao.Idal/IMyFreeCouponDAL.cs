@@ -10,5 +10,6 @@ namespace com.jiechengbao.Idal
     public interface IMyFreeCouponDAL:IDataBaseDAL<MyFreeCoupon>
     {
         IEnumerable<MyFreeCoupon> SelectAllNotDeletedMyFreeCouponsByMemberId(Guid memberId);
+        MyFreeCoupon SelectByMemberId(Guid memberId);
     }
 }

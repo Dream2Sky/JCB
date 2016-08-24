@@ -32,6 +32,20 @@ namespace com.jiechengbao.bll
             return _myFreeCouponDAL.SelectAllNotDeletedMyFreeCouponsByMemberId(memberId);
         }
 
+        /// <summary>
+        /// 判断是否已经领取了优惠券
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public bool IsAlreadyPicked(Guid memberId)
+        {
+            if (_myFreeCouponDAL.SelectAllNotDeletedMyFreeCouponsByMemberId(memberId) == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool Update(MyFreeCoupon myFreeCoupon)
         {
             return _myFreeCouponDAL.Update(myFreeCoupon);

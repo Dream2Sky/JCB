@@ -13,5 +13,6 @@ namespace com.jiechengbao.Ibll
         bool Update(MyFreeCoupon myFreeCoupon);
         IEnumerable<MyFreeCoupon> GetMyFreeCouponList(Guid memberId);
         MyFreeCoupon GetMyFreeCouponById(Guid myFreeCouponId);
+        bool IsAlreadyPicked(Guid memberId);
     }
 }

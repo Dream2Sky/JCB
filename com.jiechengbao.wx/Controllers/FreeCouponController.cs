@@ -25,13 +25,13 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult CouponList()
         {
-            Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
+            //Member member = _memberBLL.GetMemberByOpenId(System.Web.HttpContext.Current.Session["member"].ToString());
 
-            IEnumerable<MyFreeCoupon> mfcList = _myFreeCouponBLL.GetMyFreeCouponList(member.Id);
-            if (mfcList != null && mfcList.Count() >0)
-            {
-                return RedirectToAction("Info", "UserInfo");
-            }
+            //IEnumerable<MyFreeCoupon> mfcList = _myFreeCouponBLL.GetMyFreeCouponList(member.Id);
+            //if (mfcList != null && mfcList.Count() >0)
+            //{
+            //    return RedirectToAction("Info", "UserInfo");
+            //}
 
             ViewData["CouponList"] = _freeCouponBLL.GetAllNotDeletedCoupon();
             return View();
@@ -77,6 +77,32 @@ namespace com.jiechengbao.wx.Controllers
                 };
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
+
+            try
+            {
+                // 验证重复领取
+                if (_myFreeCouponBLL.IsAlreadyPicked(member.Id))
+                {
+                    var obj = new
+                    {
+                        code = res,
+                        msg = "您已经领取过优惠券了，现在不能领取了"
+                    };
+                    return Json(obj, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+
+                var obj = new {
+                    code = false,
+                    msg = "系统错误，领取失败"
+                };
+                return Json(obj, JsonRequestBehavior.AllowGet);
+            }
+            
 
             FreeCoupon fc = _freeCouponBLL.GetFreeCouponByCode(Code);
 

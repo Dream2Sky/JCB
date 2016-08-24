@@ -747,6 +747,11 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 消费优惠券
+        /// </summary>
+        /// <param name="myFreeCouponId"></param>
+        /// <returns></returns>
         public ActionResult PayForFreeCoupon(Guid myFreeCouponId)
         {
             try
@@ -772,6 +777,12 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        /// <summary>
+        /// 消费优惠券
+        /// </summary>
+        /// <param name="myFreeCouponId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost]
         [IsRegister("/Pay/PayForFreeCoupon")]
         public ActionResult PayForFreeCoupon(Guid myFreeCouponId, string password)

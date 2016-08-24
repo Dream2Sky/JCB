@@ -23,5 +23,24 @@ namespace com.jiechengbao.dal
                 throw;
             }
         }
+
+        /// <summary>
+        ///  找出一个指定 Id 的我的优惠券
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public MyFreeCoupon SelectByMemberId(Guid memberId)
+        {
+            try
+            {
+                return db.Set<MyFreeCoupon>().Where(n => n.MemberId == memberId).SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+        }
     }
 }
