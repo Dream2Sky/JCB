@@ -760,13 +760,11 @@ namespace com.jiechengbao.wx.Controllers
                 ViewBag.MyFreeCouponId = myFreeCouponId;
 
                 return View();
-
             }
             catch (Exception ex)
             {
                 LogHelper.Log.Write(ex.Message);
                 LogHelper.Log.Write(ex.StackTrace);
-
 
                 ViewBag.FreeCouponName = string.Empty;
                 ViewBag.MemberName = string.Empty ;
@@ -780,29 +778,63 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (myFreeCouponId == null)
             {
+                LogHelper.Log.Write("传进来的 myFreeCouponId 为空");
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
 
             if (string.IsNullOrEmpty(password))
             {
+                LogHelper.Log.Write("传进来的 password 为空");
                 return Json("NullPassword", JsonRequestBehavior.AllowGet);
             }
 
             ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
 
+            if (scp ==null)
+            {
+                return Json("NotSettingPassword", JsonRequestBehavior.AllowGet);
+            }
+
             if (scp.Password == password)
             {
                 MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
-                mfc.IsDeleted = false;
+                mfc.IsDeleted = true;
 
-                if (_myFreeCouponBLL.Update(mfc))
+                // 结果
+                string res = "False";
+
+                // 启动事务 修改对象
+                LogHelper.Log.Write("开始事务");
+                using (JCB_DBContext db = new JCB_DBContext ())
                 {
-                    return Json("True", JsonRequestBehavior.AllowGet);
+                    using (var trans = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            LogHelper.Log.Write("正在修改我的优惠券");
+                            db.Set<MyFreeCoupon>().Attach(mfc);
+                            db.Entry(mfc).State = System.Data.Entity.EntityState.Modified;
+
+                            db.SaveChanges();
+
+                            LogHelper.Log.Write("保存成功");
+                            trans.Commit();
+
+                            res = "True";
+                        }
+                        catch (Exception ex)
+                        {
+                            LogHelper.Log.Write("保存失败");
+                            LogHelper.Log.Write(ex.Message);
+                            LogHelper.Log.Write(ex.StackTrace);
+
+                            trans.Rollback();
+                            res = "False";
+                        }
+
+                    }
                 }
-                else
-                {
-                    return Json("False", JsonRequestBehavior.AllowGet);
-                }
+                return Json(res, JsonRequestBehavior.AllowGet);
             }
             else
             {

@@ -4,57 +4,95 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.admin.Models
-
-
-<link href="~/Content/css/content.css" rel="stylesheet" />
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
 <style>
-    img{
-        max-height:32px;
-        max-width:32px;
+    img {
+        max-height: 32px;
+        max-width: 32px;
+    }
+
+    .over {
+        max-height: 580px;
+        overflow: auto;
     }
 </style>
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">客户购买的服务列表</li>
-        </ol>
 
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>用户的爱车列表</li>
-                </ol>
-            </div>
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">客户购买的服务列表</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        服务购买情况
+    </div>
+    <div class="container-fluid over">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户</th>
+                    <th>服务名</th>
+                    <th>剩余服务次数</th>
+                    <th>服务总次数</th>
+                    <th>服务购买时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["MyServiceModelList"] as IEnumerable<MyServiceModel>)
+                {
                     <tr>
-                        <th>用户</th>
-                        <th>服务名</th>
-                        <th>剩余服务次数</th>
-                        <th>服务总次数</th>
-                        <th>服务购买时间</th>
+                        <td style="text-align:left;"><img src="@item.MemberImage" />@item.MemberName</td>
+                        <td>@item.ServiceName</td>
+                        <td>@item.CurrentCount</td>
+                        <td>@item.TotalCount</td>
+                        <td>@item.CreateTime</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewData["MyServiceModelList"] as IEnumerable<MyServiceModel>)
-            {
-                        <tr>
-                            <td style="text-align:left;"><img src="@item.MemberImage" />@item.MemberName</td>
-                            <td>@item.ServiceName</td>
-                            <td>@item.CurrentCount</td>
-                            <td>@item.TotalCount</td>
-                            <td>@item.CreateTime</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+@*<div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/Home/Index">管理后台</a></li>
+                <li class="active">客户购买的服务列表</li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="col-md-12 div-title">
+                    <ol class="breadcrumb">
+                        <li>用户的爱车列表</li>
+                    </ol>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>用户</th>
+                            <th>服务名</th>
+                            <th>剩余服务次数</th>
+                            <th>服务总次数</th>
+                            <th>服务购买时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewData["MyServiceModelList"] as IEnumerable<MyServiceModel>)
+                {
+                            <tr>
+                                <td style="text-align:left;"><img src="@item.MemberImage" />@item.MemberName</td>
+                                <td>@item.ServiceName</td>
+                                <td>@item.CurrentCount</td>
+                                <td>@item.TotalCount</td>
+                                <td>@item.CreateTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
 <script>
-    $(document).ready(function () {
-        //$("#li-serviceList").addClass("a-active");
-        $("#li-serviceList").parent().parent().removeClass("collapse");
-    })
+    //$(document).ready(function () {
+    //    //$("#li-serviceList").addClass("a-active");
+    //    $("#li-serviceList").parent().parent().removeClass("collapse");
+    //})
 </script>

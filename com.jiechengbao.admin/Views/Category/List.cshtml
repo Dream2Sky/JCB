@@ -8,7 +8,7 @@
 @*<link href="~/Content/css/category.css" rel="stylesheet" />*@
 @*<script src="~/Content/js/jquery.confirm.min.js"></script>*@
 <style>
-    .div-title {
+    /*.div-title {
         margin-top: 20px;
     }
 
@@ -26,72 +26,165 @@
 
     table {
         max-width: 600px !important;
+    }*/
+    .container-fluid {
+        padding-left: 15px;
+    }
+
+        .container-fluid .over {
+            padding-left: 0px;
+        }
+
+        .container-fluid .btn_add {
+            /*border: 1px solid red;*/
+            width: 86%;
+            position: relative;
+            top: 44px;
+            left: -79px;
+        }
+
+    .btn-Add-Category {
+        position: relative;
+        top: -45px;
+        left: -2px;
+    }
+        .over {
+        max-height: 580px;
+        overflow: auto;
     }
 </style>
 
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">商品分类列表</li>
-        </ol>
-
-        <div class="container-fluid">
-            <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添商品分类</button>
-            @Html.Partial("CategoryList")
-        </div>
-
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label>分类名称</label>
-                                <input type="hidden" name="Code" value="" />
-                                <input type="text" class="form-control" name="CategoryName" required data-bv-notempty-message="分类名不能为空" placeholder="请填写商品分类名称">
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="IsService">是否为服务
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-danger btn-Save">保存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="deleteModelLable">删除商品分类</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            您确定要删除该商品分类
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">商品分类列表</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        商品分类
+    </div>
+    <div class="container-fluid btn_add">
+        <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">
+            新添商品分类
+        </button>
+    </div>
+    <div class="container-fluid over">
+        @Html.Partial("CategoryList")
     </div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>分类名称</label>
+                        <input type="hidden" name="Code" value="" />
+                        <input type="text" class="form-control" name="CategoryName" required data-bv-notempty-message="分类名不能为空" placeholder="请填写商品分类名称">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="IsService">是否为服务
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-Save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModelLable">删除商品分类</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    您确定要删除该商品分类
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/Home/Index">管理后台</a></li>
+                <li class="active">商品分类列表</li>
+            </ol>
+
+            <div class="container-fluid">
+                <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添商品分类</button>
+                @Html.Partial("CategoryList")
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>分类名称</label>
+                                    <input type="hidden" name="Code" value="" />
+                                    <input type="text" class="form-control" name="CategoryName" required data-bv-notempty-message="分类名不能为空" placeholder="请填写商品分类名称">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="IsService">是否为服务
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-danger btn-Save">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="deleteModelLable">删除商品分类</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                您确定要删除该商品分类
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
 <script>
 
     $(document).ready(function () {
