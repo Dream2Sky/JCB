@@ -9,7 +9,9 @@
     body {
         background-color: #fff !important;
     }
-
+    .title{
+        text-align:center;
+    }
     .input-group {
         margin-top: 10px;
         padding-left: 10px;
@@ -189,28 +191,28 @@
             <option value="Y">Y</option>
             <option value="Z">Z</option>
         </select>
-        <input type="text" class="car-num" placeholder="请输入车牌号">
+        <input type="text" class="car-num" name="Numberplate" placeholder="请输入车牌号">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
             <button class="btn btn-default btn-yellow" type="button">车架号</button>
         </span>
-        <input type="text" placeholder="*请完整输入车辆识别号">
+        <input type="text" name="ChassisNumber" placeholder="*请输入车架号后6位">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
             <button id="btn" class="btn btn-default btn-yellow" type="button">发动机号</button>
         </span>
-        <input type="text" placeholder="*请完整输入发动机号">
+        <input type="text" name="EngineNumber" placeholder="*请输入发动机号后6位">
     </div>
 
     <div class="input-group">
         <span class="input-group-btn">
-            <button class="btn btn-default btn-yellow" type="button">车辆信息</button>
+            <button class="btn btn-default btn-yellow" type="button">车型信息</button>
         </span>
-        <input type="text" placeholder="*请输入您的爱车的信息">
+        <input type="text" name="CarDetailInfo" placeholder="*如 宝马 x5">
     </div>
 
     <div>
@@ -221,14 +223,14 @@
 <h5>
     <strong>您的爱车列表</strong>
 </h5>
-@if (ViewData["CarList"] == null || (ViewData["CarList"] as List<Car>).Count <= 0)
-{
-    <div class="title">暂无车辆信息。。。</div>
-}
-else
-{
-    <ul class="mui-table-view car-ul">
-        @foreach (var item in ViewData["CarList"] as IEnumerable<Car>)
+<ul class="mui-table-view car-ul">
+    @if (ViewData["CarList"] == null || (ViewData["CarList"] as List<Car>).Count <= 0)
+    {
+        <div class="title">暂无车辆信息...</div>
+    }
+    else
+    {
+        foreach (var item in ViewData["CarList"] as IEnumerable<Car>)
         {
             <li class="mui-table-view-cell">
                 <a href="/Car/Detail?numberplate=@item.Numberplate">
@@ -239,14 +241,15 @@ else
                             <p class="mui-h6 mui-ellipsis">车架号: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: @item.EngineNumber</p>
                         </div>
                         <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-                            <button class="mui-btn mui-btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑信息</button>
+                            <button class="mui-btn mui-btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑</button>
                         </div>
                     </div>
                 </a>
             </li>
         }
-    </ul>
-}
+    }
+
+</ul>
 <div class="blank_block"></div>
 
 <script>
@@ -315,7 +318,7 @@ else
         }
     }
 
-    $(".sub").on("tap", function () {
+    $("#sub").on("tap", function () {
         AddCar();
     });
 

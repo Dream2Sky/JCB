@@ -39,7 +39,8 @@ namespace com.jiechengbao.bll
         /// <returns></returns>
         public bool IsAlreadyPicked(Guid memberId)
         {
-            if (_myFreeCouponDAL.SelectAllNotDeletedMyFreeCouponsByMemberId(memberId) == null)
+            IEnumerable<MyFreeCoupon> mfcList = _myFreeCouponDAL.SelectAllNotDeletedMyFreeCouponsByMemberId(memberId);
+            if (mfcList == null || mfcList.Count() <= 0)
             {
                 return false;
             }
