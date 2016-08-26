@@ -205,19 +205,19 @@
             }
         });
 
-        $.ajax({
-            url: "/Home/AdList",
-            type: "POST",
-            data: {
-                categoryCode: category
-            },
-            success: function (data) {
-                $("#advertisement-list").html(data);
-            },
-            error: function() {
-                alert("error");
-            }
-        });
+        //$.ajax({
+        //    url: "/Home/AdList",
+        //    type: "POST",
+        //    data: {
+        //        categoryCode: category
+        //    },
+        //    success: function (data) {
+        //        $("#advertisement-list").html(data);
+        //    },
+        //    error: function() {
+        //        alert("error");
+        //    }
+        //});
     });
 
     $(".CategoryItem").on('tap', function () {
@@ -245,19 +245,19 @@
             }
         });
 
-        $.ajax({
-            url: "/Home/AdList",
-            type: "POST",
-            data: {
-                categoryCode: Id
-            },
-            success: function (data) {
-                $("#advertisement-list").html(data);
-            },
-            error: function () {
-                alert("error");
-            }
-        });
+        //$.ajax({
+        //    url: "/Home/AdList",
+        //    type: "POST",
+        //    data: {
+        //        categoryCode: Id
+        //    },
+        //    success: function (data) {
+        //        $("#advertisement-list").html(data);
+        //    },
+        //    error: function () {
+        //        alert("error");
+        //    }
+        //});
     });
    
     $(".goods-menu-item").on("click", function () {
