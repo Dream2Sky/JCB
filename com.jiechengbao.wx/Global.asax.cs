@@ -18,8 +18,6 @@ namespace com.jiechengbao.wx
     {
         protected void Application_Start()
         {
-            
-
             var builder = new ContainerBuilder();
             SetupResolveRules(builder);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
@@ -97,6 +95,20 @@ namespace com.jiechengbao.wx
             builder.RegisterType<MyFreeCouponDAL>().As<IMyFreeCouponDAL>();
             builder.RegisterType<AdvertisementBLL>().As<IAdvertisementBLL>();
             builder.RegisterType<AdvertisementDAL>().As<IAdvertisementDAL>();
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            System.Web.HttpContext.Current.Session["SessionID"] = Session.SessionID;
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            LogHelper.Log.Write("Current Session is ending,now releasing the session about freeCouponQrPath");
+            if (System.Web.HttpContext.Current.Session["FreeCouponQrPath"] != null)
+            {
+                System.Web.HttpContext.Current.Session["FreeCouponQrPath"] = null;
+            }
         }
     }
 }

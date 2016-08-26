@@ -22,6 +22,8 @@ using System.Configuration;
 using ch.lib.common.QR;
 using com.jiechengbao.wx.Global;
 using POPO.ActionFilter.Helper;
+using System.Net;
+using POPO.Http.Helper;
 
 namespace com.jiechengbao.wx.Controllers
 {
@@ -752,7 +754,7 @@ namespace com.jiechengbao.wx.Controllers
         /// </summary>
         /// <param name="myFreeCouponId"></param>
         /// <returns></returns>
-        public ActionResult PayForFreeCoupon(Guid myFreeCouponId)
+        public ActionResult PayForFreeCoupon(Guid myFreeCouponId, string sessionId)
         {
             try
             {
@@ -763,6 +765,7 @@ namespace com.jiechengbao.wx.Controllers
                 ViewBag.FreeCouponName = fc.CouponName;
                 ViewBag.MemberName = member.NickeName;
                 ViewBag.MyFreeCouponId = myFreeCouponId;
+                ViewBag.SessionId = sessionId;
 
                 return View();
             }
@@ -777,6 +780,13 @@ namespace com.jiechengbao.wx.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Test(Guid myFreeCouponId, string password, string sessionId)
+        {
+            return Json("True", JsonRequestBehavior.AllowGet);
+        }
+
+
         /// <summary>
         /// 消费优惠券
         /// </summary>
@@ -784,8 +794,8 @@ namespace com.jiechengbao.wx.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        [IsRegister("/Pay/PayForFreeCoupon")]
-        public ActionResult PayForFreeCoupon(Guid myFreeCouponId, string password)
+        //[IsRegister("/Pay/PayForFreeCoupon")]
+        public ActionResult PayForFreeCoupon(Guid myFreeCouponId, string password, string sessionId)
         {
             if (myFreeCouponId == null)
             {
@@ -808,9 +818,19 @@ namespace com.jiechengbao.wx.Controllers
 
             if (scp.Password == password)
             {
-                MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
+                MyFreeCoupon mfc = null;
+                mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
                 mfc.IsDeleted = true;
-
+                //try
+                //{
+                    
+                //}
+                //catch (Exception ex)
+                //{
+                //    LogHelper.Log.Write(ex.Message);
+                //    LogHelper.Log.Write(ex.StackTrace);
+                    
+                //}
                 // 结果
                 string res = "False";
 
@@ -829,6 +849,22 @@ namespace com.jiechengbao.wx.Controllers
                             db.SaveChanges();
 
                             LogHelper.Log.Write("保存成功");
+
+
+                            string url = "http://jcb.ybtx88.com/Comet/CreateSession";
+
+                            CookieContainer cc = new CookieContainer();
+
+                            Cookie c = new Cookie();
+                            c.Name = "ASP.NET_SessionId";
+                            c.Path = "/";
+                            c.Domain = "jcb.ybtx88.com";
+                            c.Value = sessionId;
+
+                            cc.Add(c);
+
+                            HttpHelper.AccessURL_GET(url, cc);
+
                             trans.Commit();
 
                             res = "True";

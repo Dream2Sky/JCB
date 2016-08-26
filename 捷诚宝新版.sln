@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.ActionFilter.Helper", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.Picture.Helper", "POPO.Picture.Helper\POPO.Picture.Helper.csproj", "{04EDC94C-6C84-43F4-A461-ABD84DA4843E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.Http.Helper", "POPO.Http.Helper\POPO.Http.Helper.csproj", "{45119BE4-0D8E-448D-A2C4-7491734F7317}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EDC94C-6C84-43F4-A461-ABD84DA4843E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45119BE4-0D8E-448D-A2C4-7491734F7317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45119BE4-0D8E-448D-A2C4-7491734F7317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45119BE4-0D8E-448D-A2C4-7491734F7317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45119BE4-0D8E-448D-A2C4-7491734F7317}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

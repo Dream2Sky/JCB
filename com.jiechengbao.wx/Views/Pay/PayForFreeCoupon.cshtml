@@ -1,84 +1,97 @@
 ﻿
-@{
-    ViewBag.Title = "消费优惠券";
-    Layout = "~/Views/LayoutPage2.cshtml";
-}
+<!DOCTYPE html>
 
-<style>
-    .mui-btn-block {
-        padding: 10px;
-        font-size: 15px;
-        margin-top: 10px;
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <!-- 防止点击输入框 页面放大 -->
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <title>消费优惠券</title>
+    <link href="~/Content/css/mui.min.css" rel="stylesheet" />
+
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/mui.min.js"></script>
+
+    <style>
+        .mui-btn-block {
+            padding: 10px;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .mui-table-view span.mui-pull-right {
+            color: #999;
+        }
+
+        .mui-table-view {
+            margin-top: 20px;
+        }
+
+        .title {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    @if (ViewBag.MemberName == string.Empty || ViewBag.FreeCouponName == string.Empty)
+    {
+        <p class="title">无效的二维码,未能从该二维码上获取到合法信息</p>
     }
-
-    .mui-table-view span.mui-pull-right {
-        color: #999;
+    else
+    {
+        <div class="mui-content-padded">
+            <p>您是否确定要使用【@ViewBag.MemberName】用户的【@ViewBag.FreeCouponName】优惠券</p>
+            <p>如果是则点击下方按钮使用该用户的 @ViewBag.FreeCouponName 优惠券，如果不是则请关掉页面</p>
+            <button id='promptBtn' class="mui-btn mui-btn-block" type='button'>点击使用优惠券</button>
+        </div>
     }
-
-    .mui-table-view {
-        margin-top: 20px;
-    }
-
-    .title {
-        text-align:center;
-    }
-</style>
-
-@if (ViewBag.MemberName == string.Empty || ViewBag.FreeCouponName == string.Empty)
-{
-    <p class="title">无效的二维码,未能从该二维码上获取到合法信息</p>
-}
-else
-{
-    <div class="mui-content-padded">
-        <p>您是否确定要使用【@ViewBag.MemberName】用户的【@ViewBag.FreeCouponName】优惠券</p>
-        <p>如果是则点击下方按钮使用该用户的 @ViewBag.FreeCouponName 优惠券，如果不是则请关掉页面</p>
-        <button id='promptBtn' class="mui-btn mui-btn-block" type='button'>点击使用优惠券</button>
-    </div>
-}
-
-<script>
-    document.getElementById("promptBtn").addEventListener('tap', function (e) {
-        e.detail.gesture.preventDefault();
-        var btnArray = ['取消', '确定'];
-        mui.prompt('请输入服务消费密码：', '服务消费密码', '系统通知', btnArray, function (e) {
-            if (e.index == 1) {
-                $.ajax({
-                    url: "/Pay/PayForFreeCoupon",
-                    type: "POST",
-                    data: {
-                        myFreeCouponId: '@ViewBag.MyFreeCouponId',
-                        password: e.value
-                    },
-                    success: function (data) {
-                        if (data == "False") {
-                            mui.alert("使用该优惠券失败");
+    <script>
+        document.getElementById("promptBtn").addEventListener('tap', function (e) {
+            e.detail.gesture.preventDefault();
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请输入服务消费密码：', '服务消费密码', '系统通知', btnArray, function (e) {
+                if (e.index == 1) {
+                    $.ajax({
+                        url: "/Pay/PayForFreeCoupon",
+                        type: "POST",
+                        data: {
+                            myFreeCouponId: '@ViewBag.MyFreeCouponId',
+                            password: e.value,
+                            sessionId: '@ViewBag.SessionId'
+                        },
+                        success: function (data) {
+                            if (data == "False") {
+                                mui.alert("使用该优惠券失败");
+                            }
+                            else if (data == "PasswordError") {
+                                mui.alert("服务消费密码错误");
+                            }
+                            else if (data == "True") {
+                                mui.toast("使用成功");
+                            }
+                            else if (data == "NotSettingPassword") {
+                                mui.alert("尚未设置消费密码，请到后台设置密码");
+                            }
+                            else {
+                                mui.alert("使用失败");
+                            }
+                        },
+                        error: function () {
+                            mui.alert("系统错误， 使用该优惠券失败");
                         }
-                        else if (data == "PasswordError") {
-                            mui.alert("服务消费密码错误");
-                        }
-                        else if (data == "True") {
-                            alert("使用成功");
-                            window.location.href = "/UserInfo/Info";
-                        }
-                        else if (data == "NotSettingPassword") {
-                            mui.alert("尚未设置消费密码，请到后台设置密码");
-                        }
-                        else {
-                            mui.alert("使用失败");
-                        }
-                    },
-                    error: function() {
-                        mui.alert("系统错误， 使用该优惠券失败");
-                    }
-                })
-            }
+                    })
+                }
+                $(".mui-popup-input input").attr("type", "password");
+            })
+        });
 
-            $(".mui-popup-input input").attr("type", "password");
+        $(document).ready(function () {
+            $("#atoorder").addClass("mui-active");
         })
-    });
+    </script>
+</body>
 
-    $(document).ready(function () {
-        $("#atoorder").addClass("mui-active");
-    })
-</script>
+</html>

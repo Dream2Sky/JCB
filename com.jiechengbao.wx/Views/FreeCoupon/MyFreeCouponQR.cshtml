@@ -33,7 +33,7 @@
         </li>
     </ul>
     <p>
-        <img class="qrView" src="/MyFreeCouponQRs/@ViewBag.MyFreeCouponPath" />
+        <img class="qrView" src="/MyFreeCouponQRs/@ViewBag.QrPath" />
     </p>
 </div>
 
@@ -41,5 +41,18 @@
 
     $(document).ready(function () {
         $("#atoinfo").addClass("mui-active");
-    })
+
+        window.setInterval(function () {
+            $.ajax({
+                url: "/Comet/IsConsume",
+                type: "POST",
+                success: function (data) {
+                    if (data) {
+                        mui.toast("消费成功");
+                        window.location.href = "/UserInfo/Info";
+                    }
+                }
+            });
+        }, 3000);
+    });
 </script>

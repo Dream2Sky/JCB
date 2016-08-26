@@ -138,14 +138,6 @@ namespace com.jiechengbao.wx.Controllers
                     {
                         db.Set<MyFreeCoupon>().Add(mfc);
                         db.SaveChanges();
-                        string qrpath = CreateMyFreeCouponQR(mfc.Id.ToString());
-
-                        mfc.FreeCouponQRs = qrpath;
-
-                        db.Set<MyFreeCoupon>().Attach(mfc);
-                        db.Entry(mfc).State = System.Data.Entity.EntityState.Modified;
-
-                        db.SaveChanges();
 
                         trans.Commit();
 
@@ -200,28 +192,54 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult MyFreeCouponQR(Guid myFreeCouponId)
         {
-            MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
-            MyFreeCouponModel mfcm = new MyFreeCouponModel();
-            FreeCoupon fc = _freeCouponBLL.GetFreeCouponById(mfc.FreeCouponId);
+            try
+            {
+                MyFreeCoupon mfc = _myFreeCouponBLL.GetMyFreeCouponById(myFreeCouponId);
+                MyFreeCouponModel mfcm = new MyFreeCouponModel();
+                FreeCoupon fc = _freeCouponBLL.GetFreeCouponById(mfc.FreeCouponId);
 
-            mfcm.myFreeCouponId = mfc.Id;
-            mfcm.FreeCouponName = fc.CouponName;
-            mfcm.CreatedTime = mfc.CreatedTime;
+                mfcm.myFreeCouponId = mfc.Id;
+                mfcm.FreeCouponName = fc.CouponName;
+                mfcm.CreatedTime = mfc.CreatedTime;
 
-            ViewBag.MyFreeCouponPath = mfc.FreeCouponQRs;
+                // 动态二维码的地址
+                // 先判断 当前 会话 中 优惠券二维码的缓存 是否为空
+                if (System.Web.HttpContext.Current.Session["FreeCouponQrPath"] == null)
+                {
+                    string sessionId = System.Web.HttpContext.Current.Session["SessionID"].ToString();
+                    // 如果为空 则生成新的二维码
+                    ViewBag.QrPath = CreateMyFreeCouponQR(myFreeCouponId.ToString(), sessionId);
+                }
+                else
+                {
+                    // 不为空时 直接用缓存二维码
+                    ViewBag.QrPath = System.Web.HttpContext.Current.Session["FreeCouponQrPath"].ToString();
+                }
 
-            ViewBag.MyFreeCouponModel = mfcm;
+               // ViewBag.MyFreeCouponPath = mfc.FreeCouponQRs;
 
-            return View();
+                ViewBag.MyFreeCouponModel = mfcm;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+
+                return RedirectToAction("ServerError", "Error");
+            }
+            
         }
-        private string CreateMyFreeCouponQR(string freeCouponId)
+        private string CreateMyFreeCouponQR(string freeCouponId,string sessionId)
         {
             try
             {
                 string dir = Server.MapPath("~/MyFreeCouponQRs/");
-                string sourceString = "http://jcb.ybtx88.com/Pay/PayForFreeCoupon?myFreeCouponId=" + freeCouponId;
+                string sourceString = "http://jcb.ybtx88.com/Pay/PayForFreeCoupon?myFreeCouponId=" + freeCouponId + "&sessionId=" + sessionId; ;
                 string qrPath = QRCodeCreator.Create(sourceString, dir);
 
+                System.Web.HttpContext.Current.Session["FreeCouponQrPath"] = qrPath;
                 return qrPath;
             }
             catch (Exception ex)

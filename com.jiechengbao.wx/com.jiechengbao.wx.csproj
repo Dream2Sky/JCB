@@ -243,7 +243,9 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CometController.cs" />
     <Compile Include="Controllers\CreditMollController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FreeCouponController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OauthController.cs" />
@@ -354,6 +356,7 @@
     <Content Include="Views\Advertisement\AdDetail.cshtml" />
     <Content Include="Views\Home\AdList.cshtml" />
     <Content Include="Views\Home\AdDetail.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -403,6 +406,10 @@
     <ProjectReference Include="..\POPO.ActionFilter.Helper\POPO.ActionFilter.Helper.csproj">
       <Project>{a7e6a98b-3717-4d59-92c5-4db2e8f8812d}</Project>
       <Name>POPO.ActionFilter.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POPO.Http.Helper\POPO.Http.Helper.csproj">
+      <Project>{45119be4-0d8e-448d-a2c4-7491734f7317}</Project>
+      <Name>POPO.Http.Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
       <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>
