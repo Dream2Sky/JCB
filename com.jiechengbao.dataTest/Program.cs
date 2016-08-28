@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using com.jiechengbao.common;
 using com.jiechengbao.dal;
 using System.Net;
+using POPO.Picture.Helper;
 
 namespace com.jiechengbao.dataTest
 {
@@ -51,6 +52,8 @@ namespace com.jiechengbao.dataTest
             //dal.Insert(member);
             #endregion
 
+            #region 注释
+
             //string url = "http://www.baidu.com";
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -69,12 +72,19 @@ namespace com.jiechengbao.dataTest
             //}
 
 
-            AdvertisementDAL dal = new AdvertisementDAL();
+            //AdvertisementDAL dal = new AdvertisementDAL();
 
-            foreach (var item in dal.GetAllNotDeletedAdvertisement(5))
-            {
-                Console.WriteLine(item.AdName);
-            }
+            //foreach (var item in dal.GetAllNotDeletedAdvertisement(5))
+            //{
+            //    Console.WriteLine(item.AdName);
+            //}
+
+            #endregion
+
+            string sourceFile = @"D:/source.jpg";
+            string outputFile = @"D:/output.jpg";
+
+            PictureHelper.getThumImage(sourceFile, 70, 1, outputFile);
 
             Console.WriteLine("Finished");
 

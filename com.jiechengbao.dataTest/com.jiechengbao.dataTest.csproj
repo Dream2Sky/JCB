@@ -95,6 +95,10 @@
       <Project>{435c1162-d8ea-4f2a-940e-d2cd088837e4}</Project>
       <Name>com.jiechengbao.dal</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
+      <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>
+      <Name>POPO.Picture.Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

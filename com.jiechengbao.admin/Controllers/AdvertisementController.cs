@@ -37,7 +37,7 @@ namespace com.jiechengbao.admin.Controllers
                 file.SaveAs(path);
 
                 string targetPath = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                PictureHelper.getThumImage(path, 32, 3, targetPath);
+                PictureHelper.getThumImage(path, 70, 1, targetPath);
 
                 FileInfo fi = new FileInfo(path);
                 fi.Delete();

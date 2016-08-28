@@ -1403,3 +1403,21 @@ Home/Index: GetYesterDayOrders 3ms
 8/24/2016 10:36:04 AM : 
 Home/Index: Foreach orderList 180ms
 ========================================================================
+8/28/2016 10:20:44 AM : 
+Home/Index: GetAllNoDeletedMembersCount 8ms
+========================================================================
+8/28/2016 10:20:44 AM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/28/2016 10:20:44 AM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/28/2016 10:20:44 AM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/28/2016 10:24:52 AM : 
+Object reference not set to an instance of an object.
+========================================================================
+8/28/2016 10:24:52 AM : 
+   at com.jiechengbao.admin.Controllers.GoodsController.Upload(HttpPostedFileBase file) in D:\Source\Repos\JCB\com.jiechengbao.admin\Controllers\GoodsController.cs:line 166
+========================================================================

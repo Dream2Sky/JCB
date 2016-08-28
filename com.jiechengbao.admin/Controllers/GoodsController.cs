@@ -163,14 +163,26 @@ namespace com.jiechengbao.admin.Controllers
             try
             {
                 string fileName = Guid.NewGuid().ToString().Replace("-", "")+".jpg";
-                string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(file.FileName));
-                file.SaveAs(path);
                 
-                string targetPath = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                PictureHelper.getThumImage(path, 18, 3, targetPath);
 
-                FileInfo fi = new FileInfo(path);
-                fi.Delete();
+                LogHelper.Log.Write("file's contentLength is "+file.ContentLength.ToString());
+                // 判断图片是否大于 100 KB
+                if (file.ContentLength > 102400)
+                {
+                    string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+
+                    string targetPath = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                    PictureHelper.getThumImage(path, 70, 1, targetPath);
+
+                    FileInfo fi = new FileInfo(path);
+                    fi.Delete();
+                }
+                else
+                {
+                    string path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), System.IO.Path.GetFileName(fileName));
+                    file.SaveAs(path);
+                }
 
                 return Json(fileName, JsonRequestBehavior.AllowGet);
             }
