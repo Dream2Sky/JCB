@@ -104,9 +104,26 @@ namespace com.jiechengbao.wx
 
         protected void Session_End(object sender, EventArgs e)
         {
-            LogHelper.Log.Write("Current Session is ending,now releasing the session about freeCouponQrPath");
             if (System.Web.HttpContext.Current.Session["FreeCouponQrPath"] != null)
             {
+                // get the qr path
+                string path = Server.MapPath("~/MyFreeCouponQRs/" + System.Web.HttpContext.Current.Session["FreeCouponQrPath"].ToString());
+                System.IO.FileInfo fi = new System.IO.FileInfo(path);
+
+                // delete the qr file when the current session is ending
+                try
+                {
+                    if (fi != null)
+                    {
+                        fi.Delete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Log.Write(ex.Message);
+                    LogHelper.Log.Write(ex.StackTrace);
+                }
+
                 System.Web.HttpContext.Current.Session["FreeCouponQrPath"] = null;
             }
         }
