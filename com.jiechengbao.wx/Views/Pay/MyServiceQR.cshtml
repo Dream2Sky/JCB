@@ -3,7 +3,7 @@
     ViewBag.Title = "我的服务二维码";
     Layout = "~/Views/LayoutPage2.cshtml";
 }
-@model com.jiechengbao.entity.ServiceQR
+
 @using com.jiechengbao.entity
 <style>
     .mui-content-padded {
@@ -19,7 +19,6 @@
 </style>
 @{ 
     MyService ms = ViewBag.Service as MyService;
-    
 }
 <div class="mui-content-padded">
     <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
@@ -33,7 +32,7 @@
         </li>
     </ul>
     <p>
-        <img class="qrView" src="/QR/@Model.QRPath" />
+        <img class="qrView" src="/QR/@ViewBag.QrPath" />
     </p>
 </div>
 
@@ -41,5 +40,20 @@
 
     $(document).ready(function () {
         $("#atoinfo").addClass("mui-active");
+        
+        window.setInterval(function () {
+            $.ajax({
+                url: "/Comet/IsConsume",
+                type: "POST",
+                success: function (data) {
+                    if (data) {
+                        mui.toast("消费成功");
+                        window.location.href = "/UserInfo/Info";
+                    }
+                }
+            });
+
+        }, 3000);
+       
     })
 </script>

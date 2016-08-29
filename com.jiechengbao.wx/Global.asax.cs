@@ -104,15 +104,16 @@ namespace com.jiechengbao.wx
 
         protected void Session_End(object sender, EventArgs e)
         {
+            #region 删除优惠券二维码
             if (System.Web.HttpContext.Current.Session["FreeCouponQrPath"] != null)
             {
-                // get the qr path
-                string path = Server.MapPath("~/MyFreeCouponQRs/" + System.Web.HttpContext.Current.Session["FreeCouponQrPath"].ToString());
-                System.IO.FileInfo fi = new System.IO.FileInfo(path);
-
-                // delete the qr file when the current session is ending
                 try
                 {
+                    // get the qr path
+                    string path = Server.MapPath("~/MyFreeCouponQRs/" + System.Web.HttpContext.Current.Session["FreeCouponQrPath"].ToString());
+                    System.IO.FileInfo fi = new System.IO.FileInfo(path);
+
+                    // delete the qr file when the current session is ending
                     if (fi != null)
                     {
                         fi.Delete();
@@ -126,6 +127,28 @@ namespace com.jiechengbao.wx
 
                 System.Web.HttpContext.Current.Session["FreeCouponQrPath"] = null;
             }
+            #endregion
+
+            #region 删除服务二维码
+            if (System.Web.HttpContext.Current.Session["ServiceQRPath"] != null)
+            {
+                try
+                {
+                    string path = Server.MapPath("~/QR/" + System.Web.HttpContext.Current.Session["ServiceQRPath"].ToString());
+                    System.IO.FileInfo fi = new System.IO.FileInfo(path);
+                    if (fi != null)
+                    {
+                        fi.Delete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Log.Write(ex.Message);
+                    LogHelper.Log.Write(ex.StackTrace);
+                }
+            }
+            #endregion
+            
         }
     }
 }

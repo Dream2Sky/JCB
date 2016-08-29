@@ -176,7 +176,6 @@ namespace com.jiechengbao.wx.Controllers
             s.Close();
             s.Dispose();
 
-
             //转换数据格式并验证签名
             WxPayData data = new WxPayData();
             try
@@ -607,7 +606,7 @@ namespace com.jiechengbao.wx.Controllers
             return 0;
         }
 
-        public ActionResult ConsumeService(Guid serviceId)
+        public ActionResult ConsumeService(Guid serviceId, string sessionId)
         {
             if (serviceId == null)
             {
@@ -626,11 +625,13 @@ namespace com.jiechengbao.wx.Controllers
             sm.ServiceId = ms.Id;
             sm.ServiceName = ms.GoodsName;
 
+            ViewBag.SessionId = sessionId;
+
             return View(sm);
         }
 
         [HttpPost]
-        public ActionResult ConsumeService(Guid serviceId, string password)
+        public ActionResult ConsumeService(Guid serviceId, string password, string sessionId)
         {
             if (serviceId == null)
             {
@@ -640,36 +641,64 @@ namespace com.jiechengbao.wx.Controllers
             {
                 return Json("PasswordError", JsonRequestBehavior.AllowGet);
             }
+
             // 获取消费密码
             ServiceConsumePassword scp = _serviceConsumePasswordBLL.GetServicePassword();
+
             if (scp.Password == password)
             {
-                ServiceConsumeRecord scr = new ServiceConsumeRecord();
-                scr.Id = Guid.NewGuid();
-                scr.IsDeleted = false;
-                scr.ServiceId = serviceId;
-                scr.CreatedTime = DateTime.Now;
-                scr.DeletedTime = DateTime.MinValue.AddHours(8);
-
-                if (_serviceConsumeRecoredBLL.Add(scr))
-                {
-                    MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
-                    if (ms.CurrentCount > 0)
-                    {
-                        ms.CurrentCount -= 1;
-                    }
-                    else
-                    {
-                        return Json("False", JsonRequestBehavior.AllowGet);
-                    }
-                    _serviceBLL.Update(ms);
-
-                    return Json("True", JsonRequestBehavior.AllowGet);
-                }
-                else
+                MyService service = _serviceBLL.GetMyServiceByServiceId(serviceId);
+                if (service == null)
                 {
                     return Json("False", JsonRequestBehavior.AllowGet);
                 }
+                if (service.CurrentCount > 0)
+                {
+                    service.CurrentCount -= 1;
+                }
+
+                string res = "False";
+
+                using (JCB_DBContext db = new JCB_DBContext())
+                {
+                    using (var trans = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            ServiceConsumeRecord scr = new ServiceConsumeRecord();
+                            scr.Id = Guid.NewGuid();
+                            scr.IsDeleted = false;
+                            scr.ServiceId = serviceId;
+                            scr.CreatedTime = DateTime.Now;
+                            scr.DeletedTime = DateTime.MinValue.AddHours(8);
+
+                            db.Set<ServiceConsumeRecord>().Add(scr);
+
+                            db.Set<MyService>().Attach(service);
+                            db.Entry(service).State = System.Data.Entity.EntityState.Modified;
+
+                            db.SaveChanges();
+
+                            string url = @"http://jcb.ybtx88.com/Comet/CreateSession";
+
+                            // session 注入 创建 System.web.httpcontext.current.session['IsPay']
+                            SessionInject(url, sessionId);
+
+                            trans.Commit();
+                            res = "True";
+                        }
+                        catch (Exception ex)
+                        {
+                            LogHelper.Log.Write(ex.Message);
+                            LogHelper.Log.Write(ex.StackTrace);
+                            trans.Rollback();
+
+                            res = "False";
+                        }
+                    }
+                }
+
+                return Json(res, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -679,12 +708,29 @@ namespace com.jiechengbao.wx.Controllers
 
         public ActionResult MyServiceQR(Guid serviceId)
         {
-            ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
+            // 动态生成服务消费二维码
+            // 先判断 当前缓存里有没有 服务消费二维码的存在
+            // 如果没有 则获取当前 sessionId 动态 生成
+            if (System.Web.HttpContext.Current.Session["ServiceQRPath"] == null)
+            {
+                string sessionId = System.Web.HttpContext.Current.Session["SessionId"].ToString();
+                ViewBag.QrPath = CreateServiceQR(serviceId, sessionId);
+            }
+            else
+            {
+                // 如果有 则直接用当前服务消费二维码
+                ViewBag.QrPath = System.Web.HttpContext.Current.Session["ServiceQRPath"].ToString();
+            }
+
             MyService ms = _serviceBLL.GetMyServiceByServiceId(serviceId);
+
+
+            //ServiceQR qr = _serviceQRBLL.GetServiceQRByServcieId(serviceId);
+
 
             ViewBag.Service = ms;
 
-            return View(qr);
+            return View();
         }
 
         public ActionResult MyExchangeServiceQR(Guid ExchangeServiceRecordId)
@@ -850,20 +896,10 @@ namespace com.jiechengbao.wx.Controllers
 
                             LogHelper.Log.Write("保存成功");
 
-
                             string url = "http://jcb.ybtx88.com/Comet/CreateSession";
 
-                            CookieContainer cc = new CookieContainer();
-
-                            Cookie c = new Cookie();
-                            c.Name = "ASP.NET_SessionId";
-                            c.Path = "/";
-                            c.Domain = "jcb.ybtx88.com";
-                            c.Value = sessionId;
-
-                            cc.Add(c);
-
-                            HttpHelper.AccessURL_GET(url, cc);
+                            // session注入 创建 System.web.httpContext.current.session['IsPay']
+                            SessionInject(url, sessionId);
 
                             trans.Commit();
 
@@ -878,7 +914,6 @@ namespace com.jiechengbao.wx.Controllers
                             trans.Rollback();
                             res = "False";
                         }
-
                     }
                 }
                 return Json(res, JsonRequestBehavior.AllowGet);
@@ -943,6 +978,32 @@ namespace com.jiechengbao.wx.Controllers
         //        return Json("True", JsonRequestBehavior.AllowGet);
         //    }
         //}
+
+        private void SessionInject(string url, string sessionId)
+        {
+            try
+            {
+                CookieContainer cc = new CookieContainer();
+
+                Cookie c = new Cookie();
+                c.Name = "ASP.NET_SessionId";
+                c.Path = "/";
+                c.Domain = "jcb.ybtx88.com";
+                c.Value = sessionId;
+
+                cc.Add(c);
+
+                HttpHelper.AccessURL_GET(url, cc);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                throw;
+            }
+
+        }
+
 
         /// <summary>
         /// 添加充值积分记录
@@ -1114,7 +1175,8 @@ namespace com.jiechengbao.wx.Controllers
                 _serviceBLL.Add(ms);
 
                 // 生成二维码
-                CreateServiceQR(memberId, ms.Id);
+                // 改成动态生成二维码
+                // CreateServiceQR(memberId, ms.Id);
             }
         }
 
@@ -1140,31 +1202,57 @@ namespace com.jiechengbao.wx.Controllers
         /// </summary>
         /// <param name="memberId"></param>
         /// <param name="serviceId"></param>
+        //[NonAction]
+        //private void CreateServiceQR(Guid memberId, Guid serviceId)
+        //{
+        //    try
+        //    {
+        //        string dir = Server.MapPath("~/QR/");
+
+        //        ServiceQR sqr = new ServiceQR();
+        //        sqr.Id = Guid.NewGuid();
+
+        //        sqr.IsDeleted = false;
+        //        sqr.MemberId = memberId;
+        //        sqr.ServcieId = serviceId;
+        //        sqr.CreatedTime = DateTime.Now;
+        //        sqr.DeletedTime = DateTime.MinValue.AddHours(8);
+
+        //        string sourceString = "http://jcb.ybtx88.com/Pay/ConsumeService?serviceId=" + serviceId.ToString();
+
+        //        LogHelper.Log.Write("sourceString: " + sourceString);
+
+        //        string qrPath = QRCodeCreator.Create(sourceString, dir);
+
+        //        sqr.QRPath = qrPath;
+
+        //        _serviceQRBLL.Add(sqr);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogHelper.Log.Write(ex.Message);
+        //        LogHelper.Log.Write(ex.StackTrace);
+        //        throw;
+        //    }
+        //}
+
+        /// <summary>
+        /// 根据 sessionId 动态生成二维码
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="sessionId"></param>
+        /// <returns></returns>
         [NonAction]
-        private void CreateServiceQR(Guid memberId, Guid serviceId)
+        private string CreateServiceQR(Guid serviceId, string sessionId)
         {
             try
             {
                 string dir = Server.MapPath("~/QR/");
-
-                ServiceQR sqr = new ServiceQR();
-                sqr.Id = Guid.NewGuid();
-
-                sqr.IsDeleted = false;
-                sqr.MemberId = memberId;
-                sqr.ServcieId = serviceId;
-                sqr.CreatedTime = DateTime.Now;
-                sqr.DeletedTime = DateTime.MinValue.AddHours(8);
-
-                string sourceString = "http://jcb.ybtx88.com/Pay/ConsumeService?serviceId=" + serviceId.ToString();
-
-                LogHelper.Log.Write("sourceString: " + sourceString);
-
+                string sourceString = @"http://jcb.ybtx88.com/Pay/ConsumeService?serviceId=" + serviceId.ToString() + "&sessionId=" + sessionId;
                 string qrPath = QRCodeCreator.Create(sourceString, dir);
 
-                sqr.QRPath = qrPath;
-
-                _serviceQRBLL.Add(sqr);
+                System.Web.HttpContext.Current.Session["ServiceQRPath"] = qrPath;
+                return qrPath;
             }
             catch (Exception ex)
             {
