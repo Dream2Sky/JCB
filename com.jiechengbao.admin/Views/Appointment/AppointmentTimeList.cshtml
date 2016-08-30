@@ -1,6 +1,26 @@
-﻿
+﻿@using com.jiechengbao.entity
+<table class="table time_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>服务时间段</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < (ViewData["AppointmentTimeList"] as IEnumerable<AppointmentTime>).Count(); i++)
+        {
+            <tr>
+                <td>
+                    <input type="radio" name="raido_time" value="@((ViewData["AppointmentTimeList"] as IEnumerable<AppointmentTime>).ElementAt(i).Id)" />
+                </td>
+                <td>@((ViewData["AppointmentTimeList"] as IEnumerable<AppointmentTime>).ElementAt(i).TimePeriod)</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-@using com.jiechengbao.entity
+<!--
+@*@using com.jiechengbao.entity
 <link href="~/Content/css/jquery.timepicker.css" rel="stylesheet" />
 <script src="~/Content/js/jquery.timepicker.js"></script>
 
@@ -67,10 +87,7 @@
         <button type="button" class="btn btn-primary" onclick="AddTime();">添加</button>
     </form>
 </div>
-@*<label>添加预约时间项</label>
-    <div class="container container-add-followitem row">
 
-    </div>*@
 
 <script>
     $("input[name='stime']").timepicker({
@@ -123,4 +140,5 @@
         })
     }
 
-</script>
+</script>*@
+-->

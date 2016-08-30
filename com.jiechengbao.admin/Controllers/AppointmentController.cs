@@ -61,7 +61,7 @@ namespace com.jiechengbao.admin.Controllers
             // 判断空值
             if (string.IsNullOrWhiteSpace(serviceName))
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("Empty", JsonRequestBehavior.AllowGet);
             }
 
             // 判断是否存在该服务项
@@ -70,41 +70,109 @@ namespace com.jiechengbao.admin.Controllers
                 return Json("ExistName", JsonRequestBehavior.AllowGet);
             }
 
-            try
+            bool res = false;
+            string Code = string.Empty;
+            string Name = string.Empty;
+
+            // 启用事务 添加新的服务项
+            using (JCB_DBContext db = new JCB_DBContext ())
             {
-                AppointmentService appointmentService = new AppointmentService();
-
-                appointmentService.Id = Guid.NewGuid();
-                appointmentService.Code = "apm_" + TimeManager.GetCurrentTimestamp();
-                appointmentService.CreatedTime = DateTime.Now;
-                appointmentService.DeletedTime = DateTime.MinValue.AddHours(8);
-                appointmentService.IsDeleted = false;
-                appointmentService.Name = serviceName;
-
-                // 添加预约服务
-                if (_appointmentServiceBLL.Add(appointmentService))
+                using (var trans = db.Database.BeginTransaction())
                 {
-                    // 构造 返回的 json 对象
-                    var obj = new
+                    try
                     {
-                        Code = appointmentService.Code,
-                        Name = appointmentService.Name
-                    };
+                        AppointmentService appointmentService = new AppointmentService();
 
-                    // 添加成功则返回json对象  
-                    return Json(obj, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json("False", JsonRequestBehavior.AllowGet);
+                        appointmentService.Id = Guid.NewGuid();
+                        appointmentService.Code = "apm_" + TimeManager.GetCurrentTimestamp();
+                        appointmentService.CreatedTime = DateTime.Now;
+                        appointmentService.DeletedTime = DateTime.MinValue.AddHours(8);
+                        appointmentService.IsDeleted = false;
+                        appointmentService.Name = serviceName;
+
+                        db.Set<AppointmentService>().Add(appointmentService);
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+
+                        res = true;
+                        Code = appointmentService.Code;
+                        Name = appointmentService.Name;
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+                        trans.Rollback();
+                    }
                 }
             }
-            catch (Exception ex)
+
+            if (res)
             {
-                LogHelper.Log.Write(ex.Message);
-                LogHelper.Log.Write(ex.StackTrace);
-                throw;
+                var obj = new
+                {
+                    res = res,
+                    Code = Code,
+                    Name = Name
+                };
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
+
+            return Json("False", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 编辑服务项
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <param name="ServiceName"></param>
+        /// <returns></returns>
+        public ActionResult UpdateService(string Code, string ServiceName)
+        {
+            if (string.IsNullOrEmpty(Code) || string.IsNullOrEmpty(ServiceName))
+            {
+                return Json("Empty", JsonRequestBehavior.AllowGet);
+            }
+
+            AppointmentService appService = _appointmentServiceBLL.GetByCode(Code);
+            if (appService == null)
+            {
+                return Json("NullObject", JsonRequestBehavior.AllowGet);
+            }
+
+            appService.Name = ServiceName;
+
+            string res = "False";
+
+            // 启动事务 更新数据库状态
+            using (JCB_DBContext db = new JCB_DBContext ())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.Set<AppointmentService>().Attach(appService);
+                        db.Entry(appService).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+
+                        res = "True";
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+                        trans.Rollback();
+
+                        res = "False";
+                    }
+                }
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -117,7 +185,7 @@ namespace com.jiechengbao.admin.Controllers
         {
             if (string.IsNullOrWhiteSpace(Code))
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("Empty", JsonRequestBehavior.AllowGet);
             }
 
             AppointmentService appointmentService = new AppointmentService();
@@ -125,20 +193,40 @@ namespace com.jiechengbao.admin.Controllers
 
             if (appointmentService == null)
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("NullObject", JsonRequestBehavior.AllowGet);
             }
 
-            appointmentService.IsDeleted = true;
-            appointmentService.DeletedTime = DateTime.Now;
+            string res = "False";
 
-            if (_appointmentServiceBLL.Update(appointmentService))
+            using (JCB_DBContext db = new JCB_DBContext ())
             {
-                return Json("True", JsonRequestBehavior.AllowGet);
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        appointmentService.IsDeleted = true;
+                        appointmentService.DeletedTime = DateTime.Now;
+
+                        db.Set<AppointmentService>().Attach(appointmentService);
+                        db.Entry(appointmentService).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+
+                        res = "True";            
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                    }
+                }
             }
-            else
-            {
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

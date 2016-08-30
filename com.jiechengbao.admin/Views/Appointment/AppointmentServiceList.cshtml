@@ -1,5 +1,23 @@
-﻿
-@using com.jiechengbao.entity
+﻿@using com.jiechengbao.entity
+<table class="table service_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>服务项名称</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < (ViewData["AppointmentServiceList"] as IEnumerable<AppointmentService>).Count(); i++)
+        {
+            <tr>
+                <td><input type="radio" name="radio_service" value="@((ViewData["AppointmentServiceList"] as IEnumerable<AppointmentService>).ElementAt(i).Code)"></td>
+                <td>@((ViewData["AppointmentServiceList"] as IEnumerable<AppointmentService>).ElementAt(i).Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!--
+@*@using com.jiechengbao.entity
 
 <style>
     .container-add-followitem {
@@ -102,4 +120,5 @@
         })
     }
 
-</script>
+</script>*@
+-->

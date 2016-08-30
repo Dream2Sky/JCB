@@ -1421,3 +1421,129 @@ Object reference not set to an instance of an object.
 8/28/2016 10:24:52 AM : 
    at com.jiechengbao.admin.Controllers.GoodsController.Upload(HttpPostedFileBase file) in D:\Source\Repos\JCB\com.jiechengbao.admin\Controllers\GoodsController.cs:line 166
 ========================================================================
+8/29/2016 2:07:51 PM : 
+Home/Index: GetAllNoDeletedMembersCount 7ms
+========================================================================
+8/29/2016 2:07:51 PM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/29/2016 2:07:51 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/29/2016 2:07:51 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/29/2016 2:27:49 PM : 
+Home/Index: GetAllNoDeletedMembersCount 2ms
+========================================================================
+8/29/2016 2:27:49 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/29/2016 2:27:49 PM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/29/2016 2:27:49 PM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/30/2016 8:27:11 AM : 
+Home/Index: GetAllNoDeletedMembersCount 6ms
+========================================================================
+8/30/2016 8:27:11 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/30/2016 8:27:11 AM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/30/2016 8:27:11 AM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/30/2016 8:31:31 AM : 
+Home/Index: GetAllNoDeletedMembersCount 2ms
+========================================================================
+8/30/2016 8:31:31 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/30/2016 8:31:31 AM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/30/2016 8:31:31 AM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/30/2016 8:31:38 AM : 
+Order/Completed: GetCompletedOrders 1 ms
+========================================================================
+8/30/2016 8:31:38 AM : 
+Order/Completed: 2 ms
+========================================================================
+8/30/2016 8:32:48 AM : 
+Home/Index: GetAllNoDeletedMembersCount 51ms
+========================================================================
+8/30/2016 8:32:48 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/30/2016 8:32:48 AM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/30/2016 8:32:48 AM : 
+Home/Index: Foreach orderList 46ms
+========================================================================
+8/30/2016 8:32:56 AM : 
+Order/Completed: GetCompletedOrders 0 ms
+========================================================================
+8/30/2016 8:32:56 AM : 
+Order/Completed: 672 ms
+========================================================================
+8/30/2016 11:17:14 AM : 
+The provider did not return a ProviderManifestToken string.
+========================================================================
+8/30/2016 11:17:14 AM : 
+   at System.Data.Entity.Core.Common.DbProviderServices.GetProviderManifestToken(DbConnection connection)
+   at MySql.Data.Entity.MySqlManifestTokenResolver.ResolveManifestToken(DbConnection connection)
+   at System.Data.Entity.Utilities.DbConnectionExtensions.GetProviderInfo(DbConnection connection, DbProviderManifest& providerManifest)
+   at System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   at System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   at System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   at com.jiechengbao.dal.CategoryDAL.SelectAllNotDeletedCategories() in D:\Source\Repos\JCB\com.jiechengbao.dal\CategoryDAL.cs:line 17
+========================================================================
+8/30/2016 11:17:46 AM : 
+Home/Index: GetAllNoDeletedMembersCount 56ms
+========================================================================
+8/30/2016 11:17:46 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/30/2016 11:17:46 AM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+8/30/2016 11:17:46 AM : 
+Home/Index: Foreach orderList 49ms
+========================================================================
+8/30/2016 11:43:47 AM : 
+Home/Index: GetAllNoDeletedMembersCount 6ms
+========================================================================
+8/30/2016 11:43:47 AM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+8/30/2016 11:43:47 AM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+8/30/2016 11:43:47 AM : 
+Home/Index: Foreach orderList 0ms
+========================================================================
+8/30/2016 3:13:55 PM : 
+Home/Index: GetAllNoDeletedMembersCount 9ms
+========================================================================
+8/30/2016 3:13:55 PM : 
+Home/Index: GetNewMembersAtYesterDay 1ms
+========================================================================
+8/30/2016 3:13:55 PM : 
+Home/Index: GetYesterDayOrders 2ms
+========================================================================
+8/30/2016 3:13:55 PM : 
+Home/Index: Foreach orderList 1ms
+========================================================================

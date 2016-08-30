@@ -3,7 +3,8 @@
 {
     <p class="title">暂无数据</p>
 }
-else{
+else
+{
 foreach (var item in ViewData["GoodsModelList"] as List<GoodsModel>)
 {
     <div class="goods-item">
@@ -17,7 +18,7 @@ foreach (var item in ViewData["GoodsModelList"] as List<GoodsModel>)
                 <small style="color:#808080;">原价<del>￥@item.OriginalPrice </del></small> 现价 ￥@item.Price
             </div>
             <div class="goods-item-grade">
-                积分：@item.ExchangeCredit
+                @*积分：@item.ExchangeCredit*@
             </div>
             <div class="goods-item-perchase">
                 <span class="cart-iconfont cart-iconcartplus" id="@item.Code"></span>

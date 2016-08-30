@@ -832,7 +832,6 @@ namespace com.jiechengbao.wx.Controllers
             return Json("True", JsonRequestBehavior.AllowGet);
         }
 
-
         /// <summary>
         /// 消费优惠券
         /// </summary>
@@ -1003,7 +1002,6 @@ namespace com.jiechengbao.wx.Controllers
             }
 
         }
-
 
         /// <summary>
         /// 添加充值积分记录

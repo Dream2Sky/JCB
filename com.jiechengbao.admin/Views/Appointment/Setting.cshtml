@@ -4,8 +4,284 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.entity
-<link href="~/Content/css/content.css" rel="stylesheet" />
-<div class="row">
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
+<link href="~/Content/css/custom-styles.css" rel="stylesheet" />
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<script src="~/Content/js/home.js" type="text/javascript"></script>
+<style>
+    .servicea {
+        width: 60%;
+        float: left;
+        padding-left:20px;
+    }
+
+    .serviceb {
+        width: 60%;
+        float: left;
+        position: relative;
+        top: 25px;
+        padding-left:20px;
+    }
+    /*输入框*/
+
+    .form-control {
+        width:23%!important;
+        position: relative;
+        top: 5px;
+    }
+    /*按钮*/
+
+    .btn {
+        float: left;
+        position: relative;
+        left: 427px;
+        top: -7px;
+    }
+
+    .time {
+        /*border: 1px solid red;*/
+        float: left;
+        /*margin:10px;*/
+        padding: 0px 10px;
+    }
+
+    .buta {
+        position: relative;
+        left: 3px;
+        margin: 5px;
+        /* left: 6px;
+             top: 38px;*/
+    }
+
+    .butb {
+        position: relative;
+        left: -12px;
+        margin: 5px;
+        /* left: 6px;
+             top: 38px;*/
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    .modala {
+        margin-top: 147px;
+    }
+
+    .modalb {
+        margin-top: 147px;
+    }
+
+    .stratime {
+        position: relative;
+        right: 128px;
+        top: 5px;
+    }
+
+    .overtime {
+        position: relative;
+        right: -34px;
+        top: 5px;
+    }
+
+    .selecta {
+        float: left;
+        position: relative;
+        left: 67px;
+    }
+
+    .selectb {
+        position: relative;
+        left: 160px;
+        top: -21px;
+    }
+    input[type='radio']{
+        width:20px;
+        height:20px;
+    }
+</style>
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">预约服务设置</li>
+</ol>
+
+<div class="servicea">
+    <div class="container-fluid">
+        <button class="btn  btn-danger buta" data-toggle="modal" data-target="#myModal" onclick="Add()">新增</button>
+        <button class="btn  btn-danger buta" data-toggle="modal" data-target="#myModal" onclick="Edit()">修改</button>
+        <button class="btn  btn-danger buta" data-toggle="modal" data-target="#myModal" onclick="Delete()">删除</button>
+    </div>
+    <div class="container-fluid over div-appointmentservice">
+        @Html.Partial("AppointmentServiceList")
+    </div>
+</div>
+
+<div class="modal fade modala" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="service_form">
+                    <div class="form-group">
+                        <label>服务项名称</label>
+                        <input type="hidden" name="Code" value="" />
+                        <input type="text" class="form-control" name="ServiceName" required data-bv-notempty-message="服务项名不能为空" placeholder="请填写服务项名称">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-Close" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger btn-Save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="serviceb">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <button class="btn  btn-danger butb" data-toggle="modal" data-target="#Modal" onclick="b_add()">新增</button>
+            <button class="btn  btn-danger butb" data-toggle="modal" data-target="#Modal" onclick="b_edit()">修改</button>
+            <button class="btn  btn-danger butb" data-toggle="modal" data-target="#Modal" onclick="b_delete()">删除</button>
+        </div>
+    </div>
+    <div class="container-fluid over div-appointmenttime">
+        @Html.Partial("AppointmentTimeList")
+    </div>
+</div>
+
+<div class="modal fade modalb" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="time_form">
+                    <div class="form-group">
+                        <label>服务时间段</label>
+                        <br />
+                        <label class="stratime">开始时间</label>
+                        <select name="strat-time" class="form-control selecta">
+                            <option value="">00:00</option>
+                            <option value="">00:30</option>
+                            <option value="">01:00</option>
+                            <option value="">01:30</option>
+                            <option value="">02:00</option>
+                            <option value="">02:30</option>
+                            <option value="">03:00</option>
+                            <option value="">03:30</option>
+                            <option value="">04:00</option>
+                            <option value="">04:30</option>
+                            <option value="">05:00</option>
+                            <option value="">05:30</option>
+                            <option value="">06:00</option>
+                            <option value="">06:30</option>
+                            <option value="">07:00</option>
+                            <option value="">07:30</option>
+                            <option value="">08:00</option>
+                            <option value="">08:30</option>
+                            <option value="">09:00</option>
+                            <option value="">09:30</option>
+                            <option value="">10:00</option>
+                            <option value="">10:30</option>
+                            <option value="">11:00</option>
+                            <option value="">11:30</option>
+                            <option value="">12:00</option>
+                            <option value="">12:30</option>
+                            <option value="">13:00</option>
+                            <option value="">13:30</option>
+                            <option value="">14:00</option>
+                            <option value="">14:30</option>
+                            <option value="">15:00</option>
+                            <option value="">15:30</option>
+                            <option value="">16:00</option>
+                            <option value="">16:30</option>
+                            <option value="">17:00</option>
+                            <option value="">17:30</option>
+                            <option value="">18:00</option>
+                            <option value="">18:30</option>
+                            <option value="">19:00</option>
+                            <option value="">19:30</option>
+                            <option value="">20:00</option>
+                            <option value="">20:30</option>
+                            <option value="">21:00</option>
+                            <option value="">21:30</option>
+                            <option value="">22:00</option>
+                            <option value="">22:30</option>
+                            <option value="">23:00</option>
+                            <option value="">23:30</option>
+                        </select>
+                        <label class="overtime">结束时间</label>
+                        <select name="over-time" class="form-control selectb">
+                            <option value="">00:00</option>
+                            <option value="">00:30</option>
+                            <option value="">01:00</option>
+                            <option value="">01:30</option>
+                            <option value="">02:00</option>
+                            <option value="">02:30</option>
+                            <option value="">03:00</option>
+                            <option value="">03:30</option>
+                            <option value="">04:00</option>
+                            <option value="">04:30</option>
+                            <option value="">05:00</option>
+                            <option value="">05:30</option>
+                            <option value="">06:00</option>
+                            <option value="">06:30</option>
+                            <option value="">07:00</option>
+                            <option value="">07:30</option>
+                            <option value="">08:00</option>
+                            <option value="">08:30</option>
+                            <option value="">09:00</option>
+                            <option value="">09:30</option>
+                            <option value="">10:00</option>
+                            <option value="">10:30</option>
+                            <option value="">11:00</option>
+                            <option value="">11:30</option>
+                            <option value="">12:00</option>
+                            <option value="">12:30</option>
+                            <option value="">13:00</option>
+                            <option value="">13:30</option>
+                            <option value="">14:00</option>
+                            <option value="">14:30</option>
+                            <option value="">15:00</option>
+                            <option value="">15:30</option>
+                            <option value="">16:00</option>
+                            <option value="">16:30</option>
+                            <option value="">17:00</option>
+                            <option value="">17:30</option>
+                            <option value="">18:00</option>
+                            <option value="">18:30</option>
+                            <option value="">19:00</option>
+                            <option value="">19:30</option>
+                            <option value="">20:00</option>
+                            <option value="">20:30</option>
+                            <option value="">21:00</option>
+                            <option value="">21:30</option>
+                            <option value="">22:00</option>
+                            <option value="">22:30</option>
+                            <option value="">23:00</option>
+                            <option value="">23:30</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-Close" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-Save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+@*<div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="/Home/Index">管理后台</a></li>
@@ -21,4 +297,235 @@
         //$("#li-appSetting").addClass("a-active");
         $("#li-appSetting").parent().parent().removeClass("collapse");
     })
+</script>*@
+-->
+
+<script>
+    
+    function Edit() {
+        // 获取选中的服务项
+        var service = $("input[name='radio_service']:checked");
+        if (service == null || service == undefined) {
+            alert("请选择要编辑的服务项");
+            return;
+        }
+
+        var tr = service.parent().parent();
+
+        // 获取服务名称
+        var servicename = tr.children('td').eq(1).html();
+
+        // 服务代码 code
+        var servicecode = service.val();
+
+        // 把服务名称 和 服务代码 赋值到 模态框上
+        $("input[name='ServiceName']").val(servicename);
+        $("input[name='Code']").val(servicecode);
+
+        // 显示模态框上的控件
+        $('input').show();
+        $("button").show();
+        $('.btn-Close').html("取消");
+        $('.btn-Save').html("保存");
+        $('label').show();
+        $('.modal-body').show();
+        $(".modal-title").html("编辑服务项");
+
+        // Save();
+        $(".btn-Save").attr("onclick", "Save()");
+    }
+
+    function Save() {
+        $(".service_form").bootstrapValidator('validate');
+        if ($(".service_form").data('bootstrapValidator').isValid()) {
+            var code = $("input[name='Code']").val();
+            var servicename = $("input[name='ServiceName']").val();
+
+            $.ajax({
+                url: "/Appointment/UpdateService",
+                type: "POST",
+                data: {
+                    Code: code,
+                    ServiceName: servicename
+                },
+                success: function(data) {
+                    if (data == "Empty") {
+                        alert("提交的参数为空, 修改服务项失败");
+                    }
+                    else if (data == "NullObject") {
+                        alert("不能获取到服务对象, 修改服务项失败");
+                    }
+                    else if (data == "False") {
+                        alert("修改服务项失败");
+                    }
+                    else if (data == "True") {
+                        alert("修改成功");
+                        var service = $("input[name='radio_service']:checked");
+                        service.parent().parent().children('td').eq(1).html(servicename);
+                        $("#myModal").modal('toggle');
+                    }
+                },
+                error: function() {
+                    alert("修改服务项失败");
+                }
+            });
+        }
+    }
+
+    function Delete() {
+        console.log("start deleting");
+        var service = $("input[name='radio_service']:checked");
+        if (service == null || service == undefined) {
+            alert("请选择想删除的服务项");
+            return;
+        }
+        var code = service.val();
+
+        $(".modal-title").html("是否确定要删除此商品？");
+        $(".btn-Save").attr("onclick", "ConfirmDelete('" + code + "')");
+        $('.btn-Close').html("关闭");
+        $('.btn-Save').html("确认删除");
+        $('label').hide();
+        $('.modal-body').hide();
+    }
+
+    function ConfirmDelete(code) {
+        $.ajax({
+            url: "/Appointment/DeleteService",
+            type: "POST",
+            data: {
+                Code:code
+            },
+            success: function(data) {
+                if (data == "Empty") {
+                    alert("提交的参数为空, 删除服务项失败");
+                }
+                else if (data == "NullObject") {
+                    alert("找不到相应的服务项, 删除服务项失败");
+                }
+                else if (data == "Flase") {
+                    alert("删除服务项失败");
+                }
+                else if(data == "True"){
+                    alert("删除成功");
+                    
+                    var service = $("input[name='radio_service']:checked");
+                    var tr = service.parent().parent().remove();
+                }
+            },
+            error: function() {
+                alert("删除服务项失败");
+            },
+            complete: function () {
+                $("#myModal").modal("toggle");
+            }
+            
+        })
+    }
+
+    function Add() {
+        $(".modal-title").html("添加信息");
+        $("input[name='ServiceName']").val("");
+        $("input[name='Code']").val("");
+        $(".btn-Save").attr("onclick", "AddService()");
+        $('input').show();
+        $('button').show()
+        $('.btn-Close').html("取消");
+        $('.btn-Save').html("保存");
+        $('label').show();
+        $('.modal-body').show();
+    }
+
+    function AddService() {
+        $(".service_form").bootstrapValidator('validate');
+        if ($(".service_form").data('bootstrapValidator').isValid()) {
+            var servicename = $("input[name='ServiceName']").val();
+
+            $.ajax({
+                url: "/Appointment/AddService",
+                type: "POST",
+                data: {
+                    serviceName: servicename
+                },
+                success: function (data) {
+                    if (data == "False") {
+                        alert("添加新的服务项失败");
+                    }
+                    else if (data == "Empty") {
+                        alert("提交的服务名称为空");
+                    }
+                    else if (data == "ExistName") {
+                        alert("已存在相同的服务");
+                    }
+                    else if (data.res) {
+                        alert("添加成功");
+                        $(".service_table").append("<tr><td><input  type='radio' name='radio_service'  value='" + data.Code + "'></input></td><td>" + data.Name + "</td></tr>");
+                        $("#myModal").modal('toggle');
+                    }
+                },
+                error: function () {
+                    alert("系统错误, 添加失败");
+                }
+            });
+        }
+    }
+
+    function b_edit() {
+        var timespan = $("input[name='radio_time']:checked");
+        if (timespan == null || timespan == undefined) {
+            alert("请选择要编辑的时间段");
+            return;
+        }
+
+        var time = timespan.html();
+        var timearray = time.split('~');
+
+        var starttime = timearray[0];
+        var endtime = timearray[1];
+
+        $(".strat-time").find("option[text='" + starttime + "']").attr("selected", true);
+        $(".over-time").find("option[text='" + endtime + "']").attr("selected", true);
+
+
+
+        $("input[name='CategoryName']").val(name);
+        $("input[name='Code']").val(code);
+        // $('input').show();
+        $("button").show();
+        $('.btn-Close').html("取消");
+        $('.btn-Save').html("保存");
+        $('label').show();
+        $('.modal-body').show();
+        if (isService == true) {
+            $("input[type='checkbox']").attr("checked", true);
+        } else {
+            $("input[type='checkbox']").attr("checked", false);
+        }
+
+        $(".modal-title").html("编辑时间信息");
+        $(".btn-Save").attr("onclick", "Save()");
+    }
+
+    function b_delete(code) {
+        $(".modal-title").html("是否确定要删除时间段？");
+        $(".btn-confirm").attr("onclick", "ConfirmDelete('" + code + "')");
+        $('.btn-Close').html("关闭");
+        $('.btn-Save').html("确认删除");
+        $('label').hide();
+        $('.modal-body').hide();
+        $("input[type='text']");
+    }
+
+    function b_add() {
+        $(".modal-title").html("添加时间信息");
+        $("input[name='CategoryName']").val("");
+        $("input[name='IsService']").attr("checked", false);
+        $(".btn-Save").attr("onclick", "AddCategory()");
+        // $('input').show();
+        $('button').show();
+        $('.btn-Close').html("取消");
+        $('.btn-Save').html("保存");
+        $('label').show();
+        $('.modal-body').show();
+    }
 </script>
