@@ -6,7 +6,7 @@
 @using com.jiechengbao.entity
 <link href="~/Content/css/content.css" rel="stylesheet" />
 <style>
-    .div-title {
+    /*.div-title {
         margin-top: 20px;
     }
 
@@ -24,9 +24,122 @@
 
     table {
         max-width: 600px !important;
+    }*/
+
+        .container-fluid {
+        padding-left: 15px;
+    }
+
+        .container-fluid .over {
+            padding-left: 0px;
+        }
+
+        .container-fluid .btn_add {
+            /*border: 1px solid red;*/
+            width: 86%;
+            position: relative;
+            top: 44px;
+            left: -79px;
+        }
+
+    .btn-Add-Category {
+        position: relative;
+        top: -45px;
+        left: -2px;
+    }
+        .over {
+        max-height: 580px;
+        overflow: auto;
     }
 </style>
-<div class="row">
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">广告管理</li>
+</ol>
+<div class="container-fluid">
+    <div class="col-md-12 title">
+        广告管理
+    </div>
+    <div class="container-fluid btn_add">
+        <button class="btn btn-success btn-Add-Category" data-toggle="modal" data-target="#myModal" onclick="Add()">新添广告</button>
+    </div>
+    <div class="container-fluid over">
+        @Html.Partial("AdList")
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>广告名称</label>
+                        <input type="hidden" name="AdCode" value="" />
+                        <input type="text" class="form-control" name="AdName" required data-bv-notempty-message="广告名称不能为空" placeholder="请填写广告名称">
+                    </div>
+                    <div class="form-group">
+                        <label>广告描述</label>
+                        <textarea class="form-control" name="AdDescription" placeholder="请填写广告描述" required data-bv-notempty-message="广告描述不能为空"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>广告图片</label>
+                        <br />
+                        <img id="img-upload" />
+                        <input type="hidden" id="PicturePath" name="AdImagePath" value="" required data-bv-notempty-message="请上传广告图片" />
+                        <input type="file" class="form-control" placeholder="广告图片" id="picture">
+                    </div>
+                    <div class="form-group">
+                        <label>广告分类</label>
+                        <br />
+                        @foreach (var item in ViewData["CategoryList"] as IEnumerable<Category>)
+                        {
+                            <label class="radio-inline">
+                                <input type="radio" name="AdCategory" value="@item.CategoryNO">@item.Name
+                            </label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="IsRecommend" />是否设置为推荐广告
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-Save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLable" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModelLable">广告删除</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    您确定要删除该广告
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-confirm" onclick="ConfirmDelete(code)">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+@*<div class="row">
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="/Home/Index">管理后台</a></li>
@@ -108,7 +221,10 @@
         </div>
 
     </div>
-</div>
+</div>*@
+
+-->
+
 <script>
 
     $(document).ready(function () {

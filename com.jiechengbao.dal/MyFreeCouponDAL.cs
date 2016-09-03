@@ -33,7 +33,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<MyFreeCoupon>().Where(n => n.MemberId == memberId).SingleOrDefault();
+                return db.Set<MyFreeCoupon>().Where(n => n.MemberId == memberId).FirstOrDefault();
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@
     <link href="~/Content/css/home.css" rel="stylesheet" />
     <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
     @*<link href="~/Content/css/base.css" rel="stylesheet" />*@
-    <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    @*<link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' async type='text/css' />*@
 
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
@@ -20,10 +20,14 @@
     <script src="~/Content/js/home.js"></script>
 
     <style>
+        body {
+            font-family:"微软雅黑";
+        }
         img{
             max-height:45px;
             max-width:45px;
         }
+
     </style>
     @*<style>
             body {
@@ -279,9 +283,9 @@
         </div>
     </div>
     <script>
-        $(".nav-li-home").on('click', function () {
-            $(".nav-li-home").find("ul").removeClass("in");
-        })
+        //$(".nav-li-home").on('click', function () {
+        //    $(".nav-li-home").find("ul").removeClass("in");
+        //})
     </script>
 </body>
 </html>

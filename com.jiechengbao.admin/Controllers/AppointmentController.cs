@@ -250,10 +250,10 @@ namespace com.jiechengbao.admin.Controllers
         {
             if (string.IsNullOrWhiteSpace(TimePeriod))
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("Empty", JsonRequestBehavior.AllowGet);
             }
 
-            List<AppointmentTime> atList = _appointmentTimeBLL.GetLastAppointmentTimeList().ToList();
+            //List<AppointmentTime> atList = _appointmentTimeBLL.GetLastAppointmentTimeList().ToList();
 
             string[] tp = TimePeriod.Split('~');
             DateTime stime = DateTime.Parse(tp[0]);
@@ -261,25 +261,25 @@ namespace com.jiechengbao.admin.Controllers
 
             if (stime >= etime)
             {
-                return Json("False", JsonRequestBehavior.AllowGet);
+                return Json("Exception", JsonRequestBehavior.AllowGet);
             }
 
-            foreach (var item in atList)
-            {
-                string[] time = item.TimePeriod.Split('~');
-                DateTime startTime = DateTime.Parse(time[0]);
-                DateTime endTime = DateTime.Parse(time[1]);
+            //foreach (var item in atList)
+            //{
+            //    string[] time = item.TimePeriod.Split('~');
+            //    DateTime startTime = DateTime.Parse(time[0]);
+            //    DateTime endTime = DateTime.Parse(time[1]);
 
-                if ((stime > startTime && stime < endTime) || (endTime > startTime && etime < endTime))
-                {
-                    return Json("Exception", JsonRequestBehavior.AllowGet);
-                }
-            }
+            //    if ((stime > startTime && stime < endTime) || (endTime > startTime && etime < endTime))
+            //    {
+            //        return Json("Exception", JsonRequestBehavior.AllowGet);
+            //    }
+            //}
 
             AppointmentTime at = new AppointmentTime();
             at.Id = Guid.NewGuid();
             at.IsDeleted = false;
-            at.TimePeriod = stime.ToShortTimeString() + "~" + etime.ToShortTimeString();
+            at.TimePeriod = stime.ToString("HH:mm").Split(' ')[0] + "~" + etime.ToString("HH:mm").Split(' ')[0];
             at.CreatedTime = DateTime.Now;
             at.DeletedTime = DateTime.MinValue.AddHours(8);
 
@@ -299,6 +299,7 @@ namespace com.jiechengbao.admin.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult DeleteTime(string Id)
         {
             if (string.IsNullOrWhiteSpace(Id))
@@ -325,7 +326,72 @@ namespace com.jiechengbao.admin.Controllers
             {
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
+        }
 
+        [HttpPost]
+        public ActionResult UpdateTime(string Id, string starttime, string endtime)
+        {
+            if (string.IsNullOrEmpty(Id) || string.IsNullOrEmpty(starttime) || string.IsNullOrEmpty(endtime))
+            {
+                return Json("Empty", JsonRequestBehavior.AllowGet);
+            }
+
+            AppointmentTime at = _appointmentTimeBLL.GetById(Guid.Parse(Id));
+
+            if (at == null)
+            {
+                return Json("NullObject", JsonRequestBehavior.AllowGet);
+            }
+
+            DateTime stime = DateTime.Parse(starttime);
+            DateTime etime = DateTime.Parse(endtime);
+
+            if (stime >= etime)
+            {
+                return Json("Exception", JsonRequestBehavior.AllowGet);
+            }
+
+            //List<AppointmentTime> atList = new List<AppointmentTime>();
+            //atList = _appointmentTimeBLL.GetLastAppointmentTimeList().ToList();
+
+            //foreach (var item in atList)
+            //{
+            //    string[] time = item.TimePeriod.Split('~');
+            //    DateTime startTime = DateTime.Parse(time[0]);
+            //    DateTime endTime = DateTime.Parse(time[1]);
+
+            //    if ((stime > startTime && stime < endTime) || (endTime > startTime && etime < endTime))
+            //    {
+            //        return Json("Exception", JsonRequestBehavior.AllowGet);
+            //    }
+            //}
+
+            at.TimePeriod = starttime + "~" + endtime;
+
+            string res = "False";
+            using (JCB_DBContext db = new JCB_DBContext ())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.Set<AppointmentTime>().Attach(at);
+                        db.Entry(at).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+                        trans.Commit();
+
+                        res = "True";
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+                        trans.Rollback();
+                    }
+                }
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

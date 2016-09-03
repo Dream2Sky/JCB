@@ -189,6 +189,7 @@
     <Content Include="Content\css\mui.picker.css" />
     <Content Include="Content\css\mui.picker.min.css" />
     <Content Include="Content\css\mui.poppicker.css" />
+    <Content Include="Content\css\QiuToast.css" />
     <Content Include="Content\css\weui.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\11.jpg" />
@@ -230,6 +231,7 @@
     <Content Include="Content\js\mui.picker.min.js" />
     <Content Include="Content\js\mui.poppicker.js" />
     <Content Include="Content\js\PCASClass.js" />
+    <Content Include="Content\js\QiuToast.js" />
     <Content Include="Global.asax" />
     <Content Include="maptest.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />

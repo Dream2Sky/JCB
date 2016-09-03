@@ -6,13 +6,13 @@
 @using com.jiechengbao.entity
 @*<link href="~/Content/css/content.css" rel="stylesheet" />*@
 <link href="~/Content/css/custom-styles.css" rel="stylesheet" />
-<link href="~/Content/css/home.css" rel="stylesheet" />
-<script src="~/Content/js/home.js" type="text/javascript"></script>
+@*<link href="~/Content/css/home.css" rel="stylesheet" />
+<script src="~/Content/js/home.js" type="text/javascript"></script>*@
 <style>
     .servicea {
         width: 60%;
         float: left;
-        padding-left:20px;
+        padding-left: 20px;
     }
 
     .serviceb {
@@ -20,12 +20,12 @@
         float: left;
         position: relative;
         top: 25px;
-        padding-left:20px;
+        padding-left: 20px;
     }
     /*输入框*/
 
     .form-control {
-        width:23%!important;
+        width: 23% !important;
         position: relative;
         top: 5px;
     }
@@ -36,6 +36,13 @@
         position: relative;
         left: 427px;
         top: -7px;
+    }
+
+    #btn-cancel{
+        left:227px;
+    }
+    #btn-save{
+        left:227px;
     }
 
     .time {
@@ -73,7 +80,7 @@
         margin-top: 147px;
     }
 
-    .stratime {
+    .starttime {
         position: relative;
         right: 128px;
         top: 5px;
@@ -96,9 +103,16 @@
         left: 160px;
         top: -21px;
     }
-    input[type='radio']{
-        width:20px;
-        height:20px;
+
+    input[type='radio'] {
+        width: 20px;
+        height: 20px;
+    }
+    input[type='text'] {
+        width:50% !important;
+    }
+    #myModal .modal-dialog {
+        width:400px;
     }
 </style>
 
@@ -135,8 +149,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-Close" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger btn-Save">保存</button>
+                <button type="button" id="btn-cancel" class="btn btn-default btn-Close" data-dismiss="modal">取消</button>
+                <button type="button" id="btn-save" class="btn btn-danger btn-Save">保存</button>
             </div>
         </div>
     </div>
@@ -166,108 +180,109 @@
                 <form class="time_form">
                     <div class="form-group">
                         <label>服务时间段</label>
+                        <input type="hidden" name="timeId" value="" />
                         <br />
-                        <label class="stratime">开始时间</label>
-                        <select name="strat-time" class="form-control selecta">
-                            <option value="">00:00</option>
-                            <option value="">00:30</option>
-                            <option value="">01:00</option>
-                            <option value="">01:30</option>
-                            <option value="">02:00</option>
-                            <option value="">02:30</option>
-                            <option value="">03:00</option>
-                            <option value="">03:30</option>
-                            <option value="">04:00</option>
-                            <option value="">04:30</option>
-                            <option value="">05:00</option>
-                            <option value="">05:30</option>
-                            <option value="">06:00</option>
-                            <option value="">06:30</option>
-                            <option value="">07:00</option>
-                            <option value="">07:30</option>
-                            <option value="">08:00</option>
-                            <option value="">08:30</option>
-                            <option value="">09:00</option>
-                            <option value="">09:30</option>
-                            <option value="">10:00</option>
-                            <option value="">10:30</option>
-                            <option value="">11:00</option>
-                            <option value="">11:30</option>
-                            <option value="">12:00</option>
-                            <option value="">12:30</option>
-                            <option value="">13:00</option>
-                            <option value="">13:30</option>
-                            <option value="">14:00</option>
-                            <option value="">14:30</option>
-                            <option value="">15:00</option>
-                            <option value="">15:30</option>
-                            <option value="">16:00</option>
-                            <option value="">16:30</option>
-                            <option value="">17:00</option>
-                            <option value="">17:30</option>
-                            <option value="">18:00</option>
-                            <option value="">18:30</option>
-                            <option value="">19:00</option>
-                            <option value="">19:30</option>
-                            <option value="">20:00</option>
-                            <option value="">20:30</option>
-                            <option value="">21:00</option>
-                            <option value="">21:30</option>
-                            <option value="">22:00</option>
-                            <option value="">22:30</option>
-                            <option value="">23:00</option>
-                            <option value="">23:30</option>
+                        <label class="starttime">开始时间</label>
+                        <select name="start-time" class="form-control selecta">
+                            <option value="00:00">00:00</option>
+                            <option value="00:30">00:30</option>
+                            <option value="01:00">01:00</option>
+                            <option value="01:30">01:30</option>
+                            <option value="02:00">02:00</option>
+                            <option value="02:30">02:30</option>
+                            <option value="03:00">03:00</option>
+                            <option value="03:30">03:30</option>
+                            <option value="04:00">04:00</option>
+                            <option value="04:30">04:30</option>
+                            <option value="05:00">05:00</option>
+                            <option value="05:30">05:30</option>
+                            <option value="06:00">06:00</option>
+                            <option value="06:30">06:30</option>
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>
                         </select>
                         <label class="overtime">结束时间</label>
                         <select name="over-time" class="form-control selectb">
-                            <option value="">00:00</option>
-                            <option value="">00:30</option>
-                            <option value="">01:00</option>
-                            <option value="">01:30</option>
-                            <option value="">02:00</option>
-                            <option value="">02:30</option>
-                            <option value="">03:00</option>
-                            <option value="">03:30</option>
-                            <option value="">04:00</option>
-                            <option value="">04:30</option>
-                            <option value="">05:00</option>
-                            <option value="">05:30</option>
-                            <option value="">06:00</option>
-                            <option value="">06:30</option>
-                            <option value="">07:00</option>
-                            <option value="">07:30</option>
-                            <option value="">08:00</option>
-                            <option value="">08:30</option>
-                            <option value="">09:00</option>
-                            <option value="">09:30</option>
-                            <option value="">10:00</option>
-                            <option value="">10:30</option>
-                            <option value="">11:00</option>
-                            <option value="">11:30</option>
-                            <option value="">12:00</option>
-                            <option value="">12:30</option>
-                            <option value="">13:00</option>
-                            <option value="">13:30</option>
-                            <option value="">14:00</option>
-                            <option value="">14:30</option>
-                            <option value="">15:00</option>
-                            <option value="">15:30</option>
-                            <option value="">16:00</option>
-                            <option value="">16:30</option>
-                            <option value="">17:00</option>
-                            <option value="">17:30</option>
-                            <option value="">18:00</option>
-                            <option value="">18:30</option>
-                            <option value="">19:00</option>
-                            <option value="">19:30</option>
-                            <option value="">20:00</option>
-                            <option value="">20:30</option>
-                            <option value="">21:00</option>
-                            <option value="">21:30</option>
-                            <option value="">22:00</option>
-                            <option value="">22:30</option>
-                            <option value="">23:00</option>
-                            <option value="">23:30</option>
+                            <option value="00:00">00:00</option>
+                            <option value="00:30">00:30</option>
+                            <option value="01:00">01:00</option>
+                            <option value="01:30">01:30</option>
+                            <option value="02:00">02:00</option>
+                            <option value="02:30">02:30</option>
+                            <option value="03:00">03:00</option>
+                            <option value="03:30">03:30</option>
+                            <option value="04:00">04:00</option>
+                            <option value="04:30">04:30</option>
+                            <option value="05:00">05:00</option>
+                            <option value="05:30">05:30</option>
+                            <option value="06:00">06:00</option>
+                            <option value="06:30">06:30</option>
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>
                         </select>
                     </div>
                 </form>
@@ -301,7 +316,7 @@
 -->
 
 <script>
-    
+
     function Edit() {
         // 获取选中的服务项
         var service = $("input[name='radio_service']:checked");
@@ -348,7 +363,7 @@
                     Code: code,
                     ServiceName: servicename
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data == "Empty") {
                         alert("提交的参数为空, 修改服务项失败");
                     }
@@ -365,7 +380,7 @@
                         $("#myModal").modal('toggle');
                     }
                 },
-                error: function() {
+                error: function () {
                     alert("修改服务项失败");
                 }
             });
@@ -394,9 +409,9 @@
             url: "/Appointment/DeleteService",
             type: "POST",
             data: {
-                Code:code
+                Code: code
             },
-            success: function(data) {
+            success: function (data) {
                 if (data == "Empty") {
                     alert("提交的参数为空, 删除服务项失败");
                 }
@@ -406,20 +421,19 @@
                 else if (data == "Flase") {
                     alert("删除服务项失败");
                 }
-                else if(data == "True"){
+                else if (data == "True") {
                     alert("删除成功");
-                    
+
                     var service = $("input[name='radio_service']:checked");
                     var tr = service.parent().parent().remove();
                 }
             },
-            error: function() {
+            error: function () {
                 alert("删除服务项失败");
             },
             complete: function () {
                 $("#myModal").modal("toggle");
             }
-            
         })
     }
 
@@ -471,56 +485,133 @@
     }
 
     function b_edit() {
-        var timespan = $("input[name='radio_time']:checked");
+        var timespan = $("input[name='raido_time']:checked");
         if (timespan == null || timespan == undefined) {
             alert("请选择要编辑的时间段");
             return;
         }
 
-        var time = timespan.html();
+        var time = timespan.parent().parent().children('td').eq(1).html();
         var timearray = time.split('~');
 
+        console.log(time);
         var starttime = timearray[0];
         var endtime = timearray[1];
 
-        $(".strat-time").find("option[text='" + starttime + "']").attr("selected", true);
-        $(".over-time").find("option[text='" + endtime + "']").attr("selected", true);
+        $(".selecta").val(starttime);
+        $(".selectb").val(endtime);
+        
+        var Id = timespan.val();
+        $("input[name='timeId']").val(Id);
 
-
-
-        $("input[name='CategoryName']").val(name);
-        $("input[name='Code']").val(code);
-        // $('input').show();
-        $("button").show();
-        $('.btn-Close').html("取消");
-        $('.btn-Save').html("保存");
-        $('label').show();
-        $('.modal-body').show();
-        if (isService == true) {
-            $("input[type='checkbox']").attr("checked", true);
-        } else {
-            $("input[type='checkbox']").attr("checked", false);
-        }
+        //$("input[name='CategoryName']").val(name);
+        //$("input[name='Code']").val(code);
+        //// $('input').show();
+        //$("button").show();
+        //$('.btn-Close').html("取消");
+        //$('.btn-Save').html("保存");
+        //$('label').show();
+        //$('.modal-body').show();
+        //if (isService == true) {
+        //    $("input[type='checkbox']").attr("checked", true);
+        //} else {
+        //    $("input[type='checkbox']").attr("checked", false);
+        //}
 
         $(".modal-title").html("编辑时间信息");
-        $(".btn-Save").attr("onclick", "Save()");
+        $(".btn-Save").attr("onclick", "SaveTime()");
     }
 
-    function b_delete(code) {
+    function SaveTime() {
+        $(".time_form").bootstrapValidator("validate");
+        if ($(".time_form").data('bootstrapValidator').isValid()) {
+            var Id = $("input[name='timeId']").val();
+            var StartTime = $("select[name='start-time']").find("option:checked").text();
+            var EndTime = $("select[name='over-time']").find("option:checked").text();
+
+            $.ajax({
+                url: "/Appointment/UpdateTime",
+                type: "POST",
+                data: {
+                    Id: Id,
+                    starttime: StartTime,
+                    endtime: EndTime
+                },
+                success: function (data) {
+                    if (data == "Empty") {
+                        alert("提交的参数为空，修改时间段失败");
+                    }
+                    else if (data == "NullObject") {
+                        alert("不能获取到时间段对象，修改时间段失败");
+                    }
+                    else if (data == "Exception")
+                    {
+                        alert("时间段设置有异常, 修改时间段失败");
+                    }
+                    else if (data == "True") {
+                        alert("修改时间段成功");
+                        var timespan = $("input[name='raido_time']:checked");
+                        timespan.parent().parent().children('td').eq(1).html(StartTime + "~" + EndTime);
+
+                        $("#Modal").modal("toggle");
+                    }
+                    else if (data == "False") {
+                        alert("修改时间段失败");
+                    }
+                }
+            })
+        }
+    }
+
+    function b_delete() {
+        var timespan = $("input[name='raido_time']:checked");
+        if (timespan == null || timespan == undefined) {
+            alert("请选择要删除的服务项");
+            return false;
+        }
+
+        var Id = timespan.val();
+
         $(".modal-title").html("是否确定要删除时间段？");
-        $(".btn-confirm").attr("onclick", "ConfirmDelete('" + code + "')");
+        $(".btn-Save").attr("onclick", "ConfirmDeleteTime('" + Id + "')");
         $('.btn-Close').html("关闭");
         $('.btn-Save').html("确认删除");
         $('label').hide();
         $('.modal-body').hide();
-        $("input[type='text']");
+    }
+
+    function ConfirmDeleteTime(Id) {
+        $.ajax({
+            url: "/Appointment/DeleteTime",
+            type: "POST",
+            data: {
+                Id:Id
+            },
+            success: function(data) {
+                if (data == "False") {
+                    alert("删除失败");
+                }
+                else if (data == "True") {
+                    alert("删除成功");
+                    var time = $("input[name='raido_time']:checked");
+                    time.parent().parent().remove();
+                    $("#Modal").modal("toggle");
+                }
+            },
+            error: function () {
+                alert("系统错误, 删除失败");
+            }
+        })
     }
 
     function b_add() {
         $(".modal-title").html("添加时间信息");
-        $("input[name='CategoryName']").val("");
-        $("input[name='IsService']").attr("checked", false);
-        $(".btn-Save").attr("onclick", "AddCategory()");
+        $(".selecta").val("00:00");
+        $(".selectb").val("00:00");
+
+        $("input[name='timeId']").val("");
+
+        $(".btn-Save").attr("onclick", "AddTime()");
         // $('input').show();
         $('button').show();
         $('.btn-Close').html("取消");
@@ -528,4 +619,47 @@
         $('label').show();
         $('.modal-body').show();
     }
+
+    function AddTime() {
+        var starttime = $("select[name='start-time']").find("option:selected");
+        var endtime = $("select[name='over-time']").find("option:selected");
+
+        if (starttime==null||starttime==undefined) {
+            alert("请选择开始时间");
+            return false;
+        }
+        else if(endtime == null || starttime == undefined){
+            alert("请选择结束时间");
+            return false;
+        }
+
+        $.ajax({
+            url: "/Appointment/AddTime",
+            type: "POST",
+            data: {
+                TimePeriod: starttime.text() + "~" + endtime.text()
+            },
+            success: function(data) {
+                if (data == "Empty") {
+                    alert("提交的参数为空, 添加预约时间失败");
+                }
+                else if (data == "Exception")
+                {
+                    alert("添加预约时间发生异常, 添加失败");
+                }
+                else if (data == "False") {
+                    alert("添加预约时间失败");
+                }
+                else {
+                    alert("添加成功");
+                    $(".time_table").append("<tr><td><input  type='radio' name='raido_time'  value='" + data.Id + "'></input></td><td>" + data.TimePeriod + "</td></tr>");
+                    $("#Modal").modal('toggle');
+                }
+            },
+            error: function() {
+                alert("系统错误，添加预约时间失败");
+            }
+        })
+    }
+
 </script>

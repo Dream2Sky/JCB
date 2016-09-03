@@ -164,6 +164,12 @@
             url = $("input[name='RefUrl']").val();
             // alert(url);
         }
+        var code = $('#code').val();
+        code = $.trim(code);
+        if (code == '' || code == null || code == undefined) {
+            alert("请输入验证码");
+            return false;
+        }
 
         $.ajax({
             url: "/Register/Register",

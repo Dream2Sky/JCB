@@ -10,9 +10,11 @@
     <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
     <title>消费优惠券</title>
     <link href="~/Content/css/mui.min.css" rel="stylesheet" />
-
+    <link href="~/Content/css/QiuToast.css" rel="stylesheet" />
+    <link href="~/Content/css/fontawesome.css" rel="stylesheet" />
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/mui.min.js"></script>
+    <script src="~/Content/js/QiuToast.js"></script>
 
     <style>
         .mui-btn-block {
@@ -48,6 +50,16 @@
             <button id='promptBtn' class="mui-btn mui-btn-block" type='button'>点击使用优惠券</button>
         </div>
     }
+    <div class="special-blank">
+        <h1 class="icon-ok"></h1>
+        <div class="small-circle">
+        </div>
+        <div class="small-circle">
+        </div>
+        <div class="small-circle">
+        </div>
+        <p>使用成功</p>
+    </div>
     <script>
         document.getElementById("promptBtn").addEventListener('tap', function (e) {
             e.detail.gesture.preventDefault();
@@ -70,7 +82,9 @@
                                 mui.alert("服务消费密码错误");
                             }
                             else if (data == "True") {
-                                mui.toast("使用成功");
+                                window.setInterval(function () {
+                                    QiuToast();
+                                }, 3000);
                             }
                             else if (data == "NotSettingPassword") {
                                 mui.alert("尚未设置消费密码，请到后台设置密码");

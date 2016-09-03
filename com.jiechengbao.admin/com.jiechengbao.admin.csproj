@@ -176,6 +176,7 @@
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\jquery.timepicker.css" />
+    <Content Include="Content\css\usesofonts.css" />
     <Content Include="Content\fonts\fontawesome-webfontba72.svg" />
     <Content Include="Content\images\default.png" />
     <Content Include="Content\images\waiting.gif" />
@@ -322,7 +323,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1799</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

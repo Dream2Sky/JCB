@@ -4,6 +4,9 @@
     Layout = "~/Views/LayoutPage2.cshtml";
 }
 @using com.jiechengbao.wx.Models
+<link href="~/Content/css/QiuToast.css" rel="stylesheet" />
+<link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+<script src="~/Content/js/QiuToast.js"></script>
 <style>
     .mui-content-padded {
         text-align: center;
@@ -36,6 +39,16 @@
         <img class="qrView" src="/MyFreeCouponQRs/@ViewBag.QrPath" />
     </p>
 </div>
+<div class="special-blank">
+    <h1 class="icon-ok"></h1>
+    <div class="small-circle">
+    </div>
+    <div class="small-circle">
+    </div>
+    <div class="small-circle">
+    </div>
+    <p>消费成功</p>
+</div>
 
 <script>
 
@@ -48,7 +61,9 @@
                 type: "POST",
                 success: function (data) {
                     if (data) {
-                        mui.toast("消费成功");
+                        window.setInterval(function () {
+                            QiuToast();
+                        }, 3000);
                         window.location.href = "/UserInfo/Info";
                     }
                 }

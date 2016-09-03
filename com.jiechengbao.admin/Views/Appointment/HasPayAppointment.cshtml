@@ -3,15 +3,119 @@
     Layout = "~/Views/LayoutPage.cshtml";
 }
 @using com.jiechengbao.admin.Models
-<link href="~/Content/css/content.css" rel="stylesheet" />
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
 <style>
+    .form-control {
+        width: 10% !important;
+        position: relative;
+        top: 19px;
+    }
+    /*按钮*/
+
+    .btn {
+        float: left;
+        position: relative;
+        left: 169px;
+        top: -15px;
+    }
+
+    .info {
+        text-align: center;
+        width: 85%;
+        padding: 0px 10px;
+        color: gray;
+        /*border:1px solid red;*/
+        /*position: relative;*/
+        /*top:70px;*/
+    }
+
+    .over {
+        max-height: 580px;
+        overflow: auto;
+        position: relative;
+        left: 14px;
+    }
+
+    .list {
+        width: 87.5% !important;
+    }
+
+    .msg {
+        text-align: center;
+    }
+</style>
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">管理后台</a></li>
+    <li class="active">已完成预约列表</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="from-group">
+        <input type="text" name="name" placeholder="会员昵称" class="form-control">
+    </div>
+    <button class="btn btn-danger" type="submit">搜索</button>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12 title list">
+        已完成预约列表
+    </div>
+</div>
+<div class="container-fluid over">
+    @{
+        if (ViewData["HasPayAppointmentList"] != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>会员</th>
+                        <th>车牌号</th>
+                        <th>车型信息</th>
+                        <th>预约服务列表</th>
+                        <th>预约时间</th>
+                        <th>支付金额</th>
+                        <th>问题补充</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewData["HasPayAppointmentList"] as IEnumerable<MyAppointmentModel>)
+                    {
+                        <tr>
+                            <td><img src="@item.HeadImage" />@item.NickName</td>
+                            <td>@item.CarNumber</td>
+                            <td>@item.CarInfo</td>
+                            <td>
+                                @foreach (var appName in item.AppointmentNameList)
+                                {
+                                    @(appName + ",")
+                                }
+                            </td>
+                            <td>@item.AppointmentTime</td>
+                            <td>@item.Price</td>
+                            <td>@item.Supplement</td>
+                            <td>@item.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="msg">暂无已付款预约单</div>
+        }
+    }
+</div>
+
+<!--
+@*<style>
     .title {
         text-align: center;
         color: #808080;
     }
-    img{
-        max-height:32px;
-        max-width:32px;
+
+    img {
+        max-height: 32px;
+        max-width: 32px;
     }
 </style>
 <div class="row">
@@ -83,10 +187,11 @@
             }
         </div>
     </div>
-</div>
-<script>
+</div>*@
+-->
+@*<script>
     $(document).ready(function () {
         //$("#li-appCompleted").addClass("a-active");
         $("#li-appCompleted").parent().parent().removeClass("collapse");
     })
-</script>
+</script>*@
