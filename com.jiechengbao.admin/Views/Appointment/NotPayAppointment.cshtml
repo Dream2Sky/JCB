@@ -10,44 +10,35 @@
     th {
         font-family: "微软雅黑";
     }
-        /*输入框*/
-    
-    .form-control {
-        width: 10%!important;
+
+    /*.form-control {
+        width: 100%!important;
         position: relative;
-        top: 19px;
     }
-    /*按钮*/
-    
+
     .btn {
         float: left;
         position: relative;
-        left: 169px;
-        top: -15px;
     }
-    
+
     .info {
         text-align: center;
         width: 85%;
         padding: 0px 10px;
         color: gray;
-        /*border:1px solid red;*/
-        /*position: relative;*/
-        /*top:70px;*/
     }
-    
+
     .over {
         max-height: 580px;
         overflow: auto;
         position: relative;
         left: 14px;
     }
-    
+
     .list {
         width: 87.5%!important;
     }
-    /*按钮*/
-    
+
     .btnu {
         border: 1px solid #d2d2d2;
         border-radius: 4px;
@@ -55,8 +46,7 @@
         height: 34px;
         width: 90px;
     }
-    /*输入框*/
-    
+
     .test {
         display: block;
         height: 34px;
@@ -64,11 +54,18 @@
         line-height: 1.42857143;
         color: #555;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 4px!important;
         margin: 0px auto;
-    }
+    }*/
     .msg {
-        text-align:center;
+        text-align: center;
+    }
+
+    .over {
+        max-height: 580px;
+        overflow: auto;
+        position: relative;
+        left: 14px;
     }
 </style>
 <ol class="breadcrumb">
@@ -76,11 +73,21 @@
     <li class="active">未完成预约列表</li>
 </ol>
 <div class="container-fluid">
-    <div class="from-group">
-        <input type="text" class="form-control" name="name" value="" placeholder="会员昵称" />
-    </div>
-    <button type="submit" class="btn btn-danger">搜索</button>
+    <form class="navbar-form navbar-left" method="post" action="/Appointment/NotPayAppointment" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" value="" placeholder="会员昵称" />
+        </div>
+        <button type="submit" class="btn btn-danger">搜索</button>
+    </form>
 </div>
+@*<div class="container-fluid">
+    <form class="navbar-form navbar-left" method="post" action="/Order/Completed" role="search">
+        <div class="form-group">
+            <input type="text" name="condition" placeholder="搜索" class="form-control">
+        </div>
+        <button class="btn btn-danger" type="submit">搜索</button>
+    </form>
+</div>*@
 <div class="container-fluid">
     <div class="col-md-12 title list">
         未完成预约单
@@ -108,7 +115,7 @@
                 <tbody>
                     @foreach (var item in ViewData["NOPayAppointmentList"] as IEnumerable<MyAppointmentModel>)
                     {
-                        <tr>
+                        <tr id="@item.MyAppointmentId">
                             <td><img src="@item.HeadImage" />@item.NickName</td>
                             <td>@item.CarNumber</td>
                             <td>@item.CarInfo</td>
@@ -128,16 +135,16 @@
                             <td>@item.AppointmentTime</td>
                             <td id="@item.MyAppointmentId">
                                 <div class="input-group">
-                                    <input type="text" name="Price" class="form-control" placeholder="价钱" value="">
+                                    <input type="text" name="Price" class="test form-control" placeholder="价钱" value="">
                                 </div>
                             </td>
                             <td id="note_@item.MyAppointmentId">
                                 <div class="input-group">
-                                    <input type="text" name="Notes" class="form-control" placeholder="备注" value="">
+                                    <input type="text" name="Notes" class="test form-control" placeholder="备注" value="">
                                 </div>
                             </td>
                             <td>
-                                <button class="btn btn-default" type="button" onclick="Pay('@item.MyAppointmentId');">确认付款</button>
+                                <button class="btn btn-danger" type="button" onclick="Pay('@item.MyAppointmentId');">确认付款</button>
                             </td>
                         </tr>
                     }
@@ -253,7 +260,6 @@
     -->
 <script>
     function Pay(Id) {
-        alert(Id);
         $.ajax({
             url: "/Appointment/Pay",
             type: "POST",
@@ -269,6 +275,9 @@
                 else {
                     $('#' + Id).text(data.Price);
                     $('#note_' + Id).text(data.Notes);
+
+                    var appointment = $("#" + Id);
+                    appointment.remove();
                 }
             },
             error: function () {

@@ -27,7 +27,7 @@ namespace com.jiechengbao.admin.Controllers
         public ActionResult List()
         {
             // 上来先获取最新用户的前10名
-            List<Member> memberList = _memberBLL.GetMemberswithSpecifiedCount(10).ToList();
+            List<Member> memberList = _memberBLL.GetAllNoDeletedMembers().ToList();
 
             List<CarModel> carList = new List<CarModel>();
 

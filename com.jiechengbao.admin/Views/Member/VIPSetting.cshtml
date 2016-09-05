@@ -8,25 +8,31 @@
 @model List<VIPModel>
 <script src="~/Content/js/json2.js"></script>
 <script src="~/Content/js/json_parse.js"></script>
-<link href="~/Content/css/content.css" rel="stylesheet" />
+@*<link href="~/Content/css/content.css" rel="stylesheet" />*@
 <style>
     .vip-group {
         margin-top: 10px;
     }
-    .span-vip{
-        background:#337ab7;
-        color:#fff;
-        border:#fff;
-        }
-    .span-credit{
-        background:#449d44;
-        color:#fff;
-        border:#fff;
+
+    .span-vip {
+        background: #C9302C;
+        color: #fff;
+        border: #fff;
     }
-    .span-discount{
-        background:#ec971f;
-        color:#fff;
-        border:#fff;
+
+    .span-credit {
+        background: #C9302C;
+        color: #fff;
+        border: #fff;
+    }
+
+    .span-discount {
+        background: #C9302C;
+        color: #fff;
+        border: #fff;
+    }
+    #vip-form{
+        max-width:600px;
     }
 </style>
 
@@ -39,58 +45,62 @@
         VIP设定项
     </div>
 </div>
+<div class="container-fluid box">
+    <form id="vip-form" method="post" action="/Member/VIPSetting" name="vipList">
+        @{
+            List<Rules> rulesList = ViewData["RulesList"] as List<Rules>;
+            for (int i = 0; i < rulesList.Count; i++)
+            {
+                <div class="form-group vip-group">
+                    <div class="input-group">
+                        <span class="input-group-addon span-vip" id="basic-addon1">VIP @rulesList[i].VIP</span>
+                        <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
+                        <span class="input-group-addon span-credit" id="basic-addon1">累计积分</span>
+                        <input type="text" class="form-control" placeholder="所需积分" name="TotalCredit" value="@rulesList[i].TotalCredit" aria-describedby="basic-addon1">
+                        <span class="input-group-addon span-discount" id="basic-addon1">折扣</span>
+                        <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            }
+            <div class="form-group vip-group">
 
-
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">VIP设置</li>
-        </ol>
-
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>VIP设定项</li>
-                </ol>
             </div>
-
-            <form id="vip-form" method="post" action="/Member/VIPSetting" name="vipList">
-                @{
-                    List<Rules> rulesList = ViewData["RulesList"] as List<Rules>;
-                    for (int i = 0; i < rulesList.Count; i++)
-                    {
-                        <div class="form-group vip-group">
-                            <div class="input-group">
-                                <span class="input-group-addon span-vip" id="basic-addon1">VIP @rulesList[i].VIP</span>
-                                <input type="hidden" name="VIP" value="@rulesList[i].VIP" />
-                                <span class="input-group-addon span-credit" id="basic-addon1">累计积分</span>
-                                <input type="text" class="form-control" placeholder="所需积分" name="TotalCredit" value="@rulesList[i].TotalCredit" aria-describedby="basic-addon1">
-                                <span class="input-group-addon span-discount" id="basic-addon1">折扣</span>
-                                <input type="text" class="form-control" placeholder="折扣" name="Discount" value="@rulesList[i].Discount" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                    }
-                    <div class="form-group vip-group">
-
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <button type="button" class="btn btn-primary" onclick="AddInputGroup();">添加</button>
-
-                        </div>
-                        <div class="input-group" style="margin-top:10px;">
-                            <button type="button" onclick="Save();" class="btn btn-primary">保存</button>
-                        </div>
-                    </div>
-                }
-            </form>
-        </div>
-    </div>
+            <div class="form-group form-inline">
+                <div class="input-group">
+                    <button type="button" class="btn btn-danger" onclick="AddInputGroup();">添加</button>
+                </div>
+                <div class="input-group">
+                    <button type="button" onclick="Save();" class="btn btn-danger">保存</button>
+                </div>
+            </div>
+        }
+    </form>
 </div>
+
+
+
+
+@*<div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/Home/Index">管理后台</a></li>
+                <li class="active">VIP设置</li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="col-md-12 div-title">
+                    <ol class="breadcrumb">
+                        <li>VIP设定项</li>
+                    </ol>
+                </div>
+
+
+            </div>
+        </div>
+    </div>*@
 @*<div class="container container-add-followitem">
-    
-</div>*@
+
+    </div>*@
 
 <script>
     var count = @rulesList.Count;

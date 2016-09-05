@@ -553,14 +553,46 @@ namespace com.jiechengbao.admin.Controllers
         [HttpPost]
         public ActionResult Pay(Guid Id, double Price, string Notes)
         {
-            MyAppointment myAppointment = new MyAppointment();
-            myAppointment = _myAppointmentBLL.GetById(Id);
+            if (Id == null)
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            bool res = false;
 
-            myAppointment.IsPay = true;
-            myAppointment.Price = Price;
-            myAppointment.Notes = Notes;
+            using (JCB_DBContext db = new JCB_DBContext ())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        MyAppointment myAppointment = new MyAppointment();
+                        myAppointment = _myAppointmentBLL.GetById(Id);
 
-            if (_myAppointmentBLL.Update(myAppointment))
+                        myAppointment.IsPay = true;
+                        myAppointment.Price = Price;
+                        myAppointment.Notes = Notes;
+
+                        db.Set<MyAppointment>().Attach(myAppointment);
+                        db.Entry(myAppointment).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+
+                        res = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                        throw;
+                    }
+                }
+            }
+
+            if (res)
             {
                 var obj = new
                 {
@@ -570,8 +602,30 @@ namespace com.jiechengbao.admin.Controllers
 
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+            //r
+            //MyAppointment myAppointment = new MyAppointment();
+            //myAppointment = _myAppointmentBLL.GetById(Id);
 
-            return Json("False", JsonRequestBehavior.AllowGet);
+            //myAppointment.IsPay = true;
+            //myAppointment.Price = Price;
+            //myAppointment.Notes = Notes;
+
+            //if (_myAppointmentBLL.Update(myAppointment))
+            //{
+            //    var obj = new
+            //    {
+            //        Price = Price,
+            //        Notes = Notes
+            //    };
+
+            //    return Json(obj, JsonRequestBehavior.AllowGet);
+            //}
+
+            //return Json("False", JsonRequestBehavior.AllowGet);
         }
     }
 }

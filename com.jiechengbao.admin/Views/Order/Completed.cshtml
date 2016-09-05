@@ -11,6 +11,10 @@
         max-height: 580px;
         overflow: auto;
     }
+
+    /*.container-fluid {
+        padding-left: 15px;
+    }*/
 </style>
 <ol class="breadcrumb">
     <li><a href="/Home/Index">管理后台</a></li>
@@ -18,12 +22,20 @@
 </ol>
 <div class="container-fluid">
     <form class="navbar-form navbar-left" method="post" action="/Order/Completed" role="search">
-        <div class="from-group">
+        <div class="form-group">
             <input type="text" name="condition" placeholder="搜索" class="form-control">
         </div>
         <button class="btn btn-danger" type="submit">搜索</button>
     </form>
 </div>
+@*<div class="container-fluid">
+    <form class="navbar-form navbar-left" method="post" action="/Goods/List" role="search">
+        <div class="form-group">
+            <input type="text" name="condition" class="form-control" placeholder="搜索">
+        </div>
+        <button type="submit" class="btn btn-danger">搜索</button>
+    </form>
+</div>*@
 <div class="container-fluid">
     <div class="col-md-12 title">
         已完成订单

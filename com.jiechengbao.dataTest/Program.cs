@@ -39,17 +39,17 @@ namespace com.jiechengbao.dataTest
             #endregion
 
             #region 添加一个会员
-            //Member member = new Member();
-            //member.Id = Guid.NewGuid();
-            //member.IsDeleted = false;
-            //member.NickeName = "hehe";
-            //member.OpenId = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
-            //member.HeadImage = "/Imaegs/Default.png";
-            //member.CreatedTime = DateTime.Now.Date;
-            //member.DeletedTime = DateTime.MinValue.AddHours(8);
+            Member member = new Member();
+            member.Id = Guid.NewGuid();
+            member.IsDeleted = false;
+            member.NickeName = "hehe";
+            member.OpenId = "okzkZv6LHCo-vIyZHynDoXjeUbKs";
+            member.HeadImage = "/Imaegs/Default.png";
+            member.CreatedTime = DateTime.Now.Date;
+            member.DeletedTime = DateTime.MinValue.AddHours(8);
 
-            //MemberDAL dal = new MemberDAL();
-            //dal.Insert(member);
+            MemberDAL dal = new MemberDAL();
+            dal.Insert(member);
             #endregion
 
             #region 注释
@@ -81,10 +81,10 @@ namespace com.jiechengbao.dataTest
 
             #endregion
 
-            string sourceFile = @"D:/source.jpg";
-            string outputFile = @"D:/output.jpg";
+            //string sourceFile = @"D:/source.jpg";
+            //string outputFile = @"D:/output.jpg";
 
-            PictureHelper.getThumImage(sourceFile, 70, 1, outputFile);
+            //PictureHelper.getThumImage(sourceFile, 70, 1, outputFile);
 
             Console.WriteLine("Finished");
 
