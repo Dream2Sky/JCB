@@ -1,7 +1,9 @@
-﻿using com.jiechengbao.admin.Models;
+﻿using com.jiechengbao.admin.Global;
+using com.jiechengbao.admin.Models;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using com.jiechengbao.Idal;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,6 +13,9 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class HomeController:Controller
     {
         private IMemberBLL _memberBLL;

@@ -1,6 +1,8 @@
-﻿using com.jiechengbao.common;
+﻿using com.jiechengbao.admin.Global;
+using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,9 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class FreeCouponController:Controller
     {
         private IFreeCouponBLL _freeCouponBLL;

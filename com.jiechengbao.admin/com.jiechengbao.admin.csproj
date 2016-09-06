@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Global\IsLoginAttribute.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AdModel.cs" />
     <Compile Include="Models\CarModel.cs" />
@@ -303,6 +304,10 @@
     <ProjectReference Include="..\LogHelper\LogHelper\LogHelper.csproj">
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POPO.ActionFilter.Helper\POPO.ActionFilter.Helper.csproj">
+      <Project>{a7e6a98b-3717-4d59-92c5-4db2e8f8812d}</Project>
+      <Name>POPO.ActionFilter.Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\POPO.Picture.Helper\POPO.Picture.Helper.csproj">
       <Project>{04edc94c-6c84-43f4-a461-abd84da4843e}</Project>

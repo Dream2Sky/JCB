@@ -1,7 +1,9 @@
-﻿using com.jiechengbao.admin.Models;
+﻿using com.jiechengbao.admin.Global;
+using com.jiechengbao.admin.Models;
 using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
+using POPO.ActionFilter.Helper;
 using POPO.Picture.Helper;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,9 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class AdvertisementController : Controller
     {
         private IAdvertisementBLL _advertisementBLL;

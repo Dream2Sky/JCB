@@ -1,4 +1,5 @@
-﻿using com.jiechengbao.admin.Models;
+﻿using com.jiechengbao.admin.Global;
+using com.jiechengbao.admin.Models;
 using com.jiechengbao.common;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [IsLogin]
     public class CreditMollController:Controller
     {
         private IExchangeServiceBLL _exchangeServiceBLL;

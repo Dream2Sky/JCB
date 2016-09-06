@@ -19,7 +19,6 @@ namespace com.jiechengbao.customerService.Controllers
         {
             _memberBLL = memberBLL;
         }
-
         /// <summary>
         /// 获取客户列表  返回的json
         /// 供 mui app 方便使用

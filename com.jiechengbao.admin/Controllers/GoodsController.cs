@@ -11,9 +11,14 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 using POPO.Picture.Helper;
 using System.IO;
+using POPO.ActionFilter.Helper;
+using com.jiechengbao.admin.Global;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class GoodsController : Controller
     {
         private delegate void DelGoodsCategoryDel(List<GoodsCategory> gcList);

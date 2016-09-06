@@ -6,9 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using com.jiechengbao.entity;
 using com.jiechengbao.common;
+using POPO.ActionFilter.Helper;
+using com.jiechengbao.admin.Global;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class CategoryController : Controller
     {
         private ICategoryBLL _categoryBLL;

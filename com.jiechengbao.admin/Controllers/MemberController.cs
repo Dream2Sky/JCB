@@ -1,8 +1,10 @@
-﻿using com.jiechengbao.admin.Models;
+﻿using com.jiechengbao.admin.Global;
+using com.jiechengbao.admin.Models;
 using com.jiechengbao.entity;
 using com.jiechengbao.Ibll;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using POPO.ActionFilter.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +15,9 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.admin.Controllers
 {
+    [WhitespaceFilter]
+    [ETag]
+    [IsLogin]
     public class MemberController : Controller
     {
         private IMemberBLL _memberBLL;
