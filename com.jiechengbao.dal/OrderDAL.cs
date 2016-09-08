@@ -84,7 +84,7 @@ namespace com.jiechengbao.dal
         {
             try
             {
-                return db.Set<Order>().Where(n => n.CreatedTime == date);
+                return db.Set<Order>().Where(n => n.CreatedTime >= date).Where(n=>n.IsDeleted == false);
             }
             catch (Exception ex)
             {

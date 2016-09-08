@@ -22,15 +22,19 @@ namespace com.jiechengbao.admin.Controllers
         private IOrderBLL _orderBLL;
         private IOrderStatusBLL _orderStatusBLL;
         private IAddressBLL _addressBLL;
+        private IGoodsBLL _goodsBLL;
+        private IOrderDetailBLL _orderDetailBLL;
 
         public HomeController(IMemberBLL memberBLL,
             IOrderBLL orderBLL, IOrderStatusBLL orderStatusBLL,
-            IAddressBLL addressBLL)
+            IAddressBLL addressBLL,IGoodsBLL goodsBLL,IOrderDetailBLL orderDetailBLL)
         {
             _memberBLL = memberBLL;
             _orderBLL = orderBLL;
             _orderStatusBLL = orderStatusBLL;
             _addressBLL = addressBLL;
+            _goodsBLL = goodsBLL;
+            _orderDetailBLL = orderDetailBLL;
         }        
 
         /// <summary>
@@ -81,6 +85,12 @@ namespace com.jiechengbao.admin.Controllers
                 OrderModel om = new OrderModel(item);
                 // 主要是为了显示 MemberName
                 om.MemberName = _memberBLL.GetMemberById(item.MemberId).NickeName;
+
+                IEnumerable<OrderDetail> odList = _orderDetailBLL.GetOrderDetailByOrderNo(item.OrderNo);
+                foreach (var od in odList)
+                {
+                    om.GoodsNameList += _goodsBLL.GetGoodsById(od.GoodsId).Name+",";
+                }
 
                 //Address address = _addressBLL.GetAddressById(om.AddressId);
                 //om.Phone = address.Phone;

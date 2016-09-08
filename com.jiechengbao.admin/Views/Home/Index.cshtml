@@ -63,11 +63,11 @@
             <tbody>
                 @foreach (var item in ViewData["MemberList"] as IEnumerable<Member>)
                 {
-                <tr>
-                    <td style="text-align:left;"><img src="@item.HeadImage" />@item.NickeName</td>
-                    <td>@item.RealName</td>
-                    <td>@item.Phone</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:left;"><img src="@item.HeadImage" />@item.NickeName</td>
+                        <td>@item.RealName</td>
+                        <td>@item.Phone</td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -91,12 +91,13 @@
             <tbody>
                 @foreach (var item in ViewData["OrderList"] as IEnumerable<OrderModel>)
                 {
-                <tr>
-                    <td>@item.OrderNo</td>
-                    <td>@item.MemberName</td>
-                    <td>@item.Status</td>
-                    <td>@item.CreatedTime</td>
-                </tr>
+                    <tr>
+                        <td>@item.OrderNo</td>
+                        <td>@item.MemberName</td>
+                        <td>@item.GoodsNameList</td>
+                        <td>@item.Status</td>
+                        <td>@item.CreatedTime</td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -185,8 +186,8 @@
 </div>*@-->
 
 <script>
-    $(document).ready(function () {
-        $("#li-home").addClass("a-active");
-        $("#li-home").parent().parent().removeClass("collapse");
-    })
+    //$(document).ready(function () {
+    //    $("#li-home").addClass("a-active");
+    //    $("#li-home").parent().parent().removeClass("collapse");
+    //})
 </script>

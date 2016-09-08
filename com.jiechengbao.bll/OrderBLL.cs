@@ -111,7 +111,7 @@ namespace com.jiechengbao.bll
         /// <returns></returns>
         public IEnumerable<Order> GetYesterDayOrders()
         {
-            return _orderDAL.SelectOrderByDate(DateTime.Now.AddDays(-1).Date);
+            return _orderDAL.SelectOrderByDate(DateTime.Now.AddDays(-7).Date);
         }
 
         /// <summary>

@@ -1850,3 +1850,81 @@ file's contentLength is 93662
 9/5/2016 10:59:38 AM : 
 file's contentLength is 93662
 ========================================================================
+9/8/2016 3:31:27 PM : 
+The provider did not return a ProviderManifestToken string.
+========================================================================
+9/8/2016 3:31:27 PM : 
+   at System.Data.Entity.Core.Common.DbProviderServices.GetProviderManifestToken(DbConnection connection)
+   at MySql.Data.Entity.MySqlManifestTokenResolver.ResolveManifestToken(DbConnection connection)
+   at System.Data.Entity.Utilities.DbConnectionExtensions.GetProviderInfo(DbConnection connection, DbProviderManifest& providerManifest)
+   at System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   at System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   at System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.SingleOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at com.jiechengbao.dal.AdminDAL.SelectByName(String name) in D:\Source\Repos\JCB\com.jiechengbao.dal\AdminDAL.cs:line 22
+========================================================================
+9/8/2016 3:31:56 PM : 
+Home/Index: GetAllNoDeletedMembersCount 58ms
+========================================================================
+9/8/2016 3:31:56 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+9/8/2016 3:31:56 PM : 
+Home/Index: GetYesterDayOrders 1ms
+========================================================================
+9/8/2016 3:31:56 PM : 
+Home/Index: Foreach orderList 118ms
+========================================================================
+9/8/2016 3:58:23 PM : 
+Home/Index: GetAllNoDeletedMembersCount 1273ms
+========================================================================
+9/8/2016 3:58:23 PM : 
+Home/Index: GetNewMembersAtYesterDay 2ms
+========================================================================
+9/8/2016 3:58:23 PM : 
+Home/Index: GetYesterDayOrders 4ms
+========================================================================
+9/8/2016 3:58:25 PM : 
+Home/Index: Foreach orderList 984ms
+========================================================================
+9/8/2016 4:00:44 PM : 
+Home/Index: GetAllNoDeletedMembersCount 2779ms
+========================================================================
+9/8/2016 4:00:44 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+9/8/2016 4:00:44 PM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+9/8/2016 4:00:45 PM : 
+Home/Index: Foreach orderList 1465ms
+========================================================================
+9/8/2016 4:01:16 PM : 
+Order/Completed: GetCompletedOrders 1 ms
+========================================================================
+9/8/2016 4:01:26 PM : 
+Order/Completed: 9356 ms
+========================================================================
+9/8/2016 4:01:44 PM : 
+Order/Completed: GetCompletedOrders 0 ms
+========================================================================
+9/8/2016 4:01:52 PM : 
+Order/Completed: 8220 ms
+========================================================================
+9/8/2016 4:01:56 PM : 
+Home/Index: GetAllNoDeletedMembersCount 61ms
+========================================================================
+9/8/2016 4:01:56 PM : 
+Home/Index: GetNewMembersAtYesterDay 0ms
+========================================================================
+9/8/2016 4:01:56 PM : 
+Home/Index: GetYesterDayOrders 0ms
+========================================================================
+9/8/2016 4:01:58 PM : 
+Home/Index: Foreach orderList 1657ms
+========================================================================
