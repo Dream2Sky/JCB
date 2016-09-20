@@ -76,45 +76,109 @@ namespace com.jiechengbao.wx.Controllers
                 throw;
             }
 
-            // 构造 MyAppointment 
-            entity.MyAppointment myAppointment = new entity.MyAppointment();
+            string res = "False";
 
-            myAppointment.Id = Guid.NewGuid();
-            myAppointment.IsDeleted = false;
-            myAppointment.IsPay = false;
-            myAppointment.MemberId = member.Id;
-            myAppointment.Notes = "";
-            myAppointment.Supplement = appointmentModel.jcbremark;
-            myAppointment.CarInfo = appointmentModel.carInfo;
-            myAppointment.CarNumber = appointmentModel.carNo;
-            myAppointment.Price = 0;
-            myAppointment.CreatedTime = DateTime.Now;
-            myAppointment.DeletedTime = DateTime.MinValue.AddHours(8);
-            myAppointment.AppointmentTime = appointmentModel.appointmentTime;
-
-            if (_myAppointmentBLL.Add(myAppointment))
+            using (JCB_DBContext db = new JCB_DBContext())
             {
-                foreach (var item in appointmentModel.appointmentItems)
+                using (var trans = db.Database.BeginTransaction())
                 {
-                    MyAppointmentItem appointmentItem = new MyAppointmentItem();
-                    appointmentItem.Id = Guid.NewGuid();
-                    appointmentItem.CreatedTime = DateTime.Now;
-                    appointmentItem.DeletedTime = DateTime.MinValue.AddHours(8);
-                    appointmentItem.IsDeleted = false;
-                    appointmentItem.MyAppointmentId = myAppointment.Id;
-                    appointmentItem.AppointmentServiceId = Guid.Parse(item);
+                    try
+                    {
+                        // 判断重复预约单
+                        if (db.Set<MyAppointment>().Where(n => n.AppointmentTime == appointmentModel.appointmentTime && n.IsDeleted == false && n.MemberId == member.Id && n.IsPay == false).SingleOrDefault() != null)
+                        {
+                            return Json("Repeat", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            entity.MyAppointment myAppointment = new entity.MyAppointment();
 
-                    _myAppointmentItemBLL.Add(appointmentItem);
+                            myAppointment.Id = Guid.NewGuid();
+                            myAppointment.IsDeleted = false;
+                            myAppointment.IsPay = false;
+                            myAppointment.MemberId = member.Id;
+                            myAppointment.Notes = "";
+                            myAppointment.Supplement = appointmentModel.jcbremark;
+                            myAppointment.CarInfo = appointmentModel.carInfo;
+                            myAppointment.CarNumber = appointmentModel.carNo;
+                            myAppointment.Price = 0;
+                            myAppointment.CreatedTime = DateTime.Now;
+                            myAppointment.DeletedTime = DateTime.MinValue.AddHours(8);
+                            myAppointment.AppointmentTime = appointmentModel.appointmentTime;
+
+                            db.MyAppointments.Add(myAppointment);
+
+                            db.SaveChanges();
+                            foreach (var item in appointmentModel.appointmentItems)
+                            {
+                                MyAppointmentItem appointmentItem = new MyAppointmentItem();
+                                appointmentItem.Id = Guid.NewGuid();
+                                appointmentItem.CreatedTime = DateTime.Now;
+                                appointmentItem.DeletedTime = DateTime.MinValue.AddHours(8);
+                                appointmentItem.IsDeleted = false;
+                                appointmentItem.MyAppointmentId = myAppointment.Id;
+                                appointmentItem.AppointmentServiceId = Guid.Parse(item);
+
+                                db.MyAppointmentItems.Add(appointmentItem);
+                                db.SaveChanges();
+                            }
+
+                            trans.Commit();
+
+                            res = "True";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                        res = "False";
+                    }
                 }
-                // 返回 json
+            }
 
-                return Json("True", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                // 返回 json
-                return Json("False", JsonRequestBehavior.AllowGet);
-            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+            // 构造 MyAppointment 
+            //entity.MyAppointment myAppointment = new entity.MyAppointment();
+
+            //myAppointment.Id = Guid.NewGuid();
+            //myAppointment.IsDeleted = false;
+            //myAppointment.IsPay = false;
+            //myAppointment.MemberId = member.Id;
+            //myAppointment.Notes = "";
+            //myAppointment.Supplement = appointmentModel.jcbremark;
+            //myAppointment.CarInfo = appointmentModel.carInfo;
+            //myAppointment.CarNumber = appointmentModel.carNo;
+            //myAppointment.Price = 0;
+            //myAppointment.CreatedTime = DateTime.Now;
+            //myAppointment.DeletedTime = DateTime.MinValue.AddHours(8);
+            //myAppointment.AppointmentTime = appointmentModel.appointmentTime;
+
+            //if (_myAppointmentBLL.Add(myAppointment))
+            //{
+            //    foreach (var item in appointmentModel.appointmentItems)
+            //    {
+            //        MyAppointmentItem appointmentItem = new MyAppointmentItem();
+            //        appointmentItem.Id = Guid.NewGuid();
+            //        appointmentItem.CreatedTime = DateTime.Now;
+            //        appointmentItem.DeletedTime = DateTime.MinValue.AddHours(8);
+            //        appointmentItem.IsDeleted = false;
+            //        appointmentItem.MyAppointmentId = myAppointment.Id;
+            //        appointmentItem.AppointmentServiceId = Guid.Parse(item);
+
+            //        _myAppointmentItemBLL.Add(appointmentItem);
+            //    }
+            //    // 返回 json
+
+            //    return Json("True", JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            //    // 返回 json
+            //    return Json("False", JsonRequestBehavior.AllowGet);
+            //}
         }
 
         /// <summary>

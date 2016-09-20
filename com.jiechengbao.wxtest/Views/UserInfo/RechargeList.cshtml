@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "充值记录";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.entity
+<style>
+    .goods-view {
+        border: none !important;
+    }
+
+    .goods-cell {
+        border: none !important;
+        padding-top: 0px;
+    }
+
+    .goods-ul {
+        margin-top: 10px;
+    }
+
+    .address-cell {
+        margin-top: 5px;
+    }
+
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+        text-align:center;
+    }
+</style>
+@{
+    List<Recharge> rechargeList = ViewData["RechargeList"] as List<Recharge>;
+    <ul class="mui-table-view goods-ul">
+        @foreach (var item in rechargeList)
+        {
+            <li class="mui-table-view-cell mui-media">
+                <a href="javascript:;">
+                    <div class="mui-media-body">
+                        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed goods-view">
+                            <li class="mui-table-view-cell goods-cell">
+                                <div class="mui-table name-cell">
+                                    <div class="mui-table-cell mui-col-xs-8">
+                                        <p class="mui-ellipsis">@(item.Payway == 0 ? "微信支付" : "其他支付")</p>
+                                    </div>
+                                    <div class="mui-table-cell mui-col-xs-4 mui-text-right">
+                                        <span class="mui-h5">￥@item.Amount</span>
+                                    </div>
+                                </div>
+                                <div class="mui-table address-cell">
+                                    <div class="mui-table-cell mui-col-xs-12">
+                                        <p class="mui-h6 mui-ellipsis">充值时间 @item.CreatedTime</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+}
+@if (rechargeList == null || rechargeList.Count == 0)
+{
+    <div class="title">尚无充值记录</div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#atoinfo").addClass("mui-active");
+    })
+</script>

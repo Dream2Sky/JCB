@@ -1,0 +1,13 @@
+
+@font-face {font-family: "icon-phone";
+  src:url('../font/icon-phone.ttf?t=1468749985') format('truetype');
+}
+
+.icon-phone {
+  font-family:"icon-phone" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.icon-myphone:before { content: "\e613"; }

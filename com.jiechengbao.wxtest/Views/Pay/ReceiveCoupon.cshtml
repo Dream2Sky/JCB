@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript">
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            // alert("Android");
+            document.write('<meta name="viewport" content="width=device-width" />');
+        } else if (isiOS) {
+            // alert("iOS");
+            document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />');
+        }
+    </script>
+    <script src="~/Content/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/css/font-awesome.css" />
+    <style type="text/css">
+        .btn {
+            position: relative;
+            width: 88px;
+            height: 88px;
+            border-radius: 44px;
+            margin: 20px auto;
+            background: none;
+            color: none;
+            text-align: center;
+            padding: 0px;
+            top: 150px;
+            opacity: 0.01;
+        }
+
+            .btn span {
+                position: relative;
+                font-family: "微软雅黑";
+                font-size: 28px;
+                top: 8px;
+                letter-spacing: 2px;
+            }
+
+        body {
+            padding: 0px;
+            margin: 0px;
+            background: #FF7600;
+            overflow: hidden;
+            width: 100%;
+            min-height: 200px;
+        }
+
+        .content {
+            background: url("~/Content/images/1233.jpg") no-repeat;
+            background-size: 100% 100%;
+            width: 300px;
+            height: 250px;
+            margin: 0px auto;
+        }
+
+        .paper {
+            position: relative;
+            z-index: 10;
+            width: 80%;
+            height: auto;
+            margin: 120px 10%;
+            background: #DC3B3B;
+            opacity: 0.8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .icon-refresh {
+            font-size: 30px;
+            color: #fff;
+            width: 80px;
+            margin: 0px auto;
+        }
+
+        .fresh {
+            position: absolute;
+            top: 250px;
+            z-index: 200;
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+
+            .fresh > span {
+                position: relative;
+                left: -3%;
+                -webkit-animation: fresh 1s linear infinite;
+                -moz-animation: fresh 1s linear infinite;
+                animation: fresh 1s linear infinite;
+            }
+
+        @@keyframes fresh {
+            0% {
+                -webkit-transform: rotateZ(0deg);
+                -moz-transform: rotateZ(0deg);
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotateZ(360deg);
+                -moz-transform: rotateZ(360deg);
+                transform: rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="btn">
+            <span>立即领取</span>
+        </div>
+
+        <div class="fresh">
+            <span class="icon-refresh"></span>
+        </div>
+    </div>
+
+    <script>
+        var storage = window.localStorage;
+        $(".btn").click(function () {
+            if (storage.getItem(document.domain + "_youhuiquan") != null) {
+                alert("您已经领取了优惠券，不能再领了,抱歉");
+            } else {
+                $.ajax({
+                    url: "/Pay/Receive",
+                    type: "POST",
+                    data: {
+                        code: "Goods_1470656281"
+                    },
+                    beforeSend: function () {
+                        $(".btn").unbind("click");
+                        $(".fresh").show();
+                    },
+                    success: function () {
+                        storage.setItem(document.domain + "_youhuiquan", "YES");
+
+                    },
+                    error: function () {
+                        alert("领取优惠券失败");
+                    },
+                    complete: function () {
+                        window.location.href = "/UserInfo/MyServices";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

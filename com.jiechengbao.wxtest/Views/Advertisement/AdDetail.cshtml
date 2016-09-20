@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "AdDetail";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@{
+    var ad = ViewBag.Advertisement;
+    <div class="mui-card" id="@ad.AdCode">
+        <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url('/Uploads/@ad.AdImagePath')"></div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <p><h4>@ad.AdName</h4></p>
+                <p>@ad.AdDescription</p>
+            </div>
+        </div>
+    </div>
+}

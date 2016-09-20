@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "我的优惠券二维码";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.wx.Models
+<link href="~/Content/css/QiuToast.css" rel="stylesheet" />
+<link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+<script src="~/Content/js/QiuToast.js"></script>
+<style>
+    .mui-content-padded {
+        text-align: center;
+    }
+
+        .mui-content-padded p {
+            margin-top: 20px;
+        }
+
+    .qrView {
+        max-height: 250px;
+        max-width: 250px;
+    }
+</style>
+@{
+    MyFreeCouponModel mfcm = ViewBag.MyFreeCouponModel as MyFreeCouponModel;
+}
+<div class="mui-content-padded">
+    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+        <li class="mui-table-view-cell">
+            <div class="mui-table">
+                <div class="mui-table-cell mui-col-xs-10">
+                    <h4 class="mui-ellipsis">@mfcm.FreeCouponName</h4>
+                    <p class="mui-h6 mui-ellipsis">购买时间 @mfcm.CreatedTime</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <p>
+        <img class="qrView" src="/MyFreeCouponQRs/@ViewBag.QrPath" />
+    </p>
+</div>
+<div class="special-blank">
+    <h1 class="icon-ok"></h1>
+    <div class="small-circle">
+    </div>
+    <div class="small-circle">
+    </div>
+    <div class="small-circle">
+    </div>
+    <p>消费成功</p>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#atoinfo").addClass("mui-active");
+
+        window.setInterval(function () {
+            $.ajax({
+                url: "/Comet/IsConsume",
+                type: "POST",
+                success: function (data) {
+                    if (data) {
+                        window.setInterval(function () {
+                            QiuToast();
+                        }, 3000);
+                        window.location.href = "/UserInfo/Info";
+                    }
+                }
+            });
+        }, 3000);
+    });
+</script>

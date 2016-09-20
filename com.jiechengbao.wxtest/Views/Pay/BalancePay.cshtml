@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "余额支付";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@model com.jiechengbao.entity.Order
+<style>
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+
+    .mui-table-view {
+        margin-top: 20px;
+    }
+</style>
+<ul class="mui-table-view mui-table-view-chevron">
+    <li class="mui-table-view-cell">
+        <a>订单号:<span class="mui-pull-right order-span">@Model.OrderNo</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a>支付积分:<span class="mui-pull-right money-span">@Model.TotalPrice 积分</span></a>
+    </li>
+</ul>
+<button id="confirmBtn" type="button" class="mui-btn mui-btn-danger mui-btn-block">立即支付</button>
+
+<script>
+    document.getElementById("confirmBtn").addEventListener('tap', function () {
+        var btnArray = ['否', '是'];
+        mui.confirm('是否确定要此订单支付 ' +@Model.TotalPrice +' 元', '订单支付', btnArray, function (e) {
+            if (e.index == 1) {
+                $.ajax({
+                    url: "/Pay/Pay",
+                    type: "POST",
+                    data: {
+                        orderNo: $('.order-span').text()
+                    },
+                    success: function (data) {
+                        alert(data.msg, "积分支付");
+                        window.location.href = "/Order/OrderList";
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        mui.alert("支付失败", "积分支付");
+
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    }
+                });
+            }
+        })
+    });
+
+
+    $(document).ready(function () {
+        $("#atoorder").addClass("mui-active");
+    })
+</script>

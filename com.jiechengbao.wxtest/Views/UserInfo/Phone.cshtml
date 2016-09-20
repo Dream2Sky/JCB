@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "电话绑定";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+<style>
+    html,
+    body {
+        background-color: #efeff4;
+    }
+
+    .mui-table-view,.mui-input-group{
+        margin-top: 20px;
+        padding-right:10px;
+        padding-left:10px;
+    }
+
+        .mui-table-view span.mui-pull-right {
+            color: #999;
+        }
+    .Save-btn {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<form class="mui-input-group">
+    <div class="mui-input-row">
+        <label>电话</label>
+        <input type="text" name="phone" class="mui-input-clear" placeholder="请输入您的电话号码" value="@ViewBag.Phone">
+    </div>
+    <button class="mui-btn mui-btn-primary Save-btn" onclick="Save();">保存</button>
+</form>
+
+<script>
+
+    function Save() {
+        alert($("input[name='phone']").val());
+        $.ajax({
+            url: "/UserInfo/Phone",
+            type: "POST",
+            data: {
+                phone: $("input[name='phone']").val()
+            },
+            success: function (data) {
+                if (data == "True") {
+                    mui.alert("保存成功");
+                    window.location.href = "/UserInfo/Info";
+                }
+                else {
+                    mui.alert("保存失败");
+                }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
+            error: function (XMLHttpRequest) {
+                alert(XMLHttpRequest.status)
+                mui.alert("系统错误，保存失败");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#atoinfo").addClass("mui-active");
+    })
+</script>

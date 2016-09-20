@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "InfoDetail";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@model com.jiechengbao.entity.Member
+
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        <a id="head" class="mui-navigate-right">
+            头像
+            <span class="mui-pull-right head">
+                <img class="head-img mui-action-preview" id="head-img1" src="@Model.HeadImage" />
+            </span>
+        </a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a>姓名<span class="mui-pull-right">@Model.NickeName</span></a>
+    </li>
+</ul>
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        <a>VIP<span class="mui-pull-right">@Model.Vip</span></a>
+    </li>
+    <li class="mui-table-view-cell">
+        <a>积分<span class="mui-pull-right">@Model.Credit</span></a>
+    </li>
+</ul>
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+        <a>QQ号<span class="mui-pull-right">未绑定</span></a>
+    </li>
+
+    <li class="mui-table-view-cell">
+        <a>邮箱地址<span class="mui-pull-right">未绑定</span></a>
+    </li>
+</ul>

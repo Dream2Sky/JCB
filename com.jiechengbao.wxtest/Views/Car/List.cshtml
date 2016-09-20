@@ -1,0 +1,353 @@
+﻿
+@{
+    ViewBag.Title = "爱车管理";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.entity
+
+<style type="text/css">
+    body {
+        background-color: #fff !important;
+    }
+    .title{
+        text-align:center;
+    }
+    .input-group {
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .blank_block {
+        height: 100px;
+    }
+
+    .btn-yellow {
+        color: #222;
+        border: none;
+    }
+
+    .page-header {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        text-align: center;
+        background-color: #fff !important;
+    }
+
+    .input-group-addon, .btn-check {
+        background: #F18518;
+        border-color: #F18518;
+        color: #fff;
+    }
+
+    .li-provice {
+        width: 50%;
+        height: 150px;
+    }
+
+        .li-provice li {
+            float: left;
+        }
+
+            .li-provice li a {
+                padding-left: 5px;
+                padding-right: 0px;
+            }
+
+    .breadcrumb {
+        color: #F18518;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+
+    select {
+        padding: 8px 0px;
+        margin: 0px;
+        width: auto;
+        float: left;
+        -webkit-appearance: menulist;
+        appearance: menulist;
+        position: relative;
+        top: 2px;
+    }
+
+    input {
+        margin: 0px !important;
+        border-radius: 0px 4px 4px 0px !important;
+        font-size: 14px;
+        padding: 8px !important;
+        position: relative;
+        left: -5px;
+        border: none !important;
+        background: #fff !important;
+    }
+
+    .car-num {
+        width: 50% !important;
+    }
+
+    .input-group {
+        border-top: 1px solid #d2d2d2;
+        padding: 5px 0px;
+        margin: 0px;
+        text-align: left;
+    }
+
+    .btn {
+        border-radius: 4px 0px 0px 4px;
+        height: 40px;
+        text-align: left !important;
+    }
+
+    strong {
+        font-size: 16px;
+        margin: 10px 0px;
+        letter-spacing: 2px;
+        color: #666;
+    }
+
+    h5 {
+        padding: 10px 0px;
+        text-align: center;
+    }
+
+    #sub {
+        width: 100%;
+        background: #dd524d;
+        color: white;
+        border: none;
+        font-size: 16px;
+        padding: 12px 0px;
+    }
+</style>
+<div class="page-header">
+
+    <h5>
+        <strong>爱车信息绑定</strong>
+    </h5>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车牌号</button>
+        </span>
+        <select name="jcbprov" id="jcbprov">
+            <option value="京">京</option>
+            <option value="津">津</option>
+            <option value="冀">冀</option>
+            <option value="晋">晋</option>
+            <option value="蒙">蒙</option>
+            <option value="辽">辽</option>
+            <option value="吉">吉</option>
+            <option value="黑">黑</option>
+            <option value="沪">沪</option>
+            <option value="苏">苏</option>
+            <option value="浙">浙</option>
+            <option value="皖">皖</option>
+            <option value="闽">闽</option>
+            <option value="赣">赣</option>
+            <option value="鲁">鲁</option>
+            <option value="豫">豫</option>
+            <option value="鄂">鄂</option>
+            <option value="湘">湘</option>
+            <option value="粤" selected="selected">粤</option>
+            <option value="桂">桂</option>
+            <option value="琼">琼</option>
+            <option value="渝">渝</option>
+            <option value="川">川</option>
+            <option value="贵">贵</option>
+            <option value="云">云</option>
+            <option value="藏">藏</option>
+            <option value="陕">陕</option>
+            <option value="甘">甘</option>
+            <option value="青">青</option>
+            <option value="宁">宁</option>
+            <option value="新">新</option>
+        </select>
+        <select name="jcbcity" id="jcbcity">
+            <option value="A">A</option>
+            <option value="B" selected="selected">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+            <option value="I">I</option>
+            <option value="J">J</option>
+            <option value="K">K</option>
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+            <option value="P">P</option>
+            <option value="Q">Q</option>
+            <option value="R">R</option>
+            <option value="S">S</option>
+            <option value="T">T</option>
+            <option value="U">U</option>
+            <option value="V">V</option>
+            <option value="W">W</option>
+            <option value="X">X</option>
+            <option value="Y">Y</option>
+            <option value="Z">Z</option>
+        </select>
+        <input type="text" class="car-num" name="Numberplate" placeholder="请输入车牌号">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车架号</button>
+        </span>
+        <input type="text" name="ChassisNumber" placeholder="*请输入车架号后6位">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button id="btn" class="btn btn-default btn-yellow" type="button">发动机号</button>
+        </span>
+        <input type="text" name="EngineNumber" placeholder="*请输入发动机号后6位">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车型信息</button>
+        </span>
+        <input type="text" name="CarDetailInfo" placeholder="*如 宝马 x5">
+    </div>
+
+    <div>
+        <button id="sub" type="button">立即绑定</button>
+    </div>
+
+</div>
+<h5>
+    <strong>您的爱车列表</strong>
+</h5>
+<ul class="mui-table-view car-ul">
+    @if (ViewData["CarList"] == null || (ViewData["CarList"] as List<Car>).Count <= 0)
+    {
+        <div class="title">暂无车辆信息...</div>
+    }
+    else
+    {
+        foreach (var item in ViewData["CarList"] as IEnumerable<Car>)
+        {
+            <li class="mui-table-view-cell">
+                <a href="/Car/Detail?numberplate=@item.Numberplate">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-10">
+                            <h4 class="mui-ellipsis">@item.Numberplate</h4>
+                            <p>车型信息: @item.CarDetailInfo</p>
+                            <p class="mui-h6 mui-ellipsis">车架号: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: @item.EngineNumber</p>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            <button class="mui-btn mui-btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑</button>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        }
+    }
+
+</ul>
+<div class="blank_block"></div>
+
+<script>
+    function AddCar() {
+        var prov = $.trim($("#jcbprov").find("option:selected").val());
+        var city = $.trim($("#jcbcity").find("option:selected").val());
+        var carNum = $("input[name='Numberplate']").val();
+        var ChassisNumber = $("input[name='ChassisNumber']").val();
+        var EngineNumber = $("input[name='EngineNumber']").val();
+        var CarInfo = $("input[name='CarDetailInfo']").val();
+
+        var items = new Array("~", "`", "!", "@@", "#", "$", "%", "^", "&", "*", "{", "}", "[", "]", "(", ")");
+        items.push(":", ";", "'", "|", "\\", "<", ">", "?", "/", "<<", ">>", "||", "//");
+
+        if (carNum == undefined || ChassisNumber == undefined || EngineNumber == undefined || CarInfo == undefined) {
+            mui.alert("提交信息不完整");
+        }
+        else if (carNum.length != 5) {
+            mui.alert("车牌信息错误");
+        }
+        else if (ChassisNumber.length != 6) {
+            mui.alert("车架信息错误");
+        }
+        else if (EngineNumber.length != 6) {
+            mui.alert("发动机信息错误");
+        }
+        else {
+            var tes = true;
+            for (var i = 0; i < items.length; i++) {
+                if (ChassisNumber.indexOf(items[i]) >= 0 || EngineNumber.indexOf(items[i]) >= 0 || CarInfo.indexOf(items[i]) >= 0 || carNum.indexOf(items[i]) >= 0) {
+                    mui.alert("提交信息含有非法字符");
+                    return false;
+                }
+            }
+            if (tes) {
+                $.ajax({
+                    url: "/Car/Add",
+                    type: "POST",
+                    data: {
+                        Numberplate: prov + city + carNum,
+                        ChassisNumber: ChassisNumber,
+                        EngineNumber: EngineNumber,
+                        CarDetailInfo: CarInfo
+                    },
+                    success: function (data) {
+                        if (data == "True") {
+                            mui.alert("绑定成功");
+                            $(".title").remove();
+                            $(".car-ul").append("<li class=\"mui-table-view-cell\"><a href=\"/Car/Detail?numberplate='" + prov + city + carNum + "'\"><div class=\"mui-table\"><div class=\"mui-table-cell mui-col-xs-10\"><h4 class=\"mui-ellipsis\">" + prov + city + carNum + "</h4><p>车型信息: " + CarInfo + "</p><p class=\"mui-h6 mui-ellipsis\">车架号: " + ChassisNumber + " &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: " + EngineNumber + "</p></div><div class=\"mui-table-cell mui-col-xs-2 mui-text-right\"><button class=\"mui-btn mui-btn-danger btn-edit\" onclick=\"Edit(" + prov + city + carNum + ");\">编辑</button></div></div></a></li>");
+                        }
+                        else {
+                            mui.alert("绑定失败");
+                        }
+                    },
+                    beforeSend: function () {
+                        $('.mask').show();
+                    },
+                    error: function () {
+                        mui.alert("ERROR");
+                    },
+                    complete: function () {
+                        $('.mask').hide();
+                    }
+                });
+            }
+        }
+    }
+
+    $("#sub").on("tap", function () {
+        AddCar();
+        $("input[name='Numberplate']").val("");
+        $("input[name='ChassisNumber']").val("");
+        $("input[name='EngineNumber']").val("");
+        $("input[name='CarDetailInfo']").val("");
+    });
+
+    $(document).ready(function () {
+        $("#atocar").addClass("mui-active");
+        var div_wid = $(".input-group").width();
+        var btn_wid = $("#btn").width() + 24;
+        var inp_wid = div_wid - btn_wid - 10;
+        $("input").css({
+            "width": inp_wid
+        });
+        $(".btn").css({
+            "width": btn_wid
+        });
+
+        window.onresize = function () {
+            var div_wid = $(".input-group").width();
+            var btn_wid = $("#btn").width() + 24;
+            var inp_wid = div_wid - btn_wid - 10;
+            $("input").css({
+                "width": inp_wid
+            });
+            $(".btn").css({
+                "width": btn_wid
+            });
+        }
+    });
+</script>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <link href="css/iconfont.css" rel="stylesheet" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <style>
+        .navbar-fixed-bottom {
+            height: 32px;
+        }
+
+            .navbar-fixed-bottom button {
+                border-radius: 0px;
+                border: none;
+                background-color: #e5e3e3;
+            }
+
+        .hasOrders {
+            display: block;
+            background: #f00;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            top: 10px;
+            right: 20px;
+            position: absolute;
+        }
+
+        .mui-bar-nav {
+            background-color: #ffffff !important;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .mask {
+            position: absolute;
+            z-index: 900;
+            opacity: 0.6;
+            filter: alpha(opacity: 50);
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .icon-loading {
+            position: absolute;
+            top: 50%;
+        }
+
+            .icon-loading span {
+                color: #FFFFff;
+            }
+    </style>
+    <script type="text/javascript">
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            // alert("Android");
+            document.write('<meta name="viewport" content="width=device-width" />');
+        } else if (isiOS) {
+            // alert("iOS");
+            document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />');
+        }
+    </script>
+</head>
+<body>
+<div class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+@using com.jiechengbao.entity
+<style>
+ body {
+        background-color: #fff;
+    }
+
+    .input-group {
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .blank_block {
+        height: 100px;
+    }
+
+    .btn-yellow {
+        color: #222;
+        border: none;
+    }
+
+    .page-header {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        text-align: center;
+    }
+
+    .input-group-addon, .btn-check {
+        background: #F18518;
+        border-color: #F18518;
+        color: #fff;
+    }
+
+    .li-provice {
+        width: 50%;
+        height: 150px;
+    }
+
+        .li-provice li {
+            float: left;
+        }
+
+            .li-provice li a {
+                padding-left: 5px;
+                padding-right: 0px;
+            }
+
+    .breadcrumb {
+        color: #F18518;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+    select{
+        padding: 8px 0px;
+        margin: 0px;
+        width: auto; 
+    }
+    input{
+        margin: 0px!important;
+        border-radius: 0px 4px 4px 0px!important;
+        font-size: 14px;
+        padding: 8px!important;
+        position: relative;
+        left: -5px;
+        border: none!important;
+    }
+    .car-num{
+        width: 50%!important;
+    }
+    .input-group{
+        border-top: 1px solid #d2d2d2;
+        padding: 5px 0px;
+        margin: 0px;
+        text-align: left;
+    }
+    .btn{
+        border-radius: 4px 0px 0px 4px;
+        height: 40px;
+        text-align: left!important;
+    }
+    strong{
+        /*font-family: "微软雅黑";*/
+        font-size: 16px;
+        margin: 10px 0px;
+        letter-spacing: 2px;
+        color: #666;
+    }
+    h5{
+        padding: 10px 0px;
+        text-align: center;
+    }
+    #sub{
+        width: 100%;
+        background: #dd524d;
+        color: white;
+        border: none;
+        font-size: 16px;
+        padding: 12px 0px;
+    }
+</style>
+
+<div class="page-header">
+    <h5>
+        <strong>爱车信息绑定</strong>
+    </h5>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车牌</button>
+        </span>
+        <select name="jcbprov" id="jcbprov">
+            <option value="京">京</option>
+            <option value="津">津</option>
+            <option value="冀">冀</option>
+            <option value="晋">晋</option>
+            <option value="蒙">蒙</option>
+            <option value="辽">辽</option>
+            <option value="吉">吉</option>
+            <option value="黑">黑</option>
+            <option value="沪">沪</option>
+            <option value="苏">苏</option>
+            <option value="浙">浙</option>
+            <option value="皖">皖</option>
+            <option value="闽">闽</option>
+            <option value="赣">赣</option>
+            <option value="鲁">鲁</option>
+            <option value="豫">豫</option>
+            <option value="鄂">鄂</option>
+            <option value="湘">湘</option>
+            <option value="粤" selected="selected">粤</option>
+            <option value="桂">桂</option>
+            <option value="琼">琼</option>
+            <option value="渝">渝</option>
+            <option value="川">川</option>
+            <option value="贵">贵</option>
+            <option value="云">云</option>
+            <option value="藏">藏</option>
+            <option value="陕">陕</option>
+            <option value="甘">甘</option>
+            <option value="青">青</option>
+            <option value="宁">宁</option>
+            <option value="新">新</option>
+        </select>
+        <select name="jcbcity" id="jcbcity">
+            <option value="A" selected="selected">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+            <option value="I">I</option>
+            <option value="J">J</option>
+            <option value="K">K</option>
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+            <option value="P">P</option>
+            <option value="Q">Q</option>
+            <option value="R">R</option>
+            <option value="S">S</option>
+            <option value="T">T</option>
+            <option value="U">U</option>
+            <option value="V">V</option>
+            <option value="W">W</option>
+            <option value="X">X</option>
+            <option value="Y">Y</option>
+            <option value="Z">Z</option>
+        </select>
+        <input type="text" class="form-control car-num" placeholder="请输入车牌号">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车架号</button>
+        </span>
+        <input type="text" class="form-control" name="ChassisNumber" placeholder="*请完整输入车辆识别号">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button id="btn" class="btn btn-default btn-yellow" type="button">发动机号</button>
+        </span>
+        <input type="text" class="form-control" name="EngineNumber" placeholder="*请完整输入发动机号">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-yellow" type="button">车型信息</button>
+        </span>
+        <input type="text" class="form-control" name="CarDetailInfo" placeholder="*如: 宝马X5">
+    </div>
+
+    <div class="input-group">
+        <button id="sub" type="button" onclick="AddCar();">立即绑定</button>
+    </div>
+
+</div>
+@if (ViewData["CarList"] == null || (ViewData["CarList"] as List<Car>).Count <= 0)
+{
+    <ul class="mui-table-view car-ul">
+        @foreach (var item in ViewData["CarList"] as IEnumerable<Car>)
+        {
+            <li class="mui-table-view-cell">
+                <a href="/Car/Detail?numberplate=@item.Numberplate">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-10">
+                            <h4 class="mui-ellipsis">@item.Numberplate</h4>
+                            <p>车型信息: @item.CarDetailInfo</p>
+                            <p class="mui-h6 mui-ellipsis">车架号: @item.ChassisNumber &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: @item.EngineNumber</p>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            <button class="btn btn-danger btn-edit" onclick="Edit(@item.Numberplate);">编辑</button>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="title">暂无已绑定的爱车...</div>
+}
+<div class="blank_block"></div>
+
+<script>
+    function AddCar() {
+        var prov = $.trim($("#jcbprov").text());
+        var city = $.trim($("#jcbcity").text());
+        var carNum = $("input[name='Numberplate']").val();
+        var ChassisNumber = $("input[name='ChassisNumber']").val();
+        var EngineNumber = $("input[name='EngineNumber']").val();
+        var CarInfo = $("input[name='CarInfo']").val();
+        if (carNum == undefined || ChassisNumber == undefined || EngineNumber == undefined || CarInfo == undefined) {
+            mui.alert("提交数据不完整");
+        }
+        else {
+            $.ajax({
+                url: "/Car/Add",
+                type: "POST",
+                data: {
+                    Numberplate: prov + city + carNum,
+                    ChassisNumber: ChassisNumber,
+                    EngineNumber: EngineNumber,
+                    CarDetailInfo: CarInfo
+                },
+                success: function (data) {
+                    if (data == "True") {
+                        mui.alert("绑定成功");
+                        $(".title").remove();
+                        $(".car-ul").append("<li class=\"mui-table-view-cell\"><a href=\"/Car/Detail?numberplate='" + prov + city + carNum + "'\"><div class=\"mui-table\"><div class=\"mui-table-cell mui-col-xs-10\"><h4 class=\"mui-ellipsis\">" + prov + city + carNum + "</h4><p>车型信息: " + CarInfo + "</p><p class=\"mui-h6 mui-ellipsis\">车架号: " + ChassisNumber + " &nbsp;&nbsp;&nbsp;&nbsp; 发动机号: " + EngineNumber + "</p></div><div class=\"mui-table-cell mui-col-xs-2 mui-text-right\"><button class=\"btn btn-danger btn-edit\" onclick=\"Edit('" + prov + city + carNum + "');\">编辑</button></div></div></a></li>");
+                    }
+                    else {
+                        mui.alert("绑定失败");
+                    }
+                },
+                beforeSend: function () {
+                    $('.mask').show();
+                },
+                error: function () {
+                    mui.alert("ERROR");
+                },
+                complete: function () {
+                    $('.mask').hide();
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+        $("#atocar").addClass("mui-active");
+        var div_wid = $(".input-group").width();
+        var btn_wid = $("#btn").width() + 24;
+        var inp_wid = div_wid - btn_wid - 10;
+        $("input").css({
+            "width": inp_wid
+        });
+        $(".btn").css({
+            "width": btn_wid
+        });
+    })
+</script>
+
+<div style="display: block; height: 100px;"></div>
+        </div>
+    </div>
+    <nav class="mui-bar mui-bar-tab">
+        <a class="mui-tab-item" href="/UserInfo/Index" id="atouserinfo">
+            <span class="mui-icon iconfont icon-shouyeshouye"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" href="/Home/Index" id="atohome">
+            <span class="mui-icon iconfont icon-dianpu"></span>
+            <span class="mui-tab-label">商城</span>
+        </a>
+        <a class="mui-tab-item" href="/Car/List" id="atocar">
+            <span class="mui-icon iconfont icon-car"></span>
+            <span class="mui-tab-label">爱车</span>
+        </a>
+        <a class="mui-tab-item" href="/UserInfo/Info" id="atoinfo">
+            <span class="mui-icon mui-icon-person" id="atoperson"></span>
+            <span class="mui-tab-label">个人</span>
+        </a>
+    </nav>
+    <script>
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0010
+        });
+
+        mui(".mui-bar").on("tap", "a", function () {
+            window.location.href = this.href;
+        });
+        document.addEventListener('touchmove', function (e) { e.preventDefault() }, false);
+    </script>
+</body>
+</html>

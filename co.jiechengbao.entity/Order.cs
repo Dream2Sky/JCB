@@ -49,6 +49,12 @@ namespace com.jiechengbao.entity
         [Required]
         public int Status { get; set; }
 
+        /// <summary>
+        /// 标记订单是否取货
+        /// </summary>
+        [Required]
+        public int IsCompleted { get; set; }
+
         [Required]
         public double TotalPrice { get; set; }
     }

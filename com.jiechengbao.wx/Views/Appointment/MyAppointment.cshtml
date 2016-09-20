@@ -494,18 +494,18 @@
         // 预约时间
         var jcbtime = $("select[name='jcbtime']").find("option:selected").val();
 
-        var jcbremark = $("input[name='jcbremark']").val();
+        var jcbremark = $("textarea[name='jcbremark']").val();
 
-        if (jcbtype == "" || jcbtype == "undefined") {
+        if (jcbtype == "" || jcbtype == "undefined" || jcbtype == undefined) {
             alert("请填写车型号");
         } else
-            if (jcbnumber == "" || jcbnumber == "undefined") {
+            if (jcbnumber == "" || jcbnumber == "undefined" || jcbnumber == undefined) {
                 alert("请填写车牌号");
             } else
-                if (jcbdate == "" || jcbdate == "undefined") {
+                if (jcbdate == "" || jcbdate == "undefined" || jcbdate == undefined) {
                     alert("请填写预约日期");
                 } else
-                    if (jcbtime == "" || jcbtime == "undefined") {
+                    if (jcbtime == "" || jcbtime == "undefined" || jcbtime == undefined) {
                         alert("请填写预约时间段");
                     } else
                         if (appointmentArray.length == 0) {
@@ -529,9 +529,13 @@
                                 success: function (data) {
                                     if (data == "True") {
                                         mui.alert("预约服务成功");
+                                        window.location.href = "/Appointment/List";
                                     }
-                                    else {
-                                        mui.alert("预约服务失败");
+                                    else if (data == "Repeat") {
+                                        mui.alert("你已经预约了该时间段的相关服务了，不能再重复预约了");
+                                    }
+                                    else if (data == "False") {
+                                        mui.alert("预约服务失败，请重新预约");
                                     }
                                 },
                                 error: function () {
