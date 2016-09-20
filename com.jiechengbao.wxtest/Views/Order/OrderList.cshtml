@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "订单列表";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+<style>
+    .nav-tab-all {
+        background-color: #FFFFFF;
+    }
+</style>
+<style>
+    .mui-bar-nav {
+        background-color: #ffffff;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+
+    .mui-table-view a {
+        color: #000;
+    }
+
+    .mui-table-view {
+        margin-top: 10px;
+    }
+
+    .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+    }
+</style>
+<div class="nav-tab-all" style="padding: 10px 10px;">
+    <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative">
+        <a class="mui-control-item mui-active" href="2">
+            所有订单
+        </a>
+        <a class="mui-control-item" href="1">
+            已完成订单
+        </a>
+        <a class="mui-control-item" href="0">
+            未完成订单
+        </a>
+    </div>
+</div>
+<div class="div-content">
+    @Html.Partial("List")
+</div>
+<script>
+    $(".mui-control-item").on("tap", function () {
+        var href = $(this).attr("href");
+
+        $.ajax({
+            url: "/Order/List",
+            type: "POST",
+            data: {
+                type: href
+            },
+            traditional: true,
+            success: function (data) {
+                $(".div-content").html(data);
+            },
+            beforeSend: function () {
+                $(".mask").show();
+            },
+            complete: function () {
+                $(".mask").hide();
+            },
+            error: function () {
+                alert("查询订单失败");
+            }
+        });
+    })
+</script>
+<script>
+
+    function preDelete(orderNo) {
+        var btnArray = ['否', '是'];
+        mui.confirm('是否确定删除此订单', '删除订单', btnArray, function (e) {
+            if (e.index == 1) {
+                Delete(orderNo);
+            }
+        })
+    };
+ 
+    function Delete(orderNo) {
+        $.ajax({
+            url: "/Order/Delete",
+            type: "POST",
+            data: {
+                OrderNo: orderNo
+            },
+            success: function (data) {
+                if (data == "True") {
+                    window.location.href = window.location.href;
+                }
+                else {
+                    mui.alert("删除失败");
+                }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
+            error: function () {
+                mui.alert('删除失败');
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#atoorder").addClass("mui-active");
+    })
+</script>

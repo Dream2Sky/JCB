@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "捷诚宝名车服务";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@using com.jiechengbao.wx.Models
+<link href="~/Content/css/mui.min.css" rel="stylesheet" />
+<link href="~/Content/css/iconfont.css" rel="stylesheet" />
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/mui.min.js"></script>
+<style>
+    .btn-group-options button {
+        height: 80px;
+        border-radius: 0px;
+        background: #fff;
+        border: none;
+    }
+    .title-view{
+        margin-top:20px;
+    }
+    .title {
+        text-align:center;
+        padding-top:15px;
+        padding-bottom:15px;
+        color: #6d6d72;
+        font-size: 14px;
+    }
+    button:hover,button:after,button:focus,button:before,button:active,button:visited{
+        background-color:#fff;
+    }
+    .content-table a{
+        color:#000;
+    }
+    .money-div{
+        color:red;
+    }
+</style>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/Content/images/11.jpg" alt="...">
+            <div class="carousel-caption">
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar" style="padding-top:15px;background:#fff;margin-bottom:0px;">
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-justified btn-group-options" role="group" aria-label="..." style="padding:0px;">
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_home" class="btn btn-default" onclick="Go('/Appointment/MyAppointment')">
+                        <img style="width:48px;height:48px;" src="~/Content/images/在线购物图标.jpg">
+                        <p><small>在线预约</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_shopping" class="btn btn-default" onclick="Go('http://m.weizhang8.cn/');">
+                        <img id="img_shoppingCar" style="width:48px;height:48px;" src="~/Content/images/违章查询图标.jpg">
+                        <p><small>违章查询</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_user" class="btn btn-default" onclick="Go('/UserInfo/Help')">
+                        <img style="width:48px;height:48px;" src="~/Content/images/车辆救援图标.jpg">
+                        <p><small>紧急救援</small></p>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="btn_user" class="btn btn-default" onclick="Go('/Car/List');">
+                        <img style="width:48px;height:48px;" src="~/Content/images/爱车管理图标.jpg">
+                        <p><small>爱车管理</small></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<ul class="mui-table-view title-view">
+    <li class="mui-table-view-cell">
+        为您推荐
+    </li>
+</ul>
+<ul id="OA_task_1" class="mui-table-view">
+    @{
+        List<GoodsModel> goodsModelList = ViewData["GoodsModelList"] as List<GoodsModel>;
+        foreach (var item in goodsModelList)
+        {
+            <li class="mui-table-view-cell mui-media">
+                <div class="mui-slider-handle">
+                    <div class="mui-input-row mui-left content-table">
+                        <a href="/Home/Detail?code=@item.Code">
+                            <img class="mui-media-object mui-pull-left" src="/Uploads/@item.PicturePath">
+                            <div class="mui-media-body">
+                                @item.Name
+                                <p class='mui-ellipsis'><small>@item.Description</small></p>
+                                <div class='mui-ellipsis money-div'>
+                                    <span class="mui-left">
+                                    <small>￥@item.Price</small>
+                                    @*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>@item.ExchangeCredit 积分</small>*@
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        }
+    }
+    @{
+        if (goodsModelList == null || goodsModelList.Count <= 0)
+        {
+            <div class="title">对不起，此模块在维护中，请原谅</div>
+        }
+    }
+</ul>
+
+<script>
+    function Go(url) {
+        window.location.href = url;
+    }
+
+    $(document).ready(function () {
+        $("#atouserinfo").addClass("mui-active");
+    })
+
+</script>

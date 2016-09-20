@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace com.jiechengbao.wx.Controllers
 {
-    public class OauthController:Controller
+    public class OauthController : Controller
     {
         private IMemberBLL _memberBLL;
         public OauthController(IMemberBLL memberBLL)
@@ -30,7 +30,7 @@ namespace com.jiechengbao.wx.Controllers
             LogHelper.Log.Write("传递的code:" + code);
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://" + WxConfig.WxDomain + "/Oauth/GetCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                 System.Web.HttpContext.Current.Response.Redirect(url);
                 return RedirectToAction("GetCode");
             }
@@ -39,8 +39,6 @@ namespace com.jiechengbao.wx.Controllers
                 CacheManager.SetCache("code", code);
             }
             UserInfo_JsonModel user = GetWxUserInfo();
-
-            LogHelper.Log.Write("openid:" + user.openid + ", nickname:" + user.nickname + ", sex:" + user.sex + ", headerimage:" + user.headimgurl);
 
             if (!_memberBLL.IsExist(user.openid))
             {
@@ -83,15 +81,11 @@ namespace com.jiechengbao.wx.Controllers
         /// <returns></returns>
         public ActionResult GetHelpCode(string code)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetHelpCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://" + WxConfig.WxDomain + "/Oauth/GetHelpCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
-                sw.Stop();
-                LogHelper.Log.Write("已经存在code 直接跳转所花费的时间为: " + sw.ElapsedMilliseconds);
                 return RedirectToAction("GetHelpCode");
             }
             else
@@ -125,8 +119,6 @@ namespace com.jiechengbao.wx.Controllers
 
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
-            sw.Stop();
-            LogHelper.Log.Write("重新获取code 再跳转所花费的时间为: " + sw.ElapsedMilliseconds);
             if (Request.UrlReferrer == null || Request.UrlReferrer.Host != Request.Url.Host)
             {
                 return RedirectToAction("Help", "UserInfo");
@@ -147,7 +139,7 @@ namespace com.jiechengbao.wx.Controllers
             LogHelper.Log.Write("传递的code:" + code);
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetRechargeCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://" + WxConfig.WxDomain + "/Oauth/GetRechargeCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
 
@@ -158,8 +150,6 @@ namespace com.jiechengbao.wx.Controllers
                 CacheManager.SetCache("code", code);
             }
             UserInfo_JsonModel user = GetWxUserInfo();
-
-            LogHelper.Log.Write("openid:" + user.openid + ", nickname:" + user.nickname + ", sex:" + user.sex + ", headerimage:" + user.headimgurl);
 
             if (!_memberBLL.IsExist(user.openid))
             {
@@ -184,7 +174,6 @@ namespace com.jiechengbao.wx.Controllers
                 }
 
             }
-            LogHelper.Log.Write("user's openid = " + user.openid);
 
             System.Web.HttpContext.Current.Session["member"] = user.openid;
 
@@ -207,7 +196,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetUserInfoCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://" + WxConfig.WxDomain + "/Oauth/GetUserInfoCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
 
@@ -236,21 +225,6 @@ namespace com.jiechengbao.wx.Controllers
                 member.IsDeleted = false;
                 member.TotalCredit = 0;
                 member.Phone = "";
-
-                LogHelper.Log.Write(member.Id.ToString());
-                LogHelper.Log.Write(member.IsDeleted.ToString());
-                LogHelper.Log.Write(member.NickeName);
-                LogHelper.Log.Write(member.OpenId);
-                LogHelper.Log.Write(member.Vip.ToString());
-                LogHelper.Log.Write(member.HeadImage);
-                LogHelper.Log.Write(member.CreatedTime.ToString());
-                LogHelper.Log.Write(member.Credit.ToString());
-                LogHelper.Log.Write(member.DeletedTime.ToString());
-                LogHelper.Log.Write(member.RealName);
-                LogHelper.Log.Write(member.IsDeleted.ToString());
-                LogHelper.Log.Write(member.TotalCredit.ToString());
-                LogHelper.Log.Write(member.Phone);
-
 
                 if (!_memberBLL.Add(member))
                 {
@@ -279,7 +253,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (string.IsNullOrEmpty(code))
             {
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetAppointmentCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://" + WxConfig.WxDomain + "/Oauth/GetAppointmentCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
 
@@ -309,21 +283,6 @@ namespace com.jiechengbao.wx.Controllers
                 member.TotalCredit = 0;
                 member.Phone = "";
 
-                LogHelper.Log.Write(member.Id.ToString());
-                LogHelper.Log.Write(member.IsDeleted.ToString());
-                LogHelper.Log.Write(member.NickeName);
-                LogHelper.Log.Write(member.OpenId);
-                LogHelper.Log.Write(member.Vip.ToString());
-                LogHelper.Log.Write(member.HeadImage);
-                LogHelper.Log.Write(member.CreatedTime.ToString());
-                LogHelper.Log.Write(member.Credit.ToString());
-                LogHelper.Log.Write(member.DeletedTime.ToString());
-                LogHelper.Log.Write(member.RealName);
-                LogHelper.Log.Write(member.IsDeleted.ToString());
-                LogHelper.Log.Write(member.TotalCredit.ToString());
-                LogHelper.Log.Write(member.Phone);
-
-
                 if (!_memberBLL.Add(member))
                 {
                     LogHelper.Log.Write("添加新用户失败");
@@ -351,9 +310,7 @@ namespace com.jiechengbao.wx.Controllers
         {
             if (string.IsNullOrEmpty(code))
             {
-                string url = @"https://open.weixin.qq.com/connect/oauth2/authorize?
-appid=wx3fab45769c82a189&redirect_uri=http://jcb.ybtx88.com/Oauth/GetCouponCode&
-response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                string url = @"https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.AppId + "&redirect_uri=http://"+WxConfig.WxDomain+"/Oauth/GetCouponCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
                 System.Web.HttpContext.Current.Response.Redirect(url);
 
@@ -405,7 +362,7 @@ response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             string code = CacheManager.GetCache("code").ToString();
             string responseString = string.Empty;
 
-            string url = string.Format(@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3fab45769c82a189&secret=1b4feb651f6bbae81776068c241f8603&code={0}&grant_type=authorization_code", code);
+            string url = string.Format(@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WxConfig.AppId + "&secret=" + WxConfig.AppSecret + "&code={0}&grant_type=authorization_code", code);
 
             responseString = HttpManager.AccessURL_GET(url);
             Access_Token_JsonModel model = new Access_Token_JsonModel();
@@ -440,8 +397,7 @@ response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             string url = string.Format(@"https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}", model.access_token, model.openid);
 
             responseString = HttpManager.AccessURL_GET(url);
-            LogHelper.Log.Write("打印微信返回的xml");
-            LogHelper.Log.Write(responseString);
+
             UserInfo_JsonModel user = new UserInfo_JsonModel();
             try
             {

@@ -19,7 +19,7 @@ namespace com.jiechengbao.admin.Models
             this.MemberId = order.MemberId;
             this.OrderNo = order.OrderNo;
             this.Status = order.Status;
-
+            this.IsCompleted = order.IsCompleted;
             // 没有配送系统
             //this.AddressId = order.AddressId;
             this.PayTime = order.PayTime;

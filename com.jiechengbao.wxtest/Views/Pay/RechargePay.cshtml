@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>微信支付</title>
+    @*<link rel="stylesheet" href="~/Content/css/pay.css">*@
+    <style>
+        html body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background: #efeff4;
+        }
+
+        .content {
+            width: 100%;
+            height: auto;
+            padding: 18px 0px 0px;
+        }
+
+            .content form {
+                width: 100%;
+                /*margin-bottom: 30px;*/
+            }
+
+        .form-li {
+            /*margin: 0px 0px 20px;*/
+            border-bottom: 1px solid #e4e3e6;
+            background: #fff;
+            width: 100%;
+            overflow: hidden;
+            padding: 13px 0px 7px;
+
+        }
+
+            .form-li span {
+                /*min-width: 200px;*/
+                /*font-size: 15px;*/
+                width: 28%;
+                margin-left: 3%;
+                overflow: hidden;
+                float: left;
+                font-family: "黑体";
+            }
+
+            .form-li input {
+                font-size: 15px;
+                padding: 5px;
+                border: none;
+                width: 60%;
+                float: left;
+                text-align: right;
+                background: #fff;
+				position: relative;
+				margin-top:-5px;
+            }
+
+        .sub {
+            font-size: 16px;
+            padding: 10px 0px;
+            color: white;
+            background: #dd524d;
+            text-align: center;
+            width: 100%;
+            margin: 10px 0px 0px;
+            font-family: "黑体";
+            border: none;
+            border-radius: 3px;
+        }
+
+        .footer {
+            border-top: 2px solid #e4e3e6;
+            /*height: 100px;*/
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <form>
+            <div class="form-li">
+                <span>订单号：</span>
+                <input type="text" name="" disabled="disabled" value="@ViewBag.OrderNo" />
+            </div>
+            <div class="form-li">
+                <span>支付金额：</span>
+                <input type="text" name="" disabled="disabled" value="￥@ViewBag.TotalPrice" />
+            </div>
+            <input class="sub" readonly id="confirmBtn" onclick="callpay();" value="立即支付" />
+        </form>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //调用微信JS api 支付
+    function jsApiCall()
+    {
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',
+        @Html.Raw(ViewData["JsonResult"] as string),
+         function (res)
+         {
+             WeixinJSBridge.log(res.err_msg);
+             if (res.err_msg == "get_brand_wcpay_request:ok") {
+                 mui.alert("支付成功");
+                 window.location.href = "/UserInfo/Info";
+             }
+             else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                 mui.alert("已取消微信支付");
+             }
+             else {
+                 mui.alert("微信支付失败");
+             }
+         }
+         );
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined")
+        {
+            if (document.addEventListener)
+            {
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }
+            else if (document.attachEvent)
+            {
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }
+        else
+        {
+            jsApiCall();
+        }
+    }
+
+    
+    $(document).ready(function () {
+        $("#atoorder").addClass("mui-active");
+    })
+</script>

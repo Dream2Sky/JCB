@@ -1,0 +1,28 @@
+
+@font-face {font-family: "cart-iconfont";
+  src:url('../fonts/iconfont-cartplus.ttf?t=1470296247') format('truetype') /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+
+}
+
+.cart-iconfont {
+  font-family:"cart-iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cart-cart:before { content: "\e69a"; }
+.cart-cartplus:before { content: "\e610"; }
+.cart-cartadd:before { content: "\e60c"; }
+.cart-cart14:before { content: "\e803"; }
+.cart-cartplus1:before { content: "\ea3f"; }
+.cart-cartplus2:before { content: "\e670"; }
+.cart-cartplus3:before { content: "\e64c"; }
+.cart-cart-add:before { content: "\e6c0"; }
+.cart-cartplus4:before { content: "\e707"; }
+.cart-addcart:before { content: "\e629"; }
+.cart-cartplus5:before { content: "\e670"; }
+.cart-iconcartplus:before { content: "\e61f"; }
+.cart-iconcartplus1:before { content: "\e61b"; }
+.cart-addshoppingcart:before { content: "\e664"; }

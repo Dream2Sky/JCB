@@ -43,14 +43,11 @@ namespace com.jiechengbao.admin.Controllers
 
         public ActionResult Completed()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             List<OrderModel> orderModelList = new List<OrderModel>();
             IEnumerable<Order> orderList = _orderBLL.GetCompletedOrders();
-            sw.Stop();
-            LogHelper.Log.Write("Order/Completed: GetCompletedOrders " + sw.ElapsedMilliseconds + " ms");
 
-            sw.Restart();
+            orderList = orderList.OrderBy(n => n.IsCompleted);
+
             foreach (var item in orderList)
             {
                 OrderModel om = new OrderModel(item);
@@ -78,10 +75,6 @@ namespace com.jiechengbao.admin.Controllers
 
                 orderModelList.Add(om);
             }
-
-            sw.Stop();
-            LogHelper.Log.Write("Order/Completed: " + sw.ElapsedMilliseconds + " ms");
-
             ViewData["CompletedOrderList"] = orderModelList;
 
             return View();
@@ -99,6 +92,8 @@ namespace com.jiechengbao.admin.Controllers
             List<Order> orderList = new List<Order>();
             // 偷懒 只按订单号查询
             orderList.Add(_orderBLL.GetOrderByOrderNo(condition));
+
+            orderList = orderList.OrderBy(n => n.IsCompleted).ToList();
 
             foreach (var item in orderList)
             {
@@ -250,6 +245,46 @@ namespace com.jiechengbao.admin.Controllers
             }
             ViewData["CompletedOrderList"] = orderModelList;
             return View();
+        }
+
+        public JsonResult SetCompleted(string orderNo)
+        {
+            if (string.IsNullOrEmpty(orderNo))
+            {
+                return Json("Empty", JsonRequestBehavior.AllowGet);
+            }
+
+            string res = "False";
+
+            using (JCB_DBContext db = new JCB_DBContext ())
+            {
+                using (var trans = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Order order = db.Set<Order>().Where(n => n.OrderNo == orderNo).Single();
+                        order.IsCompleted = 1;
+
+                        db.Set<Order>().Attach(order);
+                        db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+
+                        trans.Commit();
+                        res = "True";
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                        res = "False";
+                    }
+                }
+            }
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
     }
 }

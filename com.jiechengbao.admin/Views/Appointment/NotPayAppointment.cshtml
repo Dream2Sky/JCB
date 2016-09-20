@@ -11,52 +11,6 @@
         font-family: "微软雅黑";
     }
 
-    /*.form-control {
-        width: 100%!important;
-        position: relative;
-    }
-
-    .btn {
-        float: left;
-        position: relative;
-    }
-
-    .info {
-        text-align: center;
-        width: 85%;
-        padding: 0px 10px;
-        color: gray;
-    }
-
-    .over {
-        max-height: 580px;
-        overflow: auto;
-        position: relative;
-        left: 14px;
-    }
-
-    .list {
-        width: 87.5%!important;
-    }
-
-    .btnu {
-        border: 1px solid #d2d2d2;
-        border-radius: 4px;
-        background: #fff;
-        height: 34px;
-        width: 90px;
-    }
-
-    .test {
-        display: block;
-        height: 34px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #555;
-        border: 1px solid #ccc;
-        border-radius: 4px!important;
-        margin: 0px auto;
-    }*/
     .msg {
         text-align: center;
     }
@@ -80,14 +34,6 @@
         <button type="submit" class="btn btn-danger">搜索</button>
     </form>
 </div>
-@*<div class="container-fluid">
-    <form class="navbar-form navbar-left" method="post" action="/Order/Completed" role="search">
-        <div class="form-group">
-            <input type="text" name="condition" placeholder="搜索" class="form-control">
-        </div>
-        <button class="btn btn-danger" type="submit">搜索</button>
-    </form>
-</div>*@
 <div class="container-fluid">
     <div class="col-md-12 title list">
         未完成预约单
@@ -120,7 +66,6 @@
                             <td>@item.CarNumber</td>
                             <td>@item.CarInfo</td>
                             <td>
-                                <h5><strong>预约服务列表</strong></h5>
                                 <small>
                                     @foreach (var appName in item.AppointmentNameList)
                                     {
@@ -128,11 +73,10 @@
                                     }
                                 </small>
                             </td>
+                            <td>@item.AppointmentTime</td>
                             <td>
-                                <h5><strong>问题补充</strong></h5>
                                 <small>@item.Supplement</small>
                             </td>
-                            <td>@item.AppointmentTime</td>
                             <td id="@item.MyAppointmentId">
                                 <div class="input-group">
                                     <input type="text" name="Price" class="test form-control" placeholder="价钱" value="">
@@ -158,106 +102,6 @@
     }
 </div>
 
-<!--
-@*<style>
-    .title {
-        text-align: center;
-        color: #808080;
-    }
-    img{
-        max-height:32px;
-        max-width:32px;
-    }
-</style>
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li><a href="/Home/Index">管理后台</a></li>
-            <li class="active">未完成预约列表</li>
-        </ol>
-
-        <div class="navbar navbar-options">
-            <div class="container-fluid">
-                <form class="navbar-form navbar-left" method="post" action="/Appointment/NoPayAppointment" role="search">
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="会员昵称">
-                    </div>
-                    <button type="submit" class="btn btn-danger">搜索</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-            <div class="col-md-12 div-title">
-                <ol class="breadcrumb">
-                    <li>未完成预约单</li>
-                </ol>
-            </div>
-            @{
-                if (ViewData["NOPayAppointmentList"] != null)
-                {
-                    <table class="table table-bordered table-expandable">
-                        <thead>
-                            <tr>
-                                <th>会员</th>
-                                <th>车牌号</th>
-                                <th>车型信息</th>
-                                <th>预约时间</th>
-                                <th>支付金额</th>
-                                <th>备注</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in ViewData["NOPayAppointmentList"] as IEnumerable<MyAppointmentModel>)
-                            {
-                                <tr>
-                                    <td><img src="@item.HeadImage" />@item.NickName</td>
-                                    <td>@item.CarNumber</td>
-                                    <td>@item.CarInfo</td>
-                                    <td>@item.AppointmentTime</td>
-                                    <td id="@item.MyAppointmentId">
-                                        <div class="input-group">
-                                            <input type="text" name="Price" class="form-control" placeholder="价钱" value="">
-                                        </div>
-                                    </td>
-                                    <td id="note_@item.MyAppointmentId">
-                                        <div class="input-group">
-                                            <input type="text" name="Notes" class="form-control" placeholder="备注。。。" value="">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-default" type="button" onclick="Pay('@item.MyAppointmentId');">确认付款</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <h5><strong>预约服务列表</strong></h5>
-                                        <small>
-                                            @foreach (var appName in item.AppointmentNameList)
-                                            {
-                                                @(appName + ",")
-                                            }
-                                        </small>
-                                    </td>
-                                    <td colspan="2">
-                                        <h5><strong>问题补充</strong></h5>
-                                        <small>@item.Supplement</small>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                }
-                else
-                {
-                    <div class="title">暂无未支付的预约单</div>
-                }
-            }
-        </div>
-    </div>
-</div>*@
-    -->
 <script>
     function Pay(Id) {
         $.ajax({
@@ -286,10 +130,3 @@
         })
     }
 </script>
-@*<script>
-        //$(document).ready(function () {
-        //    //$("#li-appUncompleted").addClass("a-active");
-        //    $("#li-appUncompleted").parent().parent().removeClass("collapse");
-        //})
-    </script>*@
-

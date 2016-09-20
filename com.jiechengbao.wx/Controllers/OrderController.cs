@@ -87,7 +87,7 @@ namespace com.jiechengbao.wx.Controllers
             order.IsDeleted = false;
             order.CreatedTime = DateTime.Now;
             order.DeletedTime = DateTime.MinValue.AddHours(8);
-
+            order.IsCompleted = 0;
             // 还有这个
 
             //order.AddressId = address.Id;
@@ -101,70 +101,69 @@ namespace com.jiechengbao.wx.Controllers
 
             List<OrderDetail> odList = new List<OrderDetail>();
 
-            if (_orderBLL.Add(order))
+            bool res = false;
+
+            using (JCB_DBContext db = new JCB_DBContext ())
             {
-                foreach (var item in cartList)
+                using (var trans = db.Database.BeginTransaction())
                 {
-                    OrderDetail od = new OrderDetail();
-                    od.Id = Guid.NewGuid();
-                    od.Count = item.Count;
-                    od.CreatedTime = DateTime.Now;
-                    od.CurrentDiscount = item.Discount;
-                    od.CurrentPrice = item.Price;
-                    od.CurrentCredit = item.ExchangeCredit;
-                    od.DeletedTime = DateTime.MinValue.AddHours(8);
-                    od.GoodsId = item.Id;
-                    od.IsDeleted = false;
-                    od.OrderId = order.Id;
-                    od.OrderNo = order.OrderNo;
-                    od.TotalPrice = od.Count * od.CurrentDiscount * od.CurrentPrice;
-                    od.TotalCredit = od.Count * od.CurrentCredit;
-                    // 添加订单详情
-
-                    // 如果添加失败 则回滚
-
-                    if (!_orderDetailBLL.Add(od))
+                    try
                     {
-                        // 删除已添加的 OrderDetail
-                        _orderDetailBLL.Remove(odList);
-                        return Json("Error", JsonRequestBehavior.AllowGet);
+                        db.Set<Order>().Add(order);
+
+                        db.SaveChanges();
+                        foreach (var item in cartList)
+                        {
+                            OrderDetail od = new OrderDetail();
+                            od.Id = Guid.NewGuid();
+                            od.Count = item.Count;
+                            od.CreatedTime = DateTime.Now;
+                            od.CurrentDiscount = item.Discount;
+                            od.CurrentPrice = item.Price;
+                            od.CurrentCredit = item.ExchangeCredit;
+                            od.DeletedTime = DateTime.MinValue.AddHours(8);
+                            od.GoodsId = item.Id;
+                            od.IsDeleted = false;
+                            od.OrderId = order.Id;
+                            od.OrderNo = order.OrderNo;
+                            od.TotalPrice = od.Count * od.CurrentDiscount * od.CurrentPrice;
+                            od.TotalCredit = od.Count * od.CurrentCredit;
+
+                            db.Set<OrderDetail>().Add(od);
+                            odList.Add(od);
+
+                            db.SaveChanges();
+                        }
+
+                        foreach (CartModel item in cartList)
+                        {
+                            Cart cart = new Cart();
+                            cart = _cartBLL.GetCartByMemberIdAndGoodsId(member.Id, item.Id);
+                            cart.IsDeleted = true;
+
+                            db.Set<Cart>().Attach(cart);
+                            db.Entry(cart).State = System.Data.Entity.EntityState.Modified;
+
+                            db.SaveChanges();
+                        }
+
+                        trans.Commit();
+
+                        res = true;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        odList.Add(od);
+                        LogHelper.Log.Write(ex.Message);
+                        LogHelper.Log.Write(ex.StackTrace);
+
+                        trans.Rollback();
+                        res = false;
                     }
                 }
+            }
 
-                // 添加订单成功后 要把购物车上的物品标记成 已删除
-
-                foreach (CartModel item in cartList)
-                {
-                    Cart cart = new Cart();
-                    cart = _cartBLL.GetCartByMemberIdAndGoodsId(member.Id, item.Id);
-                    cart.IsDeleted = true;
-
-                    _cartBLL.Update(cart);
-                }
-
-                // 坑爹的老板说  不要配送功能
-
-                // 这段代码不要了
-
-                #region 需求更改  不要 配送功能  所以这里的就不要添加配送状态了
-
-                //订单添加后 添加OrderStatus对象 标记订单的配送状态
-                //OrderStatus os = new OrderStatus();
-                //os.Id = Guid.NewGuid();
-                //os.IsDeleted = false;
-                //os.OrderId = order.Id;
-                //os.Status = 0;
-                //os.CreatedTime = DateTime.Now;
-                //os.DeletedTime = DateTime.MinValue.AddHours(8);
-
-                //_orderStausBLL.Add(os);
-                #endregion
-
-
+            if (res)
+            {
                 var jsonResult = new
                 {
                     payway = payway,
@@ -172,12 +171,90 @@ namespace com.jiechengbao.wx.Controllers
                     orderNo = order.OrderNo
                 };
                 return Json(jsonResult, JsonRequestBehavior.AllowGet);
-
             }
             else
             {
                 return Json("Error", JsonRequestBehavior.AllowGet);
             }
+
+
+            //if (_orderBLL.Add(order))
+            //{
+            //    foreach (var item in cartList)
+            //    {
+            //        OrderDetail od = new OrderDetail();
+            //        od.Id = Guid.NewGuid();
+            //        od.Count = item.Count;
+            //        od.CreatedTime = DateTime.Now;
+            //        od.CurrentDiscount = item.Discount;
+            //        od.CurrentPrice = item.Price;
+            //        od.CurrentCredit = item.ExchangeCredit;
+            //        od.DeletedTime = DateTime.MinValue.AddHours(8);
+            //        od.GoodsId = item.Id;
+            //        od.IsDeleted = false;
+            //        od.OrderId = order.Id;
+            //        od.OrderNo = order.OrderNo;
+            //        od.TotalPrice = od.Count * od.CurrentDiscount * od.CurrentPrice;
+            //        od.TotalCredit = od.Count * od.CurrentCredit;
+            //        // 添加订单详情
+
+            //        // 如果添加失败 则回滚
+
+            //        if (!_orderDetailBLL.Add(od))
+            //        {
+            //            // 删除已添加的 OrderDetail
+            //            _orderDetailBLL.Remove(odList);
+            //            return Json("Error", JsonRequestBehavior.AllowGet);
+            //        }
+            //        else
+            //        {
+            //            odList.Add(od);
+            //        }
+            //    }
+
+            //    // 添加订单成功后 要把购物车上的物品标记成 已删除
+
+            //    foreach (CartModel item in cartList)
+            //    {
+            //        Cart cart = new Cart();
+            //        cart = _cartBLL.GetCartByMemberIdAndGoodsId(member.Id, item.Id);
+            //        cart.IsDeleted = true;
+
+            //        _cartBLL.Update(cart);
+            //    }
+
+            //    // 坑爹的老板说  不要配送功能
+
+            //    // 这段代码不要了
+
+            //    #region 需求更改  不要 配送功能  所以这里的就不要添加配送状态了
+
+            //    //订单添加后 添加OrderStatus对象 标记订单的配送状态
+            //    //OrderStatus os = new OrderStatus();
+            //    //os.Id = Guid.NewGuid();
+            //    //os.IsDeleted = false;
+            //    //os.OrderId = order.Id;
+            //    //os.Status = 0;
+            //    //os.CreatedTime = DateTime.Now;
+            //    //os.DeletedTime = DateTime.MinValue.AddHours(8);
+
+            //    //_orderStausBLL.Add(os);
+            //    #endregion
+
+
+            //    var jsonResult = new
+            //    {
+            //        payway = payway,
+            //        totalprice = order.TotalPrice,
+            //        orderNo = order.OrderNo
+            //    };
+            //    return Json(jsonResult, JsonRequestBehavior.AllowGet);
+
+            //}
+            //else
+            //{
+            //    return Json("Error", JsonRequestBehavior.AllowGet);
+            //}
         }
 
         [HttpPost]

@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "填写订单";
+    Layout = "~/Views/LayoutPage.cshtml";
+}
+@using com.jiechengbao.entity
+@using com.jiechengbao.wx.Models
+<script src="~/Content/js/json2.js"></script>
+<script src="~/Content/js/json_parse.js"></script>
+<script src="~/Content/js/json_parse_state.js"></script>
+<style>
+    .mui-bar-nav {
+        background-color: #FFFFFF;
+    }
+
+    .name-cell,
+    .address-cell {
+        padding-right: 30px;
+    }
+
+    .goods-ul {
+        margin-top: 10px;
+    }
+
+    .money-p {
+        color: #FF0000;
+    }
+
+    .money-ul {
+        margin-top: 10px;
+    }
+    .payway-ul{
+        margin-top:10px;
+    }
+    .payway-ul input{
+        margin-top:0px;
+    }
+    .mui-btn-block {
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+</style>
+
+@*@{
+        // 去掉Address
+    // 整个都不要了
+
+    //Address address = ViewBag.Address as Address;
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed address-view">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" id="atoAddress" href="/Address/List">
+                    <div class="mui-table name-cell">
+                        <div class="mui-table-cell mui-col-xs-8">
+                            <h4 class="mui-ellipsis">@address.Consignee</h4>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-4 mui-text-right">
+                            <span class="mui-h5">@address.Phone</span>
+                        </div>
+                    </div>
+                    <div class="mui-table address-cell">
+                        <div class="mui-table-cell mui-col-xs-12">
+                            <p class="mui-h6 mui-ellipsis"><i class="mui-icon mui-icon-location"></i>@(address.Province + address.City + address.County + " " + address.Detail)</p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    }*@
+
+<ul class="mui-table-view goods-ul">
+    @foreach (var item in ViewData["CartModelList"] as List<CartModel>)
+    {
+        <li class="mui-table-view-cell mui-media">
+            <a href="javascript:;">
+                <img class="mui-media-object mui-pull-left" src="/Uploads/@item.PicturePath">
+                <div class="mui-media-body">
+                    @item.Name
+                    <p class='mui-ellipsis'><small>@item.Description</small></p>
+                    <p class='mui-ellipsis money-p'><small>￥@item.Price</small><small>x @item.Count</small></p>
+                    @*<p class="mui-ellipsis money-p"><small>@item.ExchangeCredit 积分</small>x @item.Count</p>*@
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+<ul class="mui-table-view payway-ul">
+    <li class="mui-table-view-cell mui-radio mui-right">
+        <input name="payway" type="radio" checked value="0">微信支付
+    </li>
+    <li class="mui-table-view-cell mui-radio mui-right">
+        <input name="payway" type="radio" value="1">积分支付
+    </li>
+</ul>
+<ul class="mui-table-view money-ul">
+    <li class="mui-table-view-cell">
+        商品金额
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined btn-money">￥@ViewBag.TotalPrice</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined btn-credit" style="display:none;">积分: @ViewBag.TotalCredit</button>
+    </li>
+</ul>
+
+<button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="CreateOrder();">提交订单</button>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+    function CreateOrder() {
+        $.ajax({
+            url: "/Order/Add",
+            type: "POST",
+            data:{
+                payway:$("input[name='payway']:checked").val()
+            },
+            success: function (data) {
+                if (data == "Expired") {
+                    alert("生成订单超时,请重新提交");
+                    window.location.href = "/Cart/List";
+                }
+                else if (data == "Error") {
+                    alert("订单生成发生错误");
+                    window.location.href = "/Cart/List";
+                }
+                else {
+                    console.log(data);
+                    if (data.payway == 0) {
+                        // 微信支付
+                        window.location.href = "/Pay/WxPay?totalprice="+@ViewBag.TotalPrice+"&orderNo=" + data.orderNo + "&ip=" + returnCitySN["cip"];
+                    }
+                    else {
+                        // 余额支付
+                        window.location.href = "/Pay/BalancePay?orderNo=" + data.orderNo;
+                    }
+                }
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            },
+            error: function () {
+                mui.alert("网页发生错误");
+            }
+        });
+    }
+
+    $("input[type='radio']").on("change", function() {
+        if ($(this).is(":checked"))
+        {
+            if ($(this).val() == 0) {
+                $(".btn-money").show();
+                $(".btn-credit").hide();
+            }
+            else {
+                $(".btn-credit").show();
+                $(".btn-money").hide();
+            }
+        }
+    })
+
+    $(document).ready(function () {
+        $("#atoorder").addClass("mui-active");
+    })
+</script>

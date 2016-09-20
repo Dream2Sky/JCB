@@ -65,5 +65,33 @@ namespace com.jiechengbao.customerService.Controllers
             }
             return Json(result);
         }
+
+        /// <summary>
+        /// 获取客服随机码  其实就是 guid
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetRandomCode()
+        {
+            string id = string.Empty;
+            bool code = false;
+            try
+            {
+                id = Guid.NewGuid().ToString().Replace("-", "");
+                code = true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Log.Write(ex.Message);
+                LogHelper.Log.Write(ex.StackTrace);
+                code = false;
+            }
+            var obj = new
+            {
+                code = code,
+                id = id
+            };
+            return Json(obj,JsonRequestBehavior.AllowGet); 
+        }
     }
 }

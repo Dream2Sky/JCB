@@ -28,14 +28,7 @@
         <button class="btn btn-danger" type="submit">搜索</button>
     </form>
 </div>
-@*<div class="container-fluid">
-    <form class="navbar-form navbar-left" method="post" action="/Goods/List" role="search">
-        <div class="form-group">
-            <input type="text" name="condition" class="form-control" placeholder="搜索">
-        </div>
-        <button type="submit" class="btn btn-danger">搜索</button>
-    </form>
-</div>*@
+
 <div class="container-fluid">
     <div class="col-md-12 title">
         已完成订单
@@ -51,6 +44,7 @@
                     <th>订单总价</th>
                     <th>支付方式</th>
                     <th>订单提交时间</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -79,95 +73,56 @@
                             <td>积分支付</td>
                         }
                         <td>@item.CreatedTime</td>
+                        @if (item.IsCompleted == 0)
+                        {
+                            <td><button class="btn btn-danger" type="button" id="@item.OrderNo" onclick="Confirm('@item.OrderNo');">确认取货</button></td>
+                        }
+                        else
+                        {
+                            <td>已取货</td>
+                        }
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+<script>
+    function Confirm(orderNo) {
+        if (orderNo == "" || orderNo == undefined)
+        {
+            alert("确认失败");
+            return false;
+        }
+        else {
+            $.ajax({
+                url: "/Order/SetCompleted",
+                type: "POST",
+                data:{
+                    orderNo:orderNo
+                },
+                success: function (data) {
 
-@*<div class="row">
-        <div class="col-md-12">
+                    if (data == "True") {
+                        var td = $("#" + orderNo).parent("td");
 
-            <div class="container-fluid">
-                <div class="col-md-12 div-title">
-                    <ol class="breadcrumb">
-                        <li>已完成订单</li>
-                    </ol>
-                </div>
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>订单号</th>
-                            <th>用户名</th>
-                            <th>购买商品/服务</th>
-                            <th>状态</th>
-                            <th>订单总价</th>
-                            <th>支付方式</th>
-                            <th>订单提交时间</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewData["CompletedOrderList"] as IEnumerable<OrderModel>)
-                        {
-                            <tr>
-                                <td>@item.OrderNo</td>
-                                <td>@item.MemberName</td>
-                                <td>@item.GoodsNameList</td>
-                                @if (item.Status == 1)
-                                {
-                                    <td>已完成</td>
-                                }
-                                else
-                                {
-                                    <td>未完成</td>
-                                }
-                                @if (item.Status == 0)
-                                {
-                                    <td>￥ @item.TotalPrice</td>
-                                    <td>微信支付</td>
-                                }
-                                else
-                                {
-                                    <td>@item.TotalPrice 积分</td>
-                                    <td>积分支付</td>
-                                }
-                                <td>@item.CreatedTime</td>
-                            </tr>
+                        if (td == "" || td == null || td == undefined) {
+                            console.log("不能找到相应的列，操作失败");
+                            return false;
                         }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>*@
-
-
-<script>
-    //$('.btn-shipping').on('click', function () {
-    //    var orderNo = $(this).attr('id').substring(4);
-    //    $.ajax({
-    //        url: '/Order/Shipping',
-    //        type: 'POST',
-    //        data: {
-    //            orderNo: orderNo
-    //        },
-    //        success: function (data) {
-    //            if (data == "True") {
-    //                $('#td_' + orderNo).html('已发货');
-    //            }
-    //            else {
-    //                alert("修改状态失败");
-    //            }
-    //        },
-    //        error: function () {
-    //            alert("修改失败");
-    //        }
-    //    });
-    //})
-</script>
-<script>
-    //$(document).ready(function () {
-    //    //$("#li-completedOrder").addClass("a-active");
-    //    $("#li-completedOrder").parent().parent().removeClass("collapse");
-    //})
+                        td.html("已取货");
+                    }
+                    else if(data == "Empty"){
+                        alert("提交的参数为空");
+                    }
+                    else {
+                        alert("操作失败");
+                    }
+                },
+                error: function() {
+                    alert("系统错误，操作失败");
+                }
+            })
+        }
+    }
 </script>

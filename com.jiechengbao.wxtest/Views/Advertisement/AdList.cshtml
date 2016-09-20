@@ -1,0 +1,33 @@
+﻿@using com.jiechengbao.wx.Models
+
+@foreach (var item in ViewData["AdModelList"] as List<AdModel>)
+{
+    if (item.IsRecommand)
+    {
+        <div class="mui-card" id="@item.AdCode">
+            <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url('/Uploads/@item.AdImagePath')"></div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <p><h4>@item.AdName</h4></p>
+                    <p>@item.AdDescription</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="goods-item" id="@item.AdCode">
+            <img src="/Uploads/@item.AdImagePath"/>
+            <div class="goods-item-title">@item.AdName</div>
+            <div class="goods-item-cont">
+                @item.AdDescription
+            </div>
+        </div>
+    }
+}
+<script>
+    $(".mui-card").on("tap", function() {
+        var adCode = $(this).attr("id");
+        window.location.href = "/Advertisement/AdDetail?adCode=" + adCode;
+    })
+</script>

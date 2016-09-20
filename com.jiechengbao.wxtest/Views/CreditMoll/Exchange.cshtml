@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Exchange";
+    Layout = "~/Views/LayoutPage2.cshtml";
+}
+@model com.jiechengbao.entity.ExchangeService
+
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell mui-media">
+        <a class="mui-navigate-right" href="#">
+            <img class="mui-media-object mui-pull-left head-img" id="head-img" src="@Model.ImagePath">
+            <div class="mui-media-body">
+                @Model.Name
+                <p>兑换积分 :@Model.Credit<span class="mui-pull-right toleft">￥@Model.Price</span></p>
+            </div>
+        </a>
+    </li>
+</ul>
+
+<button class="mui-btn mui-btn-danger" onclick="Exchange('@Model.Code');">立即兑换</button>
+
+<script>
+    function Exchange(code) {
+        $.ajax({
+            url: "/CreditMoll/Exchange",
+            type: "POST",
+            data: {
+                exchangeCode: code
+            },
+            success: function (data) {
+                if (data == "True") {
+
+                    mui.alert("兑换成功");
+                }
+                else {
+                    mui.alert("兑换失败");
+                }
+            },
+            error: function () {
+                mui.alert("ERROR");
+            },
+            beforeSend: function () {
+                $('.mask').show();
+            },
+            complete: function () {
+                $('.mask').hide();
+            }
+        });
+    }
+</script>
