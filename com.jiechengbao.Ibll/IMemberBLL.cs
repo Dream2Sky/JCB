@@ -19,7 +19,7 @@ namespace com.jiechengbao.Ibll
         bool IsExist(string openId);
         bool Add(Member member);
         IEnumerable<Member> GetMembersByNickNameAndPhone(string condition);
-
         IEnumerable<Member> GetNewMembersAWeek();
+        IEnumerable<Member> GetNewMembers5Min();
     }
 }

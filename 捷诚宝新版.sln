@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.Http.Helper", "POPO.Ht
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.jiechengbao.wxtest", "com.jiechengbao.wxtest\com.jiechengbao.wxtest.csproj", "{8DE5D1F4-6EB0-498A-B39B-7410D91DB3D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POPO.Encrypt.Helper", "POPO.Encrypt.Helper\POPO.Encrypt.Helper.csproj", "{5525C39B-17AD-4EC8-A778-DADA27486220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{8DE5D1F4-6EB0-498A-B39B-7410D91DB3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE5D1F4-6EB0-498A-B39B-7410D91DB3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE5D1F4-6EB0-498A-B39B-7410D91DB3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5525C39B-17AD-4EC8-A778-DADA27486220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5525C39B-17AD-4EC8-A778-DADA27486220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5525C39B-17AD-4EC8-A778-DADA27486220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5525C39B-17AD-4EC8-A778-DADA27486220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

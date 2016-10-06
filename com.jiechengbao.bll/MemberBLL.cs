@@ -86,6 +86,11 @@ namespace com.jiechengbao.bll
             return _memberDAL.SelectNoDeletedMemberswithSpecifiedCount(count);
         }
 
+        public IEnumerable<Member> GetNewMembers5Min()
+        {
+            return _memberDAL.SelectNoDeletedMembersByDate(DateTime.Now.AddMinutes(-5));
+        }
+
         /// <summary>
         /// 获得昨天的新用户列表
         /// </summary>

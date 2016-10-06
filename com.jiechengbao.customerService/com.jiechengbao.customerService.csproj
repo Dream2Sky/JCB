@@ -108,11 +108,11 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -150,7 +150,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Contents\css\im-chat.css" />
+    <Content Include="Contents\css\mui.min.css" />
+    <Content Include="Contents\images\user-photo.png" />
     <Content Include="Contents\js\jquery.min.js" />
+    <Content Include="Contents\js\mui.min.js" />
+    <Content Include="Contents\js\template.js" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
@@ -162,13 +167,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CSModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Contents\fonts\mui-icons-extra.ttf" />
+    <Content Include="Contents\fonts\mui.ttf" />
+    <Content Include="Json\data.json" />
     <None Include="Properties\PublishProfiles\CustomerService.pubxml" />
+    <Content Include="Views\Home\Chat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -203,6 +213,10 @@
     <ProjectReference Include="..\LogHelper\LogHelper\LogHelper.csproj">
       <Project>{e0abdbbb-fcb3-4cd5-8a61-e06af21844be}</Project>
       <Name>LogHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POPO.Encrypt.Helper\POPO.Encrypt.Helper.csproj">
+      <Project>{5525c39b-17ad-4ec8-a778-dada27486220}</Project>
+      <Name>POPO.Encrypt.Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
